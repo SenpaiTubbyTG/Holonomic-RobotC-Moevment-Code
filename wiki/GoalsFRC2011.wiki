@@ -1,10 +1,6 @@
 #summary The DiscoBots Programming goals for the 2011 FRC Logomotion season
 
-= Introduction =
-
-
-
-= Details =
+= Goals =
 
 ==Week 1:==
  # ~~Reimage Classmate~~
