@@ -26,7 +26,7 @@
   * When velocity set to zero the robot would try to stay still by pushing back in any direction that it is pushed
  # Holonomic Drive
   * Class structure for holonomic drive control
-  * Able to tell the robot a direction, power, and a twist and have it perform that output
+  * Able to tell the robot an x vector, y vector, and a twist and have it perform that output
  # Protobot
   * Code written for VEX Cortex
   * Basic Line Following for 6 wheeled robot
