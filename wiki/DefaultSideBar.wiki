@@ -1,4 +1,4 @@
-=Discobots=
+=Discobots Wiki=
 
 ==FIRST 2011==
  * [GoalsFRC2011]
