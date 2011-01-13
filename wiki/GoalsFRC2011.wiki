@@ -7,11 +7,11 @@
 = Details =
 
 *Week 1:*
-# Reimage Classmate
-# Reimage cRIO and redownload code to 2010 robot
-# Gyro setup and output
-4. Accelerometer setup and output
-5. Quadrature Encoder setup and output
+ # Reimage Classmate
+ # Reimage cRIO and redownload code to 2010 robot
+ # Gyro setup and output
+ #. Accelerometer setup and output
+ #. Quadrature Encoder setup and output
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
