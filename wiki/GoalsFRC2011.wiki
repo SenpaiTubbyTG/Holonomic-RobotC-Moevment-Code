@@ -21,8 +21,3 @@
 ==Week 3:==
  # Class structure for holonomic drive control
  # Holonomic Drive
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
