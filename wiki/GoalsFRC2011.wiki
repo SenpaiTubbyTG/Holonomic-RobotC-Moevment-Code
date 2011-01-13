@@ -6,8 +6,8 @@
 
 = Details =
 
-*Week 1:*
- # Reimage Classmate
+==Week 1:==
+ # ~~Reimage Classmate~~
  # Reimage cRIO and redownload code to 2010 robot
  # Gyro setup and output
  #. Accelerometer setup and output
