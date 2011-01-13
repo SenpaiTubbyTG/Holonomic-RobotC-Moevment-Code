@@ -9,3 +9,6 @@ Information on Controlling Omni Directional Drive Systems
 
 = Papers =
  # [http://oak.cats.ohiou.edu/~williar4/PDF/RoboCup01g.pdf RoboCup Omni Goalie]
+ # [http://www.mindraces.org/public_references/idsia_publications/omnidrive_kiart_preprint.pdf Holonomic Control of a robot with an omnidirectional drive.]
+ # [http://users.cecs.anu.edu.au/~nmb/papers/omnidrive_dynamics4.pdf Fastest path for omni robots]
+ # [http://oak.cats.ohiou.edu/~williar4/PDF/JRAS08.pdf Omni-directional mobile robot controller]
