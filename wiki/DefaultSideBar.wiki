@@ -1,10 +1,10 @@
-
 =Discobots Wiki=
 
 ==FIRST 2011==
  * [GoalsFRC2011]
  * [Sensors]
   * [Sonars]
+  *[Gyro]
  * [OmniDirectionalDrive Omni Directional Drive]
  * [ControlAlgorithms Control Algorithms]
 
