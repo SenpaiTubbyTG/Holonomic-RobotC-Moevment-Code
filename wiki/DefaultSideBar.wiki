@@ -4,3 +4,4 @@
  * [GoalsFRC2011]
  * [Sensors]
  * [OmniDirectionalDrive Omni Directional Drive]
+ * [ControlAlgorithms Control Algorithms]
