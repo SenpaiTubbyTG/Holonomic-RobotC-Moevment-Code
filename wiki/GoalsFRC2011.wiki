@@ -1,4 +1,4 @@
-#summary The DiscoBots Programming goals for the 2011 FRC Logomotion season
+#summary The DiscoBots Control goals for the 2011 FRC Logomotion season
 
 = Goals =
 
@@ -11,7 +11,10 @@
   * Quadrature Encoder
   * Light Sensor
   * Ultrasonic Rangefinder (may move to week 2)
-
+ # Design Electronic Layout for Robot
+  * ~~Paper layout design~~
+  * CAD layout of electronics
+  * Battery mount designed
 
 
 ==Week 2:==
@@ -20,10 +23,27 @@
   * When driving the robot stays strait, when not moving, if twisted the robot will try to reorient back to it's original position)
  # PID control loop for encoder-based velocity control 
   * When velocity set to zero the robot would try to stay still by pushing back in any direction that it is pushed
- # Class structure for holonomic drive control
  # Holonomic Drive
+  * Class structure for holonomic drive control
+  * Able to tell the robot a direction, power, and a twist and have it perform that output
  # Basic Line Following for 6 wheeled robot
+  * Mount designed for Six Wheel Protobot
+  * Code written for VEX microcontroller
+ # Electronic Board created with parts mounted
+  * Battery mount created
+ # Power Wires are routed and labeled on the board
 
 ==Week 3:==
  # Senor based drive control
-  * Testing the ability of the drive train to drive strait and be controlled.
+  * Testing the ability of the drive train to drive strait and be controlled easily.
+ # Lift control
+  * Sense Different Lift Positions
+ # Ultrasonic Ranger Positioning
+  * Able to tell the distance from each of the three sides of the robot
+
+==Week 4:==
+ # Ultrasonic Ranger Orienting
+  * Robot is able to use two rangers on the front of the robot to make sure it is oriented strait to the wall
+ # Continue to improve the driver control of the robot
+
+==Week 5:==
