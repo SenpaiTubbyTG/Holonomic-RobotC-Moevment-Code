@@ -1,0 +1,11 @@
+#summary Information on Controlling Omni Directional Drive Systems
+
+= Introduction =
+
+Information on Controlling Omni Directional Drive Systems
+
+
+= Details =
+
+= Papers =
+ # [http://oak.cats.ohiou.edu/~williar4/PDF/RoboCup01g.pdf RoboCup Omni Goalie]
