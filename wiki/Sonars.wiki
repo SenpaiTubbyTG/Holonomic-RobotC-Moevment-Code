@@ -17,6 +17,7 @@ I think we will need to use the Maxbotix sonars to be able to not read the floor
 
  * [http://www.maxbotix.com/MB1240__XL-MaxSonar-EZ4.html MaxSonar-1240]
  * [http://www.sparkfun.com/products/9495 sparkfun page for sonar]
+ * [http://www.maxbotix.com/uploads/Direction_and_Distance_to_a_pole.pdf Detecting the MINIBOT pole]
  * [http://www.maxbotix.com/uploads/Chaining_Application_Notes__AN_Output_Commanded_Loop_.pdf chain maxbotix sensors together] 
 
 = Error and Noise Correction = 
