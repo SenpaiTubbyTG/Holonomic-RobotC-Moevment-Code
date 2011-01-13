@@ -1,0 +1,13 @@
+#summary Sonar Links
+= Introduction =
+
+We will be using sonar sensors to detect the distance the robot is away form the driver station wall and away from the feeding lane wall.
+
+
+= Details =
+
+I think we will need to use the Maxbotix sonars to be able to not read the floor at distances of 9ft and only 5ins from the ground. Scott at Maxbotix is releasing a paper tomorrow about performance close to a ground but he has confirmed that the 1240's should be able to perform the task that we need. 
+
+[http://www.maxbotix.com/MB1240__XL-MaxSonar-EZ4.html MaxSonar-1240]
+
+[http://www.maxbotix.com/uploads/Chaining_Application_Notes__AN_Output_Commanded_Loop_.pdf How to chain sensors together] 
