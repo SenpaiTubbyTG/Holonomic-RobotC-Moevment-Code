@@ -54,4 +54,4 @@
  # Continue to improve the driver control of the robot
 
 ==Week 5:==
- # Automatically can position it self in front of any peg
+ # Automatically position it self in front of any peg
