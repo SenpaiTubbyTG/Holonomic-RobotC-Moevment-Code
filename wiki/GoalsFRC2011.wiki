@@ -30,7 +30,7 @@
  # Protobot
   * Code written for VEX Cortex
   * Basic Line Following for 6 wheeled robot
-  * Line Tracking Mount designed for Six Wheel Protobot
+  * Line Tracking Mount designed and built
   * Can drive and control lift
  # Electronic Board created with parts mounted
   * Battery mount created
