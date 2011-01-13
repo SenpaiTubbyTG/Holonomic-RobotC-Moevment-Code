@@ -1,0 +1,8 @@
+#summary Control Algorithms
+
+= Introduction =
+
+Control Algorithms provide fine control of the robot that is unable to be achieved through direct driver control.
+
+= Algorithms =
+ # [PID}
