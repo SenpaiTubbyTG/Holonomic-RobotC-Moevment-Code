@@ -11,6 +11,7 @@
   * Quadrature Encoder
   * Light Sensor
   * Ultrasonic Rangefinder (may move to week 2)
+ # Research Sensor algorithms and uses
  # Design Electronic Layout for Robot
   * ~~Paper layout design~~
   * CAD layout of electronics
