@@ -3,5 +3,6 @@
 ==FIRST 2011==
  * [GoalsFRC2011]
  * [Sensors]
+  * [Sonars]
  * [OmniDirectionalDrive Omni Directional Drive]
  * [ControlAlgorithms Control Algorithms]
