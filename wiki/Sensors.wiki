@@ -15,3 +15,4 @@ I think we will need to use the Maxbotix sonars to be able to not read the floor
 
   * [http://www.maxbotix.com/MB1240__XL-MaxSonar-EZ4.html MaxSonar-1240]
   * [http://www.maxbotix.com/uploads/Chaining_Application_Notes__AN_Output_Commanded_Loop_.pdf How to chain maxbotix sensors together] 
+ * [http://www.sparkfun.com/products/9495 sparkfun page for sonar]
