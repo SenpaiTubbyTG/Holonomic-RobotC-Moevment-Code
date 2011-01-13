@@ -4,7 +4,7 @@
  * [GoalsFRC2011]
  * [Sensors]
   * [Sonars]
-  *[Gyro]
+  * [Gyro]
  * [OmniDirectionalDrive Omni Directional Drive]
  * [ControlAlgorithms Control Algorithms]
 
