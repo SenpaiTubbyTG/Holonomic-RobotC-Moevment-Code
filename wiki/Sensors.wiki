@@ -3,5 +3,13 @@ This page will describe and link to documents about each Sensor that we will use
 
 Please add new sensor information as you see fit.
 
-Senor Descriptions
+Sensor Descriptions
  * [Sonars Ultrasonic Sonar Range Finders]
+ * [Gyro]
+ * [Accelerometer]
+ * [WheelEncoder Wheel Encoders]
+ * [LightSensor Light Sensors]
+ * [Camera]
+ * [LimitSwitch Limit Switches]
+ * [Potentiometer]
+ * [LinearEncoder Linear Encoder]
