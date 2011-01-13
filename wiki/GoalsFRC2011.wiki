@@ -5,9 +5,11 @@
 ==Week 1:==
  # ~~Reimage Classmate~~
  # ~~Reimage cRIO and redownload code to 2010 robot~~
- # ~~Gyro setup and output~~
- #. Accelerometer setup and output
- #. Quadrature Encoder setup and output
+ # Sensor setup and output:
+  * ~~Gyro~~
+  * Accelerometer
+  * Quadrature Encoder
+  * Light Sensor
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
