@@ -19,10 +19,10 @@
 
 
 ==Week 2:==
- # PID control loop for gyro turning to set degrees (90 degrees, 180 degrees, etc.)
- # PID control loop for gyro to drive strait and hold orientation. 
+ # control loop for gyro turning to set degrees (90 degrees, 180 degrees, etc.)
+ # control loop for gyro to drive strait and hold orientation. 
   * When driving the robot stays strait, when not moving, if twisted the robot will try to reorient back to it's original position)
- # PID control loop for encoder-based velocity control 
+ # control loop for encoder-based velocity control 
   * When velocity set to zero the robot would try to stay still by pushing back in any direction that it is pushed
  # Holonomic Drive
   * Class structure for holonomic drive control
