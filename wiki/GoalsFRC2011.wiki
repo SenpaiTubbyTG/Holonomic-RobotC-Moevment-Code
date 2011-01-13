@@ -1,0 +1,20 @@
+#summary The DiscoBots Programming goals for the 2011 FRC Logomotion season
+
+= Introduction =
+
+[TODO: Introduction]
+
+
+= Details =
+
+*Week 1:*
+1. Reimage Classmate
+2. Reimage cRIO and redownload code to 2010 robot
+3. Gyro setup and output
+4. Accelerometer setup and output
+5. Quadrature Encoder setup and output
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
