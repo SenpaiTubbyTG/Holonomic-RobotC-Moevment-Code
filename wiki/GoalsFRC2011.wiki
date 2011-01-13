@@ -10,6 +10,17 @@
   * Accelerometer
   * Quadrature Encoder
   * Light Sensor
+  * Ultrasonic Rangefinder
+
+
+==Week 2:==
+ # PID control loop for gyro turning to set degrees (90 degrees, 180 degrees, etc.)
+ # PID control loop for encoder-based velocity control
+
+
+==Week 3:==
+ # Class structure for holonomic drive control
+ # Holonomic Drive
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
