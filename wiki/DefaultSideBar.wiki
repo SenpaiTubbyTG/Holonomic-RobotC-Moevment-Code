@@ -1,7 +1,7 @@
 =Discobots Wiki=
 
 ==FIRST 2011==
- * [GoalsFRC2011]
+ * [GoalsFRC2011 Control Goals]
  * [Sensors]
   * [Sonars]
   * [Gyro]
