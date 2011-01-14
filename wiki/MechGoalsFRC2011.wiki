@@ -1,0 +1,25 @@
+#summary Rough Outline of Mechanical Goals for 2011 Build Season
+
+= Goals =
+
+==Week 1:==
+ # ~~Build Protobot~~ 
+  * ~~6 wheel drive train with old lift~~
+ # ~~CAD Drive Train~~
+ # Design and CAD Lift, Mount and motor assembly
+ # Prototype grippers
+ # CAD Gripper
+ # Prototype MINIBOTS
+
+==Week 2:==
+ # Build Drive train and base
+ # Begin Construction on Lift
+ # Prototype MINIBOT Deployment Mechanism
+
+==Week 3:==
+ # Complete Lift and Prototype Gripper together
+ # Build MINIBOT and Deployment Mechanism
+
+==Week 4:==
+ # Combine Lift, Gripper and Drivetrain
+ # Mount MINIBOT Deployment Mechanism
