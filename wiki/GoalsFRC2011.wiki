@@ -19,14 +19,18 @@
 
 
 ==Week 2:==
- # control loop for gyro turning to set degrees (90 degrees, 180 degrees, etc.)
  # control loop for gyro to drive strait and hold orientation. 
   * When driving the robot stays strait, when not moving, if twisted the robot will try to reorient back to it's original position)
+  * Test on 2010 Robot
+ # control loop for gyro turning to set degrees (90 degrees, 180 degrees, etc.)
+  * Test on 2010 Robot
  # control loop for encoder-based velocity control 
   * When velocity set to zero the robot would try to stay still by pushing back in any direction that it is pushed
+  * All wheels should spin at the same rate
  # Holonomic Drive
   * Class structure for holonomic drive control
-  * Able to tell the robot an x vector, y vector, and a twist and have it perform that output
+  * Able to tell the method an x vector, y vector, and a twist and have it calculate each wheels velocity
+  * Able to tell the method a magnitude, a direction and a twist and have it calculate each wheels velocity
  # Protobot
   * Code written for VEX Cortex
   * Basic Line Following for 6 wheeled robot
@@ -34,24 +38,40 @@
   * Can drive and control lift
  # Electronic Board created with parts mounted
   * Battery mount created
+  * Sensor Mounts created
+    * Sonars Mounted
+    * Encoders Mounted on drive motors
+    * Gyro and Accelerometer Mounted
  # Power Wires are routed and labeled on the board
 
 ==Week 3:==
  # Drive control
-  * Testing the ability of the drive train to drive strait and be controlled easily.
   * Have drive modes that limit top speed and increase sensitivity for fine drive movements
- # Lift control
-  * Sense Different Lift Positions
+  * Test on 2010 Robot
+ # Lift control programmed
+  * encoder mounted on lift motor
+  * uses encoder to tell lift position
+  * two limit switches for full up and full down
+ # Claw control programmed
  # Sonar Ranger Positioning
   * Able to tell the distance from each of the three sides of the robot
  # Protobot
   * Able to track line and stop when line ends
   * Able to detect branch in the line and follow one of the branches
+  * Programmed for the VEX microcontroller
 
 ==Week 4:==
+ # Mount cRIO on the new robot
+ # Driver Control
+  * Testing the ability of the drive train to drive strait and be controlled easily
+  * Tweak PID parameters and get everything working really tight
  # Sonar Orienting
   * Robot is able to use two sonars on the front of the robot to make sure it is oriented strait to the wall
- # Continue to improve the driver control of the robot
 
 ==Week 5:==
- # Automatically position itself in front of any peg
+ # Automatically position itself in front of any peg and hang the tube
+ # Autonomously hang tube on top rung (Strait ahead)
+
+==Week 6:==
+ # Autonomously hang tube on top run from middle position
+ # Lots of Driver Practice
