@@ -2,6 +2,7 @@
 
 ==FIRST 2011==
  * [GoalsFRC2011 Control Goals]
+ * [MechGoalsFRC2011 Mechanical Goals]
  * [Sensors]
   * [Sonars]
   * [Gyro]
