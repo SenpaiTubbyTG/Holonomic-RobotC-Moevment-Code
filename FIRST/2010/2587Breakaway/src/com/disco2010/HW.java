@@ -157,7 +157,7 @@ public class HW {
      *  The Left Encoder
      */
      public static Encoder leftEncoder =
-    new Encoder(6, 1, 6, 2);
+    new DiscoEncoder(6, 6, 6, 7);
     /**
      *  The Right Encoder
      */
