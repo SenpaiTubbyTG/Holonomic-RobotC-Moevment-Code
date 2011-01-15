@@ -16,21 +16,52 @@ public class Teleop {
     boolean kicking = false;
     boolean loading;
     Timer loadTime;
+    double rDistance = 0.0;
+    double lDistance = 0.0;
+    double startTime = 0.0;
+    double lEncRate = 0.0;
+    double lEncStartDist = 0.0;
 
     public void start() {
-
-        if (HW.driveStick2.getRawButton(10)) {
-            HW.kickerMotor.set(-0.6);
-        } else if (HW.driveStick2.getRawButton(11)) {
-            HW.kickerMotor.set(1.0);
-        }
-
+        
         Watchdog.getInstance().setExpiration(1000);
+        startTime = Timer.getFPGATimestamp();
+        lEncStartDist = HW.rightEncoder.getDistance();
 
-        HW.drive.holonomicDrive(HW.driveStick1.getMagnitude(), HW.driveStick1.getDirectionDegrees(), HW.driveStick2.getX());
+        //HW.drive.holonomicDrive(HW.driveStick1.getMagnitude(), HW.driveStick1.getDirectionDegrees(), HW.driveStick2.getX());
+        //Drive system altered: 2 wheels removed, holonomic drive is no more
+        HW.drive.basicDrive(0.0, 0.0, HW.driveStick1.getY(), HW.driveStick2.getY());
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, "LEncDist:                                 ");
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, "LECalRat:                                 ");
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser4, 1, "LEClsRat:                                 ");
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, "REncDist:                                 ");
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, "REncRate:                                 ");
+        DriverStationLCD.getInstance().updateLCD();
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, "LEncDist: " + HW.leftEncoder.getDistance());
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, "LECalRat: " + lEncRate);
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, "LEClsRat: " + HW.leftEncoder.getRate());
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, "REncDist: " + HW.rightEncoder.getDistance());
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, "REncRate: " + HW.rightEncoder.getRate());
+        DriverStationLCD.getInstance().updateLCD();
+        
+        //rDistance += (Timer.getFPGATimestamp() - startTime) * HW.rightEncoder.getRate();
+        lEncRate = (HW.rightEncoder.getDistance() - lEncStartDist) / (Timer.getFPGATimestamp() - startTime);
+        //lDistance += (Timer.getFPGATimestamp() - startTime) * lEncRate;
+
+        /*bar up/down
+        if (HW.kickhandle.getRawButton(6) && HW.barUpSwitch.get()) {
+            HW.kicker.moveBar(true);
+        } else if (HW.kickhandle.getRawButton(7) && HW.barDownSwitch.get()) {
+            HW.kicker.moveBar(false);
+        } else {
+            HW.kickerBar.set(0.0);
+        }*/
+
+        /* DRIBBLER
         HW.rightDribbler.set(-HW.kickhandle.getAxis(Joystick.AxisType.kY));
         HW.leftDribbler.set(HW.kickhandle.getAxis(Joystick.AxisType.kY));
-
+        */
+       /* KICKER
         if (HW.kickhandle.getTrigger()
                 || HW.driveStick2.getTrigger()
                 && HW.kickSwitch.get()
@@ -81,25 +112,10 @@ public class Teleop {
         if (HW.kickhandle.getRawButton(2)) {
             HW.camPan.set(0.5);
             HW.camTilt.set(0.5);
-        }
-
-        if (HW.kickhandle.getRawButton(6) && HW.barUpSwitch.get()) {
-            HW.kicker.moveBar(true);
-        } else if (HW.kickhandle.getRawButton(7) && HW.barDownSwitch.get()) {
-            HW.kicker.moveBar(false);
-        } else {
-            HW.kickerBar.set(0.0);
-        }
-
-        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, "Gyro: " + HW.gyro.getAngle());
-        DriverStationLCD.getInstance().updateLCD();
-
-        if (HW.driveStick2.getRawButton(4)) {
-            HW.rightEncoder.reset();
-        }
+        }*/
         
         //Camera Control for Subsystem Operator
-        if (HW.kickhandle.getRawButton(11)) {
+        /*if (HW.kickhandle.getRawButton(11)) {
             HW.camTilt.set(DiscoUtils.rawToPosition((double) HW.camTilt.getRaw()) + 0.05);
         } else if (HW.kickhandle.getRawButton(10)) {
             HW.camTilt.set(DiscoUtils.rawToPosition((double) HW.camTilt.getRaw()) - 0.05);
@@ -109,7 +125,7 @@ public class Teleop {
             HW.camPan.set(DiscoUtils.rawToPosition((double) HW.camPan.getRaw()) + 0.05);
         } else if (HW.kickhandle.getRawButton(9)) {
             HW.camPan.set(DiscoUtils.rawToPosition((double) HW.camPan.getRaw()) - 0.05);
-        }
+        }*/
 
         /* DEBUG PRINTING
         //DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser4, 1, "I/O 8 = " + HW.autonMode.get());

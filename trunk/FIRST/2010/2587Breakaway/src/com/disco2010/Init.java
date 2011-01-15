@@ -35,8 +35,8 @@ public class Init{
     {
         Watchdog.getInstance().setExpiration(1000);
 
-        HW.rightEncoder.setDistancePerPulse((8*Math.PI)/((22/15)*128));
-        HW.leftEncoder.setDistancePerPulse((8*Math.PI)/((22/15)*128));
+        HW.rightEncoder.setDistancePerPulse((8*Math.PI)/((77/75)*128));
+        HW.leftEncoder.setDistancePerPulse((8*Math.PI)/((77/75)*128));
         //HW.frontEncoder.setDistancePerPulse((8*Math.PI)/((22/15)*128));
         //HW.rearEncoder.setDistancePerPulse((8*Math.PI)/((22/15)*128));
 
@@ -49,8 +49,8 @@ public class Init{
 
     public void TeleopInit()
     {
-        HW.rightEncoder.setDistancePerPulse((8*Math.PI)/((22/15)*128));
-        HW.leftEncoder.setDistancePerPulse((8*Math.PI)/((22/15)*128));
+        HW.rightEncoder.setDistancePerPulse((8*Math.PI)/187);
+        HW.leftEncoder.setDistancePerPulse((8*Math.PI)/187);
         //HW.frontEncoder.setDistancePerPulse((8*Math.PI)/((22/15)*128));
         //HW.rearEncoder.setDistancePerPulse((8*Math.PI)/((22/15)*128));
 

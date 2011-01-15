@@ -13,7 +13,7 @@ import com.sun.squawk.util.MathUtils;
  * In this diagram
  * The Front Wheel fwd = left
  * The Right Wheel fwd = up
- * The Rear Wheel fwd = fight
+ * The Rear Wheel fwd = right
  * The Left Wheel fwd = down
 0---<>---0
 |        |
@@ -197,10 +197,10 @@ public class DiscoDrive {
     public void basicDrive(double leftSpeedTemp, double rightSpeedTemp,
             double frontSpeedTemp, double rearSpeedTemp) {
 
-        DiscoUtils.debugPrintln("Basic Drive Calculated Values");
+        /*DiscoUtils.debugPrintln("Basic Drive Calculated Values");
         DiscoUtils.debugPrintln("Magnatude: " + getMagnitude()
                 + " Direction: " + getDirection()
-                + " Spin: " + getSpin());
+                + " Spin: " + getSpin());*/
 
         leftSpeed = DiscoUtils.limit(leftSpeedTemp * invertedMotors[1]);
         rightSpeed = DiscoUtils.limit(rightSpeedTemp * invertedMotors[2]);
@@ -212,7 +212,7 @@ public class DiscoDrive {
         leftMotor.set(leftSpeed);
         rightMotor.set(rightSpeed);
 
-        DiscoUtils.debugPrintln("Basic Drive Outputed Values");
+        /*DiscoUtils.debugPrintln("Basic Drive Outputed Values");
         DiscoUtils.debugPrintln("Left: " + leftSpeed
                 + " Right: " + rightSpeed
                 + " Front: " + frontSpeed
@@ -220,7 +220,7 @@ public class DiscoDrive {
         System.out.println("Left: " + leftSpeed
                 + " Right: " + rightSpeed
                 + " Front: " + frontSpeed
-                + " Rear: " + rearSpeed);
+                + " Rear: " + rearSpeed);*/
     }
 
     public void autonDrive(double leftSpeed, double rightSpeed,
@@ -231,7 +231,7 @@ public class DiscoDrive {
         leftMotor.set(leftSpeed);
         rightMotor.set(rightSpeed);
 
-        DiscoUtils.debugPrintln("Basic Drive Outputed Values");
+        /*DiscoUtils.debugPrintln("Basic Drive Outputed Values");
         DiscoUtils.debugPrintln("Left: " + leftSpeed
                 + " Right: " + rightSpeed
                 + " Front: " + frontSpeed
@@ -239,7 +239,7 @@ public class DiscoDrive {
         System.out.println("Left: " + leftSpeed
                 + " Right: " + rightSpeed
                 + " Front: " + frontSpeed
-                + " Rear: " + rearSpeed);
+                + " Rear: " + rearSpeed);*/
     }
 
     /**
@@ -247,12 +247,12 @@ public class DiscoDrive {
      *
      *
      * @param magnitude The speed component of the velocity to send to the motors.
-     * @param direction The direction componet of the velocity to send to the motors.
+     * @param direction The direction component of the velocity to send to the motors.
      * @param rotation  The rotation that you want to add to the robots movement.
      */
     public void holonomicDrive(double magnitude, double direction, double rotation) {
-        DiscoUtils.debugPrintln("Holonomic Drive Code Debug");
-        DiscoUtils.debugPrintln("magnitude = " + magnitude + ", direction = " + direction + ", rotation = " + rotation);
+        //DiscoUtils.debugPrintln("Holonomic Drive Code Debug");
+        //DiscoUtils.debugPrintln("magnitude = " + magnitude + ", direction = " + direction + ", rotation = " + rotation);
 
         double cosD = Math.cos((double) (direction) * 3.14159 / 180.0);
         double sinD = Math.cos((double) (direction - 90.0) * 3.14159 / 180.0);
@@ -278,19 +278,19 @@ public class DiscoDrive {
             turnController.setSetpoint(angle);
             turnController.enable();
         } else {
-            DiscoUtils.errorPrintln("DiscoDrive.orienentOn Error: Gyro not enbabled for DiscoDrive");
+            //DiscoUtils.errorPrintln("DiscoDrive.orienentOn Error: Gyro not enbabled for DiscoDrive");
         }
     }
 
     /**
-     * Turn off the hold orienentation mode
+     * Turn off the hold orientation mode
      * Uses the gyro
      */
     public void orientOff() {
         if (isGyro) {
             turnController.disable();
         } else {
-            DiscoUtils.errorPrintln("DiscoDrive.orienentOff Error: Gyro not enbabled for DiscoDrive");
+            //DiscoUtils.errorPrintln("DiscoDrive.orienentOff Error: Gyro not enbabled for DiscoDrive");
         }
     }
 
@@ -304,7 +304,7 @@ public class DiscoDrive {
                 frontMotor.get() + speed,
                 leftMotor.get() + speed,
                 rightMotor.get() + speed);
-        DiscoUtils.debugPrintln(speed + " rotation addded to the Drive");
+        //DiscoUtils.debugPrintln(speed + " rotation addded to the Drive");
     }
 
     /**
@@ -323,21 +323,21 @@ public class DiscoDrive {
         if (motor >= 1 && motor <= 4) {
             invertedMotors[motor] = isInverted ? -1 : 1;
         } else {
-            DiscoUtils.errorPrintln("Invert Drive Motor Error: Motor value out of range");
+            //DiscoUtils.errorPrintln("Invert Drive Motor Error: Motor value out of range");
         }
     }
 
 
     /**
      * getMagnitude
-     * Calculate the Magnatude of the Drive Train
+     * Calculate the Magnitude of the Drive Train
      */
     public double getMagnitude() {
         double x = ((((-1) * frontSpeed) + rearSpeed) / 2);
         double y = ((((-1) * leftSpeed) + rightSpeed) / 2);
         double magnatude = Math.sqrt(MathUtils.pow(y, 2)
                 + MathUtils.pow(x, 2));
-        DiscoUtils.debugPrintln("getMagnatude: " + magnatude);
+        //DiscoUtils.debugPrintln("getMagnatude: " + magnatude);
         return magnatude;
 }
 
@@ -348,25 +348,25 @@ public class DiscoDrive {
 
     /**
      * getDirection
-     * calculate the direction of the Drive Trian
+     * calculate the direction of the Drive Train
      * Returns direction in Degrees with 0 the robot driving strait
      */
     public double getDirection() {
         double x = ((((-1) * frontSpeed) + rearSpeed) / 2);
         double y = ((((-1) * leftSpeed) + rightSpeed) / 2);
         double direction = Math.toDegrees(MathUtils.atan2(y, x));
-        DiscoUtils.debugPrintln("getDirection: " + direction);
+        //DiscoUtils.debugPrintln("getDirection: " + direction);
 
         return direction;
     }
 
     /**
      * getSpin
-     * Calulate the spin of the drive train
+     * Calculate the spin of the drive train
      */
     public double getSpin() {
         double spin = ((rearSpeed - ((-1) * frontSpeed)) + (leftSpeed - ((-1) * rightSpeed))) / 2;
-        DiscoUtils.debugPrintln("getSpin: " + spin);
+        //DiscoUtils.debugPrintln("getSpin: " + spin);
         return spin;
        
     }
