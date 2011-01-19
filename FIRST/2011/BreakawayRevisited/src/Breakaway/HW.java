@@ -161,13 +161,13 @@ public class HW {
      /**
      *  The Right Encoder
      */
-     public static Encoder leftEncoder =
-    new Encoder(11, 12, false, Encoder.EncodingType.k2X);
+     public static DiscoEncoder leftEncoder =
+    new DiscoEncoder(11, 12, false, Encoder.EncodingType.k2X);
     /**
      *  The Right Encoder
      */
-     public static Encoder rightEncoder =
-    new Encoder(9, 10, true, Encoder.EncodingType.k2X);
+     public static DiscoEncoder rightEncoder =
+    new DiscoEncoder(9, 10, false, Encoder.EncodingType.k2X);
      /**
       * The Front Encoder
       */
@@ -211,8 +211,8 @@ public class HW {
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------
-    //public static Ultrasonic ultra =
-            //new Ultrasonic(6, 12, 6, 14);       //ping on module 6, echo on module 6
+    public static Ultrasonic ultra =
+            new Ultrasonic(6, 12, 6, 14);       //ping on module 6, echo on module 6
 
 //-------------------------------------
 //                 Autonomous class
