@@ -9,7 +9,7 @@
 //	 This file allows us to declare the hardware for the robot in one place
 //
 //====================================================================
-package original;
+package Breakaway;
 
 import edu.wpi.first.wpilibj.*;
 //import edu.wpi.first.addons.*;
@@ -161,7 +161,7 @@ public class HW {
      /**
      *  The Right Encoder
      */
-     public static Encoder testEncoder =
+     public static Encoder leftEncoder =
     new Encoder(11, 12, false, Encoder.EncodingType.k2X);
     /**
      *  The Right Encoder
