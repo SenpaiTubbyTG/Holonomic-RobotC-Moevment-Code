@@ -65,29 +65,57 @@ public class Main extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopInit() {
-        HW.leftEncoder.setDistancePerPulse((8 * Math.PI) / 47/3);
+        HW.leftEncoder.setDistancePerPulse((8 * Math.PI) / 47 / 3);
         HW.leftEncoder.start();
         HW.leftEncoder.reset();
-        HW.rightEncoder.setDistancePerPulse((8 * Math.PI) / 47/3);
+        HW.rightEncoder.setDistancePerPulse((8 * Math.PI) / 47 / 3);
         HW.rightEncoder.start();
         HW.rightEncoder.reset();
-        HW.ultra.setEnabled(true);
-        HW.ultra.setAutomaticMode(true);
+        //HW.ultra.setEnabled(true);
+        //HW.ultra.setAutomaticMode(true);
+        HW.leftVelocityController.initialize();
+        //HW.rightVelocityController.initialize();
     }
 
     public void teleopPeriodic() {
-        HW.drive.basicDrive(0.0, 0.0, HW.driveStick1.getY(), HW.driveStick2.getY());
+        //HW.drive.basicDrive(0.0, 0.0, HW.driveStick1.getY(), HW.driveStick2.getY());
         //DiscoUtils.debugPrintln("isValid: " + HW.ultra.isRangeValid());
         //DiscoUtils.debugPrintln("Ultrasonic Rangefinder: " + Double.toString(HW.ultra.getRangeInches()));
-        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, "Distance set");
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, "8:34pm");
         DriverStationLCD.getInstance().updateLCD();
+        if(HW.driveStick1.getTrigger())
+            HW.leftVelocityController.setGoalVelocity(0.0);
+        if(HW.driveStick1.getRawButton(8))
+            HW.leftVelocityController.setGoalVelocity(-50.0);
+        if(HW.driveStick1.getRawButton(9))
+            HW.leftVelocityController.setGoalVelocity(50.0);
 
-        if(HW.leftEncoder.getRate() > 0.0) {
-             DiscoUtils.debugPrintln("Left Encoder Rate: " + HW.leftEncoder.getRate(0.01));;
-             DiscoUtils.debugPrintln("Right Encoder Rate: " + HW.rightEncoder.getRate(0.01));
-             DiscoUtils.debugPrintln("Actual Left Rate: " + HW.leftEncoder.getRate());
+        if(HW.leftVelocityController.controller()) {
+            DiscoUtils.debugPrintln("getRate(mine): " + HW.leftEncoder.getRate(0.01));
+            DiscoUtils.debugPrintln("getRate(wpi) : " + HW.leftEncoder.getRate());
+            DiscoUtils.debugPrintln("");
         }
-        //DiscoUtils.debugPrintln("Left Distance: " + Double.toString(HW.leftEncoder.getDistance()));
-        //DiscoUtils.debugPrintln("Right Distance: " + Double.toString(HW.rightEncoder.getDistance()));
+        //HW.rightVelocityController.controller(0.0, 1000.0);
+        /*if (HW.driveStick1.getTrigger()) {
+            //HW.leftEncoder.reset();
+            //HW.rightEncoder.reset();
+            DiscoUtils.debugPrintln("Testing Right");
+            HW.rightVelocityController.initOutputData();
+        }
+        if (HW.driveStick2.getTrigger()) {
+            //HW.leftEncoder.reset();
+            //HW.rightEncoder.reset();
+            DiscoUtils.debugPrintln("Testing Left");
+            HW.leftVelocityController.initOutputData();
+        }*/
+        /*DiscoUtils.debugPrintln("\n\n");
+        DiscoUtils.debugPrintln("Actual Left Rate:   " + HW.leftEncoder.getRate());
+        DiscoUtils.debugPrintln("Left Encoder Rate:  " + HW.leftEncoder.getRate(0.01));
+        DiscoUtils.debugPrintln("Right Encoder Rate: " + HW.rightEncoder.getRate(0.01) + "\n");
+        DiscoUtils.debugPrintln("Left Encoder Test Distance:    " + HW.leftEncoder.getTestDistance());
+        DiscoUtils.debugPrintln("Left Encoder Actual Distance:  " + HW.leftEncoder.getDistance());
+        DiscoUtils.debugPrintln("Right Encoder Test Distance:   " + HW.rightEncoder.getTestDistance());
+        DiscoUtils.debugPrintln("Right Encoder Actual Distance: " + HW.rightEncoder.getDistance());
+         */
     }
 }
