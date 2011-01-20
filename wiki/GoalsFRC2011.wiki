@@ -14,7 +14,7 @@
  # Research Sensor algorithms and uses
  # Design Electronic Layout for Robot
   * ~~Paper layout design~~
-  * CAD layout of electronics
+  * ~~CAD layout of electronics~~
   * Battery mount designed
 
 
