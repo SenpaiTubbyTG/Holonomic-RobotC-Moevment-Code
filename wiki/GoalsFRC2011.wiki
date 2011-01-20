@@ -24,7 +24,7 @@
   * Test on 2010 Robot
  # control loop for gyro turning to set degrees (90 degrees, 180 degrees, etc.)
   * Test on 2010 Robot
- # control loop for encoder-based velocity control 
+ # ~~control loop for encoder-based velocity control~~
   * When velocity set to zero the robot would try to stay still by pushing back in any direction that it is pushed
   * All wheels should spin at the same rate
  # Holonomic Drive
