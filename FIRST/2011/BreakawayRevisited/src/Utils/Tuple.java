@@ -33,4 +33,9 @@ public class Tuple {
         time = t;
     }
 
+    public String toString() {
+        return "\tDist: " + dist + "Time: " + time;
+    }
+
+
 }

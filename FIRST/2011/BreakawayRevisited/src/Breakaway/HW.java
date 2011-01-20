@@ -150,6 +150,14 @@ public class HW {
      */
     public static Gyro gyro =
             new Gyro(rawGyro);
+//------------------------------------
+//                Accelerometer class
+//------------------------------------
+    /**
+     *  The accelerometer
+     */
+    public static Accelerometer accel =
+            new Accelerometer(2);
 //-------------------------------------
 //          Digital classes
 //-------------------------------------
@@ -162,12 +170,12 @@ public class HW {
      *  The Right Encoder
      */
      public static DiscoEncoder leftEncoder =
-    new DiscoEncoder(11, 12, false, Encoder.EncodingType.k2X);
+        new DiscoEncoder(11, 12, false, Encoder.EncodingType.k2X);
     /**
      *  The Right Encoder
      */
      public static DiscoEncoder rightEncoder =
-    new DiscoEncoder(9, 10, false, Encoder.EncodingType.k2X);
+         new DiscoEncoder(9, 10, true, Encoder.EncodingType.k2X);
      /**
       * The Front Encoder
       */
@@ -182,7 +190,7 @@ public class HW {
      *  The Kicker Encoder
      */
     /*public static Encoder kickerEncoder =
-    new Encoder(6,1, 6,2);*/
+    new Encoder(6,1, 6,2);
 
     public static DigitalInput kickSwitch =
             new DigitalInput(3);
@@ -194,7 +202,7 @@ public class HW {
             new DigitalInput(6,3);
 
     public static DigitalInput barDownSwitch =
-            new DigitalInput(6,5);
+            new DigitalInput(6,5);*/
     //-------------------------------------
     //      LCD class
     //-------------------------------------
@@ -206,8 +214,11 @@ public class HW {
 //-------------------------------------
 //                 Ancillary classes
 //-------------------------------------
-    //public static VelocityController driveVelocity =
-    //        new VelocityController();
+    public static VelocityController leftVelocityController =
+            new VelocityController(leftEncoder, leftDriveMotor);
+
+    public static VelocityController rightVelocityController =
+            new VelocityController(rightEncoder, rightDriveMotor);
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------
