@@ -1,6 +1,5 @@
 package Breakaway;
 
-import Utils.Tuple;
 import Utils.DiscoUtils;
 import edu.wpi.first.wpilibj.*;
 
@@ -20,15 +19,23 @@ public class VelocityController {
     Jaguar motor;
     double oldDist;
     double oldTime;
+    //double avgDistStart;
+    //double avgTimeStart;
+    boolean reversed = false;
+    double output = 0.0;
+    double distTraveled;
+    double goalDistance = 0.0;
 
-    double avgDistStart;
-    double avgTimeStart;
-
-    boolean avgInit = false;
-
+    //boolean avgInit = false;
     public VelocityController(Encoder e, Jaguar m) {
         encoder = e;
         motor = m;
+    }
+
+    public VelocityController(Encoder e, Jaguar m, boolean r) {
+        encoder = e;
+        motor = m;
+        reversed = r;
     }
 
     /*the following two methods are for collecting data for setting up velocityToOutput
@@ -69,59 +76,68 @@ public class VelocityController {
         } else if (velocity <= 100) {
             ffterm = 0.80;
         }
-        //DiscoUtils.debugPrintln("velocityToOutput result: " + ffterm);
+        //DiscoUtils.debugPrintln("Feed-forward term: " + ffterm);
         return ffterm;
     }
 
-    private void adjustVelocity(double goalVelocity, double oldDist, double oldTime) {
-        double newDist = encoder.getDistance();
-        double newTime = Timer.getFPGATimestamp();
-
-        double distDiff = newDist - oldDist;
-        double timeDiff = newTime - oldTime;
+    private double adjustVelocity(double goalVelocity, double oldDist, double oldTime) {
+        
+        double distDiff = (encoder.getDistance() - oldDist);
+        double timeDiff = (Timer.getFPGATimestamp() - oldTime);
 
         double velocity = distDiff / timeDiff;
         DiscoUtils.debugPrintln("adjustVelocity velocity: " + velocity);
+        
         double error = goalVelocity - velocity;
         DiscoUtils.debugPrintln("error: " + error);
+
         if (Math.abs(iterm) < itermMax) {
             iterm += (timeDiff * error);
+            DiscoUtils.debugPrintln("iterm: " + iterm);
         }
-        /* for average rate; not working at present
-         if(Math.abs(error) < 1.0 && !avgInit) {
-            avgTimeStart = Timer.getFPGATimestamp();
-            avgDistStart = encoder.getDistance();
-            avgInit = true;
-        }*/
-            
-        DiscoUtils.debugPrintln("iterm: " + iterm);
-        double ffterm = velocityToOutput(goalVelocity);
-        double output = ffterm + (ki * iterm);
-        motor.set(DiscoUtils.limit(output));
-        DiscoUtils.debugPrintln("Final Output: " + output);
+
+        distTraveled += distDiff;
+
+        double result = velocityToOutput(goalVelocity) + (ki * iterm);
+        return result;
     }
 
-    public boolean controller() {  //distance in inches
-        //returns true if it ran adjustVelocity, false if it does nothing
-        //double distTraveled = 0;
+    public double controller() {  //distance in inches
         if ((Timer.getFPGATimestamp() - oldTime) > 0.03) {
-            adjustVelocity(goalVelocity, oldDist, oldTime);
-            //distTraveled += currentData.dist;
+            output = adjustVelocity(goalVelocity, oldDist, oldTime);
             oldTime = Timer.getFPGATimestamp();
             oldDist = encoder.getDistance();
-            DiscoUtils.debugPrintln("Average Rate: " + (oldDist - avgDistStart)/(oldTime - avgTimeStart));
-            return true;
+            return output;
         }
         else
-            return false;
+            return output;
     }
 
     public void setGoalVelocity(double newVelocity) {
-        goalVelocity = newVelocity;
+        if (reversed) {
+            goalVelocity = -newVelocity;
+            iterm = 0.0;
+        } else {
+            goalVelocity = newVelocity;
+            iterm = 0.0;
+        }
+    }
+
+    public void setGoalDistance(double newGoalDistance) {
+        goalDistance = newGoalDistance;
+        distTraveled = 0.0;
     }
 
     public void initialize() {
         oldDist = encoder.getDistance();
         oldTime = Timer.getFPGATimestamp();
+        goalVelocity = 0.0;
+        goalDistance = 0.0;
+        distTraveled = 0.0;
+        iterm = 0.0;
+    }
+
+    public void setReversed(boolean r) {
+        reversed = r;
     }
 }

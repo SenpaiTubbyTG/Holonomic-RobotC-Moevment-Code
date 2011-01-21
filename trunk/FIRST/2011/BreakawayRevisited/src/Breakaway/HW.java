@@ -169,13 +169,13 @@ public class HW {
      /**
      *  The Right Encoder
      */
-     public static DiscoEncoder leftEncoder =
+     public static DiscoEncoder frontEncoder =
         new DiscoEncoder(11, 12, false, Encoder.EncodingType.k2X);
     /**
      *  The Right Encoder
      */
-     public static DiscoEncoder rightEncoder =
-         new DiscoEncoder(9, 10, true, Encoder.EncodingType.k2X);
+     public static DiscoEncoder rearEncoder =
+         new DiscoEncoder(9, 10, false, Encoder.EncodingType.k2X);
      /**
       * The Front Encoder
       */
@@ -214,11 +214,11 @@ public class HW {
 //-------------------------------------
 //                 Ancillary classes
 //-------------------------------------
-    public static VelocityController leftVelocityController =
-            new VelocityController(leftEncoder, leftDriveMotor);
+    public static VelocityController rearVelocityController =
+            new VelocityController(frontEncoder, leftDriveMotor);
 
-    public static VelocityController rightVelocityController =
-            new VelocityController(rightEncoder, rightDriveMotor);
+    public static VelocityController frontVelocityController =
+            new VelocityController(rearEncoder, rightDriveMotor, true);
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------
