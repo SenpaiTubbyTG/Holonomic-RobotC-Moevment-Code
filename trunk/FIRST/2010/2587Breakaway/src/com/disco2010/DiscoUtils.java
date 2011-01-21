@@ -17,7 +17,7 @@ public class DiscoUtils {
      * Change this field to false to turn off the debug mode of the code
      * Will not allow debugPrintln to print anything to the terminal
      */
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     
     /**
      * Change this field to false to turn off error messages from custom code
