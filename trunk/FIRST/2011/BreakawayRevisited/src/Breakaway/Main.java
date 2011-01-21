@@ -44,7 +44,7 @@ public class Main extends IterativeRobot {
     }
 
     /**
-     * This function is called once befor Autonomous
+     * This function is called once before Autonomous
      */
     public void autonomousInit() {
     }
@@ -72,11 +72,6 @@ public class Main extends IterativeRobot {
 
     public void teleopPeriodic() {
         //HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(), HW.frontVelocityController.controller());
-        HW.ultra.setAutomaticMode(true);
-        DiscoUtils.debugPrintln("isValid: " + HW.ultra.isRangeValid());
-        DiscoUtils.debugPrintln("Ultrasonic Rangefinder: " + HW.ultra.getRangeInches());
-        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, "604");
-        DriverStationLCD.getInstance().updateLCD();
         if(HW.driveStick1.getTrigger()) {
             HW.rearVelocityController.setGoalVelocity(0.0);
             HW.frontVelocityController.setGoalVelocity(0.0);
@@ -90,24 +85,16 @@ public class Main extends IterativeRobot {
             HW.frontVelocityController.setGoalVelocity(50.0);
         }
 
+        /* Ultrasonic Test
+        HW.ultra.setAutomaticMode(true);
+        DiscoUtils.debugPrintln("isValid: " + HW.ultra.isRangeValid());
+        DiscoUtils.debugPrintln("Ultrasonic Rangefinder: " + HW.ultra.getRangeInches());
+        */
 
         /*if(HW.leftVelocityController.controller()) {
             DiscoUtils.debugPrintln("getRate(mine): " + HW.leftEncoder.getRate(0.01));
             DiscoUtils.debugPrintln("getRate(wpi) : " + HW.leftEncoder.getRate());
             DiscoUtils.debugPrintln("");
-        }*/
-        //HW.rightVelocityController.controller(0.0, 1000.0);
-        /*if (HW.driveStick1.getTrigger()) {
-            //HW.leftEncoder.reset();
-            //HW.rightEncoder.reset();
-            DiscoUtils.debugPrintln("Testing Right");
-            HW.rightVelocityController.initOutputData();
-        }
-        if (HW.driveStick2.getTrigger()) {
-            //HW.leftEncoder.reset();
-            //HW.rightEncoder.reset();
-            DiscoUtils.debugPrintln("Testing Left");
-            HW.leftVelocityController.initOutputData();
         }*/
 
         /*DiscoUtils.debugPrintln("\n\n");

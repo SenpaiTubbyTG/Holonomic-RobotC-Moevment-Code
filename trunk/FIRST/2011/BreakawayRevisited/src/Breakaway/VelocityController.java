@@ -19,14 +19,11 @@ public class VelocityController {
     Jaguar motor;
     double oldDist;
     double oldTime;
-    //double avgDistStart;
-    //double avgTimeStart;
     boolean reversed = false;
     double output = 0.0;
     double distTraveled;
     double goalDistance = 0.0;
 
-    //boolean avgInit = false;
     public VelocityController(Encoder e, Jaguar m) {
         encoder = e;
         motor = m;
