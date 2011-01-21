@@ -10,7 +10,7 @@ package Jama;
    be queried by the isSPD() method.
    */
 
-public class CholeskyDecomposition implements java.io.Serializable {
+public class CholeskyDecomposition {
 
 /* ------------------------
    Class variables

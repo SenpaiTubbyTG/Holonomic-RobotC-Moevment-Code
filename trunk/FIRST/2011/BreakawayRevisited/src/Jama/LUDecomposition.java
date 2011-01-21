@@ -13,7 +13,7 @@ package Jama;
    linear equations.  This will fail if isNonsingular() returns false.
    */
 
-public class LUDecomposition implements java.io.Serializable {
+public class LUDecomposition {
 
 /* ------------------------
    Class variables

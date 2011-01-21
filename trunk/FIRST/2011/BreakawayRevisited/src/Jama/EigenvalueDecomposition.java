@@ -18,7 +18,7 @@ import com.sun.squawk.util.*;
     A = V*D*inverse(V) depends upon V.cond().
 **/
 
-public class EigenvalueDecomposition implements java.io.Serializable {
+public class EigenvalueDecomposition {
 
 /* ------------------------
    Class variables

@@ -16,7 +16,7 @@ import com.sun.squawk.util.*;
    rank can be computed from this decomposition.
    */
 
-public class SingularValueDecomposition implements java.io.Serializable {
+public class SingularValueDecomposition {
 
 /* ------------------------
    Class variables
