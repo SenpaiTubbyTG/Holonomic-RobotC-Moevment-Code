@@ -65,13 +65,19 @@ public class Main extends IterativeRobot {
         HW.rearEncoder.setDistancePerPulse((8 * Math.PI) / 47 / 3);
         HW.rearEncoder.start();
         HW.rearEncoder.reset();
-        //HW.ultra.setDistanceUnits(Ultrasonic.Unit.kInches);
         HW.rearVelocityController.initialize();
         HW.frontVelocityController.initialize();
+        //HW.ultra.setDistanceUnits(Ultrasonic.Unit.kInches);
     }
 
     public void teleopPeriodic() {
-        //HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(), HW.frontVelocityController.controller());
+        //Teleop tank drive using VelocityController
+        HW.rearVelocityController.setGoalVelocity(HW.driveStick1.getY() * 1.3);
+        HW.frontVelocityController.setGoalVelocity(HW.driveStick2.getY() * 1.3);
+        HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(), HW.frontVelocityController.controller());
+        
+
+        /*
         if(HW.driveStick1.getTrigger()) {
             HW.rearVelocityController.setGoalVelocity(0.0);
             HW.frontVelocityController.setGoalVelocity(0.0);
@@ -83,7 +89,7 @@ public class Main extends IterativeRobot {
         if(HW.driveStick1.getRawButton(9)) {
             HW.rearVelocityController.setGoalVelocity(50.0);
             HW.frontVelocityController.setGoalVelocity(50.0);
-        }
+        }*/
 
         /* Ultrasonic Test
         HW.ultra.setAutomaticMode(true);
