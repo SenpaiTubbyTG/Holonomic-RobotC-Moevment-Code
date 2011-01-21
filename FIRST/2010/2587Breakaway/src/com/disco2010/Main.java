@@ -40,9 +40,12 @@ public class Main extends IterativeRobot {
         HW.rightEncoder.reset();
         HW.rightEncoder.stop();
 
-        HW.leftEncoder.reset();
-        HW.leftEncoder.stop();
+        //HW.leftEncoder.reset();
+        //HW.leftEncoder.stop();
         
+        HW.testEncoder.reset();
+        HW.testEncoder.stop();
+
         HW.camPan.set(0.5);
         HW.camTilt.set(0.5);
     }
@@ -77,7 +80,7 @@ public class Main extends IterativeRobot {
      */
     public void autonomousPeriodic() 
     {
-        auton.switchAuton(zone);  //autonomous zone selection
+        //auton.switchAuton(zone);  //autonomous zone selection
                                      //zone legend: 1=striker, 2=mid, 3=goalkeeper
         //auton.GoalZoneStraightBlind();
     } /**

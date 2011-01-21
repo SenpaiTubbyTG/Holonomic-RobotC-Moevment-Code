@@ -26,7 +26,7 @@ public class Autonomous {
  * ZONE 2 = 2 BALLS MID ZONE
  * ZONE 3 = 3 BALLS GOAL ZONE
  */
-    public void switchAuton(int zone)
+    /*public void switchAuton(int zone)
     {
         switch(zone)
         {
@@ -49,8 +49,8 @@ public class Autonomous {
             }
         }
         else
-        HW.rightEncoder.reset();
-        HW.leftEncoder.reset();
+        //HW.rightEncoder.reset();
+        //HW.leftEncoder.reset();
     }
 
     public void blindAutonKick()
@@ -60,8 +60,8 @@ public class Autonomous {
         {
             HW.kicker.kick(2);
         }
-        HW.rightEncoder.reset();
-        HW.leftEncoder.reset();
+        //HW.rightEncoder.reset();
+        //HW.leftEncoder.reset();
         HW.kicker.load();
     }
 
@@ -399,6 +399,6 @@ public class Autonomous {
             Watchdog.getInstance().feed();
             Timer.delay(1.0);
         }
-    }
+    }*/
 
 }

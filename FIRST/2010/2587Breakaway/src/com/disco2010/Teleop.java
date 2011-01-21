@@ -31,7 +31,17 @@ public class Teleop {
         //HW.drive.holonomicDrive(HW.driveStick1.getMagnitude(), HW.driveStick1.getDirectionDegrees(), HW.driveStick2.getX());
         //Drive system altered: 2 wheels removed, holonomic drive is no more
         HW.drive.basicDrive(0.0, 0.0, HW.driveStick1.getY(), HW.driveStick2.getY());
-        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, "LEncDist:                                 ");
+        
+        //lDistance += (Timer.getFPGATimestamp() - startTime) * lEncRate;
+        Timer.delay(0.1);
+        lEncRate = (HW.rightEncoder.getDistance() - lEncStartDist) / (Timer.getFPGATimestamp() - startTime);
+        DiscoUtils.debugPrintln("Left Encoder Rate: " + HW.testEncoder.getRate());
+        DiscoUtils.debugPrintln("Left Encoder Dist: " + HW.testEncoder.getDistance());
+        DiscoUtils.debugPrintln("Left Encoder Period: " + HW.testEncoder.getPeriod());
+        DiscoUtils.debugPrintln("Right Encoder Rate: " + HW.rightEncoder.getRate());
+        DiscoUtils.debugPrintln("Left Encoder Calculated: " + lEncRate);
+
+        /*DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, "LEncDist:                                 ");
         DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, "LECalRat:                                 ");
         DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser4, 1, "LEClsRat:                                 ");
         DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, "REncDist:                                 ");
@@ -39,14 +49,12 @@ public class Teleop {
         DriverStationLCD.getInstance().updateLCD();
         DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, "LEncDist: " + HW.leftEncoder.getDistance());
         DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, "LECalRat: " + lEncRate);
-        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, "LEClsRat: " + HW.leftEncoder.getRate());
+        DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser4, 1, "LEClsRat: " + HW.leftEncoder.getRate());
         DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, "REncDist: " + HW.rightEncoder.getDistance());
         DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, "REncRate: " + HW.rightEncoder.getRate());
-        DriverStationLCD.getInstance().updateLCD();
+        DriverStationLCD.getInstance().updateLCD();*/
         
         //rDistance += (Timer.getFPGATimestamp() - startTime) * HW.rightEncoder.getRate();
-        lEncRate = (HW.rightEncoder.getDistance() - lEncStartDist) / (Timer.getFPGATimestamp() - startTime);
-        //lDistance += (Timer.getFPGATimestamp() - startTime) * lEncRate;
 
         /*bar up/down
         if (HW.kickhandle.getRawButton(6) && HW.barUpSwitch.get()) {
