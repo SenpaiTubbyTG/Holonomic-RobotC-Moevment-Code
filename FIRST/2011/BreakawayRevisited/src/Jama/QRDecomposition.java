@@ -14,7 +14,7 @@ import Jama.util.*;
    returns false.
 */
 
-public class QRDecomposition implements java.io.Serializable {
+public class QRDecomposition {
 
 /* ------------------------
    Class variables

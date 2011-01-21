@@ -46,7 +46,7 @@ import java.util.*;
 @version 5 August 1998
 */
 
-public class Matrix implements java.io.Serializable {
+public class Matrix {
 
 /* ------------------------
    Class variables
