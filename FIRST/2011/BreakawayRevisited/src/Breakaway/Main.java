@@ -72,11 +72,14 @@ public class Main extends IterativeRobot {
 
     public void teleopPeriodic() {
         //Teleop tank drive using VelocityController
-        HW.rearVelocityController.setGoalVelocity(HW.driveStick1.getY() * 1.3);
-        HW.frontVelocityController.setGoalVelocity(HW.driveStick2.getY() * 1.3);
-        HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(), HW.frontVelocityController.controller());
+        HW.rearVelocityController.setGoalVelocity(HW.driveStick1.getY() * 130);
+        HW.frontVelocityController.setGoalVelocity(HW.driveStick2.getY() * 130);
+        HW.drive.basicDrive(0.0,
+                            0.0,
+                            HW.frontVelocityController.controller(),
+                            HW.rearVelocityController.controller());
 
-
+        DiscoUtils.debugPrintln("Gyro angle: " + HW.gyro.getAngle());
         /*
         if(HW.driveStick1.getTrigger()) {
             HW.rearVelocityController.setGoalVelocity(0.0);

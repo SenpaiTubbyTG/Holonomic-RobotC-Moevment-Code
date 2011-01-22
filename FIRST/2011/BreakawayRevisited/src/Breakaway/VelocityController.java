@@ -110,13 +110,15 @@ public class VelocityController {
             return output;
     }
 
-    public void setGoalVelocity(double newVelocity) {
+    public double setGoalVelocity(double newVelocity) {
         if (reversed) {
             goalVelocity = -newVelocity;
             iterm = 0.0;
+            return velocityToOutput(goalVelocity);
         } else {
             goalVelocity = newVelocity;
             iterm = 0.0;
+            return velocityToOutput(goalVelocity);
         }
     }
 
