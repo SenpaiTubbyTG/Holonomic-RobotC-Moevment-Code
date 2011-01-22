@@ -218,7 +218,7 @@ public class HW {
             new VelocityController(frontEncoder, leftDriveMotor);
 
     public static VelocityController frontVelocityController =
-            new VelocityController(rearEncoder, rightDriveMotor, true);
+            new VelocityController(rearEncoder, rightDriveMotor);
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------
