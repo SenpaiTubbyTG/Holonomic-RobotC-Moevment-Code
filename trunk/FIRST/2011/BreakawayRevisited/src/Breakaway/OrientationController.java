@@ -16,7 +16,7 @@ public class OrientationController {
 
     final double ki = 0.02;
     double iterm = 0.0;
-    final double itermMax = 20;
+    final double itermMax = 30;
 
     double turnSpeed = 0.5;
 
@@ -56,8 +56,8 @@ public class OrientationController {
             iterm += error * timeDiff;
             DiscoUtils.debugPrintln("Heading iterm: " + iterm);
         }
-        leftMotor.setGoalVelocity(leftVelocity + iterm);
-        rightMotor.setGoalVelocity(rightVelocity + iterm);
+        leftMotor.setGoalVelocity(leftVelocity + iterm/3);
+        rightMotor.setGoalVelocity(rightVelocity + iterm/3);
         DiscoUtils.debugPrintln("TurnControl: " + output.toString());
     }
 
@@ -66,6 +66,7 @@ public class OrientationController {
         leftVelocity = lVelocity;
         rightVelocity = rVelocity;
         oldTime = Timer.getFPGATimestamp();
+        turnControl();
     }
 
     public Tuple controller() {

@@ -83,14 +83,14 @@ public class VelocityController {
         double timeDiff = (Timer.getFPGATimestamp() - oldTime);
 
         double velocity = distDiff / timeDiff;
-        DiscoUtils.debugPrintln("adjustVelocity velocity: " + velocity);
+        //DiscoUtils.debugPrintln("adjustVelocity velocity: " + velocity);
         
         double error = goalVelocity - velocity;
-        DiscoUtils.debugPrintln("error: " + error);
+        //DiscoUtils.debugPrintln("error: " + error);
 
         if (Math.abs(iterm) < itermMax) {
             iterm += (timeDiff * error);
-            DiscoUtils.debugPrintln("iterm: " + iterm);
+            //DiscoUtils.debugPrintln("iterm: " + iterm);
         }
 
         distTraveled += distDiff;
