@@ -23,9 +23,9 @@ public class GetMatrices
     public Matrix getWheelVelMat(double v1, double v2, double v3, double v4)
     {
         wheelVel[0][0] = v1;
-        wheelVel[0][1] = v2;
-        wheelVel[0][2] = v3;
-        wheelVel[0][3] = v4;
+        wheelVel[1][0] = v2;
+        wheelVel[2][0] = v3;
+        wheelVel[3][0] = v4;
         Matrix wheelVelMat = new Matrix(wheelVel);
         return wheelVelMat;
     }
@@ -54,9 +54,9 @@ public class GetMatrices
     public Matrix getWheelForceMat(double f1, double f2, double f3, double f4)
     {
         wheelForce[0][0] = f1;
-        wheelForce[0][1] = f2;
-        wheelForce[0][2] = f3;
-        wheelForce[0][3] = f4;
+        wheelForce[1][0] = f2;
+        wheelForce[2][0] = f3;
+        wheelForce[3][0] = f4;
         Matrix wheelForceMat = new Matrix(wheelForce);
         return wheelForceMat;
     }
