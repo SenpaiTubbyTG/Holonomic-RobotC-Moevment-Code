@@ -9,6 +9,7 @@ package main;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import Jama.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,8 +37,8 @@ public class Main extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
-        
+    public void teleopPeriodic()
+    {
     }
     
 }
