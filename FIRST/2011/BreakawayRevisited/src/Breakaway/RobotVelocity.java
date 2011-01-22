@@ -88,4 +88,9 @@ public class RobotVelocity
         robotVelVect[2][0] = Rw;
     }
 
+    public void VelCalc()
+    {
+
+    }
+
 }
