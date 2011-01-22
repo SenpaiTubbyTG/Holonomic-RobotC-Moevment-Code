@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package Breakaway;
+package Jama;
 
 import Jama.*;
 import java.util.*;
