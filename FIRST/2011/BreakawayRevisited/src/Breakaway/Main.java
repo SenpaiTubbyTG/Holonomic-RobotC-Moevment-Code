@@ -75,7 +75,7 @@ public class Main extends IterativeRobot {
         HW.rearVelocityController.setGoalVelocity(HW.driveStick1.getY() * 1.3);
         HW.frontVelocityController.setGoalVelocity(HW.driveStick2.getY() * 1.3);
         HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(), HW.frontVelocityController.controller());
-        
+        HW.gyro.getAngle();
 
         /*
         if(HW.driveStick1.getTrigger()) {
