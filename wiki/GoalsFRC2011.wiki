@@ -12,10 +12,10 @@
   * Light Sensor
   * [Sonars Sonar Rangefinder] (may move to week 2)
  # Research Sensor algorithms and uses
- # Design Electronic Layout for Robot
+ # ~~Design Electronic Layout for Robot~~
   * ~~Paper layout design~~
   * ~~CAD layout of electronics~~
-  * Battery mount designed
+  * ~~Battery mount designed~~
 
 
 ==Week 2:==
@@ -32,7 +32,7 @@
   * Able to tell the method an x vector, y vector, and a twist and have it calculate each wheels velocity
   * Able to tell the method a magnitude, a direction and a twist and have it calculate each wheels velocity
  # Protobot
-  * Code written for VEX Cortex
+  * ~~Code written for VEX Cortex~~
   * Basic Line Following for 6 wheeled robot
   * Line Tracking Mount designed and built
   * Can drive and control lift
