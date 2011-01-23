@@ -17,8 +17,10 @@
  # ~~Prototype MINIBOT Deployment Mechanism~~
 
 ==Week 3:==
- # Complete Lift and Prototype Gripper together
- # Build MINIBOT and Deployment Mechanism
+ # Mount Prototype Roller Claw on ProtoBot
+ # Mount encoders and bearing block fro drivetrain
+ # Complete Lift build
+ # Finalize MINIBOT and Deployment Mechanism design
 
 ==Week 4:==
  # Combine Lift, Gripper and Drivetrain
