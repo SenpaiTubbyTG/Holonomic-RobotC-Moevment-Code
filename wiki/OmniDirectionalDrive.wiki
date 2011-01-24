@@ -13,3 +13,4 @@ Information on Controlling Omni Directional Drive Systems
  # [http://users.cecs.anu.edu.au/~nmb/papers/omnidrive_dynamics4.pdf Fastest path for omni robots]
  # [http://oak.cats.ohiou.edu/~williar4/PDF/JRAS08.pdf Omni-directional mobile robot controller]
  # [http://www.natalnet.br/anais/LARS2006/PDFFiles/86.pdf Analysis and Design of a Wheeled Holonomic Omnidirectional Robot]
+ #[http://www.intechopen.com/download/pdf/pdfs_id/8875 Another omni paper, compares 3 and 4 wheeled omni robots and also does dynamics and kinematic equations]
