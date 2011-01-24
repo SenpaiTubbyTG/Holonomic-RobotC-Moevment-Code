@@ -1,5 +1,15 @@
 /*
  * Class to control the lift on the 2011 Discobots LogoMotion Robot
+ * Should have at least 9 settings
+ * The 6 scoring pegs
+ * Full down and full up
+ * and the feeder station
+ *
+ * Needs a way to switch between automatic control and manual control
+ * when manual control is used such as moving the lift up and down manually
+ * the automatic should be disabled until a new automatic position is set (I term should be cleared as well)
+ * 
+ * Should be able to disable the limit switches in case they malfunction
  */
 
 package Breakaway;
@@ -26,19 +36,26 @@ public class DiscoLift {
     public static class Position {
 
         /**
-         * The integer value representing this enumeration
-         */
+        * Items stored for every position on the lift
+        * Need to figure out how to store limitswitch combinations, probably 
+        * a function for every posistion that returns a boolean
+        */
         public final int value;
         public DigitalInput limitSwitch;
         public int encoderCount;
-        static final int k0_val = 0;
+        /**
+         * The integer value representing this enumeration
+         */
+        static final int kDown_val = 0;
         static final int k1_val = 1;
         static final int k2_val = 2;
         static final int k3_val = 3;
         static final int k4_val = 4;
         static final int k5_val = 5;
         static final int k6_val = 6;
-
+        static final int kUp_val = 7;
+        static final int kFeeder_val = 8;
+        
         /**
          *  the lowest value for the lift
          */
