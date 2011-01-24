@@ -5,3 +5,4 @@ PID is one of the most commonly used control algorithms in FIRST robotics. It is
 
 =Descriptions and Papers=
  * [http://team358.org/files/programming/PIDControlTheory_rev3.pdf Paper from 2006 season on PID control loops - Sample Code is written in C]
+ * [http://saba.kntu.ac.ir/eecd/pcl/download/PIDtutorial.pdf a good presentation on PID Tuning]
