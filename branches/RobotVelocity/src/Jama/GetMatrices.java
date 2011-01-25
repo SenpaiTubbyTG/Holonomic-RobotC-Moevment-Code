@@ -15,10 +15,10 @@ public class GetMatrices
 {
     double theta = Math.PI/2;
 
-    double[][] wheelVel = new double[3][0];
+    double[][] wheelVel = new double[4][1];
     double[][] velCoupl = new double[3][4];
-    double[][] wheelForce = new double[3][0];
-    double[][] forceCoupl = new double[2][3];
+    double[][] wheelForce = new double[4][1];
+    double[][] forceCoupl = new double[3][4];
     
     public Matrix getWheelVelMat(double v1, double v2, double v3, double v4)
     {

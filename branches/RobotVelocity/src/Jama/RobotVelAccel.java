@@ -20,11 +20,6 @@ public class RobotVelAccel
         robotVelMat = matrices.getWheelVelMat(v1, v2, v3, v4).times(Matrix.pinv(matrices.getVelCouplMat()));
         return robotVelMat;
     }
-    public static double getXVelocity()
-    {
-        
-        return xVel;
-    }
     public static Matrix getRobotAcceleration(double alpha, double f1, double f2, double f3, double f4)
     {
         Matrix robotAccelMat = new Matrix(3,1);
