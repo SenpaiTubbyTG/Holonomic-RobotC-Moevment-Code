@@ -23,6 +23,7 @@ public class VelocityController {
     double output = 0.0;
     double distTraveled;
     double goalDistance = 0.0;
+    double velocity = 0.0;
 
     public VelocityController(Encoder e, Jaguar m) {
         encoder = e;
@@ -82,7 +83,7 @@ public class VelocityController {
         double distDiff = (encoder.getDistance() - oldDist);
         double timeDiff = (Timer.getFPGATimestamp() - oldTime);
 
-        double velocity = distDiff / timeDiff;
+        velocity = distDiff / timeDiff;
         //DiscoUtils.debugPrintln("adjustVelocity velocity: " + velocity);
         
         double error = goalVelocity - velocity;
@@ -115,6 +116,10 @@ public class VelocityController {
         return output;
     }
 
+    public double getVelocity() {
+        return velocity;
+    }
+
     public double getGoalVelocity() {
         return goalVelocity;
     }
@@ -122,13 +127,11 @@ public class VelocityController {
     public double setGoalVelocity(double newVelocity) {
         if (reversed) {
             goalVelocity = -newVelocity;
-            iterm = 0.0;
-            return velocityToOutput(goalVelocity);
         } else {
             goalVelocity = newVelocity;
-            iterm = 0.0;
-            return velocityToOutput(goalVelocity);
         }
+        //iterm = 0.0;
+        return velocityToOutput(goalVelocity);
     }
 
     public void setGoalDistance(double newGoalDistance) {

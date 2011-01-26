@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.*;
  */
 public class OrientationController {
 
-    final double ki = 0.02;
+    final double ki = 5;
     double iterm = 0.0;
     final double itermMax = 30;
 
-    double turnSpeed = 0.5;
+    double turnVelocity = 20.0;
 
     double originalHeading;
     double goalHeading;
@@ -28,8 +28,11 @@ public class OrientationController {
     VelocityController leftMotor;
     VelocityController rightMotor;
 
-    double leftVelocity;
-    double rightVelocity;
+    double leftGoalVelocity;
+    double rightGoalVelocity;
+
+    double leftVelocityOutput;
+    double rightVelocityOutput;
 
     public OrientationController(Gyro g, VelocityController l, VelocityController r) {
         leftMotor = l;
@@ -38,44 +41,61 @@ public class OrientationController {
         originalHeading = gyro.getAngle();
     }
 
-    public void setTurn(double degrees) {
-        originalHeading = gyro.getAngle();
-        goalHeading = originalHeading + degrees;
-        leftVelocity = turnSpeed;
-        rightVelocity = turnSpeed;
+    public void initialize() {
+        oldTime = Timer.getFPGATimestamp();
+        goalHeading = gyro.getAngle();
+        iterm = 0.0;
     }
 
-    private void turnControl() {
+    /*public void setTurn(double degrees) {
+        originalHeading = gyro.getAngle();
+        goalHeading = originalHeading + degrees;
+        leftVelocity = turnVelocity;
+        rightVelocity = turnVelocity;
+    }*/
+
+    private void adjustVelocity() {
         double timeDiff = (Timer.getFPGATimestamp() - oldTime);
 
         double error = gyro.getAngle() - goalHeading;
-        DiscoUtils.debugPrintln("Heading error: " + error);
+        //DiscoUtils.debugPrintln("\n\nHeading error: " + error);
 
         if (Math.abs(iterm) < itermMax) {
             iterm += error * timeDiff;
-            DiscoUtils.debugPrintln("Heading iterm: " + iterm);
+            DiscoUtils.debugPrintln("\n\nHeading iterm: " + iterm);
         }
-        leftMotor.setGoalVelocity(leftVelocity + iterm/3);
-        rightMotor.setGoalVelocity(rightVelocity + iterm/3);
-    }
-
-    public void setVelocity(double lVelocity, double rVelocity) {
-        goalHeading = gyro.getAngle();
-        leftVelocity = lVelocity;
-        rightVelocity = rVelocity;
-        oldTime = Timer.getFPGATimestamp();
-        turnControl();
+        leftVelocityOutput = leftGoalVelocity + iterm * ki;
+        rightVelocityOutput = rightGoalVelocity - iterm * ki;
+        DiscoUtils.debugPrintln("leftOutput: " + leftVelocityOutput);
+        DiscoUtils.debugPrintln("rightOutput: " + rightVelocityOutput);
+        DiscoUtils.debugPrintln("leftVelocity: " + leftMotor.getVelocity());
+        DiscoUtils.debugPrintln("rightVelocity: " + rightMotor.getVelocity());
+        DiscoUtils.debugPrintln("leftGoal: " + leftMotor.getGoalVelocity());
+        DiscoUtils.debugPrintln("rightGoal: " + rightMotor.getGoalVelocity());
     }
 
     public void controller() {
-        if ((Timer.getFPGATimestamp() - oldTime) > 0.3) {
-            turnControl();
+        if ((Timer.getFPGATimestamp() - oldTime) > 0.05) {
+            adjustVelocity();
+            leftMotor.setGoalVelocity(leftVelocityOutput);
+            rightMotor.setGoalVelocity(rightVelocityOutput);
+            rightMotor.controller();
+            leftMotor.controller();
             oldTime = Timer.getFPGATimestamp();
         }
         else {
-            leftMotor.controller();
             rightMotor.controller();
+            leftMotor.controller();
         }
+    }
+
+    public void setVelocity(double lVelocity, double rVelocity) {
+        //goalHeading = gyro.getAngle();
+        leftGoalVelocity = lVelocity;
+        rightGoalVelocity = rVelocity;
+        oldTime = Timer.getFPGATimestamp() + 0.1;
+        iterm = 0.0;
+        controller();
     }
 
     public double getLeftOutput() {
