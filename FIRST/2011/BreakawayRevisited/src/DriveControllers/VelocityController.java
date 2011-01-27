@@ -108,8 +108,10 @@ public class VelocityController {
             oldDist = encoder.getDistance();
             return output;
         }
-        else
+        else {
+            motor.set(output);
             return output;
+        }
     }
 
     public double getOutput() {
@@ -130,7 +132,9 @@ public class VelocityController {
         } else {
             goalVelocity = newVelocity;
         }
-        //iterm = 0.0;
+        iterm = 0.0;
+        oldTime = Timer.getFPGATimestamp() + 0.2;
+        output = velocityToOutput(goalVelocity);
         return velocityToOutput(goalVelocity);
     }
 
