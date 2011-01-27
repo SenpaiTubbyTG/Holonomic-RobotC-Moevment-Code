@@ -232,7 +232,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
      */
     public double getRangeCM() {
         if (isRangeValid()) {
-            return getVoltage() / 1024;
+            return getVoltage()/5 * 1024;
         } else {
             return 0;
         }
