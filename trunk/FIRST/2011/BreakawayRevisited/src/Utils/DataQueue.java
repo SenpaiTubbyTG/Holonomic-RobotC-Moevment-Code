@@ -1,8 +1,11 @@
 package Utils;
 
-/**
- * @author Nelson
- */
+/** -------------------------------------------------------
+ * @class DataQueue
+ * @purpose queue class for storing DataNodes
+ * @author Nelson Chen
+ * @written Jan 27, 2011
+------------------------------------------------------- */
 public class DataQueue {
 
     DataNode head;
@@ -28,12 +31,12 @@ public class DataQueue {
     }
 
     public DataNode deQueue() {
-        if(head != null) {
+        if (head != null) {
             DataNode buffer = head;
             head = head.getNext();
             return buffer;
-        }
-        else
+        } else {
             return null;
+        }
     }
 }
