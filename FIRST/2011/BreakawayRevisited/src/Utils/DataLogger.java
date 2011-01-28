@@ -40,7 +40,7 @@ public class DataLogger {
      * writes the contents of dataLog (DataQueue object) to a file
      */
     public void writeData() {
-        file = new FileIO(filename);
+        file = new FileIO(filename + ".csv");
         file.writeLine(header);
         DataNode buffer = dataLog.deQueue();
         while (buffer != null) {
