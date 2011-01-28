@@ -1,27 +1,28 @@
 package Utils;
 
-/**
- * @author Nelson
- */
+import edu.wpi.first.wpilibj.Timer;
+
+/** -------------------------------------------------------
+ * @class DataNode
+ * @purpose stores data in self-referencing objects for use in DataQueue
+ * Timestamp is added to each entry
+ * @author Nelson Chen
+ * @written Jan 27, 2011
+------------------------------------------------------- */
 public class DataNode {
 
     double data;
     double time;
-
     //memory reference for the next node in the linked list
     DataNode next;
 
     /** -------------------------------------------------------
     @method DataNode Constructor
-    @param t - timestamp
     @param d - data; generic for greater versatility
     @purpose constructor - creates a new DataNode with timestamp and data in double format
-    @author Nelson Chen
-    @written Jan 27, 2011
     ------------------------------------------------------- */
-
-    public DataNode(double t, double d) {
-        time = t;
+    public DataNode(double d) {
+        time = Timer.getFPGATimestamp();
         data = d;
     }
 
@@ -33,15 +34,11 @@ public class DataNode {
         return next;
     }
 
-    /** -------------------------------------------------------
-    @method toString
-    @param leftMotor - The
-    @purpose returns String representation of the DataNode
-    @author Nelson Chen
-    @written Jan 27, 2011
-    ------------------------------------------------------- */
+    /**
+     * returns String representation of the DataNode
+     * @param leftMotor - The
+     */
     public String toString() {
         return time + "," + data;
     }
-
 }
