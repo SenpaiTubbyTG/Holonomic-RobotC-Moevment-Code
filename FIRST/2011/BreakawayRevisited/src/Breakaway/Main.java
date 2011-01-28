@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 package Breakaway;
 
-import Utils.DiscoUtils;
+import Utils.*;
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -17,6 +17,14 @@ import edu.wpi.first.wpilibj.*;
  * directory.
  */
 public class Main extends IterativeRobot {
+
+    Tuple driveOutput;
+    //boolean stopped = true;
+    boolean joystickDrive = true;
+    double leftVelocity;
+    double rightVelocity;
+    boolean done = false;
+    boolean dataLogged = false;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -41,6 +49,11 @@ public class Main extends IterativeRobot {
      * Periodic code for disabled mode should go here.
      */
     public void disabledPeriodic() {
+        if (done && !dataLogged) {
+            HW.gyroLog.writeData();
+            DiscoUtils.debugPrintln("log write complete");
+            dataLogged = true;
+        }
     }
 
     /**
@@ -67,43 +80,62 @@ public class Main extends IterativeRobot {
         HW.rearEncoder.reset();
         HW.rearVelocityController.initialize();
         HW.frontVelocityController.initialize();
+        HW.rearVelocityController.setReversed(true);
+        HW.gyro.reset();
+        HW.turnController.initialize();
+
+        leftVelocity = 0.0;
+        rightVelocity = 0.0;
         //HW.ultra.setDistanceUnits(Ultrasonic.Unit.kInches);
     }
+    DataNode node = null;
 
     public void teleopPeriodic() {
         //Teleop tank drive using VelocityController
+        /*if (joystickDrive) {
         HW.rearVelocityController.setGoalVelocity(HW.driveStick1.getY() * 130);
         HW.frontVelocityController.setGoalVelocity(HW.driveStick2.getY() * 130);
-        HW.drive.basicDrive(0.0,
-                            0.0,
-                            HW.frontVelocityController.controller(),
-                            HW.rearVelocityController.controller());
+        }
+        if (HW.driveStick1.getRawButton(3) || HW.driveStick2.getRawButton(3)) {
+        joystickDrive = false;
+        HW.rearVelocityController.setGoalVelocity(60);
+        HW.frontVelocityController.setGoalVelocity(60);
+        } else if (HW.driveStick1.getTrigger()) {
+        joystickDrive = true;
+        }
 
-        DiscoUtils.debugPrintln("Gyro angle: " + HW.gyro.getAngle());
-        /*
-        if(HW.driveStick1.getTrigger()) {
-            HW.rearVelocityController.setGoalVelocity(0.0);
-            HW.frontVelocityController.setGoalVelocity(0.0);
+        HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(),
+        HW.rearVelocityController.controller());*/
+
+        DiscoUtils.debugPrintln("frontEncoder: " + HW.frontEncoder.getDistance());
+        
+        HW.gyroLog.addEntry(new DataNode(HW.gyro.getAngle()));
+        done = true;
+        /*if (HW.driveStick1.getTrigger()) {
+        //HW.rearDriveMotor.set(0.0);
+        //HW.frontDriveMotor.set(0.0);
+        HW.leftDriveMotor.set(0.0);
+        HW.rightDriveMotor.set(0.0);
+        stopped = true;
+        } else if (HW.driveStick1.getRawButton(8)) {
+        HW.turnController.setVelocity(-45.0, -45.0);
+        stopped = false;
+        } else if (!stopped) {
+        HW.turnController.controller();
         }
-        if(HW.driveStick1.getRawButton(8)) {
-            HW.rearVelocityController.setGoalVelocity(-50.0);
-            HW.frontVelocityController.setGoalVelocity(-50.0);
-        }
-        if(HW.driveStick1.getRawButton(9)) {
-            HW.rearVelocityController.setGoalVelocity(50.0);
-            HW.frontVelocityController.setGoalVelocity(50.0);
-        }*/
+         */
+
 
         /* Ultrasonic Test
         HW.ultra.setAutomaticMode(true);
         DiscoUtils.debugPrintln("isValid: " + HW.ultra.isRangeValid());
         DiscoUtils.debugPrintln("Ultrasonic Rangefinder: " + HW.ultra.getRangeInches());
-        */
+         */
 
         /*if(HW.leftVelocityController.controller()) {
-            DiscoUtils.debugPrintln("getRate(mine): " + HW.leftEncoder.getRate(0.01));
-            DiscoUtils.debugPrintln("getRate(wpi) : " + HW.leftEncoder.getRate());
-            DiscoUtils.debugPrintln("");
+        DiscoUtils.debugPrintln("getRate(mine): " + HW.leftEncoder.getRate(0.01));
+        DiscoUtils.debugPrintln("getRate(wpi) : " + HW.leftEncoder.getRate());
+        DiscoUtils.debugPrintln("");
         }*/
 
         /*DiscoUtils.debugPrintln("\n\n");

@@ -11,6 +11,10 @@
 //====================================================================
 package Breakaway;
 
+import DriveControllers.OrientationController;
+import DriveControllers.VelocityController;
+import Utils.*;
+import Sensors.*;
 import edu.wpi.first.wpilibj.*;
 //import edu.wpi.first.addons.*;
 
@@ -161,37 +165,28 @@ public class HW {
 //-------------------------------------
 //          Digital classes
 //-------------------------------------
-    /**
-     *  The Left Encoder
-     */
-    // public static Encoder leftEncoder =
-    //new DiscoEncoder(6, 6, 6, 7);
      /**
-     *  The Right Encoder
+     *  The Front Encoder
      */
      public static DiscoEncoder frontEncoder =
         new DiscoEncoder(11, 12, false, Encoder.EncodingType.k2X);
     /**
-     *  The Right Encoder
+     *  The Rear Encoder
      */
      public static DiscoEncoder rearEncoder =
          new DiscoEncoder(9, 10, false, Encoder.EncodingType.k2X);
-     /**
-      * The Front Encoder
-      */
-     /*public static Encoder frontEncoder =
-    new Encoder(7, 8);
-    /**
-     *  The Rear Encoder
-     */
-     /*public static Encoder rearEncoder =
-    new Encoder(9, 10);
-    /**
-     *  The Kicker Encoder
-     */
-    /*public static Encoder kickerEncoder =
-    new Encoder(6,1, 6,2);
 
+     public static DigitalInput limit1 =
+            new DigitalInput(3);
+
+    public static DigitalInput limit2 =
+            new DigitalInput(4);
+
+    public static DigitalInput limit3 =
+            new DigitalInput(5);
+
+
+    /*
     public static DigitalInput kickSwitch =
             new DigitalInput(3);
 
@@ -202,7 +197,9 @@ public class HW {
             new DigitalInput(6,3);
 
     public static DigitalInput barDownSwitch =
-            new DigitalInput(6,5);*/
+            new DigitalInput(6,5);
+    */
+    
     //-------------------------------------
     //      LCD class
     //-------------------------------------
@@ -214,16 +211,23 @@ public class HW {
 //-------------------------------------
 //                 Ancillary classes
 //-------------------------------------
+
+    public static DataLogger gyroLog =
+            new DataLogger("gyro", "gyroAngle");
+
     public static VelocityController rearVelocityController =
             new VelocityController(frontEncoder, leftDriveMotor);
 
     public static VelocityController frontVelocityController =
             new VelocityController(rearEncoder, rightDriveMotor);
+
+    public static OrientationController turnController =
+            new OrientationController(gyro, frontVelocityController, rearVelocityController);
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------
-    public static Ultrasonic ultra =
-            new Ultrasonic(6, 12, 6, 14);       //ping on module 6, echo on module 6
+    public static MaxbotixSonar ultra =
+            new MaxbotixSonar(7);
 
 //-------------------------------------
 //                 Autonomous class
