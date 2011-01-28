@@ -15,8 +15,8 @@ public class DataQueue {
 
     public void enQueue(DataNode n) {
         if (head == null && tail == null) {
-            n = head;
-            n = tail;
+            head = n;
+            tail = n;
         } else {
             tail.setNext(n);
             tail = n;
