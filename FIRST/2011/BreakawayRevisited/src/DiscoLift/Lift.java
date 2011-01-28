@@ -12,7 +12,7 @@ import Utils.DiscoUtils;
  *
  * @author JAG
  */
-public class DiscoLift {
+public class Lift {
 
     /**
      * Default values used for the lift
@@ -28,24 +28,21 @@ public class DiscoLift {
      * Constructor for a simple lift that doesn't have limit switches
      * @param liftMotor
      */
-    public DiscoLift (SpeedController liftMotor) {
+    public Lift (SpeedController liftMotor) {
         m_liftMotor = liftMotor;
     }
 
 
     /**
-     * Create a DiscoLift with lowerLimit and upperLimit
+     * Create a Lift with lowerLimit and upperLimit
      * @param liftMotor
      * @param lowerLimit
      * @param upperLimit
      */
-    public DiscoLift (SpeedController liftMotor, DigitalInput lowerLimit, DigitalInput upperLimit) {
+    public Lift (SpeedController liftMotor, DigitalInput lowerLimit, DigitalInput upperLimit) {
         m_liftMotor = liftMotor;
         m_lowerLimit = lowerLimit;
         m_upperLimit = upperLimit;
-        if (Position.FullDown.isLimit()){
-
-        }
     }
 
     /**
