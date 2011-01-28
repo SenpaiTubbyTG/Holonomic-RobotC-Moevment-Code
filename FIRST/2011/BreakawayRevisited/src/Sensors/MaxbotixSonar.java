@@ -6,7 +6,6 @@
  * Remember that Maxbotix sensors get connected to Analog inputs not digital
  * inputs like other ultrasonic sensors.
  */
-
 package Sensors;
 
 import edu.wpi.first.wpilibj.*;
@@ -16,7 +15,8 @@ import edu.wpi.first.wpilibj.parsing.ISensor;
  * 
  * @author JAG
  */
-public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
+public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
+
     /**
      * The units to return when PIDGet is called
      */
@@ -41,30 +41,36 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
             this.value = value;
         }
     }
-    private static final double kPingTime = 20 * 1e-6;	///< Time (sec) for the ping trigger pulse.
-    private static final double kMaxUltrasonicTime = 0.1;	///< Max time (ms) between readings.
-    private static final double kCMToIn = 0.3937;
-    private static final double kMinVoltage = 0.02;	  //Minimum voltage the ultrasonic sensor can return
+    private static final double PING_TIME = 20 * 1e-6;	///< Time (sec) for the ping trigger pulse.
+    private static final double MAX_SONAR_TIME = 0.1;	///< Max time (ms) between readings.
+    private static final double CM_TO_IN = 0.3937;
+    private static final double MIN_VOLTAGE = 0.01;	  //Minimum voltage the ultrasonic sensor can return
     private AnalogChannel m_inputChannel = null;
     private DigitalOutput m_pingChannel = null;
-    private boolean m_allocatedChannels;
+    private int m_allocatedChannels = 0;
+    private boolean m_daisyChainEnabled = false;
     private boolean m_enabled = false;
     private Unit m_units;
+    private static Thread m_task = null;
 
     /**
-     * Initialize the a daisy chain of MaxbotixSonar Sensors.
-     * This is the code that initializes the Maxbotix Sensor if it is the first
-     * sensor and it has to be triggered by a digital out to start the daisy
-     * chain
+     * Background task that pings the first sensor in a chain of Maxbotix-XL ultrasonic sensors. The first sensor
+     * pings the next and so on. The first sensor has to be repinged after all have finished which is 100ms per sensor
      *
-     * Should pulse high for 20us and then switch to high impedance,
-     * If I can't figure out how to do this we will trigger the pulse
-     * every 100ms * number of sensors
      */
-    private synchronized void initializeDaisyChain() {
-      if (m_pingChannel != null) {
-        this.m_pingChannel.pulse(kPingTime);
-      }
+    private class DaisyChainPulser extends Thread {
+
+        public synchronized void run() {
+            while (m_daisyChainEnabled) {
+                DigitalOutput u = m_pingChannel;
+                if (u == null) {
+                    return;
+                } else {
+                    u.pulse(PING_TIME);	// do the ping
+                }
+                Timer.delay(m_allocatedChannels * .1);							// wait for ping to return
+            }
+        }
     }
 
     /**
@@ -81,7 +87,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
     public MaxbotixSonar(final int pingChannel, final int inputChannel, Unit units) {
         m_pingChannel = new DigitalOutput(pingChannel);
         m_inputChannel = new AnalogChannel(inputChannel);
-        m_allocatedChannels = true;
+        m_allocatedChannels++;
         m_units = units;
         initializeDaisyChain();
     }
@@ -112,7 +118,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
         if (pingChannel == null || inputChannel == null) {
             throw new NullPointerException("Null Channel Provided");
         }
-        m_allocatedChannels = false;
+        m_allocatedChannels++;
         m_pingChannel = pingChannel;
         m_inputChannel = inputChannel;
         m_units = units;
@@ -128,7 +134,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
      * @param units The units returned in either kInches or kMilliMeters
      */
     public MaxbotixSonar(DigitalOutput pingChannel, AnalogChannel inputChannel) {
-       this(pingChannel,inputChannel,Unit.kInches);
+        this(pingChannel, inputChannel, Unit.kInches);
     }
 
     /**
@@ -147,7 +153,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
             final int inputSlot, final int inputChannel, Unit units) {
         m_pingChannel = new DigitalOutput(pingSlot, pingChannel);
         m_inputChannel = new AnalogChannel(inputSlot, inputChannel);
-        m_allocatedChannels = true;
+        m_allocatedChannels++;
         m_units = units;
         initializeDaisyChain();
     }
@@ -162,7 +168,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
      */
     public MaxbotixSonar(final int inputChannel, Unit units) {
         m_inputChannel = new AnalogChannel(inputChannel);
-        m_allocatedChannels = true;
+        m_allocatedChannels++;
         m_units = units;
     }
 
@@ -189,7 +195,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
         if (inputChannel == null) {
             throw new NullPointerException("Null Channel Provided");
         }
-        m_allocatedChannels = false;
+        m_allocatedChannels++;
         m_inputChannel = inputChannel;
         m_units = units;
     }
@@ -206,39 +212,33 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
     }
 
     /**
-     * Check if this is a valid range reading
+     * This method starts the DaisyChainTask that pings the first sonar.
      */
-
-    public boolean isRangeValid() {
-        if (getVoltage() < kMinVoltage) {
-            return false;
+    private synchronized void initializeDaisyChain() {
+        if (m_task == null) {
+            m_task = new DaisyChainPulser();
         }
-        else {
-            return true;
-        }
+        m_daisyChainEnabled = true;
+        m_task.start();
     }
 
     /**
      * Return the Voltage reading directly form the analog module
      */
-    public double getVoltage () {
+    public double getVoltage() {
         return m_inputChannel.getVoltage();
     }
 
     /**
-     * Get the range in centimeters from the ultrasonic sensor, only if the range is valid.
-     * @return double Range in millimeters of the target returned from the MaxbotixSonarsensor. If there is
-     * no valid value yet then return 0.
+     * Get the range in centimeters from the MaxbotixSonar sensor, only if the range is valid.
+     * @return double Range in millimeters of the target returned from the MaxbotixSonarsensor.
      */
     public double getRangeCM() {
-        if (isRangeValid()) {
-            return getVoltage()/5 * 1024;
-        } else {
-            return 0;
-        }
+        return getVoltage() / 5 * 1024;
     }
-     /**
-     * Get the range in millimeters from the MaxbotixSonarsensor.
+
+    /**
+     * Get the range in millimeters from the MaxbotixSonar sensor.
      * @return double Range in millimeters of the target returned from the MaxbotixSonarsensor. If there is
      * no valid value yet then return 0.
      */
@@ -252,10 +252,10 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
      * no valid value yet then return 0.
      */
     public double getRangeInches() {
-        return getRangeCM() * kCMToIn;
+        return getRangeCM() * CM_TO_IN;
     }
 
-     /**
+    /**
      * Get the range in the current DistanceUnit for the PIDSource base object.
      *
      * @return The range in DistanceUnit
@@ -280,7 +280,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
         m_units = units;
     }
 
-     /**
+    /**
      * Get the current DistanceUnit that is used for the PIDSource base object.
      *
      * @return The type of DistanceUnit that is being used.
@@ -290,7 +290,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
     }
 
     /**
-     * Is the ultrasonic enabled
+     * Is the MaxbotixSonar enabled
      * @return true if the ultrasonic is enabled
      */
     public boolean isEnabled() {
@@ -298,7 +298,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor{
     }
 
     /**
-     * Set if the ultrasonic is enabled
+     * Set if the MaxbotixSonar is enabled
      * @param enable set to true to enable the ultrasonic
      */
     public void setEnabled(boolean enable) {
