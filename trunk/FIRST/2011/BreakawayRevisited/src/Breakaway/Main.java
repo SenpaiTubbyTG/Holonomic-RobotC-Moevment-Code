@@ -106,8 +106,6 @@ public class Main extends IterativeRobot {
 
         HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(),
         HW.rearVelocityController.controller());*/
-
-        DiscoUtils.debugPrintln("frontEncoder: " + HW.frontEncoder.getDistance());
         
         HW.gyroLog.addEntry(new DataNode(HW.gyro.getAngle()));
         done = true;

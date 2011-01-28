@@ -213,7 +213,7 @@ public class HW {
 //-------------------------------------
 
     public static DataLogger gyroLog =
-            new DataLogger("gyro", "gyroAngle");
+            new DataLogger("Gyro", "Gyro Angle");
 
     public static VelocityController rearVelocityController =
             new VelocityController(frontEncoder, leftDriveMotor);
