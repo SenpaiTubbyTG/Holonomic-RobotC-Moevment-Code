@@ -33,7 +33,7 @@ public class DataLogger {
      * @param entry - DataNode to be added to the DataQueue
      */
     public void addEntry(double entryData) {
-        dataLog.enQueue(new DataNode(entryData));
+        dataLog.enQueue(entryData);
     }
 
     /**
@@ -42,10 +42,8 @@ public class DataLogger {
     public void writeData() {
         file = new FileIO(filename + ".csv");
         file.writeLine(header);
-        DataNode buffer = dataLog.deQueue();
-        while (buffer != null) {
-            file.writeLine(buffer.toString());
-            buffer = dataLog.deQueue();
+        while (dataLog.peek() != null) {
+            file.writeLine(dataLog.deQueue());
         }
     }
 }

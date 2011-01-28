@@ -1,6 +1,7 @@
 package Utils;
 
 import edu.wpi.first.wpilibj.Timer;
+
 /** -------------------------------------------------------
  * @class DataQueue
  * @purpose queue class for storing DataNodes
@@ -17,13 +18,13 @@ public class DataQueue {
         tail = null;
     }
 
-    public void enQueue(DataNode n) {
+    public void enQueue(double n) {
         if (head == null && tail == null) {
-            head = n;
-            tail = n;
+            head = new DataNode(n);
+            tail = new DataNode(n);
         } else {
-            tail.setNext(n);
-            tail = n;
+            tail.setNext(new DataNode(n));
+            tail = new DataNode(n);
         }
     }
 
@@ -31,54 +32,54 @@ public class DataQueue {
         return head;
     }
 
-    public DataNode deQueue() {
+    public String deQueue() {
         if (head != null) {
             DataNode buffer = head;
             head = head.getNext();
-            return buffer;
+            return buffer.toString();
         } else {
             return null;
         }
     }
-}
-
-/** -------------------------------------------------------
- * @class DataNode
- * @purpose stores data in self-referencing objects for use in DataQueue
- * Timestamp is added to each entry
- * @author Nelson Chen
- * @written Jan 27, 2011
-------------------------------------------------------- */
-private class DataNode {
-
-    double data;
-    double time;
-    //memory reference for the next node in the linked list
-    DataNode next;
 
     /** -------------------------------------------------------
-    @method DataNode Constructor
-    @param d - data; generic for greater versatility
-    @purpose constructor - creates a new DataNode with timestamp and data in double format
+     * @class DataNode
+     * @purpose stores data in self-referencing objects for use in DataQueue
+     * Timestamp is added to each entry
+     * @author Nelson Chen
+     * @written Jan 27, 2011
     ------------------------------------------------------- */
-    public DataNode(double d) {
-        time = Timer.getFPGATimestamp();
-        data = d;
-    }
+    private class DataNode {
 
-    public void setNext(DataNode n) {
-        next = n;
-    }
+        double data;
+        double time;
+        //memory reference for the next node in the linked list
+        DataNode next;
 
-    public DataNode getNext() {
-        return next;
-    }
+        /** -------------------------------------------------------
+        @method DataNode Constructor
+        @param d - data; generic for greater versatility
+        @purpose constructor - creates a new DataNode with timestamp and data in double format
+        ------------------------------------------------------- */
+        public DataNode(double d) {
+            time = Timer.getFPGATimestamp();
+            data = d;
+        }
 
-    /**
-     * returns String representation of the DataNode
-     * @param leftMotor - The
-     */
-    public String toString() {
-        return time + "," + data;
+        public void setNext(DataNode n) {
+            next = n;
+        }
+
+        public DataNode getNext() {
+            return next;
+        }
+
+        /**
+         * returns String representation of the DataNode
+         * @param leftMotor - The
+         */
+        public String toString() {
+            return time + "," + data;
+        }
     }
 }
