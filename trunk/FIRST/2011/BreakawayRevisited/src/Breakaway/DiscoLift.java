@@ -36,9 +36,9 @@ public class DiscoLift {
     public static class Position {
 
         /**
-        * Items stored for every position on the lift
-        * Need to figure out how to store limitswitch combinations, probably 
-        * a function for every posistion that returns a boolean
+        * Items stored for every posistion on the lift
+        * Need to figure out how to store limit switch combinations, probably
+        * a function for every position that returns a boolean
         */
         public final int value;
         public DigitalInput limitSwitch;
@@ -59,7 +59,7 @@ public class DiscoLift {
         /**
          *  the lowest value for the lift
          */
-        public static final Position k0 = new Position(k0_val);
+        public static final Position k0 = new Position(kDown_val);
 
         /**
          *  the lowest peg of the scoring grid value for the lift
@@ -70,18 +70,22 @@ public class DiscoLift {
          *  the second lowest peg of the scoring grid value for the lift
          */
         public static final Position k2 = new Position(k2_val);
+        
         /**
          *  the 3rd lowest peg of the scoring grid value for the lift
          */
         public static final Position k3 = new Position(k2_val);
+
         /**
          *  the 4th lowest peg of the scoring grid value for the lift
          */
         public static final Position k4 = new Position(k4_val);
+
         /**
          *  the 2nd highest peg of the scoring grid value for the lift
          */
         public static final Position k5 = new Position(k5_val);
+
         /**
          *  the highest peg of the scoring grid value for the lift
          */
