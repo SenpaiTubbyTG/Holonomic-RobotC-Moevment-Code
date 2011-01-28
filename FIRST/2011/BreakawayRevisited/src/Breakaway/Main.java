@@ -88,7 +88,6 @@ public class Main extends IterativeRobot {
         rightVelocity = 0.0;
         //HW.ultra.setDistanceUnits(Ultrasonic.Unit.kInches);
     }
-    DataNode node = null;
 
     public void teleopPeriodic() {
         //Teleop tank drive using VelocityController
@@ -107,8 +106,13 @@ public class Main extends IterativeRobot {
         HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(),
         HW.rearVelocityController.controller());*/
         
-        HW.gyroLog.addEntry(new DataNode(HW.gyro.getAngle()));
+
+        /* DATALOGGER
+        HW.gyroLog.addEntry(HW.gyro.getAngle());
         done = true;
+        */
+
+
         /*if (HW.driveStick1.getTrigger()) {
         //HW.rearDriveMotor.set(0.0);
         //HW.frontDriveMotor.set(0.0);
