@@ -32,8 +32,8 @@ public class DataLogger {
      * adds another entry to the datalog
      * @param entry - DataNode to be added to the DataQueue
      */
-    public void addEntry(DataNode entry) {
-        dataLog.enQueue(entry);
+    public void addEntry(double entryData) {
+        dataLog.enQueue(new DataNode(entryData));
     }
 
     /**
