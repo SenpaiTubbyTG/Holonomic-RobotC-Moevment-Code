@@ -78,22 +78,58 @@ public class Main extends IterativeRobot {
         HW.rightVelocityController.setReversed(true);
         HW.gyro.reset();
 
-        HW.leftVelocityController.init();
-        HW.rightVelocityController.init();
+        //HW.leftVelocityController.init();
+        //HW.rightVelocityController.init();
+
+        /*leftVC.enable();
+        rightVC.enable();
+        leftVC.setSetpoint(0);
+        rightVC.setSetpoint(0);*/
         //HW.turnController.initialize();
         //HW.ultra.setDistanceUnits(Ultrasonic.Unit.kInches);
     }
 
+    //PIDController leftVC = new PIDController(0.003, 0.0, 0.0, HW.EncoderLeft, HW.leftDriveMotor);
+    //PIDController rightVC = new PIDController(0.003, 0.0, 0.0, HW.EncoderRight, HW.rightDriveMotor);
+
     public void teleopPeriodic() {
         //Teleop tank drive using VelocityController
-        HW.leftVelocityController.setGoalVelocity(
-                (HW.driveStickLeft.getY() - HW.driveStickRight.getX()) * 130);
-        HW.rightVelocityController.setGoalVelocity(
-                (HW.driveStickLeft.getY() + HW.driveStickRight.getX()) * 130);
-        
-        //DiscoUtils.debugPrintln("leftEncoderVelocity: " + HW.EncoderLeft.getRate());
-        //DiscoUtils.debugPrintln("rightEncoderVelocity: " + HW.EncoderRight.getRate());
-        
+        /*leftVelocity = (HW.driveStickLeft.getY() - HW.driveStickRight.getX()) * 130;
+        rightVelocity = (HW.driveStickLeft.getY() + HW.driveStickRight.getX()) * 130;
+        HW.leftVelocityController.setGoalVelocity(leftVelocity);
+        HW.rightVelocityController.setGoalVelocity(rightVelocity);*/
+
+        //leftVelocityController.setSetpoint(HW.driveStickLeft.getY() * 130);
+        //rightVelocityController.setSetpoint(HW.driveStickLeft.getY() * 130);
+        if (HW.kickhandle.getTrigger()) {
+            HW.leftDriveMotor.set(0.0);
+            HW.rightDriveMotor.set(0.0);
+            stopped = true;
+        } else if (HW.kickhandle.getRawButton(8)) {
+            /*leftVC.enable();
+            rightVC.enable();
+            rightVC.setSetpoint(150.0);
+            leftVC.setSetpoint(-150.0);*/
+            HW.leftDriveMotor.set(-0.5);
+            HW.rightDriveMotor.set(0.5);
+
+            /*DiscoUtils.debugPrintln("leftError: " + leftVC.getError());
+            DiscoUtils.debugPrintln("rightError: " + rightVC.getError());*/
+
+            DiscoUtils.debugPrintln("leftOutput: " + HW.leftDriveMotor.get());
+            DiscoUtils.debugPrintln("rightOutput: " + HW.rightDriveMotor.get());
+
+            DiscoUtils.debugPrintln("left pidGet: " + HW.EncoderLeft.pidGet());
+            DiscoUtils.debugPrintln("right pidGet: " + HW.EncoderRight.pidGet());
+        }
+        else {
+            HW.leftDriveMotor.set(0.0);
+            HW.rightDriveMotor.set(0.0);
+            /*leftVC.disable();
+            rightVC.disable();*/
+        }
+
+
         /*if (joystickDrive) {
         HW.rearVelocityController.setGoalVelocity(HW.driveStick1.getY() * 130);
         HW.frontVelocityController.setGoalVelocity(HW.driveStick2.getY() * 130);
