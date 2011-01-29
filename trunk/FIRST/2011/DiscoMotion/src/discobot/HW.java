@@ -11,9 +11,7 @@
 //====================================================================
 package discobot;
 
-import DriveControllers.OrientationController;
-import DriveControllers.VelocityController;
-import Utils.*;
+import DriveControllers.DiscoDrive;
 import Sensors.*;
 import edu.wpi.first.wpilibj.*;
 //import edu.wpi.first.addons.*;
@@ -58,56 +56,13 @@ public class HW {
 //------------------------------------
 //         Drive motors
 //------------------------------------
-    public static Jaguar leftDriveMotor
-            = new Jaguar(7);
-    public static Jaguar rightDriveMotor
-            = new Jaguar(8);
-    public static Jaguar frontDriveMotor
-            = new Jaguar(9);
-    public static Jaguar rearDriveMotor
-            = new Jaguar(6);
-    public static Jaguar leftDribbler
-            = new Jaguar(5);
-    public static Jaguar rightDribbler
-            = new Jaguar(4);
-    public static Jaguar kickerMotor
-            = new Jaguar(1);
-    public static Jaguar kickerBar
-            = new Jaguar(2);
+    public static Jaguar frontLeftDM = new Jaguar(1);
+    public static Jaguar frontRightDM = new Jaguar(2);
+    public static Jaguar rearRightDM = new Jaguar(3);
+    public static Jaguar rearLeftDM = new Jaguar(4);
 
-//------------------------------------
-//      Servo Class
-//------------------------------------
-    /*
-     *  Servo that is used to Pan the Camera
-     */
-    public static Servo camPan =
-            new Servo(6,9);
-    /**
-     *  Servo that is used to Tilt the Camera
-     */
-    public static Servo camTilt =
-            new Servo(6,10);
-//------------------------------------
-//         Relay classes
-//------------------------------------
-    /**
-     *  The Relay that is used with the Kicker
-     */
-/*    public static Relay kickerRelay =
-            new Relay(4);
- */
-//------------------------------------
-//         Compressor class - runs the compressor
-//            with a single relay
-//------------------------------------
-    /**
-     *  The Compressor and Pressure Switch
-     */
-   /* public static Compressor compressor =
-            new Compressor(14, //Presure Sensor
-            1 ); //Compressor
-    */
+    public static DiscoDrive drive = new DiscoDrive(frontLeftDM, frontRightDM, rearRightDM, rearLeftDM);
+
 //------------------------------------
 //          DriverStations class
 //------------------------------------
@@ -116,7 +71,7 @@ public class HW {
      */
     public static DriverStation driverStation =
             DriverStation.getInstance();
-   // public static TrackerDashboard trackerDash =
+    // public static TrackerDashboard trackerDash =
     //        new TrackerDashboard();
 //------------------------------------
 //              Joystick classes
@@ -134,72 +89,27 @@ public class HW {
     /**
      *  Kicker Joystick
      */
-    public static Joystick kickhandle =
+    public static Joystick liftHandle =
             new Joystick(3);
-//------------------------------------
-//             Analog classes
-//------------------------------------
-//------------------------------------
-//                Gyro class
-//------------------------------------
-    /**
-     *  Defines The Raw Gyro Channel
-     * We declare a raw_gyro so that we can get at the
-     * raw values of the gyro if we need them.
-     */
-    public static AnalogChannel rawGyro =
-            new AnalogChannel(1);
-    /**
-     *  Assign the WPI gyro the rawGyro
-     */
-    public static Gyro gyro =
-            new Gyro(rawGyro);
-//------------------------------------
-//                Accelerometer class
-//------------------------------------
-    /**
-     *  The accelerometer
-     */
-    public static Accelerometer accel =
-            new Accelerometer(2);
+
 //-------------------------------------
 //          Digital classes
 //-------------------------------------
-     /**
-     *  The Front Encoder
+    /**
+     *  The Front Encoders
      */
-     public static DiscoEncoder frontEncoder =
-        new DiscoEncoder(11, 12, false, Encoder.EncodingType.k2X);
+    public static DiscoEncoder frontLeftEncoder =
+            new DiscoEncoder(1, 2, false, Encoder.EncodingType.k2X);
+    public static DiscoEncoder frontRightEncoder =
+            new DiscoEncoder(3, 4, false, Encoder.EncodingType.k2X);
     /**
      *  The Rear Encoder
      */
-     public static DiscoEncoder rearEncoder =
-         new DiscoEncoder(9, 10, false, Encoder.EncodingType.k2X);
+    public static DiscoEncoder rearRightEncoder =
+            new DiscoEncoder(5, 6, false, Encoder.EncodingType.k2X);
+    public static DiscoEncoder rearLeftEncoder =
+            new DiscoEncoder(7, 8, false, Encoder.EncodingType.k2X);
 
-     public static DigitalInput limit1 =
-            new DigitalInput(3);
-
-    public static DigitalInput limit2 =
-            new DigitalInput(4);
-
-    public static DigitalInput limit3 =
-            new DigitalInput(5);
-
-
-    /*
-    public static DigitalInput kickSwitch =
-            new DigitalInput(3);
-
-    public static DigitalInput loadSwitch =
-            new DigitalInput(4);
-
-    public static DigitalInput barUpSwitch =
-            new DigitalInput(6,3);
-
-    public static DigitalInput barDownSwitch =
-            new DigitalInput(6,5);
-    */
-    
     //-------------------------------------
     //      LCD class
     //-------------------------------------
@@ -208,36 +118,4 @@ public class HW {
      */
     public static DriverStationLCD lcd =
             DriverStationLCD.getInstance();
-//-------------------------------------
-//                 Ancillary classes
-//-------------------------------------
-
-    public static DataLogger gyroLog =
-            new DataLogger("Gyro", "Gyro Angle");
-
-    public static VelocityController rearVelocityController =
-            new VelocityController(frontEncoder, leftDriveMotor);
-
-    public static VelocityController frontVelocityController =
-            new VelocityController(rearEncoder, rightDriveMotor);
-
-    public static OrientationController turnController =
-            new OrientationController(gyro, frontVelocityController, rearVelocityController);
-//-------------------------------------
-//                 Ultrasonic class
-//-------------------------------------
-    public static MaxbotixSonar ultra =
-            new MaxbotixSonar(7);
-
-//-------------------------------------
-//                 Autonomous class
-//-------------------------------------
-   //public static DiscoDrive drive = new DiscoDrive(leftDriveMotor,rightDriveMotor,
-     //       frontDriveMotor,rearDriveMotor,gyro,rawGyro);
-
-   public static DigitalInput autonMode = new DigitalInput(6,8);
-   //public static DigitalInput backZoneAuton = new DigitalInput(6,9);
-
-} // end class
-
 

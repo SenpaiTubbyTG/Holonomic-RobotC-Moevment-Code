@@ -8,7 +8,9 @@
 package discobot;
 
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.*;
+import Utils.*;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -18,6 +20,9 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * directory.
  */
 public class Main extends IterativeRobot {
+
+    private int i = 0;
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -37,7 +42,16 @@ public class Main extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        
+        HW.drive.holonomicDrive(HW.driveStick1.getMagnitude(), HW.driveStick1.getDirectionDegrees(), HW.driveStick2.getX());
+
+        if (i > 10) {
+        DiscoUtils.debugPrintln("Magniture: " + HW.driveStick1.getMagnitude());
+        DiscoUtils.debugPrintln("Direction: " + HW.driveStick1.getDirectionDegrees());
+        DiscoUtils.debugPrintln("Twist: " + HW.driveStick2.getX());
+        i = 0;
+        } else {
+            i++;
+        }
     }
     
 }
