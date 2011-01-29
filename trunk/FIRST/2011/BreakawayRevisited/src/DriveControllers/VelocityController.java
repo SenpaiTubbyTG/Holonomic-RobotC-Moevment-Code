@@ -1,7 +1,9 @@
 package DriveControllers;
 
 import Utils.DiscoUtils;
+import Sensors.*;
 import edu.wpi.first.wpilibj.*;
+import java.util.TimerTask;
 
 /**
  *
@@ -9,50 +11,58 @@ import edu.wpi.first.wpilibj.*;
  */
 public class VelocityController {
 
-    final double ki = 0.02;
+    public static final double kDefaultPeriod = .05;
+    private double m_period = kDefaultPeriod;
+    private final double ki = 0.02;
     double iterm = 0.0;
-    final double itermMax = 20;
-    public double goalVelocity;
-    //final double[] velocityOutput =
-    //int resolution = 20;
-    Encoder encoder;
-    Jaguar motor;
-    double oldDist;
-    double oldTime;
-    boolean reversed = false;
-    double output = 0.0;
-    double distTraveled;
-    double goalDistance = 0.0;
-    double velocity = 0.0;
+    private double goalVelocity = 0.0;
+    private DiscoEncoder encoder;
+    private Jaguar motor;
+    private boolean reversed = false;
+    private double output = 0.0;
+    //private double oldDist;
+    //private double distTraveled;
+    //private double goalDistance = 0.0;
+    private double velocity = 0.0;
+    java.util.Timer m_controlLoop;
 
-    public VelocityController(Encoder e, Jaguar m) {
+    /**
+     * 
+     */
+    private class VelocityControllerTask extends TimerTask {
+
+        private VelocityController m_velocityController;
+
+        public VelocityControllerTask(VelocityController vc) {
+            if (vc == null) {
+                throw new NullPointerException("Given VelocityController was null");
+            }
+            m_velocityController = vc;
+        }
+
+        public void run() {
+            m_velocityController.controller();
+            Timer.delay(0.05);
+        }
+    }
+
+    public void init() {
+        m_controlLoop = new java.util.Timer();
+        m_controlLoop.schedule(new VelocityControllerTask(this), 0L, (long) (m_period * 1000));
+        //oldDist = encoder.getDistance();
+    }
+
+    public VelocityController(DiscoEncoder e, Jaguar m) {
         encoder = e;
         motor = m;
     }
 
-    public VelocityController(Encoder e, Jaguar m, boolean r) {
+    public VelocityController(DiscoEncoder e, Jaguar m, boolean r) {
         encoder = e;
         motor = m;
         reversed = r;
     }
 
-    /*the following two methods are for collecting data for setting up velocityToOutput
-    public void initOutputData() {
-    for (int x = 0; x <= resolution; x++) {
-    velocityOutput[x] = test((x * 200.0 / resolution) - 100.0);
-    }
-    }
-
-    private double test(double speed) {
-    double initDist = encoder.getDistance();
-    motor.set(speed / 200);
-    Timer.delay(1.0);
-    double finalDist = encoder.getDistance();
-    motor.set(0.0);
-    double distance = finalDist - initDist;  //94 = scaling facto ticks-->inches
-    DiscoUtils.debugPrintln((speed) + "\t-->\t" + distance);
-    return distance;    //also velocity in inches/sec because sampling period was 1 sec
-    }*/
     private double velocityToOutput(double velocity) {
         double ffterm = 0.0;
         if (velocity <= -100) {
@@ -78,40 +88,18 @@ public class VelocityController {
         return ffterm;
     }
 
-    private double adjustVelocity(double goalVelocity, double oldDist, double oldTime) {
-        
-        double distDiff = (encoder.getDistance() - oldDist);
-        double timeDiff = (Timer.getFPGATimestamp() - oldTime);
-
-        velocity = distDiff / timeDiff;
-        //DiscoUtils.debugPrintln("adjustVelocity velocity: " + velocity);
-        
-        double error = goalVelocity - velocity;
-        //DiscoUtils.debugPrintln("error: " + error);
-
-        if (Math.abs(iterm) < itermMax) {
-            iterm += (timeDiff * error);
-            //DiscoUtils.debugPrintln("iterm: " + iterm);
-        }
-
-        distTraveled += distDiff;
-
-        double result = velocityToOutput(goalVelocity) + (ki * iterm);
+    private synchronized double adjustVelocity(double goalVelocity) {
+        double error = goalVelocity - encoder.getRate();
+        iterm += (m_period * error);
+        //distTraveled += distDiff;
+        double result = velocityToOutput(goalVelocity) + (ki * iterm); // + (kp * error);
         return result;
     }
 
-    public double controller() {  //distance in inches
-        if ((Timer.getFPGATimestamp() - oldTime) > 0.03) {
-            output = adjustVelocity(goalVelocity, oldDist, oldTime);
-            motor.set(output);
-            oldTime = Timer.getFPGATimestamp();
-            oldDist = encoder.getDistance();
-            return output;
-        }
-        else {
-            motor.set(output);
-            return output;
-        }
+    public synchronized double controller() {  //distance in inches
+        output = adjustVelocity(goalVelocity);
+        motor.set(output);
+        return output;
     }
 
     public double getOutput() {
@@ -133,26 +121,42 @@ public class VelocityController {
             goalVelocity = newVelocity;
         }
         iterm = 0.0;
-        oldTime = Timer.getFPGATimestamp() + 0.2;
         output = velocityToOutput(goalVelocity);
         return velocityToOutput(goalVelocity);
     }
 
-    public void setGoalDistance(double newGoalDistance) {
-        goalDistance = newGoalDistance;
-        distTraveled = 0.0;
-    }
-
-    public void initialize() {
-        oldDist = encoder.getDistance();
-        oldTime = Timer.getFPGATimestamp();
-        goalVelocity = 0.0;
-        goalDistance = 0.0;
-        distTraveled = 0.0;
-        iterm = 0.0;
+    /**
+     * Free the VelocityControllerTask
+     */
+    protected void free() {
+        m_controlLoop.cancel();
+        m_controlLoop = null;
     }
 
     public void setReversed(boolean r) {
         reversed = r;
     }
+
+    /*public void setGoalDistance(double newGoalDistance) {
+    goalDistance = newGoalDistance;
+    distTraveled = 0.0;
+    }*/
+
+    /*the following two methods are for collecting data for setting up velocityToOutput
+    public void initOutputData() {
+    for (int x = 0; x <= resolution; x++) {
+    velocityOutput[x] = test((x * 200.0 / resolution) - 100.0);
+    }
+    }
+
+    private double test(double speed) {
+    double initDist = encoder.getDistance();
+    motor.set(speed / 200);
+    Timer.delay(1.0);
+    double finalDist = encoder.getDistance();
+    motor.set(0.0);
+    double distance = finalDist - initDist;  //94 = scaling facto ticks-->inches
+    DiscoUtils.debugPrintln((speed) + "\t-->\t" + distance);
+    return distance;    //also velocity in inches/sec because sampling period was 1 sec
+    }*/
 }
