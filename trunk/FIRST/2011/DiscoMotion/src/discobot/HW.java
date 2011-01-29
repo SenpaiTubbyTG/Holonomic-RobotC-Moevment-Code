@@ -79,12 +79,12 @@ public class HW {
     /**
      *  Defines Drive Joystick 1
      */
-    public static Joystick driveStick1 =
+    public static Joystick driveStickLeft =
             new Joystick(1);
     /**
      *  Defines Drive Joystick 2
      */
-    public static Joystick driveStick2 =
+    public static Joystick driveStickRight =
             new Joystick(2);
     /**
      *  Kicker Joystick
@@ -118,4 +118,5 @@ public class HW {
      */
     public static DriverStationLCD lcd =
             DriverStationLCD.getInstance();
+}
 
