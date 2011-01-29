@@ -124,12 +124,12 @@ public class HW {
     /**
      *  Defines Drive Joystick 1
      */
-    public static Joystick driveStick1 =
+    public static Joystick driveStickLeft =
             new Joystick(1);
     /**
      *  Defines Drive Joystick 2
      */
-    public static Joystick driveStick2 =
+    public static Joystick driveStickRight =
             new Joystick(2);
     /**
      *  Kicker Joystick
@@ -168,12 +168,12 @@ public class HW {
      /**
      *  The Front Encoder
      */
-     public static DiscoEncoder frontEncoder =
+     public static DiscoEncoder EncoderLeft =
         new DiscoEncoder(11, 12, false, Encoder.EncodingType.k2X);
     /**
      *  The Rear Encoder
      */
-     public static DiscoEncoder rearEncoder =
+     public static DiscoEncoder EncoderRight =
          new DiscoEncoder(9, 10, false, Encoder.EncodingType.k2X);
 
      public static DigitalInput limit1 =
@@ -212,22 +212,22 @@ public class HW {
 //                 Ancillary classes
 //-------------------------------------
 
-    public static DataLogger gyroLog =
-            new DataLogger("Gyro", "Gyro Angle");
+    //public static DataLogger gyroLog =
+      //      new DataLogger("Gyro", "Gyro Angle");
 
-    public static VelocityController rearVelocityController =
-            new VelocityController(frontEncoder, leftDriveMotor);
+    public static VelocityController leftVelocityController =
+            new VelocityController(EncoderLeft, leftDriveMotor);
 
-    public static VelocityController frontVelocityController =
-            new VelocityController(rearEncoder, rightDriveMotor);
+    public static VelocityController rightVelocityController =
+            new VelocityController(EncoderRight, rightDriveMotor);
 
-    public static OrientationController turnController =
-            new OrientationController(gyro, frontVelocityController, rearVelocityController);
+    //public static OrientationController turnController =
+      //      new OrientationController(gyro, rightVelocityController, leftVelocityController);
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------
-    public static MaxbotixSonar ultra =
-            new MaxbotixSonar(7);
+    //public static MaxbotixSonar ultra =
+      //      new MaxbotixSonar(7);
 
 //-------------------------------------
 //                 Autonomous class

@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.*;
 public class Main extends IterativeRobot {
 
     Tuple driveOutput;
-    //boolean stopped = true;
+    boolean stopped = true;
     boolean joystickDrive = true;
     double leftVelocity;
     double rightVelocity;
@@ -39,10 +39,10 @@ public class Main extends IterativeRobot {
      * This function is called once every time the robot is disabled
      */
     public void disabledInit() {
-        HW.frontEncoder.reset();
-        HW.frontEncoder.stop();
-        HW.rearEncoder.reset();
-        HW.rearEncoder.stop();
+        HW.EncoderLeft.reset();
+        HW.EncoderLeft.stop();
+        HW.EncoderRight.reset();
+        HW.EncoderRight.stop();
     }
 
     /**
@@ -50,7 +50,6 @@ public class Main extends IterativeRobot {
      */
     public void disabledPeriodic() {
         if (done && !dataLogged) {
-            HW.gyroLog.writeData();
             DiscoUtils.debugPrintln("log write complete");
             dataLogged = true;
         }
@@ -72,25 +71,29 @@ public class Main extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopInit() {
-        HW.frontEncoder.setDistancePerPulse((8 * Math.PI) / 47 / 3);
-        HW.frontEncoder.start();
-        HW.frontEncoder.reset();
-        HW.rearEncoder.setDistancePerPulse((8 * Math.PI) / 47 / 3);
-        HW.rearEncoder.start();
-        HW.rearEncoder.reset();
-        HW.rearVelocityController.initialize();
-        HW.frontVelocityController.initialize();
-        HW.rearVelocityController.setReversed(true);
+        HW.EncoderLeft.setDistancePerPulse((8 * Math.PI) / 47 / 3);
+        HW.EncoderLeft.init();
+        HW.EncoderRight.setDistancePerPulse((8 * Math.PI) / 47 / 3);
+        HW.EncoderRight.init();
+        HW.rightVelocityController.setReversed(true);
         HW.gyro.reset();
-        HW.turnController.initialize();
 
-        leftVelocity = 0.0;
-        rightVelocity = 0.0;
+        HW.leftVelocityController.init();
+        HW.rightVelocityController.init();
+        //HW.turnController.initialize();
         //HW.ultra.setDistanceUnits(Ultrasonic.Unit.kInches);
     }
 
     public void teleopPeriodic() {
         //Teleop tank drive using VelocityController
+        HW.leftVelocityController.setGoalVelocity(
+                (HW.driveStickLeft.getY() + HW.driveStickRight.getX()) * 130);
+        HW.rightVelocityController.setGoalVelocity(
+                (HW.driveStickLeft.getY() - HW.driveStickRight.getX()) * 130);
+        
+        //DiscoUtils.debugPrintln("leftEncoderVelocity: " + HW.EncoderLeft.getRate());
+        //DiscoUtils.debugPrintln("rightEncoderVelocity: " + HW.EncoderRight.getRate());
+        
         /*if (joystickDrive) {
         HW.rearVelocityController.setGoalVelocity(HW.driveStick1.getY() * 130);
         HW.frontVelocityController.setGoalVelocity(HW.driveStick2.getY() * 130);
@@ -101,53 +104,29 @@ public class Main extends IterativeRobot {
         HW.frontVelocityController.setGoalVelocity(60);
         } else if (HW.driveStick1.getTrigger()) {
         joystickDrive = true;
-        }
+        }*/
 
-        HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(),
-        HW.rearVelocityController.controller());*/
-        
+        //HW.drive.basicDrive(0.0, 0.0, HW.frontVelocityController.controller(),
+          //      HW.rearVelocityController.controller());
+
 
         /* DATALOGGER
         HW.gyroLog.addEntry(HW.gyro.getAngle());
         done = true;
-        */
+         */
 
 
         /*if (HW.driveStick1.getTrigger()) {
-        //HW.rearDriveMotor.set(0.0);
-        //HW.frontDriveMotor.set(0.0);
-        HW.leftDriveMotor.set(0.0);
-        HW.rightDriveMotor.set(0.0);
-        stopped = true;
+            //HW.rearDriveMotor.set(0.0);
+            //HW.frontDriveMotor.set(0.0);
+            HW.leftDriveMotor.set(0.0);
+            HW.rightDriveMotor.set(0.0);
+            stopped = true;
         } else if (HW.driveStick1.getRawButton(8)) {
-        HW.turnController.setVelocity(-45.0, -45.0);
-        stopped = false;
+            HW.turnController.setVelocity(-45.0, -45.0);
+            stopped = false;
         } else if (!stopped) {
-        HW.turnController.controller();
-        }
-         */
-
-
-        /* Ultrasonic Test
-        HW.ultra.setAutomaticMode(true);
-        DiscoUtils.debugPrintln("isValid: " + HW.ultra.isRangeValid());
-        DiscoUtils.debugPrintln("Ultrasonic Rangefinder: " + HW.ultra.getRangeInches());
-         */
-
-        /*if(HW.leftVelocityController.controller()) {
-        DiscoUtils.debugPrintln("getRate(mine): " + HW.leftEncoder.getRate(0.01));
-        DiscoUtils.debugPrintln("getRate(wpi) : " + HW.leftEncoder.getRate());
-        DiscoUtils.debugPrintln("");
+            HW.turnController.controller();
         }*/
-
-        /*DiscoUtils.debugPrintln("\n\n");
-        DiscoUtils.debugPrintln("Actual Left Rate:   " + HW.leftEncoder.getRate());
-        DiscoUtils.debugPrintln("Left Encoder Rate:  " + HW.leftEncoder.getRate(0.01));
-        DiscoUtils.debugPrintln("Right Encoder Rate: " + HW.rightEncoder.getRate(0.01) + "\n");
-        DiscoUtils.debugPrintln("Left Encoder Test Distance:    " + HW.leftEncoder.getTestDistance());
-        DiscoUtils.debugPrintln("Left Encoder Actual Distance:  " + HW.leftEncoder.getDistance());
-        DiscoUtils.debugPrintln("Right Encoder Test Distance:   " + HW.rightEncoder.getTestDistance());
-        DiscoUtils.debugPrintln("Right Encoder Actual Distance: " + HW.rightEncoder.getDistance());
-         */
     }
 }

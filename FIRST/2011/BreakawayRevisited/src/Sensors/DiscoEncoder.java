@@ -2,23 +2,51 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Sensors;
 
 import edu.wpi.first.wpilibj.*;
+import java.util.TimerTask;
+import Utils.DiscoUtils;
+
 /**
  *
  * @author Nelson
  */
 public class DiscoEncoder extends Encoder {
 
+    public static final double kDefaultPeriod = .05;
+    private double m_period = kDefaultPeriod;
     double oldTime = 0.0;
     double oldPosition = 0.0;
-    double testDistance = 0.0;
-    double integratedDistance = 0.0;
+    double velocity = 0.0;
+    java.util.Timer m_controlLoop;
+
+    private class EncoderRateTask extends TimerTask {
+
+        private DiscoEncoder m_encoder;
+
+        public EncoderRateTask(DiscoEncoder encoder) {
+            if (encoder == null) {
+                throw new NullPointerException("Given DiscoEncoder was null");
+            }
+            m_encoder = encoder;
+        }
+
+        public void run() {
+            m_encoder.calculateRate();
+            Timer.delay(0.01);
+        }
+    }
+
+    public void init() {
+        start();
+        reset();
+        m_controlLoop = new java.util.Timer();
+        m_controlLoop.schedule(new EncoderRateTask(this), 0L, (long) (m_period * 1000));
+    }
 
     public DiscoEncoder(final int aSlot, final int bSlot, boolean reversed,
-                                            CounterBase.EncodingType x) {
+            CounterBase.EncodingType x) {
         super(aSlot, bSlot, reversed, x);
         oldTime = Timer.getFPGATimestamp();
         oldPosition = getDistance();
@@ -33,27 +61,26 @@ public class DiscoEncoder extends Encoder {
         oldPosition = getDistance();
     }
 
-    public double getRate(double delay) {   //delay in seconds
-        if((Timer.getFPGATimestamp() - oldTime) > delay) {
-            double newTime = Timer.getFPGATimestamp();
-            double timeDiff = newTime - oldTime;
-            double newPosition = getDistance();
+    public void calculateRate() {   //delay in seconds
+        double newTime = Timer.getFPGATimestamp();
+        double timeDiff = newTime - oldTime;
+        double newPosition = getDistance();
+        synchronized (this) {
             double velocity = (newPosition - oldPosition) / timeDiff;
-            testDistance += velocity * timeDiff;
-            integratedDistance += getRate() * timeDiff;
             oldPosition = newPosition;
             oldTime = newTime;
-            return velocity;
         }
-        else
-            return 0.0;
     }
 
-    public double getTestDistance() {
-        return testDistance;
+    /**
+     * Free the EncoderRateTask
+     */
+    protected void free() {
+        m_controlLoop.cancel();
+        m_controlLoop = null;
     }
 
-    public double getIntegratedDistance() {
-        return integratedDistance;
+    public synchronized double getRate() {
+        return velocity;
     }
 }
