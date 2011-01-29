@@ -13,6 +13,7 @@ public class VelocityController {
 
     public static final double kDefaultPeriod = .05;
     private double m_period = kDefaultPeriod;
+    private final double kp = 1.0;
     private final double ki = 0.02;
     double iterm = 0.0;
     private double goalVelocity = 0.0;
@@ -92,7 +93,7 @@ public class VelocityController {
         double error = goalVelocity - encoder.getRate();
         iterm += (m_period * error);
         //distTraveled += distDiff;
-        double result = velocityToOutput(goalVelocity) + (ki * iterm); // + (kp * error);
+        double result = velocityToOutput(goalVelocity) + (error * kp) + (ki * iterm); // + (kp * error);
         return result;
     }
 

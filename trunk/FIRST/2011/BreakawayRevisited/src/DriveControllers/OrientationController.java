@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.*;
 public class OrientationController {
 
     final double ki = 20.0;
+    final double kp = 5.0;
     double iterm = 0.0;
     final double itermMax = 30;
     final double maxError = 1.0;
@@ -51,19 +52,20 @@ public class OrientationController {
     private void adjustVelocity() {
         double timeDiff = (Timer.getFPGATimestamp() - oldTime);
 
-        double error = goalHeading + gyro.getAngle();
+        double error = gyro.getAngle();// + goalHeading;
         //DiscoUtils.debugPrintln("\n\nHeading error: " + error);
 
-        if(error < maxError)
+        /*if(error < maxError)
             iterm = 0.0;
 
         if (Math.abs(iterm) < itermMax) {
             iterm += error * timeDiff;
-            DiscoUtils.debugPrintln("\n\nHeading iterm: " + iterm);
-            DiscoUtils.debugPrintln("Gyro: " + gyro.getAngle());
-        }
-        leftVelocityOutput = limit(leftGoalVelocity - iterm * ki);
-        rightVelocityOutput = limit(rightGoalVelocity + iterm * ki);
+            //DiscoUtils.debugPrintln("\n\nHeading iterm: " + iterm);
+            DiscoUtils.debugPrintln("\n\nGyro: " + gyro.getAngle());
+        }*/
+        DiscoUtils.debugPrintln("\n\nGyro: " + gyro.getAngle());
+        leftVelocityOutput = limit(leftGoalVelocity + error * kp);
+        rightVelocityOutput = limit(rightGoalVelocity - error * kp);
         DiscoUtils.debugPrintln("leftOutput: " + leftVelocityOutput);
         DiscoUtils.debugPrintln("rightOutput: " + rightVelocityOutput);
         DiscoUtils.debugPrintln("leftVelocity: " + leftMotor.getVelocity());
@@ -83,7 +85,7 @@ public class OrientationController {
     }
 
     public void controller() {
-        if ((Timer.getFPGATimestamp() - oldTime) > 0.05) {
+        if ((Timer.getFPGATimestamp() - oldTime) > 0.5) {
             adjustVelocity();
             oldTime = Timer.getFPGATimestamp();
             leftMotor.setGoalVelocity(leftVelocityOutput);
