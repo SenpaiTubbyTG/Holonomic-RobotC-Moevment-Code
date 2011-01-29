@@ -11,8 +11,7 @@
 //====================================================================
 package Breakaway;
 
-import DriveControllers.OrientationController;
-import DriveControllers.VelocityController;
+import DriveControllers.*;
 import Utils.*;
 import Sensors.*;
 import edu.wpi.first.wpilibj.*;
@@ -215,14 +214,18 @@ public class HW {
     //public static DataLogger gyroLog =
       //      new DataLogger("Gyro", "Gyro Angle");
 
-    public static VelocityController leftVelocityController =
+   /* public static VelocityController leftVC =
             new VelocityController(EncoderLeft, leftDriveMotor);
 
-    public static VelocityController rightVelocityController =
+    public static VelocityController rightVC =
             new VelocityController(EncoderRight, rightDriveMotor);
-
+*/
     //public static OrientationController turnController =
-      //      new OrientationController(gyro, rightVelocityController, leftVelocityController);
+      //      new OrientationController(gyro, rightVC, leftVC);
+
+    public static VelocityController2 rightVC = new VelocityController2(0.1, 0.2, 0.0, EncoderRight, rightDriveMotor);
+    public static VelocityController2 leftVC = new VelocityController2(0.1, 0.2, 0.0, EncoderLeft, leftDriveMotor);
+    public static DataLogger vcDataLogger = new DataLogger("vc", "output");
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------
@@ -232,8 +235,7 @@ public class HW {
 //-------------------------------------
 //                 Autonomous class
 //-------------------------------------
-   public static DiscoDrive drive = new DiscoDrive(leftDriveMotor,rightDriveMotor,
-            frontDriveMotor,rearDriveMotor,gyro,rawGyro);
+   public static RobotDrive drive = new RobotDrive(leftDriveMotor,rightDriveMotor);
 
    public static DigitalInput autonMode = new DigitalInput(6,8);
    //public static DigitalInput backZoneAuton = new DigitalInput(6,9);
