@@ -6,13 +6,12 @@ package Sensors;
 
 import edu.wpi.first.wpilibj.*;
 import java.util.TimerTask;
-import Utils.DiscoUtils;
 
 /**
  *
  * @author Nelson
  */
-public class DiscoEncoder extends Encoder {
+public class DiscoEncoder extends Encoder implements PIDSource {
 
     public static final double kDefaultPeriod = .05;
     private double m_period = kDefaultPeriod;
@@ -66,7 +65,7 @@ public class DiscoEncoder extends Encoder {
         double timeDiff = newTime - oldTime;
         double newPosition = getDistance();
         synchronized (this) {
-            double velocity = (newPosition - oldPosition) / timeDiff;
+            velocity = (newPosition - oldPosition) / timeDiff;
             oldPosition = newPosition;
             oldTime = newTime;
         }
@@ -80,6 +79,10 @@ public class DiscoEncoder extends Encoder {
         m_controlLoop = null;
     }
 
+    public synchronized double pidGet() {
+        return velocity;
+    }
+    
     public synchronized double getRate() {
         return velocity;
     }
