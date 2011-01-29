@@ -87,9 +87,9 @@ public class Main extends IterativeRobot {
     public void teleopPeriodic() {
         //Teleop tank drive using VelocityController
         HW.leftVelocityController.setGoalVelocity(
-                (HW.driveStickLeft.getY() + HW.driveStickRight.getX()) * 130);
-        HW.rightVelocityController.setGoalVelocity(
                 (HW.driveStickLeft.getY() - HW.driveStickRight.getX()) * 130);
+        HW.rightVelocityController.setGoalVelocity(
+                (HW.driveStickLeft.getY() + HW.driveStickRight.getX()) * 130);
         
         //DiscoUtils.debugPrintln("leftEncoderVelocity: " + HW.EncoderLeft.getRate());
         //DiscoUtils.debugPrintln("rightEncoderVelocity: " + HW.EncoderRight.getRate());
