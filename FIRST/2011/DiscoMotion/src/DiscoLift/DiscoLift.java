@@ -116,6 +116,7 @@ public class DiscoLift {
         if (m_lowerLimit != null) {
             return m_lowerLimit.get();
         } else {
+            DiscoUtils.debugPrintln("Attempting to Check Lower Limit but Limit Switch Undefined");
             return false;
         }
     }
@@ -128,6 +129,7 @@ public class DiscoLift {
         if (m_upperLimit != null) {
             return m_upperLimit.get();
         } else {
+            DiscoUtils.debugPrintln("Attempting to Check Upper Limit but Limit Switch Undefined");
             return false;
         }
     }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package DriveControllers;
 
 import edu.wpi.first.wpilibj.*;
@@ -25,7 +24,7 @@ public class DiscoDrive extends RobotDrive {
     private double NUMBER_OF_MOTORS = 4;
 
     public DiscoDrive(SpeedController frontLeftMotor, SpeedController frontRightMotor,
-            SpeedController rearRightMotor, SpeedController rearLeftMotor){
+            SpeedController rearRightMotor, SpeedController rearLeftMotor) {
         super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
     }
 
@@ -41,8 +40,8 @@ public class DiscoDrive extends RobotDrive {
      * @param rotation The rate of rotation for the robot that is completely independent of
      * the magnitude or direction.  [-1.0..1.0]
      */
-    void holonomicDrive(double magnitude, double direction, double rotation) {
-         // Normalized for full power along the Cartesian axes.
+    public void holonomicDrive(double magnitude, double direction, double rotation) {
+        // Normalized for full power along the Cartesian axes.
         magnitude = limit(magnitude) * Math.sqrt(2.0);
         // The rollers are at 45 degree angles.
         double dirInRad = (direction + 45.0) * 3.14159 / 180.0;
@@ -54,13 +53,13 @@ public class DiscoDrive extends RobotDrive {
         wheelSpeeds[MotorType.kRearRight.value] = (sinD * magnitude - rotation);
         wheelSpeeds[MotorType.kFrontRight.value] = (cosD * magnitude + rotation);
         wheelSpeeds[MotorType.kRearLeft.value] = (cosD * magnitude - rotation);
-        
-        
+
+
 
 
         normalize(wheelSpeeds);
 
-        byte syncGroup = (byte)0x80;
+        byte syncGroup = (byte) 0x80;
 
         m_frontLeftMotor.set(wheelSpeeds[MotorType.kFrontLeft.value] * m_invertedMotors[MotorType.kFrontLeft.value] * m_maxOutput, syncGroup);
         m_frontRightMotor.set(wheelSpeeds[MotorType.kFrontRight.value] * m_invertedMotors[MotorType.kFrontRight.value] * m_maxOutput, syncGroup);
@@ -72,10 +71,13 @@ public class DiscoDrive extends RobotDrive {
                 CANJaguar.updateSyncGroup(syncGroup);
             } catch (CANNotInitializedException e) {
                 m_isCANInitialized = false;
-            } catch (CANTimeoutException e) {}
+            } catch (CANTimeoutException e) {
+            }
         }
 
-        if (m_safetyHelper != null) m_safetyHelper.feed();
+        if (m_safetyHelper != null) {
+            m_safetyHelper.feed();
+        }
     }
 
     /**
@@ -88,8 +90,23 @@ public class DiscoDrive extends RobotDrive {
      * @param rotation
      * @param gyro
      */
-    void holonomicDrive(double magnitude, double direction, double rotation, Gyro gyro){
+    public void holonomicDrive(double magnitude, double direction, double rotation, Gyro gyro) {
         holonomicDrive(magnitude, direction + gyro.getAngle(), rotation);
     }
-}
 
+    /**
+     * Sets individual motor speeds to certain values
+     * Will invert the motors properly and limit them with setMaxOutput(double)
+     * @param frontLeftSpeed
+     * @param frontRightSpeed
+     * @param rearLeftSpeed
+     * @param rearRightSpeed
+     */
+    public void setMotorSpeeds(double frontLeftSpeed, double frontRightSpeed, double rearLeftSpeed, double rearRightSpeed) {
+        byte syncGroup = (byte) 0x80;
+        m_frontLeftMotor.set(frontLeftSpeed * m_invertedMotors[MotorType.kFrontLeft.value] * m_maxOutput, syncGroup);
+        m_frontRightMotor.set(frontRightSpeed * m_invertedMotors[MotorType.kFrontRight.value] * m_maxOutput, syncGroup);
+        m_rearLeftMotor.set(rearLeftSpeed * m_invertedMotors[MotorType.kRearLeft.value] * m_maxOutput, syncGroup);
+        m_rearRightMotor.set(rearRightSpeed * m_invertedMotors[MotorType.kRearRight.value] * m_maxOutput, syncGroup);
+    }
+}
