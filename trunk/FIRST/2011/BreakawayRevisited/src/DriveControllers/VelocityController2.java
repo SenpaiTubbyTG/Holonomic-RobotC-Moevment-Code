@@ -20,7 +20,7 @@ import java.util.TimerTask;
  */
 public class VelocityController2 implements IUtility{
 
-    public static final double kDefaultPeriod = .05;
+    public static final double kDefaultPeriod = .1;
 
     private double m_P;			// factor for "proportional" control
     private double m_I;			// factor for "integral" control
@@ -40,6 +40,7 @@ public class VelocityController2 implements IUtility{
     private double m_period = kDefaultPeriod;
     private boolean m_invertedOutput = false;
     private int debugCounter =0;
+    private int i;
     PIDSource m_pidInput;
     PIDOutput m_pidOutput;
     java.util.Timer m_controlLoop;
@@ -148,9 +149,10 @@ public class VelocityController2 implements IUtility{
                         && ((m_totalError + m_error) * m_I > m_minimumOutput)) {
                     m_totalError += m_error;
                 }
-
                 m_result +=  (m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError));
                 m_prevError = m_error;
+
+                Utils.DiscoUtils.debugPrintln("m_input = " + input +" / m_error = " + m_error  + " / m_totalError = " + m_totalError + " / m_result = " + m_result);
 
                 if (m_result > m_maximumOutput) {
                     m_result = m_maximumOutput;
@@ -170,8 +172,9 @@ public class VelocityController2 implements IUtility{
         }
     }
 
-    private double feedFowardTerm(double velocity) {
+    private double feedForwardTerm(double velocity) {
         double ffterm = 0.0;
+        velocity = velocity * 12;
         if (velocity <= -100) {
             ffterm = -0.80;
         } else if (velocity <= -75) {
