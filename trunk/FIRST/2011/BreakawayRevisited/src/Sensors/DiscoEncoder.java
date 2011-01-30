@@ -13,7 +13,7 @@ import java.util.TimerTask;
  */
 public class DiscoEncoder extends Encoder implements PIDSource {
 
-    public static final double kDefaultPeriod = .01;
+    public static final double kDefaultPeriod = .05;
     private double m_period = kDefaultPeriod;
     //private double oldTime = 0.0;
     private boolean m_enabled = false;
@@ -92,7 +92,7 @@ public class DiscoEncoder extends Encoder implements PIDSource {
      */
     public synchronized double pidGet() {
         //return feet per sec
-        return m_velocity / 12;
+        return m_velocity;
     }
 
     /**
@@ -100,7 +100,7 @@ public class DiscoEncoder extends Encoder implements PIDSource {
      * @return
      */
     public synchronized double getRate() {
-        return m_velocity / 12;
+        return m_velocity;
     }
 
     /**
