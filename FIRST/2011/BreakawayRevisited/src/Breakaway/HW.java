@@ -168,12 +168,12 @@ public class HW {
      *  The Front Encoder
      */
      public static DiscoEncoder EncoderLeft =
-        new DiscoEncoder(11, 12, false, Encoder.EncodingType.k2X);
+        new DiscoEncoder(11, 12, true, Encoder.EncodingType.k2X);
     /**
      *  The Rear Encoder
      */
      public static DiscoEncoder EncoderRight =
-         new DiscoEncoder(9, 10, false, Encoder.EncodingType.k2X);
+         new DiscoEncoder(9, 10, true, Encoder.EncodingType.k2X);
 
      public static DigitalInput limit1 =
             new DigitalInput(3);
@@ -214,17 +214,17 @@ public class HW {
     //public static DataLogger gyroLog =
       //      new DataLogger("Gyro", "Gyro Angle");
 
-   /* public static VelocityController leftVC =
+    public static VelocityController leftVC =
             new VelocityController(EncoderLeft, leftDriveMotor);
 
     public static VelocityController rightVC =
             new VelocityController(EncoderRight, rightDriveMotor);
-*/
+
     //public static OrientationController turnController =
       //      new OrientationController(gyro, rightVC, leftVC);
 
-    public static VelocityController2 rightVC = new VelocityController2(0.1, 0.2, 0.0, EncoderRight, rightDriveMotor);
-    public static VelocityController2 leftVC = new VelocityController2(0.1, 0.2, 0.0, EncoderLeft, leftDriveMotor);
+    //public static VelocityController2 rightVC = new VelocityController2(0.1, 0.2, 0.0, EncoderRight, rightDriveMotor);
+    //public static VelocityController2 leftVC = new VelocityController2(0.1, 0.2, 0.0, EncoderLeft, leftDriveMotor);
     public static DataLogger vcDataLogger = new DataLogger("vc", "output");
 //-------------------------------------
 //                 Ultrasonic class
