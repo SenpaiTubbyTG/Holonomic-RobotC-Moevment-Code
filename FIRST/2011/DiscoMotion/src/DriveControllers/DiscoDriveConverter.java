@@ -47,9 +47,14 @@ public class DiscoDriveConverter implements PIDOutput, PIDSource {
             this.value = value;
         }
     }
-    private double m_speed = 0.0;
-    private double m_direction = 0.0;
-    private double m_Twist = 0.0;
+    private double m_inputSpeed = 0.0;
+    private double m_inputDirection = 0.0;
+    private double m_inputTwist = 0.0;
+    private double m_pidValue = 0.0;
+    private double m_minOutput = -1.0;
+    private double m_maxOutput = 1.0;
+    private double m_minInput = -1.0;
+    private double m_maxInput = 1.0;
     private Output m_output;
 
     /**
@@ -57,13 +62,27 @@ public class DiscoDriveConverter implements PIDOutput, PIDSource {
      * @param inputSpeed
      * @param inputDirection
      * @param inputTwist
-     * @param output
+     * @param output either Output.kSpeed, Output.kDirection, or Output.kTwist
      */
     public DiscoDriveConverter(double inputSpeed, double inputDirection, double inputTwist, Output output) {
-        m_speed = inputSpeed;
-        m_direction = inputDirection;
-        m_Twist = inputTwist;
+        m_inputSpeed = inputSpeed;
+        m_inputDirection = inputDirection;
+        m_inputTwist = inputTwist;
         m_output = output;
+    }
+
+    public DiscoDriveConverter(double inputSpeed, double inputDirection, double inputTwist, Output output,
+                                double minOutput, double maxOutput) {
+        this(inputSpeed, inputDirection, inputTwist, output);
+        m_minOutput = minOutput;
+        m_maxOutput = maxOutput;
+    }
+
+    public DiscoDriveConverter(double inputSpeed, double inputDirection, double inputTwist, Output output,
+                                double minOutput, double maxOutput, double minInput, double maxInput) {
+        this(inputSpeed, inputDirection, inputTwist, output, minOutput, maxOutput);
+        m_minInput = minInput;
+        m_maxInput = maxInput;
     }
 
     public void pidWrite(double input) {
@@ -92,31 +111,64 @@ public class DiscoDriveConverter implements PIDOutput, PIDSource {
         }
     }
 
+    private void scaleOutput() {
+        double scalingFactor = (-m_minInput - ((m_maxInput - m_minInput) / 2)) * (m_maxOutput - m_minOutput);
+        switch (m_output.value) {
+            case Output.kSpeed_val:
+                setSpeed(m_inputSpeed * scalingFactor);
+            case Output.kDirection_val:
+                setDirection(m_inputDirection * scalingFactor);
+            case Output.kTwist_val:
+                setTwist(m_inputTwist * scalingFactor);
+            default:
+                DiscoUtils.debugPrintln("Output Type not matched in DiscoDriveConverter");
+        }
+    }
+
     public double getSpeed() {
-        return m_speed;
+        scaleOutput();
+        return m_inputSpeed;
     }
 
     public double getDirection() {
-        return m_direction;
+        scaleOutput();
+        return m_inputDirection;
     }
 
     public double getTwist() {
-        return m_Twist;
+        scaleOutput();
+        return m_inputTwist;
     }
 
     public void setSpeed(double speed) {
-        m_speed = speed;
+        m_inputSpeed = speed;
     }
 
     public void setDirection(double direction) {
-        m_direction = direction;
+        m_inputDirection = direction;
     }
 
     public void setTwist(double twist) {
-        m_Twist = twist;
+        m_inputTwist = twist;
     }
 
     public void setOutput(Output output) {
         m_output = output;
+    }
+
+    public void setMaxInput(double maxInput) {
+        m_maxInput = maxInput;
+    }
+
+    public void setMinInput(double minInput) {
+        m_minInput = minInput;
+    }
+
+    public void setMaxOutput(double maxOutput) {
+        m_maxOutput = maxOutput;
+    }
+
+    public void setMinOutput(double minOutput) {
+        m_minOutput = minOutput;
     }
 }
