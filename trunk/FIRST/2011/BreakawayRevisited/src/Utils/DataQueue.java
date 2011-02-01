@@ -62,8 +62,8 @@ public class DataQueue {
         @purpose constructor - creates a new DataNode with timestamp and data in double format
         ------------------------------------------------------- */
         public DataNode(double d, double t) {
-            time = t;
             data = d;
+            time = t;
         }
 
         public void setNext(DataNode n) {

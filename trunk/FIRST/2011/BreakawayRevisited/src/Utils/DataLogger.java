@@ -3,10 +3,6 @@ package Utils;
 import java.util.TimerTask;
 import edu.wpi.first.wpilibj.Timer;
 
-import Breakaway.HW;
-import Utils.DiscoUtils;
-import edu.wpi.first.wpilibj.ADXL345_I2C.Axes;
-
 /** -------------------------------------------------------
  * @class DataLogger
  * @purpose Class for logging a single variable as the robot runs
@@ -24,11 +20,12 @@ public class DataLogger {
     //DataQueue for storing data in a queue
     private DataQueue dataLog = new DataQueue();
 
-    public static final double kDefaultPeriod = .5;
+    public static final double kDefaultPeriod = .05;
     private double m_period = kDefaultPeriod;
     java.util.Timer m_controlLoop;
     private boolean m_enabled = false;
     private double m_startTime;
+    private double entryValue = 0.0;
 
 
     private class DataLoggerTask extends TimerTask {
@@ -44,7 +41,7 @@ public class DataLogger {
 
         public void run() {
             if(m_enabled) {
-                m_dataLogger.addEntry(HW.accel.getAcceleration(Axes.kX));
+                m_dataLogger.addEntry(entryValue);
             }
         }
     }
@@ -61,7 +58,6 @@ public class DataLogger {
     }
 
     public void init() {
-        m_enabled = true;
         m_controlLoop = new java.util.Timer();
         m_controlLoop.schedule(new DataLoggerTask(this), 0L, (long) (m_period * 1000));
     }
@@ -71,10 +67,11 @@ public class DataLogger {
     }
     public void enable() {
         m_enabled = true;
-        m_startTime = Timer.getFPGATimestamp();
     }
 
-
+    public void setEntryValue(double v) {
+        entryValue = v;
+    }
     /**
      * adds another entry to the datalog
      * @param entry - DataNode to be added to the DataQueue
@@ -91,7 +88,6 @@ public class DataLogger {
         file.writeLine(header);
         while (dataLog.peek() != null) {
             file.writeLine(dataLog.deQueue());
-            DiscoUtils.debugPrintln("line written");
         }
     }
 }
