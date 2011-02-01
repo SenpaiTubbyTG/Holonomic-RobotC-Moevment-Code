@@ -20,7 +20,7 @@ import java.util.TimerTask;
  */
 public class VelocityController2 implements IUtility{
 
-    public static final double kDefaultPeriod = .1;
+    public static final double kDefaultPeriod = .01;
 
     private double m_P;			// factor for "proportional" control
     private double m_I;			// factor for "integral" control
@@ -152,7 +152,7 @@ public class VelocityController2 implements IUtility{
                 m_result +=  (m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError));
                 m_prevError = m_error;
 
-                Utils.DiscoUtils.debugPrintln("m_input = " + input +" / m_error = " + m_error  + " / m_totalError = " + m_totalError + " / m_result = " + m_result);
+                //Utils.DiscoUtils.debugPrintln("m_input = " + input +" / m_error = " + m_error  + " / m_totalError = " + m_totalError + " / m_result = " + m_result);
 
                 if (m_result > m_maximumOutput) {
                     m_result = m_maximumOutput;
@@ -167,7 +167,6 @@ public class VelocityController2 implements IUtility{
                     result = m_result;
                 }
             }
-
             pidOutput.pidWrite(result);
         }
     }
@@ -345,7 +344,6 @@ public class VelocityController2 implements IUtility{
      * Stop running the VelocityController2, this sets the output to zero before stopping.
      */
     public synchronized void disable() {
-        m_pidOutput.pidWrite(0);
         m_enabled = false;
     }
 
@@ -360,7 +358,6 @@ public class VelocityController2 implements IUtility{
      * Reset the previous error,, the integral term, and disable the controller.
      */
     public synchronized void reset() {
-        disable();
         m_prevError = 0;
         m_totalError = 0;
         m_result = 0;

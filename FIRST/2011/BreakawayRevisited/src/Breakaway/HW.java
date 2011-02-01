@@ -159,8 +159,8 @@ public class HW {
     /**
      *  The accelerometer
      */
-    public static Accelerometer accel =
-            new Accelerometer(2);
+    public static ADXL345_I2C accel =
+            new ADXL345_I2C(4, ADXL345_I2C.DataFormat_Range.k8G);
 //-------------------------------------
 //          Digital classes
 //-------------------------------------
@@ -211,8 +211,10 @@ public class HW {
 //                 Ancillary classes
 //-------------------------------------
 
-    //public static DataLogger gyroLog =
-      //      new DataLogger("Gyro", "Gyro Angle");
+    public static DataLogger rightVCLog =
+            new DataLogger("rightVC Log", "rightVCError");
+    public static DataLogger leftVCLog =
+            new DataLogger("leftVC Log", "leftVCError");
 
    /* public static VelocityController leftVC =
             new VelocityController(EncoderLeft, leftDriveMotor);
@@ -223,9 +225,9 @@ public class HW {
     //public static OrientationController turnController =
       //      new OrientationController(gyro, rightVC, leftVC);
 
-    public static VelocityController2 rightVC = new VelocityController2(0.1, 0.2, 0.0, EncoderRight, rightDriveMotor);
-    public static VelocityController2 leftVC = new VelocityController2(0.1, 0.2, 0.0, EncoderLeft, leftDriveMotor);
-    public static DataLogger vcDataLogger = new DataLogger("vc", "output");
+    public static VelocityController2 rightVC = new VelocityController2(0.003, 0.0, 0.0, EncoderRight, rightDriveMotor);
+    public static VelocityController2 leftVC = new VelocityController2(0.003, 0.0, 0.0, EncoderLeft, leftDriveMotor);
+    //public static DataLogger vcDataLogger = new DataLogger("vc", "output");
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------

@@ -63,15 +63,8 @@ public class OrientationController {
             //DiscoUtils.debugPrintln("\n\nHeading iterm: " + iterm);
             DiscoUtils.debugPrintln("\n\nGyro: " + gyro.getAngle());
         }*/
-        DiscoUtils.debugPrintln("\n\nGyro: " + gyro.getAngle());
         leftVelocityOutput = limit(leftGoalVelocity + error * kp);
         rightVelocityOutput = limit(rightGoalVelocity - error * kp);
-        DiscoUtils.debugPrintln("leftOutput: " + leftVelocityOutput);
-        DiscoUtils.debugPrintln("rightOutput: " + rightVelocityOutput);
-        DiscoUtils.debugPrintln("leftVelocity: " + leftMotor.getVelocity());
-        DiscoUtils.debugPrintln("rightVelocity: " + rightMotor.getVelocity());
-        DiscoUtils.debugPrintln("OLDleftGoal: " + leftMotor.getGoalVelocity());
-        DiscoUtils.debugPrintln("OLDrightGoal: " + rightMotor.getGoalVelocity());
     }
 
     private double limit(double value) {
