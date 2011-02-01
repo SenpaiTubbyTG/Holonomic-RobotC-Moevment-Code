@@ -1,7 +1,5 @@
 package Utils;
 
-import edu.wpi.first.wpilibj.Timer;
-
 /** -------------------------------------------------------
  * @class DataQueue
  * @purpose queue class for storing DataNodes
@@ -10,22 +8,24 @@ import edu.wpi.first.wpilibj.Timer;
 ------------------------------------------------------- */
 public class DataQueue {
 
-    DataNode head;
-    DataNode tail;
+    private DataNode head = null;
+    private DataNode tail = null;
 
-    public DataQueue() {
-        head = null;
-        tail = null;
+    public void enQueue(double n, double t) {
+        if (head == null) {
+            DataNode buffer = new DataNode(n, t);
+            head = buffer;
+            tail = buffer;
+        } else {
+            DataNode buffer = new DataNode(n, t);
+            tail.setNext(buffer);
+            tail = buffer;
+        }
     }
 
-    public void enQueue(double n) {
-        if (head == null && tail == null) {
-            head = new DataNode(n);
-            tail = new DataNode(n);
-        } else {
-            tail.setNext(new DataNode(n));
-            tail = new DataNode(n);
-        }
+    public void empty() {
+        head = null;
+        tail = null;
     }
 
     public DataNode peek() {
@@ -61,8 +61,8 @@ public class DataQueue {
         @param d - data; generic for greater versatility
         @purpose constructor - creates a new DataNode with timestamp and data in double format
         ------------------------------------------------------- */
-        public DataNode(double d) {
-            time = Timer.getFPGATimestamp();
+        public DataNode(double d, double t) {
+            time = t;
             data = d;
         }
 
