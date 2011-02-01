@@ -36,6 +36,7 @@ public class Main extends IterativeRobot {
         HW.EncoderRight.setDistancePerPulse((8 * Math.PI) / 47 / 3);
         HW.EncoderRight.init();
 
+
     }
 
     /**
@@ -79,15 +80,10 @@ public class Main extends IterativeRobot {
         HW.gyro.reset();
         HW.EncoderLeft.start();
         HW.EncoderRight.start();
-        HW.leftVC.setReversed(true);
 
-        HW.leftVC.init();
-        HW.rightVC.init();
-
-        /*leftVC.enable();
-        rightVC.enable();
-        leftVC.setSetpoint(0);
-        rightVC.setSetpoint(0);*/
+        HW.leftVC.setInverted(true);
+        HW.leftVC.enable();
+        HW.rightVC.enable();
         //HW.turnController.initialize();
         //HW.ultra.setDistanceUnits(Ultrasonic.Unit.kInches);
     }
@@ -96,39 +92,82 @@ public class Main extends IterativeRobot {
 
     public void teleopPeriodic() {
         goal = HW.driveStickLeft.getY() * 130.0;
-        if (HW.driveStickLeft.getRawButton(8)) {
-            HW.leftVC.setGoalVelocity(goal);
-            HW.rightVC.setGoalVelocity(goal);
-            HW.leftVC.controller();
-            HW.rightVC.controller();
-        } else if (HW.driveStickLeft.getTrigger()) {
+        if (HW.driveStickLeft.getTrigger()) {
             HW.leftVC.enable();
             HW.rightVC.enable();
-        } else if (HW.driveStickLeft.getRawButton(2)) {
-            HW.leftVC.disable();
+            HW.leftVC.setSetpoint(0.0);
+            HW.rightVC.setSetpoint(0.0);
+
+        } else if (HW.kickhandle.getRawButton(7)) {
+            HW.leftDriveMotor.set(-HW.driveStickRight.getY());
+            HW.rightDriveMotor.set(HW.driveStickRight.getY());
+
+            if (i > 10) {
+                DiscoUtils.debugPrintln("leftOutput: " + HW.leftDriveMotor.get());
+                DiscoUtils.debugPrintln("rightOutput: " + HW.rightDriveMotor.get());
+
+                DiscoUtils.debugPrintln("left pidGet: " + HW.EncoderLeft.pidGet() + " ft/s");
+                DiscoUtils.debugPrintln("right pidGet: " + HW.EncoderRight.pidGet() + " ft/s");
+                i = 0;
+            } else {
+                i++;
+            }
+
+        } else if (HW.kickhandle.getRawButton(8)) {
+           // HW.leftVC.enable();
+            HW.rightVC.enable();
+            //HW.leftVC.setSetpoint(2);
+            HW.rightVC.setSetpoint(9);
+            HW.vcDataLogger.addEntry(HW.rightVC.get());
+            dataLogged = false;
+            
+            /*DiscoUtils.debugPrintln("leftError: " + leftVC.getError());
+            DiscoUtils.debugPrintln("rightError: " + rightVC.getError());*/
+
+            /*if (i > 5) {
+                DiscoUtils.debugPrintln("leftOutput: " + HW.leftDriveMotor.get());
+                DiscoUtils.debugPrintln("rightOutput: " + HW.rightDriveMotor.get());
+
+                DiscoUtils.debugPrintln("left pidGet: " + HW.EncoderLeft.pidGet() + "ft/s");
+                DiscoUtils.debugPrintln("right pidGet: " + HW.EncoderRight.pidGet() + "ft/s");
+
+                //DiscoUtils.debugPrintln("leftError: " + HW.leftVC.getError());
+                DiscoUtils.debugPrintln("rightError: " + HW.rightVC.getError());
+
+                //DiscoUtils.debugPrintln("leftVCoutput: " + HW.leftVC.get());
+                DiscoUtils.debugPrintln("rightVCoutput: " + HW.rightVC.get());
+
+                i = 0;
+            } else {
+                i++;
+            }*/
+        } else  {
+            HW.rightVC.reset();
+            //HW.leftVC.reset();
+            HW.drive.drive(HW.driveStickLeft.getY(), HW.driveStickRight.getX());
+
+
+            if (i > 10) {
+                DiscoUtils.debugPrintln("left output: " + HW.leftDriveMotor.get());
+                DiscoUtils.debugPrintln("right output: " + HW.rightDriveMotor.get());
+
+                DiscoUtils.debugPrintln("left pidGet: " + HW.EncoderLeft.pidGet() + "ft/s");
+                DiscoUtils.debugPrintln("right pidGet: " + HW.EncoderRight.pidGet() + "ft/s");
+
+                DiscoUtils.debugPrintln("left distance: " + HW.EncoderLeft.getDistance() + "ins");
+                DiscoUtils.debugPrintln("right distance: " + HW.EncoderRight.getDistance() + "ins");
+
+                DiscoUtils.debugPrintln("left integrated distance: " + HW.EncoderLeft.getIntDistance() + "ins");
+                DiscoUtils.debugPrintln("right integrated distance: " + HW.EncoderRight.getIntDistance() + "ins");
+                i = 0;
+            } else {
+                i++;
+            }
+
             HW.rightVC.disable();
-        }
+            //HW.leftVC.disable();
 
-        DiscoUtils.debugPrintln("\n\nleftVel: " + HW.EncoderLeft.getRate());
-        DiscoUtils.debugPrintln("rightVe: " + HW.EncoderRight.getRate());
-        DiscoUtils.debugPrintln("leftOut: " + HW.leftDriveMotor.get());
-        DiscoUtils.debugPrintln("rightOut: " + HW.rightDriveMotor.get());
-        //DiscoUtils.debugPrintln("error: " + HW.rightVC.error);
-        //DiscoUtils.debugPrintln("iterm: " + HW.rightVC.iterm);
-        //HW.rightVC.setGoalVelocity(goal);
-        //HW.drive.tankDrive(HW.leftVC.controller(), HW.rightVC.controller());
-
-        //DiscoUtils.debugPrintln("GOAL: " + goal);
-        /*DiscoUtils.debugPrintln(
-        "leftOutput: " + HW.leftDriveMotor.get());
-        DiscoUtils.debugPrintln(
-        "rightOutput: " + HW.rightDriveMotor.get());
-        DiscoUtils.debugPrintln(
-        "leftVelocity: " + HW.EncoderLeft.getRate());
-        DiscoUtils.debugPrintln(
-        "rightVelocity: " + HW.EncoderRight.getRate());*/
-        // DATALOGGER
-        //HW.vcDataLogger.addEntry(HW.gyro.getAngle());
 
     }
+}
 }
