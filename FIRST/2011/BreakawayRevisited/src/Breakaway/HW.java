@@ -211,10 +211,10 @@ public class HW {
 //                 Ancillary classes
 //-------------------------------------
 
-    public static DataLogger rightVCLog =
+    /*public static DataLogger rightVCLog =
             new DataLogger("rightVC Log", "rightVCError");
     public static DataLogger leftVCLog =
-            new DataLogger("leftVC Log", "leftVCError");
+            new DataLogger("leftVC Log", "leftVCError");*/
 
    /* public static VelocityController leftVC =
             new VelocityController(EncoderLeft, leftDriveMotor);
@@ -225,14 +225,20 @@ public class HW {
     //public static OrientationController turnController =
       //      new OrientationController(gyro, rightVC, leftVC);
 
-    public static VelocityController2 rightVC = new VelocityController2(0.003, 0.0, 0.0, EncoderRight, rightDriveMotor);
-    public static VelocityController2 leftVC = new VelocityController2(0.003, 0.0, 0.0, EncoderLeft, leftDriveMotor);
+    //public static VelocityController2 rightVC = new VelocityController2(0.003, 0.0, 0.0, EncoderRight, rightDriveMotor);
+    //public static VelocityController2 leftVC = new VelocityController2(0.003, 0.0, 0.0, EncoderLeft, leftDriveMotor);
     //public static DataLogger vcDataLogger = new DataLogger("vc", "output");
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------
-    //public static MaxbotixSonar ultra =
-      //      new MaxbotixSonar(7);
+    public static MaxbotixSonar sonar =
+            new MaxbotixSonar(2);
+
+    public static DataLogger sonarLog =
+            new DataLogger("Sonar Log", "range (in)");
+
+    public static SonarController sonarController =
+            new SonarController(sonar, 0.065, 0.0, 0.102);
 
 //-------------------------------------
 //                 Autonomous class
