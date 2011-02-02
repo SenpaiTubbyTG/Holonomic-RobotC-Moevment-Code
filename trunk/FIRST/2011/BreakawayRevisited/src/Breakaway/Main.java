@@ -33,8 +33,7 @@ public class Main extends IterativeRobot {
         HW.EncoderLeft.init();
         HW.EncoderRight.setDistancePerPulse((8 * Math.PI) / 47 / 3);
         HW.EncoderRight.init();
-        HW.leftVCLog.init();
-        HW.rightVCLog.init();
+        HW.sonarLog.init();
     }
 
     /**
@@ -45,12 +44,11 @@ public class Main extends IterativeRobot {
         HW.EncoderLeft.reset();
         HW.EncoderRight.stop();
         HW.EncoderRight.reset();
-        HW.rightVC.disable();
-        HW.leftVC.disable();
-        HW.leftVCLog.disable();
-        HW.rightVCLog.disable();
-        HW.rightVCLog.writeData();
-        HW.leftVCLog.writeData();
+        HW.sonarController.enable();
+        //HW.rightVC.disable();
+        //HW.leftVC.disable();
+        HW.sonarLog.disable();
+        HW.sonarLog.writeData();
         DiscoUtils.debugPrintln("log write complete");
     }
 
@@ -80,35 +78,59 @@ public class Main extends IterativeRobot {
 
         HW.EncoderLeft.start();
         HW.EncoderRight.start();
-        HW.rightVC.reset();
-        HW.leftVC.reset();
-        HW.leftVC.setInverted(true);
-        HW.leftVC.enable();
-        HW.rightVC.enable();
-        HW.leftVCLog.enable();
-        HW.rightVCLog.enable();
+        //HW.rightVC.reset();
+        //HW.leftVC.reset();
+        //HW.leftVC.setInverted(true);
+        //HW.leftVC.enable();
+        //HW.rightVC.enable();
+        HW.sonarController.setOutputRange(-0.5, 0.5);
+        HW.sonarController.enable();
+        HW.sonarLog.enable();
     }
     //double goal = 0.0;
     double testSpeed = 5.0;
+    int i = 0;
+    //PIDController gyroController = new PIDController(0.2, 0.0, 0.0, Gyro, new DiscoDriveConverter(0.0, 0.0, 0.0, Output.kSpeed));
 
     public void teleopPeriodic() {
-        //goal = HW.driveStickLeft.getY() * 130.0;
-        if (HW.driveStickLeft.getTrigger()) {// || HW..getRawButton(7)) {
-            HW.rightVC.enable();
-            HW.leftVC.enable();
-            HW.leftVCLog.enable();
-            HW.rightVCLog.enable();
-            HW.rightVC.setSetpoint(testSpeed);
-            HW.leftVC.setSetpoint(testSpeed);
-            HW.leftVCLog.setEntryValue(HW.EncoderLeft.getRate());
-            HW.rightVCLog.setEntryValue(HW.EncoderRight.getRate());
+        HW.sonarController.setDistance(24.0);
+        testSpeed = -HW.sonarController.getSpeed();
+        HW.leftDriveMotor.set(-testSpeed);
+        HW.rightDriveMotor.set(testSpeed);
+        //HW.leftVC.setSetpoint(testSpeed);
+        //HW.rightVC.setSetpoint(testSpeed);
+        //HW.sonarController.setDistance();
+        HW.sonarController.enable();
+        HW.sonarLog.setEntryValue(HW.sonar.getRangeInches());
+        if (i > 10) {
+            DiscoUtils.debugPrintln("Sonar range: " + HW.sonar.getRangeInches());
+            DiscoUtils.debugPrintln("SonarCtl Speed: " + HW.sonarController.getSpeed());
+            DiscoUtils.debugPrintln("SonarCtl Error: " + HW.sonarController.getError());
+            DiscoUtils.debugPrintln("SonarCtlResult: " + HW.sonarController.getResult());
+            i = 0;
         } else {
-            HW.rightVCLog.disable();
-            HW.leftVCLog.disable();
-            HW.drive.drive(HW.driveStickLeft.getY(), HW.driveStickRight.getX());
-            HW.rightVC.disable();
-            HW.leftVC.disable();
+            i++;
         }
+
+        //goal = HW.driveStickLeft.getY() * 130.0;
+        /*
+         * Velocity Controller Test code
+        if (HW.driveStickLeft.getTrigger()) {// || HW..getRawButton(7)) {
+        HW.sonarController.setDistance();
+        HW.sonarLog.setEntryValue(HW.sonar.getRangeInches()/12);
+
+        HW.rightVC.enable();
+        HW.leftVC.enable();
+        HW.sonarLog.enable();
+        HW.rightVC.setSetpoint(testSpeed);
+        HW.leftVC.setSetpoint(testSpeed);
+
+        } else {
+        HW.sonarLog.disable();
+        HW.drive.drive(HW.driveStickLeft.getY(), HW.driveStickRight.getX());
+        HW.rightVC.disable();
+        HW.leftVC.disable();
+        }*/
 
         /*if (HW.driveStickLeft.getTrigger()) {
         //HW.leftVC.enable();
