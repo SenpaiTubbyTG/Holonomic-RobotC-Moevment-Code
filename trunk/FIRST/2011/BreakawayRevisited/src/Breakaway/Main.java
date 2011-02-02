@@ -22,6 +22,9 @@ public class Main extends IterativeRobot {
     double rightVelocity;
     boolean dataLogged = false;
     int i = 0;*/
+    double kp = 0.1;
+    double kd = 0.45;
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -33,7 +36,8 @@ public class Main extends IterativeRobot {
         HW.EncoderLeft.init();
         HW.EncoderRight.setDistancePerPulse((8 * Math.PI) / 47 / 3);
         HW.EncoderRight.init();
-        HW.sonarLog.init();
+        HW.gyroLog.init();
+        //HW.sonarLog.init();
     }
 
     /**
@@ -44,11 +48,14 @@ public class Main extends IterativeRobot {
         HW.EncoderLeft.reset();
         HW.EncoderRight.stop();
         HW.EncoderRight.reset();
-        HW.sonarController.enable();
+        //HW.sonarController.enable();
         //HW.rightVC.disable();
         //HW.leftVC.disable();
-        HW.sonarLog.disable();
-        HW.sonarLog.writeData();
+        //HW.sonarLog.disable();
+        //HW.sonarLog.writeData();
+        HW.gyroController.disable();
+        HW.gyroLog.disable();
+        HW.gyroLog.writeData();
         DiscoUtils.debugPrintln("log write complete");
     }
 
@@ -83,34 +90,59 @@ public class Main extends IterativeRobot {
         //HW.leftVC.setInverted(true);
         //HW.leftVC.enable();
         //HW.rightVC.enable();
-        HW.sonarController.setOutputRange(-0.5, 0.5);
-        HW.sonarController.enable();
-        HW.sonarLog.enable();
+
+        //HW.sonarController.setOutputRange(-0.5, 0.5);
+        //HW.sonarController.enable();
+        //HW.sonarLog.enable();
+        HW.gyroLog.enable();
+        //SPEED LIMIT FOR TURN
+        //HW.gyroController.setOutputRange(-0.75, 0.75);
+        HW.gyro.reset();
+        HW.gyroController.enable();
+        HW.gyroController.setSetpoint(90.0);
     }
     //double goal = 0.0;
     double testSpeed = 5.0;
     int i = 0;
-    //PIDController gyroController = new PIDController(0.2, 0.0, 0.0, Gyro, new DiscoDriveConverter(0.0, 0.0, 0.0, Output.kSpeed));
+    final double k_debounceTime = 0.25;
+    double debounce6 = 0.0;
+    double debounce7 = 0.0;
+    double currentTime;
+    //double debounce10;
+    //double debounce11;
 
     public void teleopPeriodic() {
-        HW.sonarController.setDistance(24.0);
-        testSpeed = -HW.sonarController.getSpeed();
-        HW.leftDriveMotor.set(-testSpeed);
-        HW.rightDriveMotor.set(testSpeed);
-        //HW.leftVC.setSetpoint(testSpeed);
-        //HW.rightVC.setSetpoint(testSpeed);
+        HW.gyroController.setSetpoint(90.0);
+        testSpeed = HW.driveConverter.getSpeed();
+        HW.drive.arcadeDrive(0, testSpeed);
+        
+        HW.gyroLog.setEntryValue(HW.gyro.getAngle());
+
         //HW.sonarController.setDistance();
-        HW.sonarController.enable();
-        HW.sonarLog.setEntryValue(HW.sonar.getRangeInches());
+        //HW.sonarController.enable();
+        //HW.sonarLog.setEntryValue(HW.sonar.getRangeInches());
         if (i > 10) {
-            DiscoUtils.debugPrintln("Sonar range: " + HW.sonar.getRangeInches());
+            /*DiscoUtils.debugPrintln("Sonar range: " + HW.sonar.getRangeInches());
             DiscoUtils.debugPrintln("SonarCtl Speed: " + HW.sonarController.getSpeed());
             DiscoUtils.debugPrintln("SonarCtl Error: " + HW.sonarController.getError());
-            DiscoUtils.debugPrintln("SonarCtlResult: " + HW.sonarController.getResult());
+            DiscoUtils.debugPrintln("SonarCtlResult: " + HW.sonarController.getResult());*/
+            DiscoUtils.debugPrintln("Gyro Angle:" + HW.gyro.getAngle());
+            DiscoUtils.debugPrintln("Gyro Error:" + HW.gyroController.getError());
+            DiscoUtils.debugPrintln("GyroController Speed output:" +
+                                    HW.driveConverter.getSpeed());
             i = 0;
         } else {
             i++;
         }
+
+        /*
+         if (HW.kickhandle.getRawButton(3)) {
+
+            //HW.drive.arcadeDrive(0, testSpeed);
+        } else {
+            HW.drive.stopMotor();
+        }
+         */
 
         //goal = HW.driveStickLeft.getY() * 130.0;
         /*

@@ -12,6 +12,7 @@
 package Breakaway;
 
 import DriveControllers.*;
+import DriveControllers.DiscoDriveConverter.Output;
 import Utils.*;
 import Sensors.*;
 import edu.wpi.first.wpilibj.*;
@@ -153,6 +154,21 @@ public class HW {
      */
     public static Gyro gyro =
             new Gyro(rawGyro);
+
+    /*
+     * Turning PIDController and its used driveConverter
+     */
+
+    public static DiscoDriveConverter driveConverter =
+            new DiscoDriveConverter(0.0, 0.0, 0.0, Output.kSpeed);
+    public static PIDController gyroController =
+            new PIDController(0.1, 0.0, 0.45, HW.gyro, driveConverter);
+
+    /*
+     * Gyro Datalogger
+     */
+    public static DataLogger gyroLog =
+            new DataLogger("Gyro", "gyro angle");
 //------------------------------------
 //                Accelerometer class
 //------------------------------------
@@ -234,11 +250,11 @@ public class HW {
     public static MaxbotixSonar sonar =
             new MaxbotixSonar(2);
 
-    public static DataLogger sonarLog =
-            new DataLogger("Sonar Log", "range (in)");
+    //public static DataLogger sonarLog =
+      //      new DataLogger("Sonar Log", "range (in)");
 
-    public static SonarController sonarController =
-            new SonarController(sonar, 0.065, 0.0, 0.102);
+    //public static SonarController sonarController =
+      //      new SonarController(sonar, 0.065, 0.0, 0.102);
 
 //-------------------------------------
 //                 Autonomous class
