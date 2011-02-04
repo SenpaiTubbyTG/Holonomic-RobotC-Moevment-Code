@@ -11,7 +11,7 @@
 //====================================================================
 package discobot;
 
-import DriveControllers.DiscoDrive;
+import DriveControllers.*;
 import Sensors.*;
 import edu.wpi.first.wpilibj.*;
 //import edu.wpi.first.addons.*;
@@ -63,6 +63,8 @@ public class HW {
 
     public static DiscoDrive drive = new DiscoDrive(frontLeftDM, frontRightDM, rearRightDM, rearLeftDM);
 
+    //public static DiscoDriveConverter driveConverter =
+      //      new DiscoDriveConverter(0.0, 0.0, 0.0, DiscoDriveConverter.Output.kSpeed);
 //------------------------------------
 //          DriverStations class
 //------------------------------------
@@ -98,17 +100,38 @@ public class HW {
     /**
      *  The Front Encoders
      */
-    public static DiscoEncoder frontLeftEncoder =
+    public static DiscoEncoder encoderFrontLeft =
             new DiscoEncoder(1, 2, false, Encoder.EncodingType.k2X);
-    public static DiscoEncoder frontRightEncoder =
+    public static DiscoEncoder encoderFrontRight =
             new DiscoEncoder(3, 4, false, Encoder.EncodingType.k2X);
     /**
-     *  The Rear Encoder
+     *  The Rear Encoders
      */
-    public static DiscoEncoder rearRightEncoder =
+    public static DiscoEncoder encoderRearRight =
             new DiscoEncoder(5, 6, false, Encoder.EncodingType.k2X);
-    public static DiscoEncoder rearLeftEncoder =
+    public static DiscoEncoder encoderRearLeft =
             new DiscoEncoder(7, 8, false, Encoder.EncodingType.k2X);
+
+//-------------------------------------
+//                 Ultrasonic class
+//-------------------------------------
+    public static MaxbotixSonar sonarFrontLeft =
+            new MaxbotixSonar(2);
+    
+    public static MaxbotixSonar sonarFrontRight =
+            new MaxbotixSonar(3);
+
+    public static MaxbotixSonar sonarLeft =
+            new MaxbotixSonar(4);
+
+    public static SonarController sonarControllerFrontLeft =
+            new SonarController(sonarFrontLeft, 0.05, 0.0, 0.0);
+
+    public static SonarController sonarControllerFrontRight =
+            new SonarController(sonarFrontRight, 0.05, 0.0, 0.0);
+
+    public static SonarController sonarControllerLeft =
+            new SonarController(sonarLeft, 0.05, 0.0, 0.0);
 
     //-------------------------------------
     //      LCD class
