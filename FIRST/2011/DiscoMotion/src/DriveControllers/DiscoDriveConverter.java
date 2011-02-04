@@ -72,14 +72,14 @@ public class DiscoDriveConverter implements PIDOutput, PIDSource {
     }
 
     public DiscoDriveConverter(double inputSpeed, double inputDirection, double inputTwist, Output output,
-                                double minOutput, double maxOutput) {
+            double minOutput, double maxOutput) {
         this(inputSpeed, inputDirection, inputTwist, output);
         m_minOutput = minOutput;
         m_maxOutput = maxOutput;
     }
 
     public DiscoDriveConverter(double inputSpeed, double inputDirection, double inputTwist, Output output,
-                                double minOutput, double maxOutput, double minInput, double maxInput) {
+            double minOutput, double maxOutput, double minInput, double maxInput) {
         this(inputSpeed, inputDirection, inputTwist, output, minOutput, maxOutput);
         m_minInput = minInput;
         m_maxInput = maxInput;
@@ -89,10 +89,13 @@ public class DiscoDriveConverter implements PIDOutput, PIDSource {
         switch (m_output.value) {
             case Output.kSpeed_val:
                 setSpeed(input);
+                break;
             case Output.kDirection_val:
                 setDirection(input);
+                break;
             case Output.kTwist_val:
                 setTwist(input);
+                break;
             default:
                 DiscoUtils.debugPrintln("Output Type not matched in DiscoDriveConverter");
         }
@@ -112,14 +115,18 @@ public class DiscoDriveConverter implements PIDOutput, PIDSource {
     }
 
     private void scaleOutput() {
-        double scalingFactor = (-m_minInput - ((m_maxInput - m_minInput) / 2)) * (m_maxOutput - m_minOutput);
+        double scalingFactor = 1.0;//(-m_minInput - ((m_maxInput - m_minInput) / 2)) * (m_maxOutput - m_minOutput);
+        //DiscoUtils.debugPrintln("Scaling factor: " + scalingFactor);
         switch (m_output.value) {
             case Output.kSpeed_val:
                 setSpeed(m_inputSpeed * scalingFactor);
+                break;
             case Output.kDirection_val:
                 setDirection(m_inputDirection * scalingFactor);
+                break;
             case Output.kTwist_val:
                 setTwist(m_inputTwist * scalingFactor);
+                break;
             default:
                 DiscoUtils.debugPrintln("Output Type not matched in DiscoDriveConverter");
         }

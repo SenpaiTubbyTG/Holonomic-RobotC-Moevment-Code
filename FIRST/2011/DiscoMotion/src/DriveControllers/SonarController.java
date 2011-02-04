@@ -12,20 +12,23 @@ import Sensors.MaxbotixSonar;
  * @author JAG
  */
 public class SonarController {
-
+    
     private DiscoDriveConverter m_driveConverter = null;
     private MaxbotixSonar m_sonar = null;
     private SonarPositionPID m_pid = null;
 
-     public SonarController(DiscoDriveConverter driveConverter, MaxbotixSonar sonar, double p, double i, double d) {
-
+    public SonarController(DiscoDriveConverter driveConverter, MaxbotixSonar sonar, double p, double i, double d) {
         m_driveConverter = driveConverter;
         m_sonar = sonar;
         m_pid = new SonarPositionPID(p, i, d, m_sonar, m_driveConverter, .1);
     }
 
+    public void setOutputRange(double min, double max) {
+        m_pid.setOutputRange(min, max);
+    }
+
     public SonarController(MaxbotixSonar sonar, double p, double i, double d) {
-        this(new DiscoDriveConverter(0.0, 0.0, 0.0, Output.kSpeed, -1, 1), sonar, p, i, d);
+        this(new DiscoDriveConverter(0.0, 0.0, 0.0, Output.kSpeed), sonar, p, i, d);
     }
 
     public void setDistance(double distance) {
@@ -40,4 +43,19 @@ public class SonarController {
        return m_driveConverter.getSpeed();
     }
 
+    public void enable() {
+        m_pid.enable();
+    }
+
+    public void disable() {
+        m_pid.disable();
+    }
+
+    public double getError() {
+        return m_pid.m_error;
+    }
+
+    public double getResult() {
+        return m_pid.m_result;
+    }
 }
