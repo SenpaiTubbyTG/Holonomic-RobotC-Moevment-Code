@@ -1,6 +1,7 @@
 package Utils;
 
 import edu.wpi.first.wpilibj.Timer;
+import Utils.*;
 
 /** -------------------------------------------------------
  * @class DataLogEntry
@@ -28,10 +29,10 @@ public class DataLogHelper {
     public static String[] getData() {
         String[] log = new String[numEntries];
         int counter = 0;
-        String buffer = "";
         for (DataLogHelper ptr = m_topEntry; ptr != null; ptr = ptr.m_nextEntry) {
+            String buffer = String.valueOf(ptr.m_time - m_timeOffset);
             for (int k = 0; k < ptr.m_value.length; k++) {
-                buffer += (ptr.m_value[k] - m_timeOffset) + ",";
+                buffer += "," + ptr.m_value[k];
             }
             log[counter] = buffer;
             counter++;

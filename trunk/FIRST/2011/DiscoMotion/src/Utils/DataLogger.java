@@ -23,9 +23,12 @@ public class DataLogger {
     private boolean m_enabled = false;
     protected double entryValues[];
     private DataLoggerTask m_task;
+    public static DataLogger dataLogger = new DataLogger();
 
     private class DataLoggerTask extends TimerTask {
+
         private DataLogger m_dataLogger;
+
         public DataLoggerTask(DataLogger dataLogger) {
             if (dataLogger == null) {
                 throw new NullPointerException("Given DataLogger was null");
@@ -40,11 +43,8 @@ public class DataLogger {
         }
     }
 
-    private DataLogger(String[] hdr) {
-        header = "time,";
-        for (int k = 0; k < hdr.length; k++) {
-            header += hdr[k] + ",";
-        }
+    private DataLogger() {
+        init();
     }
 
     public void init() {
@@ -81,8 +81,12 @@ public class DataLogger {
     /**
      * writes the contents of dataLog (DataLogHelper stack) to a file
      */
-    public void writeData() {
+    public void writeData(String[] hdr) {
         file = new FileIO(filename + ".csv");
+        header = "time";
+        for (int k = 0; k < hdr.length; k++) {
+            header += "," + hdr[k];
+        }
         file.writeLine(header);
         String[] data = DataLogHelper.getData();
         for (int k = 0; k < data.length; k++) {
