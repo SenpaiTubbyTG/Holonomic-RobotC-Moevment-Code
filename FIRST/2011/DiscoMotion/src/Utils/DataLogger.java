@@ -122,7 +122,7 @@ public class DataLogger {
         file = new FileIO(filename + ".csv");
         file.writeLine(header);
         String[] data = DataLogHelper.getData();
-        for (int k = 0; k < data.length; k++) {
+        for (int k = data.length - 1; k >= 0; k--) {
             file.writeLine(data[k]);
         }
     }
@@ -134,7 +134,7 @@ public class DataLogger {
         file = new FileIO(filename + ".csv");
         file.writeLine(header);
         String[] data = DataLogHelper.getData();
-        for (int k = 0; k < data.length; k++) {
+        for (int k = data.length - 1; k >= 0; k--) {
             file.writeLine(data[k]);
         }
 
