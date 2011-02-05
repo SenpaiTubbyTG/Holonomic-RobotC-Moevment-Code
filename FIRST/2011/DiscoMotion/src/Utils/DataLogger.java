@@ -78,15 +78,31 @@ public class DataLogger {
         }
     }
 
-    /**
-     * writes the contents of dataLog (DataLogHelper stack) to a file
-     */
-    public void writeData(String[] hdr) {
-        file = new FileIO(filename + ".csv");
+    public void setHeader(String[] hdr) {
         header = "time";
         for (int k = 0; k < hdr.length; k++) {
             header += "," + hdr[k];
         }
+    }
+
+    /**
+     * writes the contents of dataLog (DataLogHelper stack) to a file
+     */
+    public void writeData(String[] hdr) {
+        header = "time";
+        for (int k = 0; k < hdr.length; k++) {
+            header += "," + hdr[k];
+        }
+        file = new FileIO(filename + ".csv");
+        file.writeLine(header);
+        String[] data = DataLogHelper.getData();
+        for (int k = 0; k < data.length; k++) {
+            file.writeLine(data[k]);
+        }
+    }
+
+    public void writeData() {
+        file = new FileIO(filename + ".csv");
         file.writeLine(header);
         String[] data = DataLogHelper.getData();
         for (int k = 0; k < data.length; k++) {
