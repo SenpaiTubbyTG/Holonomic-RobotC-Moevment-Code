@@ -47,7 +47,7 @@ public class FileIO {
     }
 
     /** -------------------------------------------------------
-    @method writeString
+    @method writeLine
     @param newLine - String to write
     @purpose writes a String to a file, DOES append a crlf
     @author Nelson Chen
