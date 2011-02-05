@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.Timer;
 import Utils.*;
 
 /** -------------------------------------------------------
- * @class DataLogEntry
- * @purpose 
+ * @class DataLogHelper
+ * @purpose stores stack of datalog entries
  * @author Nelson Chen
  * @written Feb 4, 2011
 ------------------------------------------------------- */
@@ -18,6 +18,11 @@ public class DataLogHelper {
     static int numEntries;
     static double m_timeOffset = 0.0;
 
+    /**
+     * constructor
+     * @param val - array of values for new datalog entry
+     * timestamps entry
+     */
     public DataLogHelper(double[] val) {
         m_value = val;
         m_time = Timer.getFPGATimestamp();
@@ -26,6 +31,10 @@ public class DataLogHelper {
         numEntries++;
     }
 
+    /**
+     * 
+     * @return returns String array of data entries for writing to file
+     */
     public static String[] getData() {
         String[] log = new String[numEntries];
         int counter = 0;
@@ -40,6 +49,10 @@ public class DataLogHelper {
         return log;
     }
 
+    /**
+     * 
+     * @param offset - time offset in seconds
+     */
     public static void setTimeOffset(double offset) {
         m_timeOffset = offset;
     }
