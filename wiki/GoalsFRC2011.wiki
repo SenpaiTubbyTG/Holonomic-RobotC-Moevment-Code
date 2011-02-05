@@ -22,13 +22,13 @@
  # control loop for gyro to drive strait and hold orientation. 
   * When driving the robot stays strait, when not moving, if twisted the robot will try to reorient back to it's original position)
   * Test on 2010 Robot
- # control loop for gyro turning to set degrees (90 degrees, 180 degrees, etc.)
+ # ~~control loop for gyro turning to set degrees (90 degrees, 180 degrees, etc.)~~
   * Test on 2010 Robot
  # ~~control loop for encoder-based velocity control~~
   * When velocity set to zero the robot would try to stay still by pushing back in any direction that it is pushed
   * All wheels should spin at the same rate
  # Holonomic Drive
-  * Class structure for holonomic drive control
+  * ~~Class structure for holonomic drive control~~
   * Able to tell the method an x vector, y vector, and a twist and have it calculate each wheels velocity
   * Able to tell the method a magnitude, a direction and a twist and have it calculate each wheels velocity
  # Protobot
@@ -37,10 +37,10 @@
   * Line Tracking Mount designed and built
   * Can drive and control lift
  # Electronic Board created with parts mounted
-  * Battery mount created
+  * ~~Battery mount created~~
   * Sensor Mounts created
     * Sonars Mounted
-    * Encoders Mounted on drive motors
+    * ~~Encoders Mounted on drive motors~~
     * Gyro and Accelerometer Mounted
  # Power Wires are routed and labeled on the board
 
@@ -53,7 +53,7 @@
   * uses encoder to tell lift position
   * two limit switches for full up and full down
  # Claw control programmed
- # Sonar Ranger Positioning
+ # ~~Sonar Ranger Positioning~~
   * Able to tell the distance from each of the three sides of the robot
  # Protobot
   * Able to track line and stop when line ends
@@ -61,7 +61,7 @@
   * Programmed for the VEX microcontroller
 
 ==Week 4:==
- # Mount cRIO on the new robot
+ # ~~Mount cRIO on the new robot~~
  # Driver Control
   * Testing the ability of the drive train to drive strait and be controlled easily
   * Tweak PID parameters and get everything working really tight
