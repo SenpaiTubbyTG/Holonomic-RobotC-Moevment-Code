@@ -18,7 +18,7 @@ import java.util.TimerTask;
  * calculate class is abstract so that each PIDController can calculate there PID
  * loop by themselves. See the WPILIB PIDController.java for a sample calculate method
  */
-abstract class AbstractPID implements IUtility{
+abstract public class AbstractPID implements IUtility{
 
     public static final double kDefaultPeriod = .05;
 

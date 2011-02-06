@@ -20,6 +20,9 @@ public class DiscoEncoder extends Encoder implements PIDSource {
     private double m_oldPosition = 0.0;
     private double m_velocity = 0.0;
     private double m_integratedDistance = 0.0;
+    private PIDSourceParameter m_pidSource = PIDSourceParameter.kRate;
+    private double m_intialPosition = 0.0;
+    private CounterBase.EncodingType m_encodingType;
     java.util.Timer m_controlLoop;
 
     private class EncoderRateTask extends TimerTask {
@@ -46,19 +49,10 @@ public class DiscoEncoder extends Encoder implements PIDSource {
         m_controlLoop.schedule(new EncoderRateTask(this), 0L, (long) (m_period * 1000));
     }
 
-    public DiscoEncoder(final int aSlot, final int bSlot, boolean reversed,
+    public DiscoEncoder(final int aChannel, final int bChannel, boolean reversed,
             CounterBase.EncodingType x) {
-        super(aSlot, bSlot, reversed, x);
-        //oldTime = Timer.getFPGATimestamp();
-        m_oldPosition = getDistance();
-    }
-
-    public DiscoEncoder(final int aSlot, final int aChannel,
-            final int bSlot, final int bChannel, final int indexSlot,
-            final int indexChannel,
-            boolean reverseDirection) {
-        super(aSlot, aChannel, bSlot, bChannel, indexSlot, indexChannel, reverseDirection);
-        //oldTime = Timer.getFPGATimestamp();
+        super(aChannel, bChannel, reversed, x);
+        m_encodingType = x;
         m_oldPosition = getDistance();
     }
 
@@ -87,28 +81,58 @@ public class DiscoEncoder extends Encoder implements PIDSource {
     }
 
     /**
-     * Return the velocity /12 for ft per sec
+     * Return the velocity in inches per sec
      * @return
      */
     public synchronized double pidGet() {
         //return feet per sec
-        return m_velocity / 12;
+
+        switch (m_pidSource.value) {
+        case 0:
+            return getRawPosition();
+        case 1:
+            return m_velocity;
+        default:
+            return 0.0;
+        }
     }
 
     /**
-     * returns the velocity /12 for ft per sec
+     * returns the velocity in inches per sec
      * @return
      */
     public synchronized double getRate() {
-        return m_velocity / 12;
+        return m_velocity;
     }
 
     /**
      * Get the integrated distance from the calculated velocity
      * @return
      */
-    public synchronized double getIntDistance() {
+    public synchronized double getIntegratedDistance() {
         return m_integratedDistance;
+    }
+
+    /**
+     * Return the position in encoder ticks, used to mimic CANJaguar in PWMJaguar
+     */
+    public double getRawPosition() {
+        switch (m_encodingType.value) {
+            case 0:
+                return super.getRaw() * 1.0 + m_intialPosition;
+            case 1:
+                return super.getRaw() * 0.5 + m_intialPosition;
+            case 2:
+                return super.getRaw() * 0.25 + m_intialPosition;
+            default:
+                //This is never reached, EncodingType enum limits values
+                return 0.0;
+        }
+    }
+
+    public void setPosition(double position){
+        reset();
+        m_intialPosition = position;
     }
 
     /**
@@ -136,4 +160,12 @@ public class DiscoEncoder extends Encoder implements PIDSource {
         super.reset();
     }
 
+    /**
+     * Set which parameter of the encoder you are using as a process control variable.
+     *
+     * @param pidSource An enum to select the parameter.
+     */
+    public void setPIDSourceParameter(PIDSourceParameter pidSource) {
+	m_pidSource = pidSource;
+    }
 }
