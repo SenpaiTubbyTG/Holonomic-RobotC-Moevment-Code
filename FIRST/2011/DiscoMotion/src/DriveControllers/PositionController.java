@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 
 /**
- * Updated VelocityController that uses the new AbstractPID class
+ *
  * @author JAG
  */
-public class VelocityController3 extends AbstractPID {
+public class PositionController extends AbstractPID {
 
     private boolean m_invertedOutput = false;
     private int m_debugCounter = 0;
     private boolean m_debug = false;
 
-    public VelocityController3(double Kp, double Ki, double Kd,
+    public PositionController(double Kp, double Ki, double Kd,
             PIDSource source, PIDOutput output,
             double period, boolean invert) {
         super(Kp, Ki, Kd, source, output, period);
@@ -57,7 +57,7 @@ public class VelocityController3 extends AbstractPID {
                         && ((m_totalError + m_error) * m_I > m_minimumOutput)) {
                     m_totalError += m_error;
                 }
-                m_result += (m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError));
+                m_result = (m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError));
                 m_prevError = m_error;
 
                 if (m_result > m_maximumOutput) {

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package DriveControllers;
 
 import Utils.DiscoUtils;
@@ -68,43 +64,52 @@ public class DiscoDriveCAN {
      */
     private DiscoDriveCAN() {
         try {
-            //Intialize each Jaguar
-            HW.frontLeftDM = new CANJaguar(HW.frontLeftDMAddress, m_controlMode);
-            HW.frontRightDM = new CANJaguar(HW.frontRightDMAddress, m_controlMode);
-            HW.rearRightDM = new CANJaguar(HW.rearRightDMAddress, m_controlMode);
-            HW.rearLeftDM = new CANJaguar(HW.rearLeftDMAddress, m_controlMode);
+           /* //Intialize each Jaguar
+            HW.frontLeftCAN = new CANJaguar(HW.frontLeftDMAddress, m_controlMode);
+            HW.frontRightCAN = new CANJaguar(HW.frontRightDMAddress, m_controlMode);
+            HW.rearRightCAN = new CANJaguar(HW.rearRightDMAddress, m_controlMode);
+            HW.rearLeftCAN = new CANJaguar(HW.rearLeftDMAddress, m_controlMode);
 
             //Set Encoder Counts to Turn
-            HW.frontLeftDM.configEncoderCodesPerRev(HW.encoderCodesPerRev);
-            HW.frontRightDM.configEncoderCodesPerRev(HW.encoderCodesPerRev);
-            HW.rearRightDM.configEncoderCodesPerRev(HW.encoderCodesPerRev);
-            HW.rearLeftDM.configEncoderCodesPerRev(HW.encoderCodesPerRev);
+            HW.frontLeftCAN.configEncoderCodesPerRev(HW.encoderCodesPerRev);
+            HW.frontRightCAN.configEncoderCodesPerRev(HW.encoderCodesPerRev);
+            HW.rearRightCAN.configEncoderCodesPerRev(HW.encoderCodesPerRev);
+            HW.rearLeftCAN.configEncoderCodesPerRev(HW.encoderCodesPerRev);
 
             //Set Up Pid Controls
-            HW.frontLeftDM.setPID(0.1, 0.0, 0.0001);
-            HW.frontRightDM.setPID(0.1, 0.0, 0.0001);
-            HW.rearRightDM.setPID(0.1, 0.0, 0.0001);
-            HW.rearLeftDM.setPID(0.1, 0.0, 0.0001);
+            HW.frontLeftCAN.setPID(0.1, 0.0, 0.0001);
+            HW.frontRightCAN.setPID(0.1, 0.0, 0.0001);
+            HW.rearRightCAN.setPID(0.1, 0.0, 0.0001);
+            HW.rearLeftCAN.setPID(0.1, 0.0, 0.0001);
 
             //Set all Jaguars to Brake
-            HW.frontLeftDM.configNeutralMode(CANJaguar.NeutralMode.kBrake);
-            HW.frontRightDM.configNeutralMode(CANJaguar.NeutralMode.kBrake);
-            HW.rearRightDM.configNeutralMode(CANJaguar.NeutralMode.kBrake);
-            HW.rearLeftDM.configNeutralMode(CANJaguar.NeutralMode.kBrake);
+            HW.frontLeftCAN.configNeutralMode(CANJaguar.NeutralMode.kBrake);
+            HW.frontRightCAN.configNeutralMode(CANJaguar.NeutralMode.kBrake);
+            HW.rearRightCAN.configNeutralMode(CANJaguar.NeutralMode.kBrake);
+            HW.rearLeftCAN.configNeutralMode(CANJaguar.NeutralMode.kBrake);
 
             //Enable closed loop control
-            HW.frontLeftDM.enableControl();
-            HW.frontRightDM.enableControl();
-            HW.rearRightDM.enableControl();
-            HW.rearLeftDM.enableControl();
-
+            HW.frontLeftCAN.enableControl();
+            HW.frontRightCAN.enableControl();
+            HW.rearRightCAN.enableControl();
+            HW.rearLeftCAN.enableControl();
+*/
 
         } catch (Exception e) {
             DiscoUtils.debugPrintln("CAN Timeout: " + e);
         }
     }
 
-    ;
+    public void writeFirmwareVersions(){
+        try {
+            DiscoUtils.debugPrintln("Front Left FirmWare Version: " + HW.frontLeftCAN.getFirmwareVersion());
+            DiscoUtils.debugPrintln("Front Left FirmWare Version: " + HW.frontRightCAN.getFirmwareVersion());
+            DiscoUtils.debugPrintln("Front Left FirmWare Version: " + HW.rearRightCAN.getFirmwareVersion());
+            DiscoUtils.debugPrintln("Front Left FirmWare Version: " + HW.rearLeftCAN.getFirmwareVersion());
+        } catch (Exception e){
+            DiscoUtils.debugPrintln("Error in Firmware writeFirmwareVersions: " + e);
+        }
+    }
 
     /**
      * Holonomic Drive method for omni wheel robots
@@ -163,10 +168,10 @@ public class DiscoDriveCAN {
         byte syncGroup = (byte) 0x80;
 
         try {
-            HW.frontLeftDM.setX(frontLeftSpeed * m_invertedMotors[MotorType.kFrontLeft.value] * m_maxOutputPercent, syncGroup);
-            HW.frontRightDM.setX(frontRightSpeed * m_invertedMotors[MotorType.kFrontRight.value] * m_maxOutputPercent, syncGroup);
-            HW.rearRightDM.setX(rearRightSpeed * m_invertedMotors[MotorType.kRearRight.value] * m_maxOutputPercent, syncGroup);
-            HW.rearLeftDM.setX(rearLeftSpeed * m_invertedMotors[MotorType.kRearLeft.value] * m_maxOutputPercent, syncGroup);
+            HW.frontLeftCAN.setX(frontLeftSpeed * m_invertedMotors[MotorType.kFrontLeft.value] * m_maxOutputPercent, syncGroup);
+            HW.frontRightCAN.setX(frontRightSpeed * m_invertedMotors[MotorType.kFrontRight.value] * m_maxOutputPercent, syncGroup);
+            HW.rearRightCAN.setX(rearRightSpeed * m_invertedMotors[MotorType.kRearRight.value] * m_maxOutputPercent, syncGroup);
+            HW.rearLeftCAN.setX(rearLeftSpeed * m_invertedMotors[MotorType.kRearLeft.value] * m_maxOutputPercent, syncGroup);
         } catch (Exception e) {
         }
 
@@ -193,10 +198,10 @@ public class DiscoDriveCAN {
 
         double scaleOutput = m_maxOutputPercent * HW.maxWheelVelocity;
         try {
-            HW.frontLeftDM.setX(frontLeftSpeed * m_invertedMotors[MotorType.kFrontLeft.value] * scaleOutput, syncGroup);
-            HW.frontRightDM.setX(frontRightSpeed * m_invertedMotors[MotorType.kFrontRight.value] * scaleOutput, syncGroup);
-            HW.rearRightDM.setX(rearRightSpeed * m_invertedMotors[MotorType.kRearRight.value] * scaleOutput, syncGroup);
-            HW.rearLeftDM.setX(rearLeftSpeed * m_invertedMotors[MotorType.kRearLeft.value] * scaleOutput, syncGroup);
+            HW.frontLeftCAN.setX(frontLeftSpeed * m_invertedMotors[MotorType.kFrontLeft.value] * scaleOutput, syncGroup);
+            HW.frontRightCAN.setX(frontRightSpeed * m_invertedMotors[MotorType.kFrontRight.value] * scaleOutput, syncGroup);
+            HW.rearRightCAN.setX(rearRightSpeed * m_invertedMotors[MotorType.kRearRight.value] * scaleOutput, syncGroup);
+            HW.rearLeftCAN.setX(rearLeftSpeed * m_invertedMotors[MotorType.kRearLeft.value] * scaleOutput, syncGroup);
         } catch (Exception e) {
         }
 
@@ -254,10 +259,10 @@ public class DiscoDriveCAN {
 
     public void updateControlMode(CANJaguar.ControlMode controlMode) {
         try {
-            HW.frontLeftDM.changeControlMode(controlMode);
-            HW.frontRightDM.changeControlMode(controlMode);
-            HW.rearRightDM.changeControlMode(controlMode);
-            HW.rearLeftDM.changeControlMode(controlMode);
+            HW.frontLeftCAN.changeControlMode(controlMode);
+            HW.frontRightCAN.changeControlMode(controlMode);
+            HW.rearRightCAN.changeControlMode(controlMode);
+            HW.rearLeftCAN.changeControlMode(controlMode);
         } catch (Exception e) {
             DiscoUtils.debugPrintln("Exception during control Mode Switch: " + e);
         }
