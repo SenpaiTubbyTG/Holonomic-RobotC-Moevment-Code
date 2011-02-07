@@ -6,3 +6,6 @@ Control Algorithms provide fine control of the robot that is unable to be achiev
 
 = Algorithms =
  # [PID]
+
+= Papers =
+ # [http://www-personal.umich.edu/~johannb/Papers/paper107.pdf Current Based Wheel Slippage Detection]
