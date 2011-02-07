@@ -7,16 +7,13 @@ package discobot;
 import Utils.DiscoUtils;
 import DriveControllers.*;
 import Sensors.DiscoEncoder;
-import edu.wpi.first.wpilibj.AnalogChannel;
-import edu.wpi.first.wpilibj.CounterBase;
-import edu.wpi.first.wpilibj.Encoder.PIDSourceParameter;
-import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.*;
 
 /**
  *
  * @author JAG
  */
-public class PWMJaguar {
+public class PWMJaguar extends Jaguar{
 
     /**
      * Imitates the ControlMode class in CANJaguar
@@ -128,7 +125,6 @@ public class PWMJaguar {
         }
     }
     private static final double kControllerPeriod = .01;
-    private Jaguar m_jaguar;
     private ControlMode m_controlMode;
     private double m_maxOutputVoltage = 1.0;
     private PositionReference m_positionReference;
@@ -138,10 +134,14 @@ public class PWMJaguar {
     private double m_output;
     private AbstractPID m_PIDController;
     private DiscoEncoder m_encoder;
-    private AnalogChannel m_pot;
+    private DigitalInput m_reverseLimit;
+    private DigitalInput m_forwardLimit;
+    private double m_reverseSoftLimit = -1000000000;
+    private double m_forwardSoftLimit = 1000000000;
 
     public PWMJaguar(final int channel) {
-        m_jaguar = new Jaguar(channel);
+       super(channel);
+        m_controlMode = ControlMode.kPercentVbus;
     }
 
     public PWMJaguar(final int channel, ControlMode controlMode) {
@@ -171,10 +171,10 @@ public class PWMJaguar {
 
                 break;
             case ControlMode.kSpeed_val:
-                    m_PIDController = new VelocityController3(0.0, 0.0, 0.0, m_encoder, m_jaguar, kControllerPeriod, false);
+                m_PIDController = new VelocityController3(0.0, 0.0, 0.0, m_encoder, this, kControllerPeriod, false);
                 break;
             case ControlMode.kPosition_val:
-                    m_PIDController = new PositionController(0.0, 0.0, 0.0, m_encoder, m_jaguar, kControllerPeriod, false);
+                m_PIDController = new PositionController(0.0, 0.0, 0.0, m_encoder, this, kControllerPeriod, false);
                 break;
             default:
                 DiscoUtils.debugPrintln("Control Mode is invalid for PWMJaguar");
@@ -204,15 +204,16 @@ public class PWMJaguar {
      *
      * The scale and the units depend on the mode the Jaguar is in.
      * In PercentVbus Mode, the outputValue is from -1.0 to 1.0 (same as PWM Jaguar).
-     * In Voltage Mode, the outputValue is in Volts.
-     * In Current Mode, the outputValue is in Amps.
      * In Speed Mode, the outputValue is in Rotations/Minute.
      * In Position Mode, the outputValue is in Rotations.
+     *
+     * NOTE: Limits are not enabled right now, except for soft limits.
      *
      * @param outputValue The set-point to sent to the motor controller.
      * @param syncGroup The update group to add this set() to, pending updateSyncGroup().  If 0, update immediately.
      */
     public void setX(double outputValue, byte syncGroup) {
+
         m_X = outputValue;
         switch (m_controlMode.value) {
             case ControlMode.kPercentVbus_val:
@@ -222,7 +223,7 @@ public class PWMJaguar {
                 if (m_X < -m_maxOutputVoltage) {
                     m_X = -m_maxOutputVoltage;
                 }
-                m_jaguar.set(m_X);
+                super.set(m_X);
                 break;
             case ControlMode.kSpeed_val: {
                 if (m_PIDController != null) {
@@ -249,8 +250,6 @@ public class PWMJaguar {
      *
      * The scale and the units depend on the mode the Jaguar is in.
      * In PercentVbus Mode, the outputValue is from -1.0 to 1.0 (same as PWM Jaguar).
-     * In Voltage Mode, the outputValue is in Volts.
-     * In Current Mode, the outputValue is in Amps.
      * In Speed Mode, the outputValue is in Rotations/Minute.
      * In Position Mode, the outputValue is in Rotations.
      *
@@ -268,7 +267,11 @@ public class PWMJaguar {
      * @param reference Specify a SpeedReference.
      */
     public void setSpeedReference(SpeedReference reference) {
-        m_speedReference = reference;
+        if (reference.value == SpeedReference.kQuadEncoder_val) {
+            m_speedReference = reference;
+        } else {
+            DiscoUtils.debugPrintln("Only Quad Encoder Enabled right now");
+        }
     }
 
     /**
@@ -286,10 +289,16 @@ public class PWMJaguar {
      * Choose between using and encoder and using a potentiometer
      * as the source of position feedback when in position control mode.
      *
+     * NOTE: Quad Encoder is the only thing enable right now
+     *
      * @param reference Specify a PositionReference.
      */
     public void setPositionReference(PositionReference reference) {
-        m_positionReference = reference;
+        if (reference.value == PositionReference.kQuadEncoder_val) {
+            m_positionReference = reference;
+        } else {
+            DiscoUtils.debugPrintln("Only Quad Encoder Enabled right now");
+        }
     }
 
     /**
@@ -323,6 +332,8 @@ public class PWMJaguar {
                 default:
                     DiscoUtils.debugPrintln("Control Mode is invalid for PWMJaguar");
             }
+        } else {
+             DiscoUtils.debugPrintln("PID controller has not been intialized PID values not set");
         }
     }
 
@@ -387,13 +398,14 @@ public class PWMJaguar {
                 break;
             case ControlMode.kSpeed_val:
                 if (m_PIDController != null) {
+                    m_encoder.setPIDSourceParameter(DiscoEncoder.PIDSourceParameter.kRate);
                     m_PIDController.reset();
                     m_PIDController.enable();
                 }
                 break;
             case ControlMode.kPosition_val:
                 if (m_PIDController != null) {
-                    m_encoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
+                    m_encoder.setPIDSourceParameter(DiscoEncoder.PIDSourceParameter.kDistance);
                     m_PIDController.reset();
                     m_encoder.setPosition(encoderInitialPosition);
                     m_PIDController.enable();
@@ -412,13 +424,15 @@ public class PWMJaguar {
     public void disableControl() {
         switch (m_controlMode.value) {
             case ControlMode.kPercentVbus_val:
-                m_jaguar.stopMotor();
+                super.stopMotor();
                 break;
             case ControlMode.kSpeed_val:
                 m_PIDController.disable();
+                super.stopMotor();
                 break;
             case ControlMode.kPosition_val:
                 m_PIDController.disable();
+                super.stopMotor();
                 break;
             default:
                 DiscoUtils.debugPrintln("Control Mode is invalid for PWMJaguar");
@@ -444,12 +458,12 @@ public class PWMJaguar {
                 break;
             case ControlMode.kSpeed_val:
                 if (m_encoder != null) {
-                    m_PIDController = new VelocityController3(0.0, 0.0, 0.0, m_encoder, m_jaguar, kControllerPeriod, false);
+                    m_PIDController = new VelocityController3(0.0, 0.0, 0.0, m_encoder, this, kControllerPeriod, false);
                 }
                 break;
             case ControlMode.kPosition_val:
                 if (m_encoder != null) {
-                    m_PIDController = new PositionController(0.0, 0.0, 0.0, m_encoder, m_jaguar, kControllerPeriod, false);
+                    m_PIDController = new PositionController(0.0, 0.0, 0.0, m_encoder, this, kControllerPeriod, false);
                 }
                 break;
             default:
@@ -534,12 +548,15 @@ public class PWMJaguar {
 
     /**
      * Get the status of the forward limit switch.
-     *
+
      * @return The motor is allowed to turn in the forward direction when true.
      */
     public boolean getForwardLimitOK() {
-
-        return false;
+        if (m_forwardLimit != null) {
+            return !m_forwardLimit.get();
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -548,8 +565,11 @@ public class PWMJaguar {
      * @return The motor is allowed to turn in the reverse direction when true.
      */
     public boolean getReverseLimitOK() {
-
-        return false;
+        if (m_reverseLimit != null) {
+            return !m_reverseLimit.get();
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -621,7 +641,7 @@ public class PWMJaguar {
      * @param mode Select to use the jumper setting or to override it to coast or brake.
      */
     public void configNeutralMode(NeutralMode mode) {
-        DiscoUtils.debugPrintln("Unable to set NeutralMode in PWMJaguar use Jumper instead");
+        //Unable to set NeutralMode in PWMJaguar use Jumper instead
     }
 
     /**
@@ -646,6 +666,7 @@ public class PWMJaguar {
      * @param turns The number of turns of the potentiometer
      */
     public void configPotentiometerTurns(int turns) {
+        DiscoUtils.debugPrintln("Potentiometer not implemented for PWMJaguar");
     }
 
     /**
@@ -659,6 +680,11 @@ public class PWMJaguar {
      * @param reverseLimitPosition The position that if exceeded will disable the reverse direction.
      */
     public void configSoftPositionLimits(double forwardLimitPosition, double reverseLimitPosition) {
+        if (m_controlMode.value == ControlMode.kPosition_val) {
+            m_reverseSoftLimit = reverseLimitPosition;
+            m_forwardSoftLimit = forwardLimitPosition;
+            m_PIDController.setInputRange(m_reverseSoftLimit, m_forwardSoftLimit);
+        }
     }
 
     /**
@@ -667,6 +693,11 @@ public class PWMJaguar {
      * Soft Position Limits are disabled by default.
      */
     public void disableSoftPositionLimits() {
+        if (m_controlMode.value == ControlMode.kPosition_val) {
+            m_reverseSoftLimit = -1000000000;
+            m_forwardSoftLimit = 1000000000;
+            m_PIDController.setInputRange(m_reverseSoftLimit, m_forwardSoftLimit);
+        }
     }
 
     /**
@@ -688,6 +719,6 @@ public class PWMJaguar {
      * @param syncGroup A bitmask of groups to generate synchronous output.
      */
     public static void updateSyncGroup(byte syncGroup) {
-        DiscoUtils.debugPrintln("Unable to update Sync Group in PWMJaguar use Jumper instead");
+        DiscoUtils.debugPrintln("Unable to update Sync Group in PWMJaguar");
     }
 }
