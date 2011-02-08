@@ -13,20 +13,26 @@ import edu.wpi.first.wpilibj.PIDController;
  * @author Nelson Chen
  */
 public class RobotVelocity {
+    private VelocityMatrices xVelocity;
+    private VelocityMatrices yVelocity;
+
     private DiscoDriveConverter xVelocityOutput;
     private DiscoDriveConverter yVelocityOutput;
+    
     private PIDController xVelocityController;
     private PIDController yVelocityController;
 
     public RobotVelocity() {
+        xVelocity = new VelocityMatrices(VelocityMatrices.VelocityOutput.kXvelocity);
+        yVelocity = new VelocityMatrices(VelocityMatrices.VelocityOutput.kYvelocity);
         xVelocityOutput =
                 new DiscoDriveConverter(0.0, 0.0, 0.0, DiscoDriveConverter.Output.kSpeed);
         xVelocityController =
-                new PIDController(0.1, 0.0, 0.0, VelocityMatrices.velocityMatrices, xVelocityOutput);
+                new PIDController(0.1, 0.0, 0.0, xVelocity, xVelocityOutput);
         yVelocityOutput =
                 new DiscoDriveConverter(0.0, 0.0, 0.0, DiscoDriveConverter.Output.kSpeed);
         yVelocityController =
-                new PIDController(0.1, 0.0, 0.0, VelocityMatrices.velocityMatrices, yVelocityOutput);
+                new PIDController(0.1, 0.0, 0.0, yVelocity, yVelocityOutput);
     }
 
     public void setXvelocity(double xVel) {
