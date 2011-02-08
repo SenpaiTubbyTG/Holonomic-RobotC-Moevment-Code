@@ -12,7 +12,7 @@ import java.util.TimerTask;
 ------------------------------------------------------- */
 public class DataLogger {
 
-    private final String filename = "DataLog";
+    private final String filename = "DataLog.csv";
     private String header;
     //FileIO Utility for writing file
     private FileIO file;

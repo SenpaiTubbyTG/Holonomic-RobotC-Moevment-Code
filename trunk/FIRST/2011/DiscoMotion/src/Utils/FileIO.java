@@ -56,7 +56,8 @@ public class FileIO {
             FileConnection conn = (FileConnection) Connector.open(url);
             OutputStreamWriter writer = new OutputStreamWriter(conn.openOutputStream());
             for (int k = 0; k < text.length; k++) {
-                writer.write(text[k]);
+                writer.write(text[k] + "\n");
+                writer.flush();
             }
             conn.close();
         } catch (IOException e) {
