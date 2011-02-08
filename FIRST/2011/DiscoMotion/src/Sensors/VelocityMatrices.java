@@ -55,7 +55,7 @@ public class VelocityMatrices implements PIDSource {
     //private Matrix forceCouplMat = new Matrix(3, 4);
     //private Matrix accelMatrix   = new Matrix(3, 1);
     //Singleton class instance
-    public VelocityMatrices velocityMatrices = new VelocityMatrices();
+    public static VelocityMatrices velocityMatrices = new VelocityMatrices();
 
     /**
      * singleton constructor initializing the velocity coupling matrix (constant)
@@ -67,7 +67,7 @@ public class VelocityMatrices implements PIDSource {
 
     /**
      * helper method for setting wheel velocity matrix values
-     * wheel velocities obtained directly from encoders
+     * wheel velocities obtained directly from encoders (via Jaguars)
      */
     private void updateWheelVelocities() throws CANTimeoutException {
         wheelVelMat.set(0, 0, HW.frontLeftDM.getSpeed());
