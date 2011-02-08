@@ -54,16 +54,17 @@ public class VelocityMatrices implements PIDSource {
     //private Matrix wheelForceMat = new Matrix(4, 1);
     //private Matrix forceCouplMat = new Matrix(3, 4);
     //private Matrix accelMatrix   = new Matrix(3, 1);
-    
-    //Singleton class instance
-    public static VelocityMatrices velocityMatrices = new VelocityMatrices();
 
     /**
      * singleton constructor initializing the velocity coupling matrix (constant)
      */
-    private VelocityMatrices() {
+    public VelocityMatrices() {
         initVelCouplMat();
         //initForceCouplMat();
+    }
+    public VelocityMatrices(VelocityOutput output) {
+        this();
+        m_output = output;
     }
 
     /**
