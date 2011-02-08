@@ -1,5 +1,4 @@
 package Sensors.Jama;
-import Jama.util.*;
 
 /** QR Decomposition.
 <P>
