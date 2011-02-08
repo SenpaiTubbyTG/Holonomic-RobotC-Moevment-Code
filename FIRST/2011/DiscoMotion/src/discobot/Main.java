@@ -4,13 +4,10 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package discobot;
-
 
 import edu.wpi.first.wpilibj.*;
 import Utils.*;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,37 +18,39 @@ import Utils.*;
  */
 public class Main extends IterativeRobot {
 
-    private int i = 0;
-
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-
+        Disabled.robotInit();
     }
 
-    /**
-     * This function is called periodically during autonomous
-     */
     public void autonomousPeriodic() {
-
+        Autonomous.periodic();
     }
 
-    /**
-     * This function is called periodically during operator control
-     */
+    public void disabledContinuous() {
+        Disabled.continuous();
+    }
+
+    public void disabledPeriodic() {
+        Disabled.periodic();
+    }
+
+    public void teleopInit() {
+        Teleop.init();
+    }
+
+    public void teleopContinuous() {
+        Teleop.continuous();
+    }
+
     public void teleopPeriodic() {
-        HW.drive.holonomicDrive(HW.driveStick1.getMagnitude(), HW.driveStick1.getDirectionDegrees(), HW.driveStick2.getX());
-
-        if (i > 10) {
-        DiscoUtils.debugPrintln("Magniture: " + HW.driveStick1.getMagnitude());
-        DiscoUtils.debugPrintln("Direction: " + HW.driveStick1.getDirectionDegrees());
-        DiscoUtils.debugPrintln("Twist: " + HW.driveStick2.getX());
-        i = 0;
-        } else {
-            i++;
-        }
+        Teleop.periodic();
     }
-    
+
+    public void disabledInit() {
+        Disabled.init();
+    }
 }
