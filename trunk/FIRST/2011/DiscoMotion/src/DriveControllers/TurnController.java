@@ -14,13 +14,17 @@ public class TurnController {
 
     public TurnController(Gyro g) {
         gyro = g;
-        gyroController = new PIDController(0.1, 0.0, 0.45, gyro, driveConverter);
+        gyroController = new PIDController(0.1, 0.0, 0.0, gyro, driveConverter);
         driveConverter = 
                 new DiscoDriveConverter(0.0, 0.0, 0.0, DiscoDriveConverter.Output.kTwist);
     }
 
     public void setSetpoint(double setpt) {
         gyroController.setSetpoint(setpt);
+    }
+
+    public void setPID(double kp, double ki, double kd) {
+        gyroController.setPID(kp, ki, kd);
     }
 
     public void enable() {
