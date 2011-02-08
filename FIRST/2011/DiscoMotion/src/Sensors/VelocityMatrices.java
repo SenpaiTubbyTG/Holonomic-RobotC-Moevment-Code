@@ -54,6 +54,7 @@ public class VelocityMatrices implements PIDSource {
     //private Matrix wheelForceMat = new Matrix(4, 1);
     //private Matrix forceCouplMat = new Matrix(3, 4);
     //private Matrix accelMatrix   = new Matrix(3, 1);
+    
     //Singleton class instance
     public static VelocityMatrices velocityMatrices = new VelocityMatrices();
 
