@@ -11,8 +11,8 @@ public class VelocityMatrices {
      * TODO: run in own thread, at least for matrices
      */
 
-    private final double mass = 54.4310844;   //mass in kg
-    private final double alpha = 0.5; //weight distribution constanc
+    //private final double mass = 54.4310844;   //mass in kg
+    //private final double alpha = 0.5; //weight distribution constanc
     private final double thetaFR = 45.0;
     private final double thetaFL = 135.0;
     private final double thetaBL = 225.0;
@@ -20,10 +20,10 @@ public class VelocityMatrices {
     private final double radius = 0.635; //radius (wheel-to-wheel) in meters
 
     private Matrix wheelVelMat   = new Matrix(4, 1);
-    private Matrix wheelForceMat = new Matrix(4, 1);
+    //private Matrix wheelForceMat = new Matrix(4, 1);
     private Matrix velCouplMat   = new Matrix(3, 4);
-    private Matrix forceCouplMat = new Matrix(3, 4);
-    private Matrix accelMatrix   = new Matrix(3, 1);
+    //private Matrix forceCouplMat = new Matrix(3, 4);
+    //private Matrix accelMatrix   = new Matrix(3, 1);
     private Matrix velocityMatrix= new Matrix(3, 1);
 
     public VelocityMatrices velocityMatrices = new VelocityMatrices();
@@ -66,36 +66,12 @@ public class VelocityMatrices {
         }
         velocityMatrix = velCouplMat.times(wheelVelMat);
     }
-    /*
-     *
-     */
-    public void calcAccel() {
-        accelMatrix = forceCouplMat.times(wheelForceMat).times(1/mass);
-    }
-    /*
-     * 
-     */
-    public Matrix getAccelMat() {
-        return accelMatrix;
-    }
-
-    // This code is for the acceleration of the robot.
-    public void setWheelForceMat(double f1, double f2, double f3, double f4) {
-        wheelForceMat.set(0, 0, f1);
-        wheelForceMat.set(1, 0, f2);
-        wheelForceMat.set(2, 0, f3);
-        wheelForceMat.set(3, 0, f4);
-    }
 
     public Matrix getVelCouplMat() {
         return velCouplMat;
     }
-
     public Matrix getWheelVelMat() {
         return wheelVelMat;
-    }
-    public Matrix getWheelForceMat() {
-        return wheelForceMat;
     }
     public Matrix getVelocityVector() {
         return velocityMatrix;
@@ -122,7 +98,8 @@ public class VelocityMatrices {
         velCouplMat = velCouplMat.inverse();
     }
 
-    private void initForceCouplMat() {
+    /*
+     private void initForceCouplMat() {
         double[][] forceCoupl = new double[3][4];
         forceCoupl[0][0] = -Math.sin(thetaFR);
         forceCoupl[0][1] = -Math.sin(thetaFL);
@@ -141,5 +118,25 @@ public class VelocityMatrices {
 
         forceCouplMat = new Matrix(forceCoupl);
     }
+
+    public void calcAccel() {
+        accelMatrix = forceCouplMat.times(wheelForceMat).times(1/mass);
+    }
+
+    public Matrix getAccelMat() {
+        return accelMatrix;
+    }
+
+    // This code is for the acceleration of the robot.
+    public void setWheelForceMat(double f1, double f2, double f3, double f4) {
+        wheelForceMat.set(0, 0, f1);
+        wheelForceMat.set(1, 0, f2);
+        wheelForceMat.set(2, 0, f3);
+        wheelForceMat.set(3, 0, f4);
+    }
+    public Matrix getWheelForceMat() {
+        return wheelForceMat;
+    }
+    */
 
 }
