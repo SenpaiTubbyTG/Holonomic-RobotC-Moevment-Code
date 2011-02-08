@@ -22,11 +22,11 @@ public class VelocityMatrices implements PIDSource {
          */
         public static final VelocityOutput kXvelocity = new VelocityOutput(kXvelocity_val);
         /**
-         * Use y-velocity for PIDGet and PIDWrite
+         * Use y-velocity for PIDGet
          */
         public static final VelocityOutput kYvelocity = new VelocityOutput(kYvelocity_val);
         /**
-         * Use Twist for PIDGet and PIDWrite
+         * Use Twist for PIDGet
          */
         public static final VelocityOutput kRotationalVelocity = new VelocityOutput(kRotationalVelocity_val);
 
@@ -59,28 +59,38 @@ public class VelocityMatrices implements PIDSource {
     //Singleton class instance
     public VelocityMatrices velocityMatrices = new VelocityMatrices();
 
+    /**
+     * singleton constructor initializing the velocity coupling matrix (constant)
+     */
     private VelocityMatrices() {
         initVelCouplMat();
         //initForceCouplMat();
     }
-    private void setWheelVelocities(double v1, double v2, double v3, double v4) {
-        wheelVelMat.set(0, 0, v1);
-        wheelVelMat.set(1, 0, v2);
-        wheelVelMat.set(2, 0, v3);
-        wheelVelMat.set(3, 0, v4);
+    
+    /**
+     * helper method for setting wheel velocity matrix values
+     * wheel velocities obtained directly from encoders
+     */
+    private void updateWheelVelocities() {
+        wheelVelMat.set(0, 0, HW.encoderFrontLeft.getRate());
+        wheelVelMat.set(1, 0, HW.encoderFrontRight.getRate());
+        wheelVelMat.set(2, 0, HW.encoderRearRight.getRate());
+        wheelVelMat.set(3, 0, HW.encoderRearLeft.getRate());
     }
 
-    /*
-     * 
+    /**
+     * calculates velocity = velocity coupling matrix * wheel velocity matrix
+     * updates wheel velocities before calculating velocity
      */
     public void calcVelocity() {
-        setWheelVelocities(HW.encoderFrontLeft.getRate(),
-                           HW.encoderFrontRight.getRate(),
-                           HW.encoderRearRight.getRate(),
-                           HW.encoderRearLeft.getRate());
+        updateWheelVelocities();
         velocityMatrix = velCouplMat.times(wheelVelMat);
     }
 
+    /**
+     * used by PIDController object, returns velocity depending on current VelocityOutput variable
+     * @return PID input
+     */
     public double pidGet() {
         calcVelocity();
         switch (m_output.value) {
@@ -95,11 +105,13 @@ public class VelocityMatrices implements PIDSource {
         }
     }
     
+    /**
+     * Changes VelocityOutput type (x, y, or rotational velocity)
+     * Default is x-velocity
+     * @param output new VelocityOutput type
+     */
     public void setOutput(VelocityOutput output) {
         m_output = output;
-    }
-    public Matrix getVelocityVector() {
-        return velocityMatrix;
     }
     private void initVelCouplMat() {
         double[][] velCoupl = new double[4][3];
@@ -130,7 +142,9 @@ public class VelocityMatrices implements PIDSource {
     public double getRotationalVelocity() {
         return velocityMatrix.get(2, 0);
     }
-
+    public Matrix getVelocityVector() {
+        return velocityMatrix;
+    }
     /*
      private void initForceCouplMat() {
         double[][] forceCoupl = new double[3][4];
