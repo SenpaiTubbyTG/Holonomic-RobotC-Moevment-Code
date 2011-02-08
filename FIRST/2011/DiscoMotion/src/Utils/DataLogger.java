@@ -119,25 +119,22 @@ public class DataLogger {
         for (int k = 0; k < hdr.length; k++) {
             header += "," + hdr[k];
         }
-        file = new FileIO(filename + ".csv");
-        file.writeLine(header);
         String[] data = DataLogHelper.getData();
-        for (int k = data.length - 1; k >= 0; k--) {
-            file.writeLine(data[k]);
-        }
+        String[] contents = new String[data.length + 1];
+        contents[0] = header;
+        System.arraycopy(data, 0, contents, 1, data.length);
+        FileIO.writeToFile(filename, contents);
+        DiscoUtils.debugPrintln("DataLog written");
     }
 
     /**
      * writes the contents of dataLog (DataLogHelper stack) to a file
      */
     public void writeData() {
-        file = new FileIO(filename + ".csv");
-        file.writeLine(header);
         String[] data = DataLogHelper.getData();
-        for (int k = data.length - 1; k >= 0; k--) {
-            file.writeLine(data[k]);
-        }
-
+        String[] contents = new String[data.length + 1];
+        System.arraycopy(data, 0, contents, 1, data.length);
+        FileIO.writeToFile(filename, contents);
         DiscoUtils.debugPrintln("DataLog written");
     }
 }
