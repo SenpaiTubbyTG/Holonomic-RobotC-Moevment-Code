@@ -14,11 +14,6 @@ public class Autonomous {
     private static double x;
     private static double y;
 
-    public static void init() {
-        HW.sonarControllerLeft.enable();
-        HW.sonarControllerFrontLeft.enable();
-        HW.sonarControllerFrontRight.enable();
-    }
     public static void periodic() {
         x = HW.sonarControllerLeft.getSpeed();
         y = (HW.sonarControllerFrontLeft.getSpeed() + HW.sonarControllerFrontRight.getSpeed())/2;

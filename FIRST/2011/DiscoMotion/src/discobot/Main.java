@@ -22,12 +22,13 @@ public class Main extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+
     public void robotInit() {
-        Disabled.robotInit();
+        Init.robotInit();
     }
 
-    public void autonomousPeriodic() {
-        Autonomous.periodic();
+    public void disabledInit() {
+        Init.disabledInit();
     }
 
     public void disabledContinuous() {
@@ -38,8 +39,16 @@ public class Main extends IterativeRobot {
         Disabled.periodic();
     }
 
+    public void autonomousInit() {
+        Init.autonomousInit();
+    }
+
+    public void autonomousPeriodic() {
+        Autonomous.periodic();
+    }
+
     public void teleopInit() {
-        Teleop.init();
+        Init.teleopInit();
     }
 
     public void teleopContinuous() {
@@ -48,9 +57,5 @@ public class Main extends IterativeRobot {
 
     public void teleopPeriodic() {
         Teleop.periodic();
-    }
-
-    public void disabledInit() {
-        Disabled.init();
     }
 }

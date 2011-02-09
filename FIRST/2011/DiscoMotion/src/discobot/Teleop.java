@@ -9,13 +9,6 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Teleop {
 
-    public static void init() {
-        String[] header = {""};
-        DataLogger.dataLogger.setHeader(header);
-        DataLogger.dataLogger.setTimeOffset(Timer.getFPGATimestamp());
-        DataLogger.dataLogger.enable();
-    }
-
     public static void periodic() {
     }
 
