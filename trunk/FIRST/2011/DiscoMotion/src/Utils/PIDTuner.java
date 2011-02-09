@@ -26,14 +26,23 @@ import com.sun.squawk.util.StringTokenizer;
 
 public class PIDTuner {
 
+    private static double[][] PIDkonstants;
+
     /**
      * returns PID constants read from a file (PIDTuning.csv)
      * @return double matrix of PID constants in order according to file
      */
-
     public static double[][] getPIDConstants() {
+        return PIDkonstants;
+    }
+
+    public static double[] getPIDConstants(int row) {
+        return PIDkonstants[row];
+    }
+
+    public static double[][] readFile() {
         String[] rawData = FileIO.readFromFile("PIDTuning.csv");
-        double[][] PIDkonstants = new double[rawData.length][3];
+        PIDkonstants = new double[rawData.length][3];
         for (int r = 0; r < PIDkonstants.length; r++) {
             for (int c = 0; c < 3; c++) {
                 StringTokenizer buff = new StringTokenizer(rawData[r], ",");
