@@ -19,7 +19,7 @@
 
 
 ==Week 2:==
- # control loop for gyro to drive strait and hold orientation. 
+ # control loop for gyro to drive strait ~~and hold orientation. ~~
   * When driving the robot stays strait, when not moving, if twisted the robot will try to reorient back to it's original position)
   * Test on 2010 Robot
  # ~~control loop for gyro turning to set degrees (90 degrees, 180 degrees, etc.)~~
@@ -41,7 +41,7 @@
   * Sensor Mounts created
     * Sonars Mounted
     * ~~Encoders Mounted on drive motors~~
-    * Gyro and Accelerometer Mounted
+    * ~~Gyro and Accelerometer Mounted~~
  # Power Wires are routed and labeled on the board
 
 ==Week 3:==
