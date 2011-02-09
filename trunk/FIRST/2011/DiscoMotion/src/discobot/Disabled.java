@@ -9,15 +9,6 @@ import Utils.*;
  */
 public class Disabled {
 
-    public static void robotInit() {
-        
-    }
-
-    public static void init() {
-        DataLogger.dataLogger.disable();
-        DataLogger.dataLogger.writeData();
-    }
-
     public static void periodic() {
     }
 
