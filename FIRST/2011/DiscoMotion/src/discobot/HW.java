@@ -11,6 +11,7 @@
 //====================================================================
 package discobot;
 
+import DriveControllers.SonarController;
 import DriveControllers.*;
 import Sensors.*;
 import edu.wpi.first.wpilibj.*;
@@ -53,15 +54,36 @@ public class HW {
 //------------------------------------
 //         Jaguar class
 //------------------------------------
+
+    public static final int frontLeftDMAddress = 2;
+    public static final int frontRightDMAddress = 3;
+    public static final int rearRightDMAddress = 4;
+    public static final int rearLeftDMAddress = 5;
+
+    public static final int encoderCodesPerRev = 128;
+
+    public static CANJaguar frontLeftDM;
+    public static CANJaguar frontRightDM;
+    public static CANJaguar rearRightDM;
+    public static CANJaguar rearLeftDM;
+
+    public static double maxWheelVelocity = 200;
+
+
+    public static Jaguar lift = new Jaguar(5);
+    public static Victor arm = new Victor(6);
+    public static Victor collectorMotor = new Victor(7);
+
 //------------------------------------
 //         Drive motors
 //------------------------------------
-    public static Jaguar frontLeftDM = new Jaguar(1);
+    /*public static Jaguar frontLeftDM = new Jaguar(1);
     public static Jaguar frontRightDM = new Jaguar(2);
     public static Jaguar rearRightDM = new Jaguar(3);
-    public static Jaguar rearLeftDM = new Jaguar(4);
+    public static Jaguar rearLeftDM = new Jaguar(4);*/
 
-    public static DiscoDrive drive = new DiscoDrive(frontLeftDM, frontRightDM, rearRightDM, rearLeftDM);
+    public static DiscoDriveStandard drive =
+            new DiscoDriveStandard(frontLeftDM, frontRightDM, rearRightDM, rearLeftDM);
 
     //public static DiscoDriveConverter driveConverter =
       //      new DiscoDriveConverter(0.0, 0.0, 0.0, DiscoDriveConverter.Output.kSpeed);
@@ -101,16 +123,16 @@ public class HW {
      *  The Front Encoders
      */
     public static DiscoEncoder encoderFrontLeft =
-            new DiscoEncoder(1, 2, false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(5, 6, false, Encoder.EncodingType.k2X);
     public static DiscoEncoder encoderFrontRight =
-            new DiscoEncoder(3, 4, false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(7, 8, false, Encoder.EncodingType.k2X);
     /**
      *  The Rear Encoders
      */
     public static DiscoEncoder encoderRearRight =
-            new DiscoEncoder(5, 6, false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(1, 2, false, Encoder.EncodingType.k2X);
     public static DiscoEncoder encoderRearLeft =
-            new DiscoEncoder(7, 8, false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(3, 4, false, Encoder.EncodingType.k2X);
 
 //-------------------------------------
 //                 Ultrasonic class

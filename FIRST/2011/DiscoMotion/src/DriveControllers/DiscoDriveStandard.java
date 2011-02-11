@@ -21,11 +21,81 @@ import edu.wpi.first.wpilibj.can.CANTimeoutException;
 ------------------------------------------------------- */
 public class DiscoDriveStandard extends RobotDrive {
 
-    private double NUMBER_OF_MOTORS = 4;
+    private int NUMBER_OF_MOTORS = 4;
 
     public DiscoDriveStandard(SpeedController frontLeftMotor, SpeedController frontRightMotor,
             SpeedController rearRightMotor, SpeedController rearLeftMotor) {
         super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
+    }
+
+    /**
+     * Holonomic Drive method for omni wheel robots
+     *
+     * Cartesian holonomic drive
+     * @param x - desired x-output (left/right)
+     * @param y - desired y-output (forward/backwards)
+     * independent of the rotation rate.
+     * @param rotation The rate of rotation for the robot that is completely independent of
+     * the magnitude or direction.  [-1.0..1.0]
+     */
+    public void HolonomicDrive(double x, double y, double rotation, double offset) {
+        double xIn = x;//limitToPercent(x);
+        double yIn = y;//limitToPercent(y);
+        // Negate y for the joystick.
+        //yIn = -yIn; on button control, no need to negate the y joystick
+
+        double wheelSpeeds[] = new double[NUMBER_OF_MOTORS];
+        wheelSpeeds[MotorType.kFrontLeft.value] = xIn + yIn + rotation + offset;
+        wheelSpeeds[MotorType.kFrontRight.value] = -xIn + yIn - rotation - offset;
+        wheelSpeeds[MotorType.kRearRight.value] = xIn + yIn - rotation + offset;
+        wheelSpeeds[MotorType.kRearLeft.value] = -xIn + yIn + rotation - offset;
+
+
+        normalize(wheelSpeeds);
+
+        m_frontLeftMotor.set(wheelSpeeds[MotorType.kFrontLeft.value] * m_invertedMotors[MotorType.kFrontLeft.value] * m_maxOutput);
+        m_frontRightMotor.set(wheelSpeeds[MotorType.kFrontRight.value] * m_invertedMotors[MotorType.kFrontRight.value] * m_maxOutput);
+        m_rearLeftMotor.set(wheelSpeeds[MotorType.kRearLeft.value] * m_invertedMotors[MotorType.kRearLeft.value] * m_maxOutput);
+        m_rearRightMotor.set(wheelSpeeds[MotorType.kRearRight.value] * m_invertedMotors[MotorType.kRearRight.value] * m_maxOutput);
+
+        /*if (m_controlMode == PWMJaguar.ControlMode.kPercentVbus) {
+            setMotorsPercentVbus(wheelSpeeds[MotorType.kFrontLeft.value], wheelSpeeds[MotorType.kRearRight.value],
+                    wheelSpeeds[MotorType.kFrontRight.value], wheelSpeeds[MotorType.kRearLeft.value]);
+        } else if (m_controlMode == PWMJaguar.ControlMode.kSpeed) {
+            setMotorsSpeed(wheelSpeeds[MotorType.kFrontLeft.value], wheelSpeeds[MotorType.kRearRight.value],
+                    wheelSpeeds[MotorType.kFrontRight.value], wheelSpeeds[MotorType.kRearLeft.value]);
+        }*/
+
+    }
+
+    public void HolonomicDrive(double x, double y, double rotation) {
+        double xIn = x;//limitToPercent(x);
+        double yIn = y;//limitToPercent(y);
+        // Negate y for the joystick.
+        yIn = -yIn;
+
+        double wheelSpeeds[] = new double[NUMBER_OF_MOTORS];
+        wheelSpeeds[MotorType.kFrontLeft.value] = xIn + yIn + rotation;
+        wheelSpeeds[MotorType.kFrontRight.value] = -xIn + yIn - rotation;
+        wheelSpeeds[MotorType.kRearRight.value] = xIn + yIn - rotation;
+        wheelSpeeds[MotorType.kRearLeft.value] = -xIn + yIn + rotation;
+
+
+        normalize(wheelSpeeds);
+
+        m_frontLeftMotor.set(wheelSpeeds[MotorType.kFrontLeft.value] * m_invertedMotors[MotorType.kFrontLeft.value] * m_maxOutput);
+        m_frontRightMotor.set(wheelSpeeds[MotorType.kFrontRight.value] * m_invertedMotors[MotorType.kFrontRight.value] * m_maxOutput);
+        m_rearLeftMotor.set(wheelSpeeds[MotorType.kRearLeft.value] * m_invertedMotors[MotorType.kRearLeft.value] * m_maxOutput);
+        m_rearRightMotor.set(wheelSpeeds[MotorType.kRearRight.value] * m_invertedMotors[MotorType.kRearRight.value] * m_maxOutput);
+
+        /*if (m_controlMode == PWMJaguar.ControlMode.kPercentVbus) {
+            setMotorsPercentVbus(wheelSpeeds[MotorType.kFrontLeft.value], wheelSpeeds[MotorType.kRearRight.value],
+                    wheelSpeeds[MotorType.kFrontRight.value], wheelSpeeds[MotorType.kRearLeft.value]);
+        } else if (m_controlMode == PWMJaguar.ControlMode.kSpeed) {
+            setMotorsSpeed(wheelSpeeds[MotorType.kFrontLeft.value], wheelSpeeds[MotorType.kRearRight.value],
+                    wheelSpeeds[MotorType.kFrontRight.value], wheelSpeeds[MotorType.kRearLeft.value]);
+        }*/
+
     }
 
     /**
