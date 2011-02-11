@@ -7,16 +7,17 @@ import edu.wpi.first.wpilibj.*;
  *
  * @author Nelson Chen
  */
-public class Teleop {
-
+public class Teleop {static boolean enabled = false;
     static final double k_armSpeed = 0.3;
-    static boolean enabled = false;
     static double currentX = 0.0;
     static double currentY = 0.0;
     static double offset = 0.0;
     static double currentTime;
     static boolean[] driveStickLeftButtons = new boolean[12];
+    static boolean[] driveStickRightButtons = new boolean[12];
+    static boolean[] liftHandleButtons = new boolean[12];
     static double[] lastPressed = new double[12];
+    static int i = 0;
 
     public static void periodic() {
         updateButtons();
@@ -40,15 +41,22 @@ public class Teleop {
             enabled = false;
         }
 
-        if (HW.driveStickRight.getRawButton(3)) { //arm up
+        /*if (HW.driveStickRight.getRawButton(3)) { //arm up
             HW.arm.set(-k_armSpeed);
         } else if (HW.driveStickRight.getRawButton(2)) { // arm down
             HW.arm.set(k_armSpeed);
         } else {
             HW.arm.set(0.0);
+        }*/
+
+        //HW.collector.periodic(liftHandleButtons);
+        if(liftHandleButtons[2]) {
+            HW.collectorMotor.set(0.5);
+        }
+        else if(liftHandleButtons[3]) {
+            HW.collectorMotor.set(-0.5);
         }
 
-        HW.collector.set(HW.driveStickRight.getY());
         HW.lift.set(-HW.liftHandle.getY());
 
         if ((currentTime - lastPressed[8]) > 0.25 && driveStickLeftButtons[8]) {
@@ -62,10 +70,22 @@ public class Teleop {
         }
 
         if (enabled) {
-            HW.drive.HolonomicDrive(currentX, currentY, 0.0, offset);
+            HW.drive.HolonomicDrive(currentX, currentY, HW.driveStickRight.getX(), offset);
         } else {
-            HW.drive.HolonomicDrive(0.0, 0.0, 0.0, 0.0);
+            HW.drive.HolonomicDrive(HW.driveStickLeft.getX(),
+                                HW.driveStickLeft.getY(),
+                                HW.driveStickRight.getX());
         }
+
+        /*if (i > 10) {
+            DiscoUtils.debugPrintln("FL rate: " + HW.encoderFrontLeft.getRate());
+            DiscoUtils.debugPrintln("FR rate: " + HW.encoderFrontRight.getRate());
+            DiscoUtils.debugPrintln("RR rate: " + HW.encoderRearRight.getRate());
+            DiscoUtils.debugPrintln("RL rate: " + HW.encoderRearLeft.getRate());
+            i = 0;
+        } else {
+            i++;
+        }*/
 
     }
 
@@ -75,6 +95,9 @@ public class Teleop {
     private static void updateButtons() {
         for (int b = 1; b < 12; b++) {
             driveStickLeftButtons[b] = HW.driveStickLeft.getRawButton(b);
+        }
+        for (int b = 1; b < 12; b++) {
+            liftHandleButtons[b] = HW.liftHandle.getRawButton(b);
         }
         currentTime = Timer.getFPGATimestamp();
     }
