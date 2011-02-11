@@ -8,6 +8,7 @@
  */
 package Sensors;
 
+import Utils.DiscoUtils;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.parsing.ISensor;
 
@@ -69,7 +70,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
                 } else {
                     u.pulse(PING_TIME);	// do the ping
                 }
-                Timer.delay(m_allocatedChannels * .1);							// wait for ping to return
+                Timer.delay(m_allocatedChannels * .15);							// wait for ping to return
             }
         }
     }
@@ -85,7 +86,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
      * @param inputChannel The analog input channel has the analog voltage of the distance.
      * @param units The units returned in either kInches or kMilliMeters
      */
-    public MaxbotixSonar(final int pingChannel, final int inputChannel, Unit units) {
+    public MaxbotixSonar(final int inputChannel, final int pingChannel, Unit units) {
         m_pingChannel = new DigitalOutput(pingChannel);
         m_inputChannel = new AnalogChannel(inputChannel);
         m_allocatedChannels++;
@@ -104,7 +105,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
      * daisy chain of Maxbotix sonars
      * @param inputChannel The analog input channel has the analog voltage of the distance.
      */
-    public MaxbotixSonar(final int pingChannel, final int inputChannel) {
+    public MaxbotixSonar(final int inputChannel, final int pingChannel) {
         this(pingChannel, inputChannel, Unit.kInches);
     }
 
@@ -115,7 +116,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
      * @param inputChannel The AnalogChannel object that times the return pulse to determine the range.
      * @param units The units returned in either kInches or kMilliMeters
      */
-    public MaxbotixSonar(DigitalOutput pingChannel, AnalogChannel inputChannel, Unit units) {
+    public MaxbotixSonar(AnalogChannel inputChannel, DigitalOutput pingChannel, Unit units) {
         if (pingChannel == null || inputChannel == null) {
             throw new NullPointerException("Null Channel Provided");
         }
@@ -134,29 +135,8 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
      * @param inputChannel The AnalogChannel object that times the return pulse to determine the range.
      * @param units The units returned in either kInches or kMilliMeters
      */
-    public MaxbotixSonar(DigitalOutput pingChannel, AnalogChannel inputChannel) {
-        this(pingChannel, inputChannel, Unit.kInches);
-    }
-
-    /**
-     * Create an instance of the MaxbotixSonar sensor using specified modules.
-     * This constructors takes the channel and module slot for each of the required
-     * digital and analog I/O channels.
-     * @param pingSlot The digital module that the pingChannel is in.
-     * @param pingChannel The digital output channel that sends the pulse to initiate the sensor
-     * sending the ping.
-     * @param inputSlot The analog module that the inputChannel is in.
-     * @param inputChannel The analog input channel that receives the voltage representing
-     * the distance.
-     * @param units The units returned in either kInches or kMilliMeters
-     */
-    public MaxbotixSonar(final int pingSlot, final int pingChannel,
-            final int inputSlot, final int inputChannel, Unit units) {
-        m_pingChannel = new DigitalOutput(pingSlot, pingChannel);
-        m_inputChannel = new AnalogChannel(inputSlot, inputChannel);
-        m_allocatedChannels++;
-        m_units = units;
-        initializeDaisyChain();
+    public MaxbotixSonar(AnalogChannel inputChannel, DigitalOutput pingChannel) {
+        this(inputChannel, pingChannel, Unit.kInches);
     }
 
     /**
@@ -219,6 +199,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
         if (m_task == null) {
             m_task = new DaisyChainPulser();
         }
+        DiscoUtils.debugPrintln("Intialized DaisyChain");
         m_daisyChainEnabled = true;
         m_task.start();
     }
