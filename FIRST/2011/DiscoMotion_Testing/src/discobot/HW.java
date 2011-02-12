@@ -151,7 +151,7 @@ public class HW {
 //-------------------------------------
 //                 Gyro class
 //-------------------------------------
-    public static Gyro gyro = new Gyro(1);
+    public static DiscoGyro gyro = new DiscoGyro(1);
 
     public static TurnController turnController = new TurnController(gyro);
 

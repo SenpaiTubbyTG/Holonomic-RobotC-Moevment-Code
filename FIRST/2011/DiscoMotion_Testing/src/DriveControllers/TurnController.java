@@ -1,23 +1,24 @@
 package DriveControllers;
 
+import Sensors.DiscoGyro;
+import Utils.DiscoUtils;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
  * @author Nelson
  */
-public class TurnController {
-    private DiscoDriveConverter driveConverter;
+public class TurnController implements PIDOutput {
+
+    private double output;
     private PIDController gyroController;
     private double incrementStartTime;
-    private Gyro gyro;
+    private DiscoGyro gyro;
 
-    public TurnController(Gyro g) {
+    public TurnController(DiscoGyro g) {
         gyro = g;
-        driveConverter = 
-                new DiscoDriveConverter(0.0, 0.0, 0.0, DiscoDriveConverter.Output.kTwist);
-        gyroController = new PIDController(0.001, 0.0, 0.0, gyro, driveConverter);
+        gyroController = new PIDController(0.023, 0.0, 0.05, gyro, this);
         incrementStartTime = Timer.getFPGATimestamp();
     }
 
@@ -34,11 +35,13 @@ public class TurnController {
      * @param inc - right joystick, x-axis value
      */
     public void incrementSetpoint(double inc) {
-        double currentTime = Timer.getFPGATimestamp();
-        double newHeading = gyroController.getSetpoint() +
-                            (inc * (currentTime - incrementStartTime));
-        gyroController.setSetpoint(newHeading);
-        incrementStartTime = currentTime;
+        if (Math.abs(inc) > .05) {
+            //double currentTime = Timer.getFPGATimestamp();
+            double newHeading = gyroController.getSetpoint()
+                    + (inc * 5);// * (currentTime - incrementStartTime));
+            gyroController.setSetpoint(newHeading);
+            //incrementStartTime = currentTime;
+        }
     }
 
     /**
@@ -49,6 +52,14 @@ public class TurnController {
      */
     public void setPID(double kp, double ki, double kd) {
         gyroController.setPID(kp, ki, kd);
+    }
+
+    public double getSetpoint() {
+        return gyroController.getSetpoint();
+    }
+
+    public double getError() {
+        return gyroController.getError();
     }
 
     /**
@@ -72,7 +83,61 @@ public class TurnController {
      * @return twist value of the DiscoDriveConverter
      */
     public double getRotation() {
-        return driveConverter.getTwist();
+        return output;
     }
 
+    public void pidWrite(double out) {
+        output = out;
+    }
+
+    public void reset() {
+        reset(0.0);
+    }
+
+    public void reset(double angle){
+        setSetpoint(angle);
+        gyro.reset(angle);
+        gyroController.reset();
+        gyroController.enable();
+    }
+
+    /**
+     * Should turn the robot to the nearest orientation
+     * @param newOrientation
+     */
+    public void turnToOrientation(double newOrientation) {
+        double out = 0;
+        newOrientation = Math.abs(newOrientation % 360); //Make sure the angle is between and 0-359
+        DiscoUtils.debugPrintln("corrected angle: " + newOrientation);
+        double currentAngle = getSetpoint();
+        DiscoUtils.debugPrintln("Current Angle: " + currentAngle);
+        //If we are not already at the right setpoint
+
+        int sign = ((currentAngle > 0) ? 1 : -1);
+        currentAngle = Math.abs(currentAngle);
+        double numberOfFullTurns = Math.floor(currentAngle / 360);
+        DiscoUtils.debugPrintln("Number of Full Turns: " + numberOfFullTurns);
+        double oldOrientation = currentAngle % 360;
+        DiscoUtils.debugPrintln("remainder: " + oldOrientation);
+
+        if (newOrientation != oldOrientation) {
+            if (oldOrientation - newOrientation >= 180) {
+                out = newOrientation + 360;
+            } else if (newOrientation - oldOrientation >= 180) {
+                out = newOrientation - 360;
+            } else {
+                out = newOrientation;
+            }
+            out = ((numberOfFullTurns * 360 * sign) + out);
+            DiscoUtils.debugPrintln("Out: " + out);
+            setSetpoint(out);
+        }
+    }
+
+    public void setAngle(double angle){
+        gyro.setAngle(angle);
+        reset(angle);
+    }
 }
+
+

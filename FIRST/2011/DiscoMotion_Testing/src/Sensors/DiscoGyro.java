@@ -31,9 +31,16 @@ public class DiscoGyro extends Gyro{
      * Reset by setting th angle to zero and reseting the gyo accumulator
      */
     public void reset(){
-        setAngle(0);
+        reset(0);
     }
 
+    /**
+     * Reset the gyro and set to what you want. Is just another name for setAngle
+     * @param angle
+     */
+    public void reset(double angle){
+        setAngle(angle);
+    }
     /**
      * Return the angle with our adjustments
      * @return
