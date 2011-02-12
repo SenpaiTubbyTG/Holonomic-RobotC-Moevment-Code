@@ -29,6 +29,7 @@ public class Init {
     public static void disabledInit() {
         //DataLogger.dataLogger.disable();
         //DataLogger.dataLogger.writeData();
+        HW.turnController.disable();
     }
 
     public static void autonomousInit() {
@@ -55,7 +56,8 @@ public class Init {
         setPIDs();
         //DataLogger.dataLogger.enable();
 
-        HW.gyro.reset();
+        HW.turnController.reset();
+        HW.turnController.enable();
 
         HW.encoderFrontLeft.reset();
         HW.encoderFrontRight.reset();

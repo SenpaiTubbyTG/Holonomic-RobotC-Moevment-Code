@@ -15,11 +15,11 @@ public class Disabled {
     }
 
     public static void continuous() {
-        if (i > 100000) {
+        /*if (i > 100000) {
             DiscoUtils.debugPrintln("L  sonar: " + HW.sonarLeft.getRangeInches());
             i = 0;
         } else {
             i++;
-        }
+        }*/
     }
 }

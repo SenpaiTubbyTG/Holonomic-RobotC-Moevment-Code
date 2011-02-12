@@ -22,7 +22,6 @@ public class Teleop {
     static int i = 0;
 
     //static double[] encoder = new double[4];
-
     public static void periodic() {
         /*encoder[0] = HW.encoderFrontLeft.getDistance();
         encoder[1] = HW.encoderFrontRight.getDistance();
@@ -31,6 +30,8 @@ public class Teleop {
         DataLogger.dataLogger.setEntryValue(encoder);*/
         updateButtons();
 
+        //Drive Code
+        //Button Drive
         if (driveStickLeftButtons[2] || driveStickLeftButtons[3] || driveStickLeftButtons[4] || driveStickLeftButtons[5]) {
             enabled = true;
             if (driveStickLeftButtons[2]) {
@@ -50,13 +51,37 @@ public class Teleop {
             enabled = false;
         }
 
+        if (HW.driveStickLeft.getRawButton(11)) {
+            HW.turnController.reset(0);
+        } else if (HW.driveStickLeft.getRawButton(10)) {
+            HW.turnController.reset(90);
+        } else if (HW.driveStickLeft.getRawButton(7)) {
+            HW.turnController.reset(180);
+        } else if (HW.driveStickLeft.getRawButton(6)) {
+            HW.turnController.reset(270);
+        } else if (HW.driveStickRight.getRawButton(11)) {
+            HW.turnController.turnToOrientation(0);
+        } else if (HW.driveStickRight.getRawButton(10)) {
+            HW.turnController.turnToOrientation(90);
+        } else if (HW.driveStickRight.getRawButton(7)) {
+            HW.turnController.turnToOrientation(180);
+        } else if (HW.driveStickRight.getRawButton(6)) {
+            HW.turnController.turnToOrientation(270);
+        } else {
+            HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
+        }
+
+
+        //Joystick Drive
         if (enabled) {
-            HW.drive.HolonomicDrive(currentX, currentY, HW.driveStickRight.getX(), offset);
+            HW.drive.HolonomicDrive(currentX, currentY, HW.turnController.getRotation(), offset);
         } else {
             HW.drive.HolonomicDrive(HW.driveStickLeft.getX(),
-                                HW.driveStickLeft.getY(),
-                                HW.driveStickRight.getX());
+                    HW.driveStickLeft.getY(),
+                    HW.turnController.getRotation());
         }
+
+
 
         if (HW.driveStickRight.getRawButton(3)) { //arm up
             HW.armMotor.set(-k_armSpeed);
@@ -69,28 +94,28 @@ public class Teleop {
         HW.lift.set(-HW.liftHandle.getY());
         //HW.collector.periodic(liftHandleButtons);
         //HW.arm.periodic(liftHandleButtons);s
-        if(liftHandleButtons[2]) {
+        if (liftHandleButtons[2]) {
             HW.collectorMotor.set(0.5);
-        }
-        else if(liftHandleButtons[3]) {
+        } else if (liftHandleButtons[3]) {
             HW.collectorMotor.set(-0.5);
         }
 
         /*if ((currentTime - lastPressed[8]) > 0.25 && driveStickLeftButtons[8]) {
-            offset -= 0.1;
-            lastPressed[8] = currentTime;
-            DiscoUtils.debugPrintln("Offset decreased to: " + offset);
+        offset -= 0.1;
+        lastPressed[8] = currentTime;
+        DiscoUtils.debugPrintln("Offset decreased to: " + offset);
         } else if ((currentTime - lastPressed[9]) > 0.25 && driveStickLeftButtons[9]) {
-            offset += 0.1;
-            lastPressed[9] = currentTime;
-            DiscoUtils.debugPrintln("Offset increased to: " + offset);
+        offset += 0.1;
+        lastPressed[9] = currentTime;
+        DiscoUtils.debugPrintln("Offset increased to: " + offset);
         }*/
 
         if (i > 10) {
-            DiscoUtils.debugPrintln("Gyro: " + HW.gyro.getAngle());
-            DiscoUtils.debugPrintln("L  sonar: " + HW.sonarLeft.getRangeCM());
+            //DiscoUtils.debugPrintln("Gyro: " + HW.gyro.getAngle());
+            //DiscoUtils.debugPrintln("L  sonar: " + HW.sonarLeft.getRangeCM());
             //DiscoUtils.debugPrintln("FL sonar: " + HW.sonarFrontLeft.getRangeInches());
             //DiscoUtils.debugPrintln("FR sonar: " + HW.sonarFrontRight.getRangeInches());
+            DiscoUtils.debugPrintln("Angle Setpoint: " + HW.turnController.getSetpoint());
             i = 0;
         } else {
             i++;
