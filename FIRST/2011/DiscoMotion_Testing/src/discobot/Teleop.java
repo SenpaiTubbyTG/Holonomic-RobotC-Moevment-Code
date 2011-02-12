@@ -76,9 +76,8 @@ public class Teleop {
         if (enabled) {
             HW.drive.HolonomicDrive(currentX, currentY, HW.turnController.getRotation(), offset);
         } else {
-            HW.drive.HolonomicDrive(HW.driveStickLeft.getX(),
-                    HW.driveStickLeft.getY(),
-                    HW.turnController.getRotation());
+            double out[] = rotateVector(HW.driveStickLeft.getX(),HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
+            HW.drive.HolonomicDrive(out[0], out[1], HW.turnController.getRotation());
         }
 
 
@@ -124,6 +123,17 @@ public class Teleop {
     }
 
     public static void continuous() {
+    }
+    /**
+     * Rotate a vector in Cartesian space.
+     */
+    protected static double[] rotateVector(double x, double y, double angle) {
+        double cosA = Math.cos(angle * (3.14159 / 180.0));
+        double sinA = Math.sin(angle * (3.14159 / 180.0));
+        double out[] = new double[2];
+        out[0] = x * cosA - y * sinA;
+        out[1] = x * sinA + y * cosA;
+        return out;
     }
 
     private static void updateButtons() {
