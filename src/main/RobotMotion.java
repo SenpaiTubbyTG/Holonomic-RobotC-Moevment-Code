@@ -30,10 +30,17 @@ public class RobotMotion {
     static Matrix slipMatrix   = new Matrix(4, 4);
     static Matrix zeroMatrix = new Matrix(4, 1);
     static Matrix robotVelocityMatrix = new Matrix(3,1);
+    static Matrix robotVelMat = new Matrix(3,1);
 
     /*
      * 
      */
+    public static void setRobotVelMat(double vx, double vy, double rot)
+    {
+        robotVelMat.set(0,0,vx);
+        robotVelMat.set(1,0,vy);
+        robotVelMat.set(2,0,rot);
+    }
 
     public static void setWheelVelMat(double v1, double v2, double v3, double v4) {
         wheelVelMat.set(0, 0, v1);
@@ -45,6 +52,12 @@ public class RobotMotion {
     /*
      * 
      */
+    public static Matrix calcWheelVelocity() {
+        velocityMatrix = velCouplMat.times(robotVelMat);
+        velocityMatrix = velocityMatrix.times(Math.sin(Math.PI/4)+Math.cos(Math.PI/4));
+        return velocityMatrix;
+    }
+    
     public static Matrix calcVelocity() {
         /*System.out.println("VELOCITY COUPLING MATRIX, PSEUDOINVERTED");
         
