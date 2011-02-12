@@ -78,42 +78,73 @@ public class Main extends IterativeRobot {
     {
         RobotMotion.initForceCouplMat();
         RobotMotion.initVelCouplMat();
+
+        boolean chose = false;
+        if (chose == true)
+        {
         //setWheelVelMat takes
         //
         //          (2) +/-    +\- (1)
         //
         //          (3) -\+    -/+ (4)
         //
-        RobotMotion.setWheelVelMat(5, 5, 5, 5);
+        RobotMotion.setWheelVelMat(-1, -1, 1, 1);
+        RobotMotion.setWheelForceMat(1.0, 1.0, 1.0, 1.0);
+        RobotMotion.calcAccel();
+        RobotMotion.calcVelocity();
 
         Matrix velocity = RobotMotion.getVelocityVector();
         Matrix acceleration = RobotMotion.getAccelMat();
-
-        //Print Velocity
         System.out.println("\n\nVELOCITY X, Y, rot");
         for(int r=0;r<3;r++)
             System.out.println(velocity.get(r, 0));
-
-        //Print Acceleration
         /*System.out.println("\n\nACCELERATION X, Y, rot");
         for(int r=0;r<3;r++)
             System.out.println(acceleration.get(r, 0));*/
-
-        if (RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).equals(RobotMotion.getZeroMat()))
-        {
+            if (RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).equals(RobotMotion.getZeroMat()))
+            {
             System.out.println("All is Good!");
-            RobotMotion.setRobVelMat(ROBOT_TASK_PRIORITY, ROBOT_TASK_PRIORITY, ROBOT_TASK_PRIORITY);
             System.out.println(RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).get(0, 0));
             System.out.println(RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).get(1, 0));
             System.out.println(RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).get(2, 0));
+            }
+            else
+            {
+            System.out.println("All is Bad!");
+            System.out.println(RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).get(0, 0));
+            System.out.println(RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).get(1, 0));
+            System.out.println(RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).get(2, 0));
+            }
         }
         else
         {
-            System.out.println("All is Bad! (Wheels are Slipping)");
-            System.out.println(RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).get(0, 0));
-            System.out.println(RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).get(0, 1));
-            System.out.println(RobotMotion.getSlipMat().times(RobotMotion.getWheelVelMat()).get(0, 2));
+            RobotMotion.setRobotVelMat(1, 0, 0);
+            RobotMotion.calcWheelVelocity();
+
+            Matrix velocity = RobotMotion.getVelocityVector();
+            Matrix acceleration = RobotMotion.getAccelMat();
+            System.out.println("\n\nVELOCITY V1, V2, V3, V4");
+            for(int r=0;r<4;r++)
+                System.out.println(velocity.get(r, 0));
+        /*System.out.println("\n\nACCELERATION X, Y, rot");
+        for(int r=0;r<3;r++)
+            System.out.println(acceleration.get(r, 0));*/
+            if (RobotMotion.getSlipMat().times(RobotMotion.calcWheelVelocity()).equals(RobotMotion.getZeroMat()))
+            {
+                System.out.println("All is Good!");
+                System.out.println(RobotMotion.getSlipMat().times(RobotMotion.calcWheelVelocity()).get(0, 0));
+                System.out.println(RobotMotion.getSlipMat().times(RobotMotion.calcWheelVelocity()).get(1, 0));
+                System.out.println(RobotMotion.getSlipMat().times(RobotMotion.calcWheelVelocity()).get(2, 0));
+                System.out.println(RobotMotion.getSlipMat().times(RobotMotion.calcWheelVelocity()).get(3, 0));
+            }
+            else
+            {
+                System.out.println("All is Bad!");
+                System.out.println(RobotMotion.getSlipMat().times(RobotMotion.calcWheelVelocity()).get(0, 0));
+                System.out.println(RobotMotion.getSlipMat().times(RobotMotion.calcWheelVelocity()).get(1, 0));
+                System.out.println(RobotMotion.getSlipMat().times(RobotMotion.calcWheelVelocity()).get(2, 0));
+                System.out.println(RobotMotion.getSlipMat().times(RobotMotion.calcWheelVelocity()).get(3, 0));
+            }
         }
-        
     }
 }
