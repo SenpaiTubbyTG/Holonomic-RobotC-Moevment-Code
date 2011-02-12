@@ -916,24 +916,26 @@ public class Matrix {
          throw new IllegalArgumentException("Matrix dimensions must agree.");
       }
    }
-   public static Matrix pinv(Matrix x) {
-  if (x.rank() < 1)
-   return null;
-  SingularValueDecomposition svdX = new SingularValueDecomposition(x);
-  double[] singularValues = svdX.getSingularValues();
-  double tol = Math.max(x.getColumnDimension(), x.getRowDimension()) * singularValues[0] * MACHEPS;
-  double[] singularValueReciprocals = new double[singularValues.length];
-  for (int i = 0; i < singularValues.length; i++)
-   singularValueReciprocals[i] = Math.abs(singularValues[i]) < tol ? 0 : (1.0 / singularValues[i]);
-  double[][] u = svdX.getU().getArray();
-  double[][] v = svdX.getV().getArray();
-  int min = Math.min(x.getColumnDimension(), u[0].length);
-  double[][] inverse = new double[x.getColumnDimension()][x.getRowDimension()];
-  for (int i = 0; i < x.getColumnDimension(); i++)
-   for (int j = 0; j < u.length; j++)
-    for (int k = 0; k < min; k++)
-     inverse[i][j] += v[i][k] * singularValueReciprocals[k] * u[j][k];
-  return new Matrix(inverse);
- }
+   public boolean equals(Matrix comp)
+    {
+       try{
+           double [][] comparison = comp.getArray();
+           for(int r=0; r< this.A.length; r++)
+           {
+               for(int c=0; c< this.A[r].length; c++)
+               {
+                   if(this.A[r][c]==comparison[r][c])
+                   {
+                       return true;
+                   }
+               }
+           }
+           return false;
+       }
+       catch(Exception e){
+           System.out.println("Dimension Mismatch");
+           return false;
+       }
+   }
 
 }

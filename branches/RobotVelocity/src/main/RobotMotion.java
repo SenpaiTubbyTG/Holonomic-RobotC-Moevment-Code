@@ -1,4 +1,4 @@
-package matrixtest;
+package main;
 
 import Jama.Matrix;
 
@@ -14,10 +14,10 @@ public class RobotMotion {
 
     public static final double mass = 54.4310844;   //mass in kg
     public static final double alpha = 0.5; //weight distribution constanc
-    public static final double thetaFR = 45.0;
-    public static final double thetaFL = 135.0;
-    public static final double thetaBL = 225.0;
-    public static final double thetaBR = 315.0;
+    public static final double thetaFR = Math.PI/4;
+    public static final double thetaFL = 3*Math.PI/4;
+    public static final double thetaBL = 5*Math.PI/4;
+    public static final double thetaBR = 7*Math.PI/4;
     public static final double radius = 0.635; //radius (wheel-to-wheel) in meters
 
     public static double xVel;
@@ -27,10 +27,14 @@ public class RobotMotion {
     static Matrix forceCouplMat = new Matrix(3, 4);
     static Matrix accelMatrix   = new Matrix(3, 1);
     static Matrix velocityMatrix= new Matrix(3, 1);
+    static Matrix slipMatrix   = new Matrix(4, 4);
+    static Matrix zeroMatrix = new Matrix(4, 1);
+    static Matrix robotVelocityMatrix = new Matrix(3,1);
 
     /*
      * 
      */
+
     public static void setWheelVelMat(double v1, double v2, double v3, double v4) {
         wheelVelMat.set(0, 0, v1);
         wheelVelMat.set(1, 0, v2);
@@ -41,8 +45,8 @@ public class RobotMotion {
     /*
      * 
      */
-    public static void calcVelocity() {
-        System.out.println("VELOCITY COUPLING MATRIX, PSEUDOINVERTED");
+    public static Matrix calcVelocity() {
+        /*System.out.println("VELOCITY COUPLING MATRIX, PSEUDOINVERTED");
         
         double[][] raw = velCouplMat.getArray();
         for(int r=0;r<raw.length;r++) {
@@ -58,8 +62,9 @@ public class RobotMotion {
             for(int c=0;c<raw[r].length;c++)
                 System.out.print(raw[r][c]);
             System.out.println();
-        }
+        }*/
         velocityMatrix = velCouplMat.times(wheelVelMat);
+        return velocityMatrix;
     }
     /*
      *
@@ -94,6 +99,12 @@ public class RobotMotion {
     }
     public static Matrix getVelocityVector() {
         return velocityMatrix;
+    }
+    public static Matrix getSlipMat()  {
+        return slipMatrix;
+    }
+    public static Matrix getZeroMat()  {
+        return zeroMatrix;
     }
 
     public static void initVelCouplMat() {
@@ -135,6 +146,44 @@ public class RobotMotion {
         forceCoupl[2][3] = 1 / alpha;
 
         forceCouplMat = new Matrix(forceCoupl);
+    }
+    public static void setSlipMat() {
+        double[][] slipMat = new double[4][4];
+        slipMat[0][0] = 1/4;
+        slipMat[0][1] = -1/4;
+        slipMat[0][2] = 1/4;
+        slipMat[0][3] = -1/4;
+
+        slipMat[1][0] = -1/4;
+        slipMat[1][1] = 1/4;
+        slipMat[1][2] = -1/4;
+        slipMat[1][3] = 1/4;
+
+        slipMat[2][0] = 1/4;
+        slipMat[2][1] = -1/4;
+        slipMat[2][2] = 1/4;
+        slipMat[2][3] = -1/4;
+
+        slipMat[3][0] = -1/4;
+        slipMat[3][1] = 1/4;
+        slipMat[3][2] = -1/4;
+        slipMat[3][3] = 1/4;
+        slipMatrix = new Matrix(slipMat);
+    }
+    public static void setZeroMat()  {
+        double[][] zeroMat = new double[4][1];
+        zeroMat[0][0] = 0;
+        zeroMat[1][0] = 0;
+        zeroMat[2][0] = 0;
+        zeroMat[3][0] = 0;
+        zeroMatrix = new Matrix(zeroMat);
+    }
+    public static void setRobVelMat(double a, double b, double c)  {
+        double[][] robVelMat = new double[3][1];
+        robVelMat[0][0] = a;
+        robVelMat[1][0] = b;
+        robVelMat[2][0] = c;
+        robotVelocityMatrix = new Matrix(robVelMat);
     }
 
 }
