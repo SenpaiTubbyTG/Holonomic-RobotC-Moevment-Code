@@ -59,4 +59,14 @@ public class SonarController {
     public double getResult() {
         return m_pid.m_result;
     }
+
+    public double getP() {
+        return m_pid.m_P;
+    }
+    public double getI() {
+        return m_pid.m_I;
+    }
+    public double getD() {
+        return m_pid.m_D;
+    }
 }

@@ -43,7 +43,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
     }
     private static final double PING_TIME = 20 * 1e-6;	///< Time (sec) for the ping trigger pulse.
     private static final double MAX_SONAR_TIME = 0.1;	///< Max time (ms) between readings.
-    private static final double CM_TO_IN = 0.3937;
+    //private static final double CM_TO_IN = 0.3937;
     private static final double MIN_VOLTAGE = 0.01;	  //Minimum voltage the ultrasonic sensor can return
     private AnalogChannel m_inputChannel = null;
     private DigitalOutput m_pingChannel = null;
@@ -242,29 +242,12 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
     }
 
     /**
-     * Get the range in centimeters from the MaxbotixSonar sensor, only if the range is valid.
-     * @return double Range in millimeters of the target returned from the MaxbotixSonarsensor.
-     */
-    public double getRangeCM() {
-        return getVoltage() / 5 * 1024;
-    }
-
-    /**
-     * Get the range in millimeters from the MaxbotixSonar sensor.
-     * @return double Range in millimeters of the target returned from the MaxbotixSonarsensor. If there is
-     * no valid value yet then return 0.
-     */
-    public double getRangeMM() {
-        return getRangeCM() * 10;
-    }
-
-    /**
      * Get the range in inches from the MaxbotixSonar sensor.
      * @return double Range in inches of the target returned from the MaxbotixSonarsensor. If there is
      * no valid value yet then return 0.
      */
     public double getRangeInches() {
-        return getRangeCM() * CM_TO_IN;
+        return getVoltage() * 80.62992125984252;
     }
 
     /**
@@ -273,32 +256,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
      * @return The range in DistanceUnit
      */
     public double pidGet() {
-        switch (m_units.value) {
-            case Unit.kInches_val:
-                return getRangeInches();
-            case Unit.kMillimeters_val:
-                return getRangeMM();
-            default:
-                return 0.0;
-        }
-    }
-
-    /**
-     * Set the current DistanceUnit that should be used for the PIDSource base object.
-     *
-     * @param units The DistanceUnit that should be used.
-     */
-    public void setDistanceUnits(Unit units) {
-        m_units = units;
-    }
-
-    /**
-     * Get the current DistanceUnit that is used for the PIDSource base object.
-     *
-     * @return The type of DistanceUnit that is being used.
-     */
-    public Unit getDistanceUnits() {
-        return m_units;
+        return getRangeInches();
     }
 
     /**

@@ -13,13 +13,14 @@ public class TurnController implements PIDOutput {
 
     private double output;
     private PIDController gyroController;
-    private double incrementStartTime;
+    //private double incrementStartTime;
     private DiscoGyro gyro;
 
     public TurnController(DiscoGyro g) {
         gyro = g;
         gyroController = new PIDController(0.023, 0.0, 0.05, gyro, this);
-        incrementStartTime = Timer.getFPGATimestamp();
+        gyroController.setOutputRange(-0.75, 0.75);
+        //incrementStartTime = Timer.getFPGATimestamp();
     }
 
     /**
@@ -67,7 +68,7 @@ public class TurnController implements PIDOutput {
      */
     public void enable() {
         gyroController.enable();
-        incrementStartTime = Timer.getFPGATimestamp();
+        //incrementStartTime = Timer.getFPGATimestamp();
     }
 
     /**
