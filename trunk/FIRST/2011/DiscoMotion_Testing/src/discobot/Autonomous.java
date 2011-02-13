@@ -1,39 +1,37 @@
 package discobot;
 
 import Utils.*;
-import com.sun.squawk.util.MathUtils;
-import DriveControllers.*;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * @author Nelson
  */
 public class Autonomous {
 
-    public static final double k_frontDist = 54.0;
-    public static final double k_leftDist = 137.16;
     private static double x;
     private static double yl;
     private static double yr;
+    private static int i = 0;
 
     public static void periodic() {
         x = HW.sonarControllerLeft.getSpeed();
-        HW.turnController.setSetpoint(0.0);
-
         HW.drive.HolonomicDrive(x, 0.0, HW.turnController.getRotation());
+        if (i > 50) {
+            DiscoUtils.debugPrintln("L sonar: " + HW.sonarLeft.pidGet());
+            DiscoUtils.debugPrintln("x: " + x);
+            i = 0;
+        } else {
+            i++;
+        }
 
-        DiscoUtils.debugPrintln("L  sonar: " + HW.sonarLeft.getRangeCM());
-        DiscoUtils.debugPrintln("gyro: " + HW.gyro.getAngle());
+        if(Math.abs(HW.sonarControllerLeft.getError()) < 2.0) {
+            Timer.delay(5.0);
+            HW.turnController.turnToOrientation(180.0);
+        }
 
         /*yl = HW.sonarControllerFrontLeft.getSpeed();
         //yr = HW.sonarControllerFrontRight.getSpeed();
         HW.drive.setNormalizeMotorSpeeds(yl + x, yr - x, yr + x, yl - x);*/
         //y = (HW.sonarControllerFrontLeft.getSpeed() + HW.sonarControllerFrontRight.getSpeed())/2;
-        //HW.drive.holonomicDrive(x, y, );
-    }
-
-    public static void driveToWall() {
-        HW.sonarControllerLeft.setDistance(k_leftDist);
-        HW.sonarControllerFrontRight.setDistance(k_frontDist);
-        HW.sonarControllerFrontLeft.setDistance(k_frontDist);
     }
 }

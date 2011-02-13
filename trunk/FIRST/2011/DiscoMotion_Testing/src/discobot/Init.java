@@ -13,6 +13,9 @@ import Utils.*;
  */
 public class Init {
 
+    public static final double k_frontDist = 54.0;
+    public static final double k_leftDist = 54.0;
+
     public static void robotInit() {
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
@@ -33,10 +36,16 @@ public class Init {
     }
 
     public static void autonomousInit() {
+        HW.sonarControllerLeft.setDistance(k_leftDist);
+        HW.sonarControllerLeft.setOutputRange(-0.75, 0.75);
         HW.sonarControllerLeft.enable();
         setPIDs();
+        HW.turnController.reset();
         HW.turnController.enable();
         HW.turnController.setSetpoint(0.0);
+        DiscoUtils.debugPrintln("P: " + HW.sonarControllerLeft.getP() +
+                                "I: " + HW.sonarControllerLeft.getI() +
+                                "D: " + HW.sonarControllerLeft.getD());
         //HW.sonarControllerFrontLeft.enable();
         //HW.sonarControllerFrontRight.enable();
     }

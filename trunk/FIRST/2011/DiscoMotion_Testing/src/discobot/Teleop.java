@@ -9,17 +9,25 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Teleop {
 
-    static boolean enabled = false;
-    static final double k_armSpeed = 0.3;
+    static boolean buttonControlEnabled = false;
+    static boolean fieldCentricEnabled = true;
+    static final double k_armDownSpeed = 0.3;
+    static final double k_armUpSpeed = -0.6;
     static double currentX = 0.0;
     static double currentY = 0.0;
     static double offset = 0.0;
     static double currentTime;
-    static boolean[] driveStickLeftButtons = new boolean[12];
-    static boolean[] driveStickRightButtons = new boolean[12];
-    static boolean[] liftHandleButtons = new boolean[12];
-    static double[] lastPressed = new double[12];
+    static boolean[] leftButtons = new boolean[12];
+    static boolean[] rightButtons = new boolean[12];
+    static boolean[] liftButtons = new boolean[12];
+    //static double[] lastPressed = new double[12];
     static int i = 0;
+    static double rotation;
+    static final double k_driveRotationThreshold = 0.5;
+    static final double k_gyroRotationThreshold = 1.0;
+    static double oldAngle = 0.0;
+    static double delayLift7;
+    static double delayLift6;
 
     //static double[] encoder = new double[4];
     public static void periodic() {
@@ -32,84 +40,105 @@ public class Teleop {
 
         //Drive Code
         //Button Drive
-        if (driveStickLeftButtons[2] || driveStickLeftButtons[3] || driveStickLeftButtons[4] || driveStickLeftButtons[5]) {
-            enabled = true;
-            if (driveStickLeftButtons[2]) {
+        if (leftButtons[2] || leftButtons[3] || leftButtons[4] || leftButtons[5]) {
+            buttonControlEnabled = true;
+            if (leftButtons[2]) {
                 currentY = -0.5;
                 currentX = 0.0;
-            } else if (driveStickLeftButtons[3]) {
+            } else if (leftButtons[3]) {
                 currentY = 0.5;
                 currentX = 0.0;
-            } else if (driveStickLeftButtons[4]) {
+            } else if (leftButtons[4]) {
                 currentY = 0.0;
                 currentX = -0.5;
-            } else if (driveStickLeftButtons[5]) {
+            } else if (leftButtons[5]) {
                 currentY = 0.0;
                 currentX = 0.5;
             }
         } else {
-            enabled = false;
+            buttonControlEnabled = false;
         }
 
-        if (HW.driveStickLeft.getRawButton(11)) {
+        if (leftButtons[11]) {
             HW.turnController.reset(0);
-        } else if (HW.driveStickLeft.getRawButton(10)) {
+        } else if (leftButtons[10]) {
             HW.turnController.reset(90);
-        } else if (HW.driveStickLeft.getRawButton(7)) {
+        } else if (leftButtons[7]) {
             HW.turnController.reset(180);
-        } else if (HW.driveStickLeft.getRawButton(6)) {
+        } else if (leftButtons[6]) {
             HW.turnController.reset(270);
-        } else if (HW.driveStickRight.getRawButton(11)) {
+        } else if (rightButtons[3]) {
             HW.turnController.turnToOrientation(0);
-        } else if (HW.driveStickRight.getRawButton(10)) {
+        } else if (rightButtons[5]) {
             HW.turnController.turnToOrientation(90);
-        } else if (HW.driveStickRight.getRawButton(7)) {
+        } else if (rightButtons[2]) {
             HW.turnController.turnToOrientation(180);
-        } else if (HW.driveStickRight.getRawButton(6)) {
+        } else if (rightButtons[4]) {
             HW.turnController.turnToOrientation(270);
         } else {
             HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
         }
 
+        /*if (leftButtons[9]) {
+            fieldCentricEnabled = true;
+            DiscoUtils.debugPrintln("Field Centric Enabled");
+            HW.lcd.println(DriverStationLCD.Line.kMain6, 0, "Field-Centric Enabled");
+            HW.lcd.updateLCD();
+        } else if (leftButtons[8]) {
+            fieldCentricEnabled = false;
+            DiscoUtils.debugPrintln("Field Centric Disabled");
+            HW.lcd.println(DriverStationLCD.Line.kMain6, 0, "Field-Centric Disabled");
+            HW.lcd.updateLCD();
+        }*/
+
 
         //Joystick Drive
-        if (enabled) {
-            HW.drive.HolonomicDrive(currentX, currentY, HW.turnController.getRotation(), offset);
+        rotation = HW.turnController.getRotation();
+        if (buttonControlEnabled) {
+            HW.drive.HolonomicDrive(currentX, currentY, rotation, offset);
+        } else if (fieldCentricEnabled) { //FC halo control
+            double out[] = rotateVector(HW.driveStickLeft.getX(), HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
+            HW.drive.HolonomicDrive(out[0], out[1], rotation);
         } else {
-            double out[] = rotateVector(HW.driveStickLeft.getX(),HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
-            HW.drive.HolonomicDrive(out[0], out[1], HW.turnController.getRotation());
+            HW.drive.HolonomicDrive(HW.driveStickLeft.getX(), HW.driveStickRight.getY(), rotation);
         }
 
+        //delayLift6 = currentTime - lastPressed[3];
+        //delayLift7 = currentTime - lastPressed[2];
 
-
-        if (HW.driveStickRight.getRawButton(3)) { //arm up
-            HW.armMotor.set(-k_armSpeed);
-        } else if (HW.driveStickRight.getRawButton(2)) { // arm down
-            HW.armMotor.set(k_armSpeed);
+        /*if (HW.armMotor.get() != 0 && delayLift6 > 0.5) {
+            liftButtons[6] = false;
+        }
+        if (HW.armMotor.get() != 0 && delayLift7 > 0.5) {
+            liftButtons[7] = false;
+        }*/
+        if (liftButtons[6]) { //arm up
+            HW.armMotor.set(k_armUpSpeed);
+            /*if (HW.armMotor.get() == 0) {
+                lastPressed[6] = currentTime;
+            }*/
+        } else if (liftButtons[7]) { // arm down
+            HW.armMotor.set(k_armDownSpeed);
+            /*if (HW.armMotor.get() == 0) {
+                lastPressed[7] = currentTime;
+            }*/
         } else {
             HW.armMotor.set(0.0);
         }
 
-        HW.lift.set(-HW.liftHandle.getY());
-        //HW.collector.periodic(liftHandleButtons);
-        //HW.arm.periodic(liftHandleButtons);s
-        if (liftHandleButtons[2]) {
+        HW.lift.set(-HW.liftHandle.getY() * 0.75);
+
+        if (liftButtons[3]) {
             HW.collectorMotor.set(0.5);
-        } else if (liftHandleButtons[3]) {
+        } else if (liftButtons[2]) {
             HW.collectorMotor.set(-0.5);
         }
-
-        /*if ((currentTime - lastPressed[8]) > 0.25 && driveStickLeftButtons[8]) {
-        offset -= 0.1;
-        lastPressed[8] = currentTime;
-        DiscoUtils.debugPrintln("Offset decreased to: " + offset);
-        } else if ((currentTime - lastPressed[9]) > 0.25 && driveStickLeftButtons[9]) {
-        offset += 0.1;
-        lastPressed[9] = currentTime;
-        DiscoUtils.debugPrintln("Offset increased to: " + offset);
-        }*/
-
-        if (i > 10) {
+        else {
+            HW.collectorMotor.set(0.0);
+        }
+        //HW.collector.periodic(liftHandleButtons);
+        //HW.arm.periodic(liftHandleButtons);
+        if (i > 50) {
             //DiscoUtils.debugPrintln("Gyro: " + HW.gyro.getAngle());
             //DiscoUtils.debugPrintln("L  sonar: " + HW.sonarLeft.getRangeCM());
             //DiscoUtils.debugPrintln("FL sonar: " + HW.sonarFrontLeft.getRangeInches());
@@ -119,11 +148,12 @@ public class Teleop {
         } else {
             i++;
         }
-
+        //verifyGyro(HW.gyro.getAngle());
     }
 
     public static void continuous() {
     }
+
     /**
      * Rotate a vector in Cartesian space.
      */
@@ -137,12 +167,23 @@ public class Teleop {
     }
 
     private static void updateButtons() {
-        for (int b = 1; b < 12; b++) {
-            driveStickLeftButtons[b] = HW.driveStickLeft.getRawButton(b);
-        }
-        for (int b = 1; b < 12; b++) {
-            liftHandleButtons[b] = HW.liftHandle.getRawButton(b);
+        for (int b = 1; b
+                < 12; b++) {
+            leftButtons[b] = HW.driveStickLeft.getRawButton(b);
+            rightButtons[b] = HW.driveStickRight.getRawButton(b);
+            liftButtons[b] = HW.liftHandle.getRawButton(b);
         }
         currentTime = Timer.getFPGATimestamp();
+    }
+
+    public static void verifyGyro(double currentAngle) {
+        double angleChange = currentAngle - oldAngle;
+        if (Math.abs(rotation) > k_driveRotationThreshold
+                && Math.abs(angleChange) < k_gyroRotationThreshold) {
+            fieldCentricEnabled = false;
+        } else {
+            fieldCentricEnabled = true;
+        }
+        oldAngle = currentAngle;
     }
 }
