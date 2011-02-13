@@ -14,7 +14,7 @@ import Utils.*;
 public class Init {
 
     public static final double k_frontDist = 54.0;
-    public static final double k_leftDist = 54.0;
+    public static final double k_leftDist = 33.0;
 
     public static void robotInit() {
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
@@ -37,7 +37,7 @@ public class Init {
 
     public static void autonomousInit() {
         HW.sonarControllerLeft.setDistance(k_leftDist);
-        HW.sonarControllerLeft.setOutputRange(-0.75, 0.75);
+        HW.sonarControllerLeft.setOutputRange(-0.6, 0.6);
         HW.sonarControllerLeft.enable();
         setPIDs();
         HW.turnController.reset();
@@ -72,5 +72,8 @@ public class Init {
         HW.encoderFrontRight.reset();
         HW.encoderRearRight.reset();
         HW.encoderRearLeft.reset();
+
+        HW.sonarControllerLeft.setDistance(k_leftDist);
+        HW.sonarControllerLeft.setOutputRange(-0.6, 0.6);
     }
 }
