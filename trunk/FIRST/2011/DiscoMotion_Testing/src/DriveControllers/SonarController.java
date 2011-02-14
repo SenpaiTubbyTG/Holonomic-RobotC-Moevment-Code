@@ -4,32 +4,30 @@
  */
 package DriveControllers;
 
-import DriveControllers.DiscoDriveConverter.Output;
 import Sensors.MaxbotixSonar;
-import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDOutput;
 
 /**
  *
  * @author JAG
  */
-public class SonarController {
-    
-    private DiscoDriveConverter m_driveConverter = null;
+public class SonarController implements PIDOutput{
+
     private MaxbotixSonar m_sonar = null;
     private SonarPositionPID m_pid = null;
+    private double output = 0.0;
 
-    public SonarController(DiscoDriveConverter driveConverter, MaxbotixSonar sonar, double p, double i, double d) {
-        m_driveConverter = driveConverter;
+    public SonarController(MaxbotixSonar sonar, double p, double i, double d) {
         m_sonar = sonar;
-        m_pid = new SonarPositionPID(p, i, d, m_sonar, m_driveConverter, .1);
+        m_pid = new SonarPositionPID(p, i, d, m_sonar, this, .1);
+    }
+
+    public void pidWrite(double pidIn){
+        output = pidIn;
     }
 
     public void setOutputRange(double min, double max) {
         m_pid.setOutputRange(min, max);
-    }
-
-    public SonarController(MaxbotixSonar sonar, double p, double i, double d) {
-        this(new DiscoDriveConverter(0.0, 0.0, 0.0, Output.kSpeed), sonar, p, i, d);
     }
 
     public void setDistance(double distance) {
@@ -41,7 +39,7 @@ public class SonarController {
     }
     
     public double getSpeed(){
-       return m_driveConverter.getSpeed();
+       return output;
     }
 
     public void enable() {

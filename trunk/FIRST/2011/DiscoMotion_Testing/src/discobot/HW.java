@@ -142,12 +142,22 @@ public class HW {
     public static DiscoEncoder encoderRearLeft =
             new DiscoEncoder(3, 4, false, Encoder.EncodingType.k2X);
 
+    /**
+     * Lift
+     */
+    public static Encoder liftEncoder = new Encoder(10, 11, false, Encoder.EncodingType.k2X);
+    public static DigitalInput liftLimitInnerDown = new DigitalInput(12);
+    public static DigitalInput liftLimitInnerUp = new DigitalInput(13);
+    public static DigitalInput liftLimitMiddleDown = new DigitalInput(14);
+    public static DigitalInput liftLimitMiddleUp = liftLimitMiddleDown;
+    
 //-------------------------------------
 //          DigitalInput (Switch) classes
 //-------------------------------------
     //public static DigitalInput armSwitchUp = new DigitalInput();
     //public static DigitalInput armSwitchDown = new DigitalInput();
 
+    public static ADXL345_I2C accelerometer = new ADXL345_I2C(4, ADXL345_I2C.DataFormat_Range.k4G);
 //-------------------------------------
 //                 Gyro class
 //-------------------------------------
@@ -158,14 +168,17 @@ public class HW {
 //-------------------------------------
 //                 Ultrasonic class
 //-------------------------------------
+    public static MaxbotixSonar sonarLeft =
+            new MaxbotixSonar(2, 9);
+
     public static MaxbotixSonar sonarFrontLeft =
             new MaxbotixSonar(3);
     
     public static MaxbotixSonar sonarFrontRight =
             new MaxbotixSonar(4);
 
-    public static MaxbotixSonar sonarLeft =
-            new MaxbotixSonar(2);
+    public static MaxbotixSonar sonarRight =
+            new MaxbotixSonar(5);
 
     public static SonarController sonarControllerFrontLeft =
             new SonarController(sonarFrontLeft, 0.01, 0.0, 0.0);
