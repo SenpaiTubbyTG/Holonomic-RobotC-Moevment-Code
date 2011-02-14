@@ -15,11 +15,16 @@ public class Disabled {
     }
 
     public static void continuous() {
-        if (i > 100000) {
-            DiscoUtils.debugPrintln("L  sonar: " + HW.sonarLeft.getRangeInches());
+        if (i > 100) {
+            /*DiscoUtils.debugPrintln("X accel: )" + HW.accelerometer.getAccelerations().XAxis);
+            DiscoUtils.debugPrintln("Y accel: )" + HW.accelerometer.getAccelerations().YAxis);
+            */
             i = 0;
         } else {
             i++;
         }
+
+        //HW.accelerometer.calculateIntialAccel();
+
     }
 }

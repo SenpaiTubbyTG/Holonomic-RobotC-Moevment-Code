@@ -11,10 +11,10 @@ public class Teleop {
 
     static boolean sonarControlEnabled = false;
     static boolean fieldCentricEnabled = true;
-    static final double k_armDownSpeed = 0.3;
-    static final double k_armUpSpeed = -0.6;
-    static final double k_collectorInSpeed = 0.5;
-    static final double k_collectorOutSpeed = -0.3;
+    static final double k_armDownSpeed = 0.7;
+    static final double k_armUpSpeed = -0.7;
+    static final double k_collectorOutSpeed = 0.5;
+    static final double k_collectorInSpeed = -0.5;
     static double currentX = 0.0;
     static double currentY = 0.0;
     static double currentTime;
@@ -39,13 +39,7 @@ public class Teleop {
         DataLogger.dataLogger.setEntryValue(encoder);*/
         updateButtons();
 
-        //Drive Code
-        if (leftButtons[5]) {
-            HW.sonarControllerLeft.enable();
-            currentX = HW.sonarControllerLeft.getSpeed();
-            sonarControlEnabled = true;
-        }
-
+        //Turn Controller Reset and Orientation
         if (leftButtons[11]) {
             HW.turnController.reset(0);
         } else if (leftButtons[10]) {
@@ -66,61 +60,63 @@ public class Teleop {
             HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
         }
 
+        //Drive Code
+
 
         //FC halo control
         rotation = HW.turnController.getRotation();
         double out[] = rotateVector(HW.driveStickLeft.getX(), HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
-        if (sonarControlEnabled) {
-            HW.drive.HolonomicDrive(currentX, out[1], rotation);
+        if (leftButtons[5]) {
+           HW.sonarControllerFrontLeft.enable();
+           currentY = HW.sonarControllerFrontLeft.getSpeed();
+           if (HW.sonarFrontLeft.getRangeInches() < 70) {
+               HW.sonarControllerLeft.enable();
+               currentX = HW.sonarControllerLeft.getSpeed();
+           } else {
+               currentX = 0;
+           }
+           HW.drive.HolonomicDrive(currentX, currentY, rotation);
+           DiscoUtils.debugPrintln("Sonar Mode");
+           
         } else {
             HW.drive.HolonomicDrive(out[0], out[1], rotation);
         }
 
-        //delayLift6 = currentTime - lastPressed[3];
-        //delayLift7 = currentTime - lastPressed[2];
 
-        /*if (HW.armMotor.get() != 0 && delayLift6 > 0.5) {
-        liftButtons[6] = false;
-        }
-        if (HW.armMotor.get() != 0 && delayLift7 > 0.5) {
-        liftButtons[7] = false;
-        }*/
         if (liftButtons[6]) { //arm up
             HW.armMotor.set(k_armUpSpeed);
-            /*if (HW.armMotor.get() == 0) {
-            lastPressed[6] = currentTime;
-            }*/
         } else if (liftButtons[7]) { // arm down
             HW.armMotor.set(k_armDownSpeed);
-            /*if (HW.armMotor.get() == 0) {
-            lastPressed[7] = currentTime;
-            }*/
         } else {
             HW.armMotor.set(0.0);
         }
 
         HW.lift.set(-HW.liftHandle.getY() * 0.75);
 
-        if (liftButtons[2]) { //in
-            HW.collectorMotor.set(k_collectorInSpeed);
-        } else if (liftButtons[3]) { //out
+        if (liftButtons[3]) { //out
             HW.collectorMotor.set(k_collectorOutSpeed);
+        } else if (liftButtons[2]) { //in
+            HW.collectorMotor.set(k_collectorInSpeed);
         } else {
             HW.collectorMotor.set(0.0);
         }
 
         //HW.collector.periodic(liftHandleButtons);
         //HW.arm.periodic(liftHandleButtons);
-        /*if (i > 50) {
+        if (i > 30) {
             //DiscoUtils.debugPrintln("Gyro: " + HW.gyro.getAngle());
             //DiscoUtils.debugPrintln("L  sonar: " + HW.sonarLeft.getRangeCM());
             //DiscoUtils.debugPrintln("FL sonar: " + HW.sonarFrontLeft.getRangeInches());
             //DiscoUtils.debugPrintln("FR sonar: " + HW.sonarFrontRight.getRangeInches());
-            DiscoUtils.debugPrintln("Angle Setpoint: " + HW.turnController.getSetpoint());
+            DiscoUtils.debugPrintln("Sonar L: " + HW.sonarLeft.getRangeInches());
+            DiscoUtils.debugPrintln("Sonar FL: " + HW.sonarFrontLeft.getRangeInches());
+            DiscoUtils.debugPrintln("Sonar FR: " + HW.sonarFrontRight.getVoltage());
+            DiscoUtils.debugPrintln("Sonar R: " + HW.sonarRight.getRangeInches());
+
             i = 0;
         } else {
             i++;
-        }*/
+        }
         //verifyGyro(HW.gyro.getAngle());
         /*if (leftButtons[9]) {
         fieldCentricEnabled = true;

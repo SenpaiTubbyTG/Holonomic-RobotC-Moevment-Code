@@ -109,28 +109,28 @@ public class TurnController implements PIDOutput {
     public void turnToOrientation(double newOrientation) {
         double out = 0;
         newOrientation = Math.abs(newOrientation % 360); //Make sure the angle is between and 0-359
-        DiscoUtils.debugPrintln("corrected angle: " + newOrientation);
+        //DiscoUtils.debugPrintln("corrected angle: " + newOrientation);
         double currentAngle = getSetpoint();
-        DiscoUtils.debugPrintln("Current Angle: " + currentAngle);
+        //DiscoUtils.debugPrintln("Current Angle: " + currentAngle);
         //If we are not already at the right setpoint
 
         int sign = ((currentAngle > 0) ? 1 : -1);
         currentAngle = Math.abs(currentAngle);
         double numberOfFullTurns = Math.floor(currentAngle / 360);
-        DiscoUtils.debugPrintln("Number of Full Turns: " + numberOfFullTurns);
-        double oldOrientation = currentAngle % 360;
-        DiscoUtils.debugPrintln("remainder: " + oldOrientation);
+        //DiscoUtils.debugPrintln("Number of Full Turns: " + numberOfFullTurns);
+        double currentOrientation = currentAngle % 360;
+        //DiscoUtils.debugPrintln("remainder: " + oldOrientation);
 
-        if (newOrientation != oldOrientation) {
-            if (oldOrientation - newOrientation >= 180) {
+        if (newOrientation != currentOrientation) {
+            if (currentOrientation - newOrientation >= 180) {
                 out = newOrientation + 360;
-            } else if (newOrientation - oldOrientation >= 180) {
+            } else if (newOrientation - currentOrientation >= 180) {
                 out = newOrientation - 360;
             } else {
                 out = newOrientation;
             }
             out = ((numberOfFullTurns * 360 * sign) + out);
-            DiscoUtils.debugPrintln("Out: " + out);
+            //DiscoUtils.debugPrintln("Out: " + out);
             setSetpoint(out);
         }
     }
