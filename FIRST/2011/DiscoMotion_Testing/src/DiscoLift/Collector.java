@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Collector {
 
-    public static final double k_inSpeed = 0.5;
-    public static final double k_outSpeed = -0.5;
+    static final double k_outSpeed = 0.5;
+    static final double k_inSpeed = -0.5;
     public static final double k_outDuration = 1.0;
     public static final int k_outButton = 2;
     private double currentSpeed;
