@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.*;
  * @purpose puts all of the hardware declarations into one
 place.  In addition, it makes them available to
 both autonomous and teleop.
- * @author Allen Gregory and pavchag
+ * @author Allen Gregory and pavchag and Nelson Chen
  */
 public class HW {
 
@@ -104,8 +104,8 @@ public class HW {
 //-------------------------------------
     public static DiscoEncoder encoderFrontLeft =
             new DiscoEncoder(5, 6, false, Encoder.EncodingType.k2X);
-    public static DiscoEncoder encoderFrontRight =
-            new DiscoEncoder(7, 8, false, Encoder.EncodingType.k2X);
+    //public static DiscoEncoder encoderFrontRight =
+      //      new DiscoEncoder(7, 8, false, Encoder.EncodingType.k2X);
     public static DiscoEncoder encoderRearRight =
             new DiscoEncoder(1, 2, false, Encoder.EncodingType.k2X);
     public static DiscoEncoder encoderRearLeft =
@@ -113,10 +113,10 @@ public class HW {
 //-------------------------------------
 //    DigitalInput (Switch) classes
 //-------------------------------------
-    public static DigitalInput liftLimitInnerDown = new DigitalInput(10);
-    public static DigitalInput liftLimitInnerUp = new DigitalInput(11);
-    public static DigitalInput liftLimitMiddleDown = new DigitalInput(12);
-    public static DigitalInput liftLimitMiddleUp = liftLimitMiddleDown;
+    public static DigitalInput liftLimitInnerUp = new DigitalInput(10);
+    public static DigitalInput liftLimitInnerDown = new DigitalInput(11);
+    public static DigitalInput liftLimitMiddleUp = new DigitalInput(12);
+    public static DigitalInput liftLimitMiddleDown = new DigitalInput(8);
     public static DigitalInput armSwitchUp = new DigitalInput(13);
     public static DigitalInput armSwitchDown = new DigitalInput(14);
 //------------------------------------
@@ -125,7 +125,7 @@ public class HW {
     public static Jaguar lift = new Jaguar(5);
     public static Victor armMotor = new Victor(6);
     public static Victor collectorMotor = new Victor(7);
-    public static Encoder liftEncoder = new Encoder(10, 11, false, Encoder.EncodingType.k2X);
+    //public static Encoder liftEncoder = new Encoder(10, 11, false, Encoder.EncodingType.k2X);
     public static Collector collector = new Collector(collectorMotor);
     public static Arm arm = new Arm(armMotor, armSwitchUp, armSwitchDown);
 //-------------------------------------
