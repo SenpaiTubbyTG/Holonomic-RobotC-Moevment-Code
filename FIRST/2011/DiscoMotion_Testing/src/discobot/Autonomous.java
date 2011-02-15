@@ -8,30 +8,23 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Autonomous {
 
+    public static final double k_maxError = 1.0;
     private static double x;
-    private static double yl;
-    private static double yr;
-    private static int i = 0;
+    private static double y;
+    //private static int i = 0;
 
     public static void periodic() {
-        x = HW.sonarControllerLeft.getSpeed();
-        HW.drive.HolonomicDrive(x, 0.0, HW.turnController.getRotation());
-        if (i > 50) {
-            DiscoUtils.debugPrintln("L sonar: " + HW.sonarLeft.pidGet());
-            DiscoUtils.debugPrintln("x: " + x);
-            i = 0;
+        if(HW.sonarControllerLeft.getError() > k_maxError) {
+            x = HW.sonarControllerLeft.getSpeed();
         } else {
-            i++;
+            x = 0;
         }
 
-        if(Math.abs(HW.sonarControllerLeft.getError()) < 2.0) {
-            Timer.delay(5.0);
-            HW.turnController.turnToOrientation(180.0);
+        if(HW.sonarControllerFrontLeft.getError() > k_maxError) {
+            y = HW.sonarControllerFrontLeft.getSpeed();
+        } else {
+            y = 0;
         }
-
-        /*yl = HW.sonarControllerFrontLeft.getSpeed();
-        //yr = HW.sonarControllerFrontRight.getSpeed();
-        HW.drive.setNormalizeMotorSpeeds(yl + x, yr - x, yr + x, yl - x);*/
-        //y = (HW.sonarControllerFrontLeft.getSpeed() + HW.sonarControllerFrontRight.getSpeed())/2;
+        HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
     }
 }
