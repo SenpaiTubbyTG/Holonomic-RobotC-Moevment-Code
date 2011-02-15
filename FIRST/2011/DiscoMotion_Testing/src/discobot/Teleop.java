@@ -96,15 +96,24 @@ public class Teleop {
             HW.arm.collect();
         } else if (liftButtons[k_armDownButton]) {
             HW.arm.down();
+            //Manual Collector control by lift operator
+            if (liftButtons[k_collectorInButton]) {
+                HW.arm.tubeIn();
+            } else if (liftButtons[k_collectorOutButton]) {
+                HW.arm.tubeOut();
+            } else {
+                HW.arm.stopCollector();
+            }
         } else {
             HW.arm.up();
-        }
-
-        //Manual Collector control by lift operator
-        if (liftButtons[k_collectorInButton]) {
-            HW.arm.tubeIn();
-        } else if (liftButtons[k_collectorOutButton]) {
-            HW.arm.tubeOut();
+            //Manual Collector control by lift operator
+            if (liftButtons[k_collectorInButton]) {
+                HW.arm.tubeIn();
+            } else if (liftButtons[k_collectorOutButton]) {
+                HW.arm.tubeOut();
+            } else {
+                HW.arm.stopCollector();
+            }
         }
     }
 
@@ -132,8 +141,7 @@ public class Teleop {
     }
 
     private static void updateButtons() {
-        for (int b = 1; b
-                < 12; b++) {
+        for (int b = 1; b < 12; b++) {
             leftButtons[b] = HW.driveStickLeft.getRawButton(b);
             rightButtons[b] = HW.driveStickRight.getRawButton(b);
             liftButtons[b] = HW.liftHandle.getRawButton(b);

@@ -12,7 +12,6 @@ public class Arm {
     private static final double k_armDownSpeed = 0.3;
     static final double k_collectorOutSpeed = 0.5;
     static final double k_collectorInSpeed = -0.5;
-
     private Victor armMotor;
     private Victor collectorMotor;
     private DigitalInput upSwitch;
@@ -29,32 +28,40 @@ public class Arm {
         downSwitch = down;
     }
 
-    public void tubeIn() {
-        collectorMotor.set(k_collectorInSpeed);
-    }
-
-    public void tubeOut() {
-        collectorMotor.set(k_collectorOutSpeed);
+    public void collect() {
+        down();
+        tubeIn();
     }
 
     public void up() {
         if (!upSwitch.get()) {
             armMotor.set(k_armUpSpeed);
         } else {
-            armMotor.set(0.0);
+            stopArm();
         }
-    }
-
-    public void collect() {
-        down();
-        tubeIn();
     }
 
     public void down() {
         if (!downSwitch.get()) {
             armMotor.set(k_armDownSpeed);
         } else {
-            armMotor.set(0.0);
+            stopArm();
         }
+    }
+
+    public void stopArm() {
+        armMotor.set(0.0);
+    }
+
+    public void stopCollector() {
+        collectorMotor.set(0.0);
+    }
+
+    public void tubeIn() {
+        collectorMotor.set(k_collectorInSpeed);
+    }
+
+    public void tubeOut() {
+        collectorMotor.set(k_collectorOutSpeed);
     }
 }
