@@ -1,6 +1,5 @@
 package DiscoLift;
 
-import Utils.DiscoUtils;
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -9,31 +8,36 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Arm {
 
-    private static final int k_armUpButton =6;
-    private static final int k_armDownButton = 7;
     private static final double k_armUpSpeed = -0.4;
     private static final double k_armDownSpeed = 0.3;
+    static final double k_collectorOutSpeed = 0.5;
+    static final double k_collectorInSpeed = -0.5;
+
     private Victor armMotor;
+    private Victor collectorMotor;
     private DigitalInput upSwitch;
     private DigitalInput downSwitch;
 
-    public Arm(Victor motor, DigitalInput up, DigitalInput down) {
-        armMotor = motor;
+    public Arm(Victor arm, Victor collect) {
+        armMotor = arm;
+        collectorMotor = collect;
+    }
+
+    public Arm(Victor arm, Victor collect, DigitalInput up, DigitalInput down) {
+        this(arm, collect);
         upSwitch = up;
         downSwitch = down;
     }
 
-    public void periodic(boolean[] liftHandle) {
-        if (liftHandle[k_armUpButton] && upSwitch.get()) {
-            armMotor.set(k_armUpSpeed);
-        } else if (liftHandle[k_armDownButton] && downSwitch.get()) {
-            armMotor.set(k_armDownSpeed);
-        } else {
-            armMotor.set(0.0);
-        }
+    public void tubeIn() {
+        collectorMotor.set(k_collectorInSpeed);
     }
 
-    public void armUpPeriodic() {
+    public void tubeOut() {
+        collectorMotor.set(k_collectorOutSpeed);
+    }
+
+    public void up() {
         if (!upSwitch.get()) {
             armMotor.set(k_armUpSpeed);
         } else {
@@ -41,7 +45,12 @@ public class Arm {
         }
     }
 
-    public void armDownPeriodic() {
+    public void collect() {
+        down();
+        tubeIn();
+    }
+
+    public void down() {
         if (!downSwitch.get()) {
             armMotor.set(k_armDownSpeed);
         } else {
