@@ -59,7 +59,6 @@ public class DataLogger {
      */
     public void disable() {
         m_enabled = false;
-        DiscoUtils.debugPrintln("disabled");
     }
 
     /**
@@ -67,7 +66,6 @@ public class DataLogger {
      */
     public void enable() {
         m_enabled = true;
-        DiscoUtils.debugPrintln("enabled");
     }
 
     /**
@@ -93,7 +91,6 @@ public class DataLogger {
      */
     private synchronized void addEntry(double[] entryData) {
         new DataLogHelper(entryData);
-        DiscoUtils.debugPrintln("entry added");
     }
 
     /**
