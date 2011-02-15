@@ -6,7 +6,7 @@
 // MODIFIED ON:
 // MODIFIED BY:
 // ABSTRACT:
-//	 This file allows us to declare the hardware for the robot in one place
+//	 This file allows us to declare the hardware for the robot tubeIn one place
 //
 //====================================================================
 package discobot;
@@ -78,7 +78,7 @@ public class HW {
 //         DriverStations class
 //------------------------------------
     /**
-     *  Get an instance of the driverstation to use in our code
+     *  Get an instance of the driverstation to use tubeIn our code
      */
     public static DriverStation driverStation =
             DriverStation.getInstance();
@@ -126,8 +126,7 @@ public class HW {
     public static Victor armMotor = new Victor(6);
     public static Victor collectorMotor = new Victor(7);
     //public static Encoder liftEncoder = new Encoder(10, 11, false, Encoder.EncodingType.k2X);
-    public static Collector collector = new Collector(collectorMotor);
-    public static Arm arm = new Arm(armMotor, armSwitchUp, armSwitchDown);
+    public static Arm arm = new Arm(armMotor, collectorMotor, armSwitchUp, armSwitchDown);
 //-------------------------------------
 //             Gyro class
 //-------------------------------------
