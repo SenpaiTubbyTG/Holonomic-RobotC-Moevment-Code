@@ -8,6 +8,7 @@ import Utils.*;
  */
 public class Teleop {
 
+    static final double k_rotationDeadZone = 0.1;
     static final double k_driveRotationThreshold = 0.5;
     static final double k_gyroRotationThreshold = 1.0;
     static boolean sonarControlEnabled = false;
@@ -49,7 +50,11 @@ public class Teleop {
         } else if (rightButtons[4]) {
             HW.turnController.turnToOrientation(270);
         } else {
-            HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
+            if (Math.abs(HW.driveStickRight.getX()) < k_rotationDeadZone) {
+                HW.turnController.setSetpoint(HW.gyro.getAngle());
+            } else {
+                HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
+            }
         }
 
         //Drive Code

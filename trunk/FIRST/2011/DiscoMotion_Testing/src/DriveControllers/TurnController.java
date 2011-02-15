@@ -95,7 +95,7 @@ public class TurnController implements PIDOutput {
         reset(0.0);
     }
 
-    public void reset(double angle){
+    public void reset(double angle) {
         setSetpoint(angle);
         gyro.reset(angle);
         gyroController.reset();
@@ -107,21 +107,22 @@ public class TurnController implements PIDOutput {
      * @param newOrientation
      */
     public void turnToOrientation(double newOrientation) {
-        double out = 0;
         newOrientation = Math.abs(newOrientation % 360); //Make sure the angle is between and 0-359
-        //DiscoUtils.debugPrintln("corrected angle: " + newOrientation);
-        double currentAngle = getSetpoint();
-        //DiscoUtils.debugPrintln("Current Angle: " + currentAngle);
-        //If we are not already at the right setpoint
+        double currentAngle = getSetpoint();			//Need to decide if this should be getAngle or getSetpoint not sure yet
 
-        int sign = ((currentAngle > 0) ? 1 : -1);
-        currentAngle = Math.abs(currentAngle);
+        int sign = ((currentAngle >= 0) ? 1 : -1);
+
+        //should be faster than calling Math.abs
+        currentAngle = currentAngle * sign;
         double numberOfFullTurns = Math.floor(currentAngle / 360);
-        //DiscoUtils.debugPrintln("Number of Full Turns: " + numberOfFullTurns);
-        double currentOrientation = currentAngle % 360;
-        //DiscoUtils.debugPrintln("remainder: " + oldOrientation);
+
+        //if its negative invert the angle because -90 is the same orientation as 270
+        double currentOrientation = ((sign == -1) ? (360 - (currentAngle % 360)) : (currentAngle % 360));
+
 
         if (newOrientation != currentOrientation) {
+            double out;
+            //never spin more than 180 degress
             if (currentOrientation - newOrientation >= 180) {
                 out = newOrientation + 360;
             } else if (newOrientation - currentOrientation >= 180) {
@@ -129,16 +130,14 @@ public class TurnController implements PIDOutput {
             } else {
                 out = newOrientation;
             }
-            out = ((numberOfFullTurns * 360 * sign) + out);
-            //DiscoUtils.debugPrintln("Out: " + out);
+            out = ((sign == -1) ? (360 - out) : out);			//Convert to negative angle
+            out = ((numberOfFullTurns * 360 * sign) + out);		//Add back the full turns
             setSetpoint(out);
         }
     }
 
-    public void setAngle(double angle){
+    public void setAngle(double angle) {
         gyro.setAngle(angle);
         reset(angle);
     }
 }
-
-
