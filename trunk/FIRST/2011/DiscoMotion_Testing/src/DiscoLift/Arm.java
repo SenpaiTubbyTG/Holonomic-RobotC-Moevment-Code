@@ -12,8 +12,8 @@ public class Arm {
     private static final int k_armUpButton = 6;
     private static final int k_armDownButton = 7;
 
-    private static final double k_armUpSpeed = 0.3;
-    private static final double k_armDownSpeed = -0.3;
+    private static final double k_armUpSpeed = 0.7;
+    private static final double k_armDownSpeed = -0.7;
 
     private Victor armMotor;
     private DigitalInput upSwitch;
