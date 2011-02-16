@@ -1,17 +1,17 @@
 package discobot;
 
 import Utils.*;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
  * @author Nelson Chen
  */
 public class Teleop {
 
+    private static final int k_collectButton = 1; //on left-hand driver joystick
     public static final int k_collectorInButton = 2;//on lift joystick
     public static final int k_collectorOutButton = 3;//on lift joystick
-    private static final int k_collectButton = 1; //on left-hand driver joystick
-    private static final int k_armDownButton = 7;//on lift joystick
+    private static final int k_armDownButton = 1;//on lift joystick
     static final double k_rotationDeadZone = 0.1;
     static final double k_driveRotationThreshold = 0.5;
     static final double k_gyroRotationThreshold = 1.0;
@@ -22,6 +22,7 @@ public class Teleop {
     static double oldAngle = 0.0;
     static double liftSpeed = 0.0;
     static double rotation;
+    static boolean firstUp = false;
     static int i = 0;
     static boolean[] leftButtons = new boolean[12];
     static boolean[] rightButtons = new boolean[12];
@@ -31,17 +32,18 @@ public class Teleop {
         updateButtons();
         drive();
         lift();
+        DiscoUtils.debugPrintln("Lift encoder: " + HW.liftEncoder.getDistance());
     }
 
     public static void drive() {
         //Turn Controller Reset and Orientation
-        if (leftButtons[11]) {
+        if (leftButtons[3]) {
             HW.turnController.reset(0);
-        } else if (leftButtons[10]) {
+        } else if (leftButtons[5]) {
             HW.turnController.reset(90);
-        } else if (leftButtons[7]) {
+        } else if (leftButtons[2]) {
             HW.turnController.reset(180);
-        } else if (leftButtons[6]) {
+        } else if (leftButtons[4]) {
             HW.turnController.reset(270);
         } else if (rightButtons[3]) {
             HW.turnController.turnToOrientation(0);
@@ -52,17 +54,13 @@ public class Teleop {
         } else if (rightButtons[4]) {
             HW.turnController.turnToOrientation(270);
         } else {
-            if (Math.abs(HW.driveStickRight.getX()) < k_rotationDeadZone) {
-                HW.turnController.setSetpoint(HW.gyro.getAngle());
-            } else {
-                HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
-            }
+            HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
         }
 
         //Field-centric "HALO" control
         rotation = HW.turnController.getRotation();
         double out[] = rotateVector(HW.driveStickLeft.getX(), HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
-        if (leftButtons[5]) {
+        if (leftButtons[9]) {
             HW.sonarControllerFrontLeft.enable();
             currentY = HW.sonarControllerFrontLeft.getSpeed();
             if (HW.sonarFrontLeft.getRangeInches() < 70) {
@@ -92,28 +90,43 @@ public class Teleop {
 
         //Arm control for driver and lift operator
         //arm raises automatically unless ordered downards
-        if (leftButtons[k_collectButton]) {
+        if (leftButtons[k_collectButton]) { //driver collect overrides lift operator
             HW.arm.collect();
-        } else if (liftButtons[k_armDownButton]) {
-            HW.arm.down();
-            //Manual Collector control by lift operator
-            if (liftButtons[k_collectorInButton]) {
-                HW.arm.tubeIn();
-            } else if (liftButtons[k_collectorOutButton]) {
-                HW.arm.tubeOut();
-            } else {
-                HW.arm.stopCollector();
-            }
+            firstUp = true;
         } else {
-            HW.arm.up();
-            //Manual Collector control by lift operator
-            if (liftButtons[k_collectorInButton]) {
-                HW.arm.tubeIn();
-            } else if (liftButtons[k_collectorOutButton]) {
-                HW.arm.tubeOut();
+            if (liftButtons[k_armDownButton]) {
+                HW.arm.down();
+                //Manual Collector control by lift operator
+                if (liftButtons[k_collectorInButton]) {
+                    HW.arm.tubeIn();
+                } else if (liftButtons[k_collectorOutButton]) {
+                    HW.arm.tubeOut();
+                } else {
+                    HW.arm.stopCollector();
+                }
             } else {
-                HW.arm.stopCollector();
+                HW.arm.up();
+                //Manual Collector control by lift operator
+                if (liftButtons[k_collectorInButton] || firstUp) {
+                    if (!firstUp) {
+                        HW.arm.tubeIn();
+                    } else {
+                        HW.arm.tubeIn(HW.arm.k_collectorInSpeed / 2);
+                        HW.arm.up();
+                    }
+                } else if (liftButtons[k_collectorOutButton]) {
+                    HW.arm.tubeOut();
+                } else {
+                    HW.arm.stopCollector();
+                    if (firstUp) {
+                        HW.arm.tubeIn(HW.arm.k_collectorInSpeed / 2);
+                        HW.arm.up();
+                    }
+                }
             }
+        }
+        if (firstUp && !HW.armSwitchUp.get()) {
+            firstUp = false;
         }
     }
 

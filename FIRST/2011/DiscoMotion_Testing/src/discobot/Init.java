@@ -56,7 +56,7 @@ public class Init {
         HW.sonarControllerLeft.enable();
         HW.sonarControllerFrontLeft.enable();
         HW.turnController.enable();
-        setPIDs();
+        //setPIDs();
     }
 
     public static void setPIDs() {
