@@ -1,5 +1,6 @@
 package DiscoLift;
 
+import Utils.DiscoUtils;
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -8,10 +9,10 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Arm {
 
-    private static final double k_armUpSpeed = -0.4;
-    private static final double k_armDownSpeed = 0.3;
-    static final double k_collectorOutSpeed = 0.5;
-    static final double k_collectorInSpeed = -0.5;
+    public static final double k_armUpSpeed = -0.5;
+    public static final double k_armDownSpeed = 0.4;
+    public static final double k_collectorOutSpeed = 0.5;
+    public static final double k_collectorInSpeed = -0.5;
     private Victor armMotor;
     private Victor collectorMotor;
     private DigitalInput upSwitch;
@@ -34,15 +35,16 @@ public class Arm {
     }
 
     public void up() {
-        if (!upSwitch.get()) {
+        if (upSwitch.get()) {
             armMotor.set(k_armUpSpeed);
         } else {
             stopArm();
         }
     }
 
+
     public void down() {
-        if (!downSwitch.get()) {
+        if (downSwitch.get()) {
             armMotor.set(k_armDownSpeed);
         } else {
             stopArm();
@@ -59,6 +61,9 @@ public class Arm {
 
     public void tubeIn() {
         collectorMotor.set(k_collectorInSpeed);
+    }
+    public void tubeIn(double speed) {
+        collectorMotor.set(speed);
     }
 
     public void tubeOut() {

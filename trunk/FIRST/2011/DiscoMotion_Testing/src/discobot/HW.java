@@ -102,8 +102,8 @@ public class HW {
 //-------------------------------------
 //          Digital classes
 //-------------------------------------
-    public static DiscoEncoder encoderFrontLeft =
-            new DiscoEncoder(5, 6, false, Encoder.EncodingType.k2X);
+    //public static DiscoEncoder encoderFrontLeft =
+      //      new DiscoEncoder(5, 6, false, Encoder.EncodingType.k2X);
     //public static DiscoEncoder encoderFrontRight =
       //      new DiscoEncoder(7, 8, false, Encoder.EncodingType.k2X);
     public static DiscoEncoder encoderRearRight =
@@ -125,7 +125,7 @@ public class HW {
     public static Jaguar lift = new Jaguar(5);
     public static Victor armMotor = new Victor(6);
     public static Victor collectorMotor = new Victor(7);
-    //public static Encoder liftEncoder = new Encoder(10, 11, false, Encoder.EncodingType.k2X);
+    public static Encoder liftEncoder = new Encoder(5, 6, false, Encoder.EncodingType.k2X);
     public static Arm arm = new Arm(armMotor, collectorMotor, armSwitchUp, armSwitchDown);
 //-------------------------------------
 //             Gyro class
