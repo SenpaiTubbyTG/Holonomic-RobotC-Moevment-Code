@@ -15,13 +15,10 @@ public class Disabled {
     }
 
     public static void continuous() {
-        //if (i > 10000) {
-            
-            
-            //i = 0;
-        //} else {
-          //  i++;
-        //}
-
+        if (i > 10000) {
+            i = 0;
+        } else {
+            i++;
+        }
     }
 }

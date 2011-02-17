@@ -62,6 +62,10 @@ public class HW {
     public static final int rearRightDMAddress = 4;
     public static final int rearLeftDMAddress = 5;*/
     public static final int encoderCodesPerRev = 128;
+    public static final int FrontLeftEncoderTicks = 160;
+    public static final int FrontRightEncoderTicks = 320;
+    public static final int RearRightEncoderTicks = 360;
+    public static final int RearLeftEncoderTicks = 360;
     public static double maxWheelVelocity = 200;
 //------------------------------------
 //         Drive motors
@@ -103,13 +107,13 @@ public class HW {
 //          Digital classes
 //-------------------------------------
     public static DiscoEncoder encoderFrontLeft =
-            new DiscoEncoder(5, 6, false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(5, 6, false, Encoder.EncodingType.k1X);
     public static DiscoEncoder encoderFrontRight =
-            new DiscoEncoder(7, 8, false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(7, 8, false, Encoder.EncodingType.k1X);
     public static DiscoEncoder encoderRearRight =
-            new DiscoEncoder(1, 2, false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(1, 2, false, Encoder.EncodingType.k1X);
     public static DiscoEncoder encoderRearLeft =
-            new DiscoEncoder(3, 4, false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(3, 4, false, Encoder.EncodingType.k1X);
 //-------------------------------------
 //    DigitalInput (Switch) classes
 //-------------------------------------

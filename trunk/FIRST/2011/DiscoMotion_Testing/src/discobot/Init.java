@@ -18,6 +18,7 @@ public class Init {
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+
         //DataLogger.dataLogger.init();
         /*HW.encoderFrontLeft.init();
         HW.encoderFrontRight.init();
@@ -33,12 +34,13 @@ public class Init {
     public static void autonomousInit() {
         initPIDs();
         HW.lift.enablePIDControl();
-        HW.lift.setSetpoint(HW.lift.kLiftDown);
+        HW.lift.setSetpoint(HW.lift.kLiftD);
         Autonomous.tubeHung = false;
     }
 
     public static void teleopInit() {
         initPIDs();
+        initEncoders();
     }
 
     public static void disablePIDs() {
@@ -52,10 +54,8 @@ public class Init {
         HW.turnController.reset();
         HW.sonarControllerLeft.setDistance(k_leftDist);
         HW.sonarControllerLeft.setOutputRange(-0.5, 0.5);
-        HW.sonarControllerLeft.setTolerance(k_sonarTolerance);
         HW.sonarControllerFrontLeft.setDistance(k_frontDist);
         HW.sonarControllerFrontLeft.setOutputRange(-0.5, 0.5);
-        HW.sonarControllerFrontLeft.setTolerance(k_sonarTolerance);
         HW.sonarControllerLeft.enable();
         HW.sonarControllerFrontLeft.enable();
         HW.turnController.enable();
@@ -91,9 +91,17 @@ public class Init {
     }
 
     public static void initEncoders() {
-        /*HW.encoderFrontLeft.reset();
+        HW.encoderFrontLeft.setCodesPerRev(HW.FrontLeftEncoderTicks);
+        HW.encoderFrontRight.setCodesPerRev(HW.FrontRightEncoderTicks);
+        HW.encoderRearRight.setCodesPerRev(HW.RearRightEncoderTicks);
+        HW.encoderRearLeft.setCodesPerRev(HW.RearLeftEncoderTicks);
+        HW.encoderFrontLeft.reset();
         HW.encoderFrontRight.reset();
         HW.encoderRearRight.reset();
-        HW.encoderRearLeft.reset();*/
+        HW.encoderRearLeft.reset();
+        HW.encoderFrontLeft.start();
+        HW.encoderFrontRight.start();
+        HW.encoderRearRight.start();
+        HW.encoderRearLeft.start();
     }
 }

@@ -53,7 +53,7 @@ public class Teleop {
         } else if (rightButtons[4]) {
             HW.turnController.turnToOrientation(270);
         } else {
-            HW.turnController.incrementSetpoint(HW.driveStickRight.getX()/2);
+            HW.turnController.incrementSetpoint(HW.driveStickRight.getX() / 2);
         }
 
         //Field-centric "HALO" control
@@ -79,11 +79,11 @@ public class Teleop {
     public static void lift() {
         //Lift control
         if (liftButtons[6]) {
-            HW.lift.setSetpoint(HW.lift.kLiftUp);
+            HW.lift.setSetpoint(HW.lift.kLiftH2);
         } else if (liftButtons[7]) {
-            HW.lift.setSetpoint(HW.lift.kLiftMiddle);
+            HW.lift.setSetpoint(HW.lift.kLiftM2);
         } else if (liftButtons[8]) {
-            HW.lift.setSetpoint(HW.lift.kLiftDown);
+            HW.lift.setSetpoint(HW.lift.kLiftD);
         }
         HW.lift.setLiftSpeed(-HW.liftHandle.getY());
 
@@ -124,7 +124,7 @@ public class Teleop {
                 }
             }
         }
-        if (firstUp && !HW.armSwitchUp.get()) {
+        if (firstUp && !HW.arm.isArmUp()) {
             firstUp = false;
         }
     }
@@ -135,8 +135,12 @@ public class Teleop {
     }
 
     public static void debugPrint() {
-        if (i > 1000) {
-            
+        if (i > 100000) {
+            DiscoUtils.debugPrintln("FL pos: " + HW.encoderFrontLeft.getRawPosition());
+            DiscoUtils.debugPrintln("FL: " + HW.encoderFrontLeft.getRate());
+            /*DiscoUtils.debugPrintln("FR: " + HW.encoderFrontRight.getRate());
+            DiscoUtils.debugPrintln("RR: " + HW.encoderRearRight.getRate());
+            DiscoUtils.debugPrintln("RL: " + HW.encoderRearLeft.getRate());*/
             i = 0;
         } else {
             i++;
