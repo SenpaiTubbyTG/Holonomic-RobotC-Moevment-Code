@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.Timer;
 public class Teleop {
 
     private static final int k_collectButton = 1; //on left-hand driver joystick
-    public static final int k_collectorInButton = 2;//on lift joystick
-    public static final int k_collectorOutButton = 3;//on lift joystick
-    private static final int k_armDownButton = 1;//on lift joystick
+    public static final int k_collectorInButton = 2;//on liftMotor joystick
+    public static final int k_collectorOutButton = 3;//on liftMotor joystick
+    private static final int k_armDownButton = 1;//on liftMotor joystick
     static final double k_rotationDeadZone = 0.1;
     static final double k_driveRotationThreshold = 0.5;
     static final double k_gyroRotationThreshold = 1.0;
@@ -32,7 +32,6 @@ public class Teleop {
         updateButtons();
         drive();
         lift();
-        DiscoUtils.debugPrintln("Lift encoder: " + HW.liftEncoder.getDistance());
     }
 
     public static void drive() {
@@ -54,7 +53,7 @@ public class Teleop {
         } else if (rightButtons[4]) {
             HW.turnController.turnToOrientation(270);
         } else {
-            HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
+            HW.turnController.incrementSetpoint(HW.driveStickRight.getX()/2);
         }
 
         //Field-centric "HALO" control
@@ -79,24 +78,24 @@ public class Teleop {
 
     public static void lift() {
         //Lift control
-        liftSpeed = -HW.liftHandle.getY();
-        if (liftSpeed > 0 && !HW.liftLimitInnerUp.get() && !HW.liftLimitMiddleUp.get()) {
-            HW.lift.set(0.0);
-        } else if ((liftSpeed < 0 && !HW.liftLimitInnerDown.get() && !HW.liftLimitMiddleDown.get())) {
-            HW.lift.set(0.0);
-        } else {
-            HW.lift.set(liftSpeed);
+        if (liftButtons[6]) {
+            HW.lift.setSetpoint(HW.lift.kLiftUp);
+        } else if (liftButtons[7]) {
+            HW.lift.setSetpoint(HW.lift.kLiftMiddle);
+        } else if (liftButtons[8]) {
+            HW.lift.setSetpoint(HW.lift.kLiftDown);
         }
+        HW.lift.setLiftSpeed(-HW.liftHandle.getY());
 
-        //Arm control for driver and lift operator
+        //Arm control for driver and liftMotor operator
         //arm raises automatically unless ordered downards
-        if (leftButtons[k_collectButton]) { //driver collect overrides lift operator
+        if (leftButtons[k_collectButton]) { //driver collect overrides liftMotor operator
             HW.arm.collect();
             firstUp = true;
         } else {
             if (liftButtons[k_armDownButton]) {
                 HW.arm.down();
-                //Manual Collector control by lift operator
+                //Manual Collector control by liftMotor operator
                 if (liftButtons[k_collectorInButton]) {
                     HW.arm.tubeIn();
                 } else if (liftButtons[k_collectorOutButton]) {
@@ -106,7 +105,7 @@ public class Teleop {
                 }
             } else {
                 HW.arm.up();
-                //Manual Collector control by lift operator
+                //Manual Collector control by liftMotor operator
                 if (liftButtons[k_collectorInButton] || firstUp) {
                     if (!firstUp) {
                         HW.arm.tubeIn();
@@ -132,9 +131,12 @@ public class Teleop {
 
     public static void continuous() {
         //verifyGyro(HW.gyro.getAngle());
-        if (i > 10000) {
-            //DataLogger.dataLogger.setEntryValue(INSERT ARRAY HERE);
-            //DiscoUtils.debugPrintln("\nLift INNER-UP switch: " + HW.liftLimitInnerUp.get());
+        debugPrint();
+    }
+
+    public static void debugPrint() {
+        if (i > 1000) {
+            
             i = 0;
         } else {
             i++;
