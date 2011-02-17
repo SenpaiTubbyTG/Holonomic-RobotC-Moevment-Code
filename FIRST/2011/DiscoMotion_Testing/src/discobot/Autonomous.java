@@ -57,20 +57,17 @@ public class Autonomous {
     }
 
     public static boolean inPosition() {
-        if (HW.sonarControllerLeft.onTarget()
-                && HW.sonarControllerFrontLeft.onTarget()) {
-            return true;
-        } else {
+        
             return false;
-        }
+        
     }
 
     public static void liftUp() {
-        HW.lift.setSetpoint(HW.lift.kLiftUp);
+        HW.lift.setSetpoint(HW.lift.kLiftH1);
     }
 
     public static void liftDown() {
-        HW.lift.setSetpoint(HW.lift.kLiftDown);
+        HW.lift.setSetpoint(HW.lift.kLiftD);
     }
 
     public static void hangTube() {

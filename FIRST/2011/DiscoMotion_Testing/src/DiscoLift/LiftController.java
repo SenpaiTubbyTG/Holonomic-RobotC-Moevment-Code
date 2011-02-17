@@ -21,11 +21,17 @@ public class LiftController implements PIDOutput {
     public static final double m_speedScaleFactor = 20;
     protected java.util.Timer m_controlLoop;
     protected double m_period = kDefaultPeriod;
-    private static final int kLiftUp = 850;
+    private static final int kLiftUp = 840;
     private static final int kLiftMiddle = 393;
     private static final int kLiftDown = 0;
     private static PositionController positionController;
     private double output = 0.0;
+
+    public static final int kLiftD = 0;
+    public static final int kLiftM1 = 370;
+    public static final int kLiftM2 = 390;
+    public static final int kLiftH1 = 790;
+    public static final int kLiftH2 = 820;
 
     private class LiftControllerTask extends TimerTask {
 
@@ -56,7 +62,7 @@ public class LiftController implements PIDOutput {
 
     public void pidWrite(double pidOut) {
         output = -pidOut;
-        HW.lift.set(output);
+        HW.liftMotor.set(output);
     }
 
     public void enablePIDControl() {
@@ -91,7 +97,7 @@ public class LiftController implements PIDOutput {
         }
     }
 
-    public void setSetpoint(int position) {
+    public void setSetpoint(double position) {
         if (positionController.isEnable()) {
             positionController.setSetpoint(position);
         } else {
@@ -117,12 +123,12 @@ public class LiftController implements PIDOutput {
         } else {
             output = speed;
             if (speed < 0 && !isLiftDown()) {
-                HW.lift.set(output);
+                HW.liftMotor.set(output);
             } else if (speed > 0 && !isLiftUp()) {
-                HW.lift.set(output);
+                HW.liftMotor.set(output);
             } else {
                 output = 0.0;
-                HW.lift.set(output);
+                HW.liftMotor.set(output);
             }
 
         }

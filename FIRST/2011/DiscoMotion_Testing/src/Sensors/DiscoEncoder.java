@@ -4,6 +4,7 @@
  */
 package Sensors;
 
+import Utils.DiscoUtils;
 import edu.wpi.first.wpilibj.*;
 import java.util.TimerTask;
 
@@ -13,16 +14,19 @@ import java.util.TimerTask;
  */
 public class DiscoEncoder extends Encoder implements PIDSource {
 
-    public static final double kDefaultPeriod = .005;
+    public static final double kDefaultPeriod = .1;
+    public static final double kPeriodMultiplyer = 1 / kDefaultPeriod;
     private double m_period = kDefaultPeriod;
     //private double oldTime = 0.0;
     private boolean m_enabled = false;
     private double m_oldPosition = 0.0;
+    private double m_oldTime = 0.0;
     private double m_velocity = 0.0;
     private double m_integratedDistance = 0.0;
     private PIDSourceParameter m_pidSource = PIDSourceParameter.kRate;
     private double m_intialPosition = 0.0;
     private CounterBase.EncodingType m_encodingType;
+    private double m_codesPerRev = 1;
     java.util.Timer m_controlLoop;
 
     private class EncoderRateTask extends TimerTask {
@@ -41,33 +45,33 @@ public class DiscoEncoder extends Encoder implements PIDSource {
         }
     }
 
-    public void init() {
-        start();
-        reset();
-        m_enabled = true;
-        m_controlLoop = new java.util.Timer();
-        m_controlLoop.schedule(new EncoderRateTask(this), 0L, (long) (m_period * 1000));
-    }
-
     public DiscoEncoder(final int aChannel, final int bChannel, boolean reversed,
             CounterBase.EncodingType x) {
         super(aChannel, bChannel, reversed, x);
         m_encodingType = x;
-        m_oldPosition = getDistance();
+        m_oldPosition = getRawPosition();
+        m_controlLoop = new java.util.Timer();
+        m_controlLoop.scheduleAtFixedRate(new EncoderRateTask(this), 0L, (long) (m_period * 1000));
     }
+    private int i = 0;
 
-    private void calculateRate() {   //delay in seconds
-        /*double newTime = Timer.getFPGATimestamp();
-        double timeDiff = newTime - oldTime;*/
+    private void calculateRate() {
         boolean enabled = m_enabled;
 
         if (enabled) {
             synchronized (this) {
-                double newPosition = getDistance();
-                m_velocity = (newPosition - m_oldPosition) / m_period;//timeDiff;
+
+                double newTime = Timer.getFPGATimestamp();
+                if (i > 100) {
+                    i = 0;
+                    DiscoUtils.debugPrintln("Time diff: " + (newTime - m_oldTime));
+                }
+                double newPosition = getRawPosition();
+                i++;
+                m_velocity = (newPosition - m_oldPosition) / (newTime - m_oldTime);
                 m_oldPosition = newPosition;
-                m_integratedDistance += m_velocity * m_period;
-                //oldTime = newTime;
+                m_oldTime = newTime;
+                //m_integratedDistance += m_velocity * m_period;
             }
         }
     }
@@ -88,12 +92,12 @@ public class DiscoEncoder extends Encoder implements PIDSource {
         //return feet per sec
 
         switch (m_pidSource.value) {
-        case 0:
-            return getRawPosition();
-        case 1:
-            return m_velocity;
-        default:
-            return 0.0;
+            case 0:
+                return getRawPosition();
+            case 1:
+                return m_velocity;
+            default:
+                return 0.0;
         }
     }
 
@@ -102,7 +106,11 @@ public class DiscoEncoder extends Encoder implements PIDSource {
      * @return
      */
     public synchronized double getRate() {
-        return m_velocity;
+        return m_velocity / m_codesPerRev * Math.PI * .5;
+    }
+
+    public void setCodesPerRev(double codes) {
+        m_codesPerRev = codes;
     }
 
     /**
@@ -130,9 +138,14 @@ public class DiscoEncoder extends Encoder implements PIDSource {
         }
     }
 
-    public void setPosition(double position){
+    public void setPosition(double position) {
         reset();
         m_intialPosition = position;
+    }
+
+    public void init() {
+        start();
+        reset();
     }
 
     /**
@@ -166,6 +179,6 @@ public class DiscoEncoder extends Encoder implements PIDSource {
      * @param pidSource An enum to select the parameter.
      */
     public void setPIDSourceParameter(PIDSourceParameter pidSource) {
-	m_pidSource = pidSource;
+        m_pidSource = pidSource;
     }
 }
