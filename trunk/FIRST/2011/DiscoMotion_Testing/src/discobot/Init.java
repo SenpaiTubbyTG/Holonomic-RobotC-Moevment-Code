@@ -9,8 +9,10 @@ import Utils.*;
 public class Init {
 
     public static final String[] k_DataLoggerHeader = {"FL", "FR", "RR", "RL"};
-    public static final double k_frontDist = 40.0;
-    public static final double k_leftDist = 33.0;
+    public static final double k_frontDist = 50.0;
+    public static final double k_leftDist = 50.0;
+    //tolerance in inches given an input range of 100
+    public static final double k_sonarTolerance = 3.0;
 
     public static void robotInit() {
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
@@ -30,14 +32,13 @@ public class Init {
 
     public static void autonomousInit() {
         initPIDs();
+        HW.lift.enablePIDControl();
+        HW.lift.setSetpoint(HW.lift.kLiftDown);
+        Autonomous.tubeHung = false;
     }
 
     public static void teleopInit() {
         initPIDs();
-        /*HW.encoderFrontLeft.reset();
-        HW.encoderFrontRight.reset();
-        HW.encoderRearRight.reset();
-        HW.encoderRearLeft.reset();*/
     }
 
     public static void disablePIDs() {
@@ -50,9 +51,11 @@ public class Init {
         HW.gyro.reset();
         HW.turnController.reset();
         HW.sonarControllerLeft.setDistance(k_leftDist);
-        HW.sonarControllerLeft.setOutputRange(-0.6, 0.6);
+        HW.sonarControllerLeft.setOutputRange(-0.5, 0.5);
+        HW.sonarControllerLeft.setTolerance(k_sonarTolerance);
         HW.sonarControllerFrontLeft.setDistance(k_frontDist);
-        HW.sonarControllerFrontLeft.setOutputRange(-0.6, 0.6);
+        HW.sonarControllerFrontLeft.setOutputRange(-0.5, 0.5);
+        HW.sonarControllerFrontLeft.setTolerance(k_sonarTolerance);
         HW.sonarControllerLeft.enable();
         HW.sonarControllerFrontLeft.enable();
         HW.turnController.enable();
@@ -69,6 +72,10 @@ public class Init {
                 HW.PIDConstants[1][0],
                 HW.PIDConstants[1][1],
                 HW.PIDConstants[1][2]);
+        HW.lift.setPID(
+                HW.PIDConstants[2][0],
+                HW.PIDConstants[2][1],
+                HW.PIDConstants[2][2]);
         DiscoUtils.debugPrintln("PID Values Set");
     }
 
@@ -81,5 +88,12 @@ public class Init {
     public static void dataLoggerWrite() {
         DataLogger.dataLogger.disable();
         DataLogger.dataLogger.writeData();
+    }
+
+    public static void initEncoders() {
+        /*HW.encoderFrontLeft.reset();
+        HW.encoderFrontRight.reset();
+        HW.encoderRearRight.reset();
+        HW.encoderRearLeft.reset();*/
     }
 }

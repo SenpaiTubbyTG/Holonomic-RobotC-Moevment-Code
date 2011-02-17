@@ -43,6 +43,9 @@ public class Main extends IterativeRobot {
         Init.autonomousInit();
     }
 
+    public void autonomousContinuous() {
+        Autonomous.continuous();
+    }
     public void autonomousPeriodic() {
         Autonomous.periodic();
     }

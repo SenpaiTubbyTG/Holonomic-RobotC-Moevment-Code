@@ -1,6 +1,6 @@
 package discobot;
 
-import Utils.*;
+import Utils.DiscoUtils;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -8,23 +8,78 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Autonomous {
 
-    public static final double k_maxError = 1.0;
-    private static double x;
-    private static double y;
-    //private static int i = 0;
+    public static final double scoringDistance = 30.0;
+    public static boolean tubeHung = false;
+    private static int i = 0;
 
     public static void periodic() {
-        if(HW.sonarControllerLeft.getError() > k_maxError) {
-            x = HW.sonarControllerLeft.getSpeed();
-        } else {
-            x = 0;
+        HW.lift.enablePIDControl();
+        sonarPosition();
+        //HW.arm.up();
+        if (inPosition()) {
+            if (!HW.lift.isLiftUp() && !tubeHung) {
+                liftUp();
+            } else {
+                setPositionFromWall(scoringDistance);
+                if (!tubeHung && inPosition()) {
+                    hangTube();
+                    tubeHung = true;
+                }
+            }
         }
+        /*if(tubeHung && inPosition()) {
+        HW.turnController.turnToOrientation(180.0);
+        }*/
+    }
 
-        if(HW.sonarControllerFrontLeft.getError() > k_maxError) {
-            y = HW.sonarControllerFrontLeft.getSpeed();
+    public static void continuous() {
+    }
+
+    public static void setPositionFromWall(double dist) {
+        HW.sonarControllerFrontLeft.setDistance(dist);
+        HW.sonarControllerFrontLeft.enable();
+    }
+
+    public static void sonarPosition() {
+        double x;
+        if (!inPosition()) {
+            if (HW.sonarFrontLeft.getRangeInches() < 70) {
+                x = HW.sonarControllerLeft.getSpeed();
+            } else {
+                x = 0;
+            }
+            double y = HW.sonarControllerFrontLeft.getSpeed();
+            HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
         } else {
-            y = 0;
+
+            HW.drive.holonomicDrive(0.0, 0.0, HW.turnController.getRotation());
         }
-        HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
+    }
+
+    public static boolean inPosition() {
+        if (HW.sonarControllerLeft.onTarget()
+                && HW.sonarControllerFrontLeft.onTarget()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void liftUp() {
+        HW.lift.setSetpoint(HW.lift.kLiftUp);
+    }
+
+    public static void liftDown() {
+        HW.lift.setSetpoint(HW.lift.kLiftDown);
+    }
+
+    public static void hangTube() {
+        HW.lift.setLiftSpeed(0.3);
+        Timer.delay(0.3);
+        HW.arm.tubeOut();
+        Timer.delay(1.0);
+        HW.arm.stopCollector();
+        setPositionFromWall(100.0);
+        liftDown();
     }
 }
