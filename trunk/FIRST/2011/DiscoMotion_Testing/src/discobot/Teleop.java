@@ -110,7 +110,7 @@ public class Teleop {
                     if (!firstUp) {
                         HW.arm.tubeIn();
                     } else {
-                        HW.arm.tubeIn(HW.arm.k_collectorInSpeed / 2);
+                        HW.arm.tubeIn();
                         HW.arm.up();
                     }
                 } else if (liftButtons[k_collectorOutButton]) {
@@ -118,13 +118,13 @@ public class Teleop {
                 } else {
                     HW.arm.stopCollector();
                     if (firstUp) {
-                        HW.arm.tubeIn(HW.arm.k_collectorInSpeed / 2);
+                        HW.arm.tubeIn();
                         HW.arm.up();
                     }
                 }
             }
         }
-        if (firstUp && !HW.arm.isArmUp()) {
+        if (firstUp && HW.arm.isUp()) {
             firstUp = false;
         }
     }
@@ -135,9 +135,13 @@ public class Teleop {
     }
 
     public static void debugPrint() {
-        if (i > 100000) {
-            DiscoUtils.debugPrintln("FL pos: " + HW.encoderFrontLeft.getRawPosition());
-            DiscoUtils.debugPrintln("FL: " + HW.encoderFrontLeft.getRate());
+        if (i > 1000000) {
+            DiscoUtils.debugPrintln("LiftEncoder: " + HW.lift.getPosition());
+            
+            /*DiscoUtils.debugPrintln("Lift Inner Down: " + HW.liftLimitInnerDown.get());
+            DiscoUtils.debugPrintln("Lift Middle Down: " + HW.liftLimitMiddleDown.get());
+            DiscoUtils.debugPrintln("Lift Middle Up: " + HW.liftLimitMiddleUp.get());
+            DiscoUtils.debugPrintln("Lift Inner Up: " + HW.liftLimitInnerUp.get());*/
             /*DiscoUtils.debugPrintln("FR: " + HW.encoderFrontRight.getRate());
             DiscoUtils.debugPrintln("RR: " + HW.encoderRearRight.getRate());
             DiscoUtils.debugPrintln("RL: " + HW.encoderRearLeft.getRate());*/

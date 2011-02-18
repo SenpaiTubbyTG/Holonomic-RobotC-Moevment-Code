@@ -19,11 +19,11 @@ public class Init {
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 
-        //DataLogger.dataLogger.init();
-        /*HW.encoderFrontLeft.init();
-        HW.encoderFrontRight.init();
-        HW.encoderRearRight.init();
-        HW.encoderRearLeft.init();*/
+        //DataLogger.dataLogger.updateArmSpeed();
+        /*HW.encoderFrontLeft.updateArmSpeed();
+        HW.encoderFrontRight.updateArmSpeed();
+        HW.encoderRearRight.updateArmSpeed();
+        HW.encoderRearLeft.updateArmSpeed();*/
     }
 
     public static void disabledInit() {
@@ -36,11 +36,13 @@ public class Init {
         HW.lift.enablePIDControl();
         HW.lift.setSetpoint(HW.lift.kLiftD);
         Autonomous.tubeHung = false;
+        HW.arm.updateArmSpeed();
     }
 
     public static void teleopInit() {
         initPIDs();
         initEncoders();
+        HW.arm.updateArmSpeed();
     }
 
     public static void disablePIDs() {
@@ -59,7 +61,8 @@ public class Init {
         HW.sonarControllerLeft.enable();
         HW.sonarControllerFrontLeft.enable();
         HW.turnController.enable();
-        //setPIDs();
+        HW.lift.enablePIDControl();
+        setPIDs();
     }
 
     public static void setPIDs() {
@@ -103,5 +106,7 @@ public class Init {
         HW.encoderFrontRight.start();
         HW.encoderRearRight.start();
         HW.encoderRearLeft.start();
+        HW.liftEncoder.reset();
+        HW.liftEncoder.start();
     }
 }

@@ -2,6 +2,7 @@ package DiscoLift;
 
 import Utils.DiscoUtils;
 import edu.wpi.first.wpilibj.*;
+import discobot.HW;
 
 /**
  * 
@@ -9,24 +10,14 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Arm {
 
-    public static final double k_armUpSpeed = -0.5;
-    public static final double k_armDownSpeed = 0.4;
+    public static double k_armUpSpeed = -0.4;
+    public static double k_armDownSpeed = 0.3;
     public static final double k_collectorOutSpeed = 0.5;
     public static final double k_collectorInSpeed = -0.5;
-    private Victor armMotor;
-    private Victor collectorMotor;
-    private DigitalInput upSwitch;
-    private DigitalInput downSwitch;
 
-    public Arm(Victor arm, Victor collect) {
-        armMotor = arm;
-        collectorMotor = collect;
-    }
-
-    public Arm(Victor arm, Victor collect, DigitalInput up, DigitalInput down) {
-        this(arm, collect);
-        upSwitch = up;
-        downSwitch = down;
+    public void updateArmSpeed() {
+        k_armUpSpeed = HW.driverStation.getBatteryVoltage() / HW.k_MaxVoltage * -0.4;
+        k_armDownSpeed = HW.driverStation.getBatteryVoltage() / HW.k_MaxVoltage * 0.3;
     }
 
     public void collect() {
@@ -35,8 +26,8 @@ public class Arm {
     }
 
     public void up() {
-        if (upSwitch.get()) {
-            armMotor.set(k_armUpSpeed);
+        if (!isUp()) {
+            HW.armMotor.set(k_armUpSpeed);
         } else {
             stopArm();
         }
@@ -44,29 +35,36 @@ public class Arm {
 
 
     public void down() {
-        if (downSwitch.get()) {
-            armMotor.set(k_armDownSpeed);
+        if (!isDown()) {
+            HW.armMotor.set(k_armDownSpeed);
         } else {
             stopArm();
         }
     }
 
     public void stopArm() {
-        armMotor.set(0.0);
+        HW.armMotor.set(0.0);
     }
 
     public void stopCollector() {
-        collectorMotor.set(0.0);
+        HW.collectorMotor.set(0.0);
     }
 
     public void tubeIn() {
-        collectorMotor.set(k_collectorInSpeed);
+        HW.collectorMotor.set(k_collectorInSpeed);
     }
     public void tubeIn(double speed) {
-        collectorMotor.set(speed);
+        HW.collectorMotor.set(speed);
     }
 
     public void tubeOut() {
-        collectorMotor.set(k_collectorOutSpeed);
+        HW.collectorMotor.set(k_collectorOutSpeed);
+    }
+
+    public boolean isUp() {
+        return !HW.armSwitchUp.get();
+    }
+    public boolean isDown() {
+        return !HW.armSwitchDown.get();
     }
 }
