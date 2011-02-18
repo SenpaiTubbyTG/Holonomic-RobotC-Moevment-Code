@@ -8,24 +8,28 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Autonomous {
 
-    public static final double scoringDistance = 30.0;
+    public static final double k_scoringDistance = 30.0;
+    public static final double k_maxError = 3.0;
     public static boolean tubeHung = false;
     private static int i = 0;
 
     public static void periodic() {
         HW.lift.enablePIDControl();
         sonarPosition();
-        //HW.arm.up();
+        HW.arm.up();
         if (inPosition()) {
             if (!HW.lift.isLiftUp() && !tubeHung) {
                 liftUp();
             } else {
-                setPositionFromWall(scoringDistance);
+                setPositionFromWall(k_scoringDistance);
                 if (!tubeHung && inPosition()) {
                     hangTube();
-                    tubeHung = true;
                 }
             }
+        }
+        if (tubeHung) {
+            liftDown();
+            setPositionFromWall(70.0);
         }
         /*if(tubeHung && inPosition()) {
         HW.turnController.turnToOrientation(180.0);
@@ -51,15 +55,17 @@ public class Autonomous {
             double y = HW.sonarControllerFrontLeft.getSpeed();
             HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
         } else {
-
             HW.drive.holonomicDrive(0.0, 0.0, HW.turnController.getRotation());
         }
     }
 
     public static boolean inPosition() {
-        
+        if (HW.sonarControllerLeft.getError() < k_maxError
+                && HW.sonarControllerFrontLeft.getError() < k_maxError) {
+            return true;
+        } else {
             return false;
-        
+        }
     }
 
     public static void liftUp() {
@@ -71,12 +77,11 @@ public class Autonomous {
     }
 
     public static void hangTube() {
-        HW.lift.setLiftSpeed(0.3);
-        Timer.delay(0.3);
+        HW.lift.setSetpoint(HW.lift.kLiftH1 - 50);
         HW.arm.tubeOut();
-        Timer.delay(1.0);
-        HW.arm.stopCollector();
-        setPositionFromWall(100.0);
-        liftDown();
+        if (HW.lift.getError() < 5) {
+            HW.arm.stopCollector();
+            tubeHung = true;
+        }
     }
 }
