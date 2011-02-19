@@ -22,7 +22,7 @@ public class Teleop {
     static double oldAngle = 0.0;
     static double liftSpeed = 0.0;
     static double rotation;
-    static boolean firstUp = false;
+    static boolean raisingArm = false;
     static int i = 0;
     static boolean[] leftButtons = new boolean[12];
     static boolean[] rightButtons = new boolean[12];
@@ -32,6 +32,16 @@ public class Teleop {
         updateButtons();
         drive();
         lift();
+        /*if (leftButtons[8]) {
+            HW.turnController.disable();
+        } else if (leftButtons[9]) {
+            HW.turnController.enable();
+        }*/
+        /*if (liftButtons[10]) {
+            HW.lift.disablePIDControl();
+        } else if (liftButtons[9]) {
+            HW.lift.enablePIDControl();
+        }*/
     }
 
     public static void drive() {
@@ -84,14 +94,19 @@ public class Teleop {
             HW.lift.setSetpoint(HW.lift.kLiftM2);
         } else if (liftButtons[8]) {
             HW.lift.setSetpoint(HW.lift.kLiftD);
+        } else if (liftButtons[2]) {
+            HW.lift.setSetpoint(HW.lift.getSetpoint() - 20);
         }
-        HW.lift.setLiftSpeed(-HW.liftHandle.getY());
+        if (Math.abs(HW.liftHandle.getY()) > 0.15) {
+            HW.lift.setLiftSpeed(-HW.liftHandle.getY());
+        }
+
 
         //Arm control for driver and liftMotor operator
         //arm raises automatically unless ordered downards
         if (leftButtons[k_collectButton]) { //driver collect overrides liftMotor operator
             HW.arm.collect();
-            firstUp = true;
+            raisingArm = true;
         } else {
             if (liftButtons[k_armDownButton]) {
                 HW.arm.down();
@@ -106,8 +121,8 @@ public class Teleop {
             } else {
                 HW.arm.up();
                 //Manual Collector control by liftMotor operator
-                if (liftButtons[k_collectorInButton] || firstUp) {
-                    if (!firstUp) {
+                if (liftButtons[k_collectorInButton] || raisingArm) {
+                    if (!raisingArm) {
                         HW.arm.tubeIn();
                     } else {
                         HW.arm.tubeIn();
@@ -117,15 +132,15 @@ public class Teleop {
                     HW.arm.tubeOut();
                 } else {
                     HW.arm.stopCollector();
-                    if (firstUp) {
+                    if (raisingArm) {
                         HW.arm.tubeIn();
                         HW.arm.up();
                     }
                 }
             }
         }
-        if (firstUp && HW.arm.isUp()) {
-            firstUp = false;
+        if (raisingArm && HW.arm.isUp()) {
+            raisingArm = false;
         }
     }
 
@@ -135,9 +150,11 @@ public class Teleop {
     }
 
     public static void debugPrint() {
-        if (i > 1000000) {
-            DiscoUtils.debugPrintln("LiftEncoder: " + HW.lift.getPosition());
-            
+        if (i > 1000) {
+            //DiscoUtils.debugPrintln("Lift Error: " + HW.lift.getError());
+            //DiscoUtils.debugPrintln("Lift Speed: " + HW.lift.getLiftSpeed());
+            //DiscoUtils.debugPrintln("Lift Set Point: " + HW.lift.getSetpoint());
+            //DiscoUtils.debugPrintln("Lift Position: " + HW.lift.getPosition());
             /*DiscoUtils.debugPrintln("Lift Inner Down: " + HW.liftLimitInnerDown.get());
             DiscoUtils.debugPrintln("Lift Middle Down: " + HW.liftLimitMiddleDown.get());
             DiscoUtils.debugPrintln("Lift Middle Up: " + HW.liftLimitMiddleUp.get());
