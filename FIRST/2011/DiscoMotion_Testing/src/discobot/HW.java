@@ -30,6 +30,7 @@ public class HW {
 //      Public Constants
 //------------------------------------
     public static double[][] PIDConstants = PIDTuner.readFile();
+    public static double k_MaxVoltage = 12.4;
 //------------------------------------
 //       Module Locations
 //------------------------------------
@@ -121,7 +122,6 @@ public class HW {
     public static DigitalInput liftLimitInnerDown = new DigitalInput(kSecondDigitalModuleSlot, 2);
     public static DigitalInput liftLimitMiddleUp = new DigitalInput(kSecondDigitalModuleSlot, 11);
     public static DigitalInput liftLimitMiddleDown = new DigitalInput(kSecondDigitalModuleSlot, 12);
-    
     public static DigitalInput armSwitchUp = new DigitalInput(kSecondDigitalModuleSlot, 3);
     public static DigitalInput armSwitchDown = new DigitalInput(kSecondDigitalModuleSlot, 4);
 //------------------------------------
@@ -130,9 +130,12 @@ public class HW {
     public static Jaguar liftMotor = new Jaguar(5);
     public static Victor armMotor = new Victor(6);
     public static Victor collectorMotor = new Victor(7);
+    public static DigitalInput liftEncoder1 = new DigitalInput(9);
+    public static DigitalInput liftEncoder2 = new DigitalInput(10);
     public static DiscoEncoder liftEncoder =
-            new DiscoEncoder(9, 10, false, Encoder.EncodingType.k2X);
-    public static Arm arm = new Arm(armMotor, collectorMotor, armSwitchUp, armSwitchDown);
+            new DiscoEncoder(liftEncoder1, liftEncoder2, false, Encoder.EncodingType.k1X);
+            //new DiscoEncoder(9, 10, false, Encoder.EncodingType.k1X);
+    public static Arm arm = new Arm();
     public static LiftController lift = new LiftController();
 //-------------------------------------
 //             Gyro class
