@@ -30,7 +30,9 @@ public class Teleop {
     static boolean[] liftButtons = new boolean[12];
 
     public static void periodic() {
+        setControlModes();
         updateButtons();
+        limitDrive();
         drive();
         lift();
 
@@ -42,14 +44,35 @@ public class Teleop {
         } else if (leftButtons[9]) {
         HW.turnController.enable();
         }*/
-        if (liftButtons[10]) {
-            HW.lift.disablePIDControl();
-        } else if (liftButtons[11]) {
-            HW.lift.enablePIDControl();
-        }
-        HW.arm.updateArmSpeed();
     }
 
+
+    //Used for making switches that will disable control loops
+    public static void setControlModes(){
+        boolean liftOpenLoop = false;
+        if (liftOpenLoop){
+            HW.lift.disablePIDControl();
+        } else {
+            HW.lift.enablePIDControl();
+        }
+
+        boolean driveOpenLoop = false;
+        if (driveOpenLoop){
+            HW.turnController.disable();
+        } else {
+            HW.turnController.reset(0.0);
+        }
+    }
+
+    public static void limitDrive(){
+        if (HW.lift.getPosition() > HW.lift.kLiftM1){
+            HW.turnController.setOutputRange(-.5, .5);
+            HW.drive.setMaxOutput(.75);
+        } else {
+            HW.turnController.setDefaultOutputRange();
+            HW.drive.setMaxOutput(1);
+        }
+    }
     public static void drive() {
         //Turn Controller Reset and Orientation
         if (leftButtons[3]) {
@@ -103,7 +126,7 @@ public class Teleop {
         } else if (liftButtons[8]) {
             HW.lift.setSetpoint(HW.lift.kLiftD);
         } else if (liftButtons[2]) {
-            HW.lift.setSetpoint(HW.lift.getPosition() - 5);
+            HW.lift.setSetpoint(HW.lift.getPosition() - 10);
         } /*else if(liftButtons[9]) {
         HW.lift.downToSwitchPeriodic();
         }*/
@@ -114,6 +137,7 @@ public class Teleop {
 
         //Arm control for driver and liftMotor operator
         //arm raises automatically unless ordered downards
+        HW.arm.updateArmSpeed();
         if (leftButtons[k_collectButton]) { //driver collect overrides liftMotor operator
             HW.arm.collect();
             raisingArm = true;
