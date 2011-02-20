@@ -16,12 +16,24 @@ public class PositionController extends AbstractPID {
     private boolean m_invertedOutput = false;
     private int m_debugCounter = 0;
     private boolean m_debug = false;
+    private double m_DownKp = 0.0;
+    private double m_DownKi = 0.0;
+    private double m_DownKd = 0.0;
+
+    public PositionController(double UpKp, double UpKi, double UpKd, double DownKp, double DownKi, double DownKd,
+            PIDSource source, PIDOutput output,
+            double period, boolean invert) {
+        super(UpKp, UpKi, UpKd, source, output, period);
+        m_DownKp = DownKp;
+        m_DownKi = DownKi;
+        m_DownKd = DownKd;
+        m_invertedOutput = invert;
+    }
 
     public PositionController(double Kp, double Ki, double Kd,
             PIDSource source, PIDOutput output,
             double period, boolean invert) {
-        super(Kp, Ki, Kd, source, output, period);
-        m_invertedOutput = invert;
+        this(Kp, Ki, Kd, Kp, Ki, Kd, source, output, period, invert);
     }
 
     /**
@@ -57,7 +69,11 @@ public class PositionController extends AbstractPID {
                         && ((m_totalError + m_error) * m_I > m_minimumOutput)) {
                     m_totalError += m_error;
                 }
-                m_result = (m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError));
+                if (m_error < 0){
+                    m_result = (m_DownKp * m_error + m_DownKi * m_totalError + m_DownKd * (m_error - m_prevError));
+                } else {
+                    m_result = (m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError));
+                }
                 m_prevError = m_error;
 
                 if (m_result > m_maximumOutput) {
@@ -88,6 +104,12 @@ public class PositionController extends AbstractPID {
 
     public void setDebug(boolean debug) {
         m_debug = debug;
+    }
+
+    public void setDownPID(double DownKp, double DownKi, double DownKd){
+        m_DownKp = DownKp;
+        m_DownKi = DownKi;
+        m_DownKd = DownKd;
     }
 
     public void debug() {

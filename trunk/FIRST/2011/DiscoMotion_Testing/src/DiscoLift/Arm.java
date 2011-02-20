@@ -15,6 +15,10 @@ public class Arm {
     public static final double k_collectorOutSpeed = -0.5;
     public static final double k_collectorInSpeed = 0.5;
 
+    public Arm(){
+
+    }
+
     public void updateArmSpeed() {
         k_armUpSpeed = HW.k_MaxVoltage/HW.driverStation.getBatteryVoltage() * -0.4;
         k_armDownSpeed = HW.k_MaxVoltage/HW.driverStation.getBatteryVoltage() * 0.3;
@@ -25,6 +29,19 @@ public class Arm {
         down();
         tubeIn();
     }
+    private boolean collecting = false;
+    //Assume lift will go up when this function is not called
+
+    public void autoCollect(boolean sw) {
+        if (sw) {
+            down();
+            tubeIn();
+            collecting = true;
+        } else if (isArmUp() && collecting) {
+            stopCollector();
+            collecting = false;
+        }
+    }
 
     public void up() {
         if (!isUp()) {
@@ -32,15 +49,24 @@ public class Arm {
         } else {
             stopArm();
         }
+
     }
 
-
     public void down() {
+
         if (!isDown()) {
             HW.armMotor.set(k_armDownSpeed);
         } else {
             stopArm();
         }
+    }
+
+    public boolean isArmDown() {
+        return !HW.armSwitchDown.get();
+    }
+
+    public boolean isArmUp() {
+        return !HW.armSwitchUp.get();
     }
 
     public void stopArm() {
@@ -54,6 +80,7 @@ public class Arm {
     public void tubeIn() {
         HW.collectorMotor.set(k_collectorInSpeed);
     }
+
     public void tubeIn(double speed) {
         HW.collectorMotor.set(speed);
     }

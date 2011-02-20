@@ -43,7 +43,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
         }
     }
     private static final double PING_TIME = 25 * 1e-6;	///< Time (sec) for the ping trigger pulse.
-    private static final double MAX_SONAR_TIME = 0.125;	///< Max time (ms) between readings.
+    private static final double MAX_SONAR_TIME = 0.15;	///< Max time (ms) between readings.
     //private static final double CM_TO_IN = 0.3937;
     private AnalogChannel m_inputChannel = null;
     private DigitalOutput m_pingChannel = null;

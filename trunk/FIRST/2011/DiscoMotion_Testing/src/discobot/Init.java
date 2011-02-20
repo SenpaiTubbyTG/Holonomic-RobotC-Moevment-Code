@@ -30,6 +30,7 @@ public class Init {
         //dataLoggerWrite();
         disablePIDs();
         initEncoders();
+        DiscoUtils.debugPrintln("DISABLED INIT COMPLETE");
     }
 
     public static void autonomousInit() {
@@ -38,6 +39,7 @@ public class Init {
         HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
         initEncoders();
         HW.arm.updateArmSpeed();
+        DiscoUtils.debugPrintln("AUTONOMOUS INIT COMPLETE");
     }
 
     public static void teleopInit() {
@@ -45,14 +47,16 @@ public class Init {
         initEncoders();
         HW.arm.updateArmSpeed();
         Teleop.startTime = Timer.getFPGATimestamp();
-        HW.lift.setOutputRange(-.1, .6);
         HW.lift.downToSwitch();
+        DiscoUtils.debugPrintln("TELEOP INIT COMPLETE");
     }
 
     public static void disablePIDs() {
         HW.turnController.disable();
         HW.sonarControllerLeft.disable();
         HW.sonarControllerFrontLeft.disable();
+
+        DiscoUtils.debugPrintln("PIDS DISABLED");
     }
 
     public static void initPIDs() {
@@ -67,6 +71,7 @@ public class Init {
         HW.lift.enablePIDControl();
         HW.lift.setSetpoint(HW.lift.kLiftD);
         setPIDs();
+        DiscoUtils.debugPrintln("PIDS ENABLED");
         DiscoUtils.debugPrintln("L  PIDs: P="+HW.sonarControllerLeft.getP()+"\tD="+HW.sonarControllerLeft.getD());
         DiscoUtils.debugPrintln("FL PIDs: P="+HW.sonarControllerFrontLeft.getP()+"\tD="+HW.sonarControllerFrontLeft.getD());
         DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
@@ -86,7 +91,10 @@ public class Init {
         HW.lift.setPID(
                 HW.PIDConstants[2][0],
                 HW.PIDConstants[2][1],
-                HW.PIDConstants[2][2]);
+                HW.PIDConstants[2][2],
+                HW.PIDConstants[3][0],
+                HW.PIDConstants[3][1],
+                HW.PIDConstants[3][2]);
         DiscoUtils.debugPrintln("PID Values Set");
     }
 

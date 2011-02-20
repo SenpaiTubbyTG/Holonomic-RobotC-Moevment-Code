@@ -10,6 +10,7 @@ import discobot.HW;
 import edu.wpi.first.wpilibj.Encoder.PIDSourceParameter;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.Timer;
 import java.util.TimerTask;
 
 /**
@@ -19,21 +20,25 @@ import java.util.TimerTask;
 public class LiftController implements PIDOutput, PIDSource {
 
     public static final double kDefaultPeriod = .1;
-    public static final double m_speedScaleFactor = 20;
-    protected java.util.Timer m_controlLoop;
-    protected double m_period = kDefaultPeriod;
-    private static final int kLiftUp = 820;
+    public static final double m_speedUpScaleFactor = 30;
+    public static final double m_speedDownScaleFactor = 15;
+    //What are the max speeds for the lift
+    public static final double kLiftMaxSpeedDown = -.1;
+    public static final double kLiftSpeedMaxUp = 1;
+    //Heights to reset too for the limit switches
+    private static final int kLiftUp = 850;
     private static final int kLiftMiddle = 393;
     private static final int kLiftDown = 0;
-    private static PositionController positionController;
-    private double output = 0.0;
+    //Heights of Each Peg
     public static final int kLiftD = 0;
     public static final int kLiftM1 = 370;
     public static final int kLiftM2 = 390;
     public static final int kLiftH1 = 790;
     public static final int kLiftH2 = 810;
-    public static final double kLiftMaxSpeedDown = -.3;
-    public static final double kLiftSpeedMaxUp = .5;
+    private double output = 0.0;
+    protected java.util.Timer m_controlLoop;
+    protected double m_period = kDefaultPeriod;
+    private static PositionController positionController;
 
     private class LiftControllerTask extends TimerTask {
 
@@ -58,7 +63,7 @@ public class LiftController implements PIDOutput, PIDSource {
         positionController.disable();
         positionController.setSetpoint(0.0);
         positionController.setOutputRange(kLiftMaxSpeedDown, kLiftSpeedMaxUp);
-        positionController.setInputRange(0, kLiftUp);
+        positionController.setInputRange(kLiftDown, kLiftUp);
         m_controlLoop = new java.util.Timer();
         m_controlLoop.scheduleAtFixedRate(new LiftControllerTask(this), 0L, (long) (m_period * 1000));
     }
@@ -69,7 +74,14 @@ public class LiftController implements PIDOutput, PIDSource {
 
     public void pidWrite(double pidOut) {
         output = pidOut;
-        HW.liftMotor.set(output);
+        //Ensure we are not driving it to far
+        if ((output > .05 && isLiftUp()) || (output < .05 && isLiftDown())) {
+            HW.liftMotor.set(0.0);
+
+        } else {
+            HW.liftMotor.set(output);
+        }
+
     }
 
     public void enablePIDControl() {
@@ -96,19 +108,34 @@ public class LiftController implements PIDOutput, PIDSource {
         return HW.liftEncoder.getRawPosition();
     }
 
+    public double getOutput() {
+        return output;
+    }
+
+    public void setPID(double UpP, double UpI, double UpD, double DownP, double DownI, double DownD) {
+        positionController.setPID(UpP, UpI, UpD);
+        positionController.setDownPID(DownP, DownI, DownD);
+    }
+
     public void setPID(double P, double I, double D) {
-        positionController.setPID(P, I, D);
+        setPID(P, I, D, P, I, D);
     }
 
     private void checkForLimits() {
+        if (getPosition() < kLiftDown && !isLiftDown()) {
+            resetPosition(kLiftDown + 1);
+        } else if (getPosition() > kLiftUp && !isLiftUp()) {
+            resetPosition(kLiftUp - 1);
+        }
+
         if (isLiftDown()) {
-            HW.liftEncoder.setPosition(kLiftDown);
+            resetPosition(kLiftDown);
             //DiscoUtils.debugPrintln("LIFT DOWN");
         } else if (isLiftMiddle()) {
-            HW.liftEncoder.setPosition(kLiftMiddle);
+            resetPosition(kLiftMiddle);
             //DiscoUtils.debugPrintln("LIFT IN MIDDLE");
         } else if (isLiftUp()) {
-            HW.liftEncoder.setPosition(kLiftH1);
+            resetPosition(kLiftH1);
             //DiscoUtils.debugPrintln("LIFT IS UP");
         }
     }
@@ -119,7 +146,13 @@ public class LiftController implements PIDOutput, PIDSource {
 
     public void setSetpoint(double position) {
         if (positionController.isEnable()) {
-            positionController.setSetpoint(position);
+            if (position < kLiftDown) {
+                position = kLiftDown;
+            } else if (position > kLiftUp) {
+                position = kLiftUp;
+            } else {
+                positionController.setSetpoint(position);
+            }
         } else {
             DiscoUtils.errorPrintln("Position Control is not enabled for the Lift");
         }
@@ -127,7 +160,11 @@ public class LiftController implements PIDOutput, PIDSource {
 
     public void setLiftSpeed(double speed) {
         if (positionController.isEnable()) {
-            positionController.setSetpoint(HW.liftEncoder.getRawPosition() + speed * m_speedScaleFactor);
+            if (speed < 0) {
+                positionController.setSetpoint(HW.liftEncoder.getRawPosition() + speed * m_speedDownScaleFactor);
+            } else {
+                positionController.setSetpoint(HW.liftEncoder.getRawPosition() + speed * m_speedUpScaleFactor);
+            }
         } else {
             output = speed;
             if (speed < 0 && !isLiftDown()) {
@@ -142,24 +179,25 @@ public class LiftController implements PIDOutput, PIDSource {
         }
     }
 
+    /**
+     * Called in TelopInit or AutonInit to make sure the lift is down before we start running
+     * Should always be down during matches but during practice it's very helpful
+     */
     public void downToSwitch() {
-        this.disablePIDControl();
-        while (!isLiftDown()) {
-            this.setLiftSpeed(0.1);
-        }
-        this.enablePIDControl();
-        this.resetPosition(kLiftD);
-    }
-
-    /*public void downToSwitchPeriodic() {
         if (!isLiftDown()) {
             this.disablePIDControl();
-            this.setLiftSpeed(kLiftMaxSpeedDown);
-        } else {
+            double startTime = Timer.getFPGATimestamp();
+            double newTime = Timer.getFPGATimestamp();
+            DiscoUtils.debugPrintln("Dropping the Lift to Start Telop");
+
+            while (!isLiftDown() && (newTime - startTime) < 4) {
+                newTime = Timer.getFPGATimestamp();
+                this.setLiftSpeed(-0.07);
+            }
             this.enablePIDControl();
-            this.resetPosition(kLiftD);
         }
-    }*/
+        this.resetPosition(kLiftD);
+    }
 
     public boolean isLiftDown() {
         return !HW.liftLimitInnerDown.get() && !HW.liftLimitMiddleDown.get();

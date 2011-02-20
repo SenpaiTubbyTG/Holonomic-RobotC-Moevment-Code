@@ -72,10 +72,10 @@ public class VelocityMatrices implements PIDSource {
      * wheel velocities obtained directly from encoders (via Jaguars)
      */
     private void updateWheelVelocities() throws CANTimeoutException {
-        wheelVelMat.set(0, 0, HW.frontLeftDM.getSpeed());
+        /*wheelVelMat.set(0, 0, HW.frontLeftDM.getSpeed());
         wheelVelMat.set(1, 0, HW.frontRightDM.getSpeed());
         wheelVelMat.set(2, 0, HW.rearRightDM.getSpeed());
-        wheelVelMat.set(3, 0, HW.rearLeftDM.getSpeed());
+        wheelVelMat.set(3, 0, HW.rearLeftDM.getSpeed());*/
     }
 
     /**

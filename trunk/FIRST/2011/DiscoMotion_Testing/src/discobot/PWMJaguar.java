@@ -159,11 +159,11 @@ public class PWMJaguar extends Jaguar{
      * @param bChannel
      * @param reversed
      */
-    public void setEncoderChannels(final int aChannel, final int bChannel, boolean reversed) {
+    public void setEncoderChannels(DigitalInput  aChannel, DigitalInput  bChannel, boolean reversed) {
         setEncoderChannels(aChannel, bChannel, reversed, CounterBase.EncodingType.k2X);
     }
 
-    public void setEncoderChannels(final int aChannel, final int bChannel, boolean reversed,
+    public void setEncoderChannels(DigitalInput aChannel, DigitalInput bChannel, boolean reversed,
             CounterBase.EncodingType x) {
         m_encoder = new DiscoEncoder(aChannel, bChannel, reversed, x);
         switch (m_controlMode.value) {

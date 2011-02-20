@@ -63,8 +63,8 @@ public class HW {
     public static final int rearRightDMAddress = 4;
     public static final int rearLeftDMAddress = 5;*/
     public static final int encoderCodesPerRev = 128;
-    public static final int FrontLeftEncoderTicks = 160;
-    public static final int FrontRightEncoderTicks = 320;
+    public static final int FrontLeftEncoderTicks = 360;
+    public static final int FrontRightEncoderTicks = 360;
     public static final int RearRightEncoderTicks = 360;
     public static final int RearLeftEncoderTicks = 360;
     public static double maxWheelVelocity = 200;
@@ -105,17 +105,6 @@ public class HW {
      */
     public static Joystick liftHandle = new Joystick(3);
 //-------------------------------------
-//          Digital classes
-//-------------------------------------
-    public static DiscoEncoder encoderFrontLeft =
-            new DiscoEncoder(5, 6, false, Encoder.EncodingType.k1X);
-    public static DiscoEncoder encoderFrontRight =
-            new DiscoEncoder(7, 8, false, Encoder.EncodingType.k1X);
-    public static DiscoEncoder encoderRearRight =
-            new DiscoEncoder(1, 2, false, Encoder.EncodingType.k1X);
-    public static DiscoEncoder encoderRearLeft =
-            new DiscoEncoder(3, 4, false, Encoder.EncodingType.k1X);
-//-------------------------------------
 //    DigitalInput (Switch) classes
 //-------------------------------------
     public static DigitalInput liftLimitInnerUp = new DigitalInput(kSecondDigitalModuleSlot, 1);
@@ -124,16 +113,32 @@ public class HW {
     public static DigitalInput liftLimitMiddleDown = new DigitalInput(kSecondDigitalModuleSlot, 12);
     public static DigitalInput armSwitchUp = new DigitalInput(kSecondDigitalModuleSlot, 3);
     public static DigitalInput armSwitchDown = new DigitalInput(kSecondDigitalModuleSlot, 4);
+//-------------------------------------
+//          Digital classes
+//-------------------------------------
+    public static DiscoEncoder encoderFrontLeft =
+            new DiscoEncoder(new DigitalInput(5), new DigitalInput(6), false, Encoder.EncodingType.k2X);
+    public static Encoder bad1 = new Encoder(liftLimitMiddleUp, liftLimitMiddleDown, false, Encoder.EncodingType.k2X);
+    public static DiscoEncoder encoderFrontRight =
+            new DiscoEncoder(new DigitalInput(7), new DigitalInput(8), false, Encoder.EncodingType.k2X);
+    public static Encoder bad2 = new Encoder(liftLimitMiddleUp, liftLimitMiddleDown, false, Encoder.EncodingType.k2X);
+    public static DiscoEncoder encoderRearRight =
+            new DiscoEncoder(new DigitalInput(1), new DigitalInput(2), false, Encoder.EncodingType.k2X);
+    public static Encoder bad3 = new Encoder(liftLimitMiddleUp, liftLimitMiddleDown, false, Encoder.EncodingType.k2X);
+    public static DigitalInput liftEncoder1 = new DigitalInput(9);
+    public static DigitalInput liftEncoder2 = new DigitalInput(10);
+    public static DiscoEncoder liftEncoder =
+            new DiscoEncoder(liftEncoder1, liftEncoder2, false, Encoder.EncodingType.k1X);
+    public static DiscoEncoder encoderRearLeft =
+            new DiscoEncoder(new DigitalInput(3), new DigitalInput(4), false, Encoder.EncodingType.k2X);
+    //public static Encoder bad4 = new Encoder(liftLimitMiddleUp, liftLimitMiddleDown, false, Encoder.EncodingType.k2X);
 //------------------------------------
 //      LIft, Arm, and collector
 //------------------------------------
     public static Jaguar liftMotor = new Jaguar(5);
     public static Victor armMotor = new Victor(6);
     public static Victor collectorMotor = new Victor(7);
-    public static DigitalInput liftEncoder1 = new DigitalInput(9);
-    public static DigitalInput liftEncoder2 = new DigitalInput(10);
-    public static DiscoEncoder liftEncoder =
-            new DiscoEncoder(liftEncoder1, liftEncoder2, false, Encoder.EncodingType.k1X);
+
             //new DiscoEncoder(9, 10, false, Encoder.EncodingType.k1X);
     public static Arm arm = new Arm();
     public static LiftController lift = new LiftController();
@@ -150,7 +155,7 @@ public class HW {
 //          Ultrasonic class
 //-------------------------------------
     public static MaxbotixSonar sonarLeft =
-            new MaxbotixSonar(2, 12);
+            new MaxbotixSonar(2, 11);
     public static MaxbotixSonar sonarFrontLeft =
             new MaxbotixSonar(3);
     public static MaxbotixSonar sonarFrontRight =
