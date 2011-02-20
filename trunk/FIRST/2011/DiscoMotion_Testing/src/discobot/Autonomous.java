@@ -8,15 +8,19 @@ import com.sun.squawk.util.MathUtils;
  */
 public class Autonomous {
 
-    public static final double k_scoringDistance = 30.0;
-    public static final double k_approachDistance = 50.0;
-    public static final double k_leftDistance = 30.0;
-    public static final double k_maxSonarError = 3.0;
-    public static final double k_maxLiftError = 15.0;
-    public static final double k_scoreHeight = HW.lift.kLiftM1;
-    public static boolean tubeHung = false;
-    private static int i = 0;
-    public static final int k_approachGridMode = 0;
+    /**
+     * Distance constants; need to be changed to reflect actual distances
+     */
+    private static final double k_scoringDistance = 30.0;
+    private static final double k_approachDistance = 50.0;
+    private static final double k_leftDistance = 30.0;
+    private static final double k_maxSonarError = 3.0;
+    private static final double k_maxLiftError = 15.0;
+    private static final double k_scoreHeight = HW.lift.kLiftM1;
+    /**
+     * Scoring modes
+     */
+    private static final int k_approachGridMode = 0;
     private static final int k_liftRaisingMode = 1;
     private static final int k_creepToGridMode = 2;
     private static final int k_hangTubeMode = 3;
@@ -24,9 +28,11 @@ public class Autonomous {
     private static final int k_takeItBackMode = 5;
     private static final int k_reverseMode = 6;
     private static final int k_finishAutonMode = 7;
-    public static int currentMode = k_approachGridMode;
+    private static int currentMode = k_approachGridMode;
+    private static boolean tubeHung = false;
 
     public static void init() {
+        currentMode = k_approachGridMode;
         initEncoders();
         initPIDs();
         HW.arm.updateArmSpeed();
@@ -36,25 +42,27 @@ public class Autonomous {
     public static void periodic() {
         switch (currentMode) {
             case k_approachGridMode:
-                sonarPosition();
+                sonarPositionFar();
                 if (inPosition()) {
+                    //disableSonarPositioning();
+                    HW.drive.HolonomicDrive(0.0, 0.0, 0.0);
                     currentMode = k_liftRaisingMode;
                 }
                 DiscoUtils.debugPrintln("Sonar pos mode");
                 break;
             case k_liftRaisingMode:
-                disableSonarPositioning();
                 HW.lift.setSetpoint(k_scoreHeight);
                 if (Math.abs(HW.lift.pidGet()) > k_scoreHeight - k_maxLiftError) {
+                    //enableSonarPositioning();
+                    setDistanceFromGrid(k_scoringDistance);
                     currentMode = k_creepToGridMode;
                 }
                 DiscoUtils.debugPrintln("Lift raise");
                 break;
             case k_creepToGridMode:
-                enableSonarPositioning();
-                setDistanceFromGrid(k_scoringDistance);
-                sonarPosition();
-                if (HW.sonarFrontLeft.getRangeInches() < k_scoringDistance + k_maxSonarError) {
+                sonarPositionClose();
+                if (inPosition()) {
+                    HW.drive.HolonomicDrive(0.0, 0.0, 0.0);
                     currentMode = k_hangTubeMode;
                 }
                 DiscoUtils.debugPrintln("creeping to grid");
@@ -76,44 +84,38 @@ public class Autonomous {
                 break;
             case k_takeItBackMode:
                 enableSonarPositioning();
-                setDistanceFromGrid(100);
-                sonarPosition();
+                setDistanceFromGrid(100.0);
+                sonarPositionFar();
                 if (inPosition()) {
                     currentMode = k_reverseMode;
                 }
                 DiscoUtils.debugPrintln("Take it back now y'all");
                 break;
             case k_reverseMode:
-                HW.turnController.turnToOrientation(180);
+                HW.turnController.turnToOrientation(360.0);
                 if (HW.turnController.getError() < 5) {
                     currentMode = k_finishAutonMode;
                 }
                 DiscoUtils.debugPrintln("Reverse! Reverse");
                 break;
             case k_finishAutonMode:
-                DiscoUtils.debugPrintln("PRETEND LIKE IM FLASHING PRETTY LIGHTS");
-                //FLASH PRETTY LIGHTS HERE!!!
+                Disabled.disablePIDs();
+                stopAllMotors();
                 break;
         }
         HW.arm.up();
     }
 
-    public static void continuous() {
-        if (i > 10000) {
+    public static void stopAllMotors() {
+        HW.liftMotor.set(0.0);
+                HW.DMFrontLeft.set(0.0);
+                HW.DMFrontRight.set(0.0);
+                HW.DMRearRight.set(0.0);
+                HW.DMRearLeft.set(0.0);
+    }
 
-            /*DiscoUtils.debugPrintln("Lift Error: " + HW.lift.getError());
-            DiscoUtils.debugPrintln("Lift Speed: " + HW.lift.getLiftSpeed());
-            DiscoUtils.debugPrintln("Lift Set Point: " + HW.lift.getSetpoint());
-            DiscoUtils.debugPrintln("FL Setpt: " + HW.sonarControllerFrontLeft.getSetpoint());*/
-            //DiscoUtils.debugPrintln("inPosition: " + inPosition());
-            DiscoUtils.debugPrintln("FL Range: " + HW.sonarFrontLeft.getRangeInches());
-            DiscoUtils.debugPrintln("L Range: " + HW.sonarLeft.getRangeInches());
-            DiscoUtils.debugPrintln("FL Error: " + HW.sonarControllerFrontLeft.getError());
-            DiscoUtils.debugPrintln("L Error: " + HW.sonarControllerLeft.getError());
-            i = 0;
-        } else {
-            i++;
-        }
+    public static void continuous() {
+        Disabled.continuous();
     }
 
     public static void disableSonarPositioning() {
@@ -124,39 +126,48 @@ public class Autonomous {
 
     public static void enableSonarPositioning() {
         HW.sonarControllerFrontLeft.enable();
+        HW.sonarControllerFrontRight.enable();
         HW.sonarControllerLeft.enable();
     }
 
     public static void setDistanceFromGrid(double dist) {
         HW.sonarControllerFrontLeft.setDistance(dist);
+        HW.sonarControllerFrontRight.setDistance(dist);
         enableSonarPositioning();
     }
 
-    public static void sonarPosition() {
-        HW.turnController.reset(
-                MathUtils.atan(HW.sonarFrontLeft.getRangeInches() - HW.sonarFrontRight.getRangeInches()/ 21.625));
-        HW.turnController.setSetpoint(180.0);
+    public static void sonarPositionFar() {
         double x;
-        if (!inPosition()) {
-            if (HW.sonarFrontLeft.getRangeInches() < 60) {
-                x = HW.sonarControllerLeft.getSpeed();
-            } else {
-                x = 0;
-            }
-            double y = (HW.sonarControllerFrontLeft.getSpeed()
-                    + HW.sonarControllerFrontRight.getSpeed())
-                    / 2;
-            HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
-            DiscoUtils.debugPrintln("X: " + x);
-            DiscoUtils.debugPrintln("Y: " + y);
+        if (HW.sonarFrontLeft.getRangeInches() < 65) {
+            x = HW.sonarControllerLeft.getSpeed();
         } else {
-            HW.drive.holonomicDrive(0.0, 0.0, HW.turnController.getRotation());
+            x = 0;
         }
+        double y = (HW.sonarControllerFrontLeft.getSpeed()
+                + HW.sonarControllerFrontRight.getSpeed())
+                / 2;
+        HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
+        //DiscoUtils.debugPrintln("X: " + x);
+        //DiscoUtils.debugPrintln("Y: " + y);
+    }
+
+    public static void sonarPositionClose() {
+        HW.turnController.setAngle(
+                MathUtils.atan(HW.sonarFrontLeft.getRangeInches() - HW.sonarFrontRight.getRangeInches() / 21.625));
+        HW.turnController.setSetpoint(180.0);
+        double x = HW.sonarControllerLeft.getSpeed();
+        double y = (HW.sonarControllerFrontLeft.getSpeed()
+                + HW.sonarControllerFrontRight.getSpeed())
+                / 2;
+        HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
+        //DiscoUtils.debugPrintln("X: " + x);
+        //DiscoUtils.debugPrintln("Y: " + y);
     }
 
     public static boolean inPosition() {
         if (Math.abs(HW.sonarControllerLeft.getError()) < k_maxSonarError
-                && Math.abs(HW.sonarControllerFrontLeft.getError()) < k_maxSonarError) {
+                && Math.abs(HW.sonarControllerFrontLeft.getError()) < k_maxSonarError
+                && Math.abs(HW.sonarControllerFrontRight.getError()) < k_maxSonarError) {
             return true;
         } else {
             return false;
@@ -174,25 +185,27 @@ public class Autonomous {
 
     public static void initPIDs() {
         HW.turnController.reset(180.0);//also enables
+        HW.turnController.setOutputRange(-0.5, 0.5);
+        HW.turnController.setSetpoint(180.0);
         HW.sonarControllerLeft.setDistance(k_leftDistance);
-        HW.sonarControllerLeft.setOutputRange(-0.3, 0.3);
+        HW.sonarControllerLeft.setOutputRange(-0.5, 0.5);
         HW.sonarControllerLeft.enable();
         HW.sonarControllerFrontLeft.setDistance(k_approachDistance);
-        HW.sonarControllerFrontRight.setDistance(k_approachDistance);
-        HW.sonarControllerFrontLeft.setOutputRange(-0.6, 0.6);
-        HW.sonarControllerFrontRight.setOutputRange(-0.6, 0.6);
+        HW.sonarControllerFrontLeft.setOutputRange(-0.5, 0.5);
         HW.sonarControllerFrontLeft.enable();
+        HW.sonarControllerFrontRight.setDistance(k_approachDistance);
+        HW.sonarControllerFrontRight.setOutputRange(-0.5, 0.5);
         HW.sonarControllerFrontRight.enable();
         HW.lift.enablePIDControl();
-        HW.lift.setSetpoint(HW.lift.kLiftD);
+        HW.lift.setOutputRange(-0.2, 0.75);
         PIDTuner.setPIDs();
+        HW.lift.setSetpoint(HW.lift.kLiftD);
         DiscoUtils.debugPrintln("PIDS ENABLED");
         DiscoUtils.debugPrintln("L  PIDs: P=" + HW.sonarControllerLeft.getP() + "\tD=" + HW.sonarControllerLeft.getD());
         DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontLeft.getP() + "\tD=" + HW.sonarControllerFrontLeft.getD());
+        DiscoUtils.debugPrintln("FR PIDs: P=" + HW.sonarControllerFrontRight.getP() + "\tD=" + HW.sonarControllerFrontRight.getD());
         DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
         DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());
-        HW.sonarControllerFrontLeft.setOutputRange(-0.4, 0.4);
-        HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
     }
 
     public static void initEncoders() {

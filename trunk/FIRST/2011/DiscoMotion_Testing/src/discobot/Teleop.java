@@ -39,8 +39,16 @@ public class Teleop {
         DiscoUtils.debugPrintln("TELEOP INIT COMPLETE");
     }
 
+    public static void disablePIDs() {
+        HW.turnController.disable();
+        HW.sonarControllerLeft.disable();
+        HW.sonarControllerFrontLeft.disable();
+
+        DiscoUtils.debugPrintln("PIDS DISABLED");
+    }
+
     public static void periodic() {
-        setControlModes();
+        //setControlModes();
         updateButtons();
         limitDrive();
         drive();
@@ -56,6 +64,10 @@ public class Teleop {
         }*/
     }
 
+    public static void continuous() {
+        //verifyGyro(HW.gyro.getAngle());
+        Disabled.continuous();
+    }
 
     //Used for making switches that will disable control loops
     public static void setControlModes(){
@@ -76,10 +88,10 @@ public class Teleop {
 
     public static void limitDrive(){
         if (HW.lift.getPosition() > HW.lift.kLiftM1){
-            HW.turnController.setOutputRange(-.5, .5);
+            //HW.turnController.setOutputRange(-.5, .5);
             HW.drive.setMaxOutput(.75);
         } else {
-            HW.turnController.setDefaultOutputRange();
+            //HW.turnController.setDefaultOutputRange();
             HW.drive.setMaxOutput(1);
         }
     }
@@ -105,6 +117,7 @@ public class Teleop {
         HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
 
         //Field-centric "HALO" control
+        HW.turnController.enable();
         rotation = HW.turnController.getRotation();
         double out[] = rotateVector(HW.driveStickLeft.getX(), HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
         if (leftButtons[9]) {
@@ -118,9 +131,6 @@ public class Teleop {
             }
             HW.drive.HolonomicDrive(currentX, currentY, rotation);
             DiscoUtils.debugPrintln("Sonar Positioning Active");
-
-        } else if(leftButtons[7]){
-            HW.drive.setMotorSpeeds(1, 1, 1, 1);
         } else {
             //DiscoUtils.debugPrintln("out[0]: " + out[0] + "\tout[1]: " + out[1] + "\trotation: " + rotation);
             HW.drive.HolonomicDrive(out[0], out[1], rotation);
@@ -188,43 +198,6 @@ public class Teleop {
         }
     }
 
-    public static void continuous() {
-        //verifyGyro(HW.gyro.getAngle());
-        debugPrint();
-    }
-
-    public static void debugPrint() {
-        if (i > 1000) {
-            Disabled.debugLift();
-            DiscoUtils.debugPrintln("Lift HANDLE: " + HW.liftHandle.getY());
-            
-            DiscoUtils.debugPrintln("Drive Left: " + HW.driveStickLeft.getY());
-            /*DiscoUtils.debugPrintln("arm DOWN speed: " + HW.arm.k_armDownSpeed);
-            DiscoUtils.debugPrintln("arm  UP  speed: " + HW.arm.k_armUpSpeed);*/
-            //DiscoUtils.debugPrintln("Lift Error: " + HW.lift.getError());
-            //DiscoUtils.debugPrintln("\nLift Speed: " + HW.lift.getLiftSpeed());
-            //DiscoUtils.debugPrintln("\nLift Motor: " + HW.liftMotor.get());
-            //DiscoUtils.debugPrintln("Arm Motor: " + HW.armMotor.get());
-            //DiscoUtils.debugPrintln("FL: " + HW.DMFrontLeft.get());
-            //DiscoUtils.debugPrintln("FR: " + HW.DMFrontRight.get());
-            //DiscoUtils.debugPrintln("RR: " + HW.DMRearRight.get());
-            //DiscoUtils.debugPrintln("RL: " + HW.DMRearLeft.get());
-            //DiscoUtils.debugPrintln("Lift Set Point: " + HW.lift.getSetpoint());
-            //DiscoUtils.debugPrintln("Lift Position: " + HW.lift.pidGet());
-            //DiscoUtils.debugPrintln("Lift Inner Down: " + HW.liftLimitInnerDown.get());
-            //DiscoUtils.debugPrintln("Lift Middle Down: " + HW.liftLimitMiddleDown.get());
-            //DiscoUtils.debugPrintln("isLiftDown: " + HW.lift.isLiftDown());
-            //DiscoUtils.debugPrintln("Lift Middle Up: " + HW.liftLimitMiddleUp.get());
-            //DiscoUtils.debugPrintln("Lift Inner Up: " + HW.liftLimitInnerUp.get());
-            /*DiscoUtils.debugPrintln("FR: " + HW.encoderFrontRight.getRate());
-            DiscoUtils.debugPrintln("RR: " + HW.encoderRearRight.getRate());
-            DiscoUtils.debugPrintln("RL: " + HW.encoderRearLeft.getRate());*/
-            i = 0;
-        } else {
-            i++;
-        }
-    }
-
     /**
      * Rotate a vector tubeIn Cartesian space.
      */
@@ -279,7 +252,8 @@ public class Teleop {
         HW.liftEncoder.init();
     }
 
-    public static void verifyGyro(double currentAngle) {
+    /* UNTESTED
+     public static void verifyGyro(double currentAngle) {
         double angleChange = currentAngle - oldAngle;
         if (Math.abs(rotation) > k_driveRotationThreshold
                 && Math.abs(angleChange) < k_gyroRotationThreshold) {
@@ -288,5 +262,5 @@ public class Teleop {
             fieldCentricEnabled = true;
         }
         oldAngle = currentAngle;
-    }
+    }*/
 }

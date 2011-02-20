@@ -17,7 +17,7 @@ public class Disabled {
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-
+        //HW.LED.setDirection(Relay.Direction.kBoth);
         //DataLogger.dataLogger.updateArmSpeed();
         /*HW.encoderFrontLeft.updateArmSpeed();
         HW.encoderFrontRight.updateArmSpeed();
@@ -36,31 +36,11 @@ public class Disabled {
 
     public static void continuous() {
         if (i > printPeriod) {
-             //debugSonars();
+             debugSonars();
              //debugEncoders();
              //debugLimits();
              //debugLift();
-            /*DiscoUtils.debugPrintln("FL Range: " + HW.sonarFrontLeft.getRangeInches());
-            DiscoUtils.debugPrintln("L  Range: " + HW.sonarLeft.getRangeInches());
-            DiscoUtils.debugPrintln("FL Range: " + HW.sonarFrontLeft.getRangeInches());
-            DiscoUtils.debugPrintln("FL Error: " + HW.sonarControllerFrontLeft.getError());
-            DiscoUtils.debugPrintln("FL Setpt: " + HW.sonarControllerFrontLeft.getSetpoint());
-            */
-            //DiscoUtils.debugPrintln("FL: " + HW.encoderFrontLeft.getRawPosition());
-            //DiscoUtils.debugPrintln("liftGet: " + HW.lift.pidGet());
-            //DiscoUtils.debugPrintln("RR: " + HW.encoderRearRight.getRawPosition());
-            //DiscoUtils.debugPrintln("RL: " + HW.encoderRearLeft.getRawPosition());
-            /*DiscoUtils.debugPrintln("Arm up: " + HW.arm.isUp());
-            DiscoUtils.debugPrintln("Arm down: " + HW.arm.isDown());*/
-            /*DiscoUtils.debugPrintln("\nisLiftUp: " + HW.lift.isLiftUp());
-            DiscoUtils.debugPrintln("isLiftMiddle: " + HW.lift.isLiftMiddle());
-            DiscoUtils.debugPrintln("isLiftDown: " + HW.lift.isLiftDown());
-            DiscoUtils.debugPrintln("\nInnerDown: " + HW.liftLimitInnerDown.get());
-            DiscoUtils.debugPrintln("InnerUp: " + HW.liftLimitInnerUp.get());
-            DiscoUtils.debugPrintln("MiddleDown: " + HW.liftLimitMiddleDown.get());
-            DiscoUtils.debugPrintln("MiddleUp: " + HW.liftLimitMiddleUp.get());*/
-            //DiscoUtils.debugPrintln("Arm Up: " + HW.armSwitchUp.get());
-            //DiscoUtils.debugPrintln("Arm Down: " + HW.armSwitchDown.get());
+            debugTurnController();
             i = 0;
         } else {
             i++;
@@ -70,8 +50,9 @@ public class Disabled {
     public static void disablePIDs() {
         HW.turnController.disable();
         HW.sonarControllerLeft.disable();
+        HW.sonarControllerFrontRight.disable();
         HW.sonarControllerFrontLeft.disable();
-
+        HW.lift.disablePIDControl();
         DiscoUtils.debugPrintln("PIDS DISABLED");
     }
 
@@ -94,6 +75,14 @@ public class Disabled {
                     + " / R=" + HW.sonarRight.getRangeInches());
     }
 
+    public static void debugTurnController() {
+        DiscoUtils.debugPrintln("TurnController:  "
+                    + "Gyro=" + HW.gyro.getAngle()
+                    + " / Setpt=" + HW.turnController.getSetpoint()
+                    + " / Error=" + HW.turnController.getError()
+                    + " / Rotat=" + HW.turnController.getRotation());
+    }
+
     public static void debugEncoders(){
         DiscoUtils.debugPrintln("ENCODERS POS:  "
                     + "FL=" + HW.encoderFrontLeft.getRawPosition()
@@ -108,7 +97,7 @@ public class Disabled {
     }
 
     static void debugLimits(){
-        DiscoUtils.debugPrintln("ARM:  " + "UP:" + HW.armSwitchUp.get() + " / DOWN: " + HW.armSwitchDown.get());
+        DiscoUtils.debugPrintln("ARM:  " + "ISUP:" + HW.arm.isUp() + " / ISDOWN: " + HW.arm.isDown());
         DiscoUtils.debugPrintln("LIFT:  "
                 + "MD:" + HW.liftLimitMiddleDown.get()
                 + " / ID:" + HW.liftLimitInnerDown.get()
