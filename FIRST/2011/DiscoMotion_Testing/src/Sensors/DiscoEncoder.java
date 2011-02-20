@@ -53,6 +53,25 @@ public class DiscoEncoder extends Encoder implements PIDSource {
         m_controlLoop = new java.util.Timer();
         m_controlLoop.scheduleAtFixedRate(new EncoderRateTask(this), 0L, (long) (m_period * 1000));
     }
+    public DiscoEncoder(DigitalInput a, DigitalInput b, boolean reversed,
+            CounterBase.EncodingType x) {
+        super(a, b, reversed, x);
+        m_encodingType = x;
+        m_oldPosition = getRawPosition();
+        m_controlLoop = new java.util.Timer();
+        m_controlLoop.scheduleAtFixedRate(new EncoderRateTask(this), 0L, (long) (m_period * 1000));
+    }
+
+    public DiscoEncoder(final int aSlot, final int aChannel,
+                        final int bSlot, final int bChannel, boolean reversed,
+            CounterBase.EncodingType x) {
+        super(aSlot, aChannel, bSlot, bChannel, reversed, x);
+        m_encodingType = x;
+        m_oldPosition = getRawPosition();
+        m_controlLoop = new java.util.Timer();
+        m_controlLoop.scheduleAtFixedRate(new EncoderRateTask(this), 0L, (long) (m_period * 1000));
+    }
+    
     private int i = 0;
 
     private void calculateRate() {
@@ -62,10 +81,6 @@ public class DiscoEncoder extends Encoder implements PIDSource {
             synchronized (this) {
 
                 double newTime = Timer.getFPGATimestamp();
-                if (i > 100) {
-                    i = 0;
-                    DiscoUtils.debugPrintln("Time diff: " + (newTime - m_oldTime));
-                }
                 double newPosition = getRawPosition();
                 i++;
                 m_velocity = (newPosition - m_oldPosition) / (newTime - m_oldTime);

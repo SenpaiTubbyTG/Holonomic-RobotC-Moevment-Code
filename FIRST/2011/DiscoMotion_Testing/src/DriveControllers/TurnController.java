@@ -68,7 +68,6 @@ public class TurnController implements PIDOutput {
      */
     public void enable() {
         gyroController.enable();
-        //incrementStartTime = Timer.getFPGATimestamp();
     }
 
     /**
@@ -111,11 +110,11 @@ public class TurnController implements PIDOutput {
         double currentAngle = getSetpoint();			//Need to decide if this should be getAngle or getSetpoint not sure yet
 
         int sign = ((currentAngle >= 0) ? 1 : -1);
-
+        
         //should be faster than calling Math.abs
         currentAngle = currentAngle * sign;
         double numberOfFullTurns = Math.floor(currentAngle / 360);
-
+        
         //if its negative invert the angle because -90 is the same orientation as 270
         double currentOrientation = ((sign == -1) ? (360 - (currentAngle % 360)) : (currentAngle % 360));
 
@@ -134,6 +133,13 @@ public class TurnController implements PIDOutput {
             out = ((numberOfFullTurns * 360 * sign) + out);		//Add back the full turns
             setSetpoint(out);
         }
+    }
+
+    public double getP() {
+        return gyroController.getP();
+    }
+    public double getD() {
+        return gyroController.getD();
     }
 
     public void setAngle(double angle) {
