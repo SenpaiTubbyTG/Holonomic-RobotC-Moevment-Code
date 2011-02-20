@@ -2,6 +2,7 @@
 package Utils;
 
 import com.sun.squawk.util.StringTokenizer;
+import discobot.HW;
 
 /**
  * Class PIDTuner
@@ -49,4 +50,23 @@ public class PIDTuner {
         return PIDkonstants;
     }
 
+    public static void setPIDs() {
+        HW.PIDConstants = PIDTuner.readFile();
+        HW.sonarControllerLeft.setPID(
+                HW.PIDConstants[0][0],
+                HW.PIDConstants[0][1],
+                HW.PIDConstants[0][2]);
+        HW.sonarControllerFrontLeft.setPID(
+                HW.PIDConstants[1][0],
+                HW.PIDConstants[1][1],
+                HW.PIDConstants[1][2]);
+        HW.lift.setPID(
+                HW.PIDConstants[2][0],
+                HW.PIDConstants[2][1],
+                HW.PIDConstants[2][2],
+                HW.PIDConstants[3][0],
+                HW.PIDConstants[3][1],
+                HW.PIDConstants[3][2]);
+        DiscoUtils.debugPrintln("PID Values Set");
+    }
 }
