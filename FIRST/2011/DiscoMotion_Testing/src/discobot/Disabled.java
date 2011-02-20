@@ -11,6 +11,25 @@ public class Disabled {
 
     private static int i = 0;
     private static int printPeriod = 10000;
+    public static final String[] k_DataLoggerHeader = {"FL", "FR", "RR", "RL"};
+
+    public static void robotInit() {
+        HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+        HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+        HW.drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+
+        //DataLogger.dataLogger.updateArmSpeed();
+        /*HW.encoderFrontLeft.updateArmSpeed();
+        HW.encoderFrontRight.updateArmSpeed();
+        HW.encoderRearRight.updateArmSpeed();
+        HW.encoderRearLeft.updateArmSpeed();*/
+    }
+
+    public static void init() {
+        //dataLoggerWrite();
+        disablePIDs();
+        DiscoUtils.debugPrintln("DISABLED INIT COMPLETE");
+    }
 
     public static void periodic() {
     }
@@ -48,7 +67,26 @@ public class Disabled {
         }
     }
 
-    static void debugSonars() {
+    public static void disablePIDs() {
+        HW.turnController.disable();
+        HW.sonarControllerLeft.disable();
+        HW.sonarControllerFrontLeft.disable();
+
+        DiscoUtils.debugPrintln("PIDS DISABLED");
+    }
+
+    public static void dataLoggerWrite() {
+        DataLogger.dataLogger.disable();
+        DataLogger.dataLogger.writeData();
+    }
+
+    public static void dataLoggerInit() {
+        DataLogger.dataLogger.setHeader(k_DataLoggerHeader);
+        DataLogger.dataLogger.setTimeOffset(Timer.getFPGATimestamp());
+        DataLogger.dataLogger.enable();
+    }
+
+    public static void debugSonars() {
         DiscoUtils.debugPrintln("SONARS:  "
                     + "L=" + HW.sonarLeft.getRangeInches()
                     + " / FL=" + HW.sonarFrontLeft.getRangeInches()

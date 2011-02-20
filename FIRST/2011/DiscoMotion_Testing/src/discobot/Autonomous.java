@@ -1,6 +1,7 @@
 package discobot;
 
-import Utils.DiscoUtils;
+import Utils.*;
+import com.sun.squawk.util.MathUtils;
 
 /**
  * @author Nelson
@@ -8,6 +9,8 @@ import Utils.DiscoUtils;
 public class Autonomous {
 
     public static final double k_scoringDistance = 30.0;
+    public static final double k_approachDistance = 50.0;
+    public static final double k_leftDistance = 30.0;
     public static final double k_maxSonarError = 3.0;
     public static final double k_maxLiftError = 15.0;
     public static final double k_scoreHeight = HW.lift.kLiftM1;
@@ -22,6 +25,13 @@ public class Autonomous {
     private static final int k_reverseMode = 6;
     private static final int k_finishAutonMode = 7;
     public static int currentMode = k_approachGridMode;
+
+    public static void init() {
+        initEncoders();
+        initPIDs();
+        HW.arm.updateArmSpeed();
+        DiscoUtils.debugPrintln("AUTONOMOUS INIT COMPLETE");
+    }
 
     public static void periodic() {
         switch (currentMode) {
@@ -68,14 +78,14 @@ public class Autonomous {
                 enableSonarPositioning();
                 setDistanceFromGrid(100);
                 sonarPosition();
-                if(inPosition()) {
+                if (inPosition()) {
                     currentMode = k_reverseMode;
                 }
                 DiscoUtils.debugPrintln("Take it back now y'all");
                 break;
             case k_reverseMode:
                 HW.turnController.turnToOrientation(180);
-                if(HW.turnController.getError() < 5) {
+                if (HW.turnController.getError() < 5) {
                     currentMode = k_finishAutonMode;
                 }
                 DiscoUtils.debugPrintln("Reverse! Reverse");
@@ -108,6 +118,7 @@ public class Autonomous {
 
     public static void disableSonarPositioning() {
         HW.sonarControllerFrontLeft.disable();
+        HW.sonarControllerFrontRight.disable();
         HW.sonarControllerLeft.disable();
     }
 
@@ -122,6 +133,9 @@ public class Autonomous {
     }
 
     public static void sonarPosition() {
+        HW.turnController.reset(
+                MathUtils.atan(HW.sonarFrontLeft.getRangeInches() - HW.sonarFrontRight.getRangeInches()/ 21.625));
+        HW.turnController.setSetpoint(180.0);
         double x;
         if (!inPosition()) {
             if (HW.sonarFrontLeft.getRangeInches() < 60) {
@@ -129,7 +143,9 @@ public class Autonomous {
             } else {
                 x = 0;
             }
-            double y = HW.sonarControllerFrontLeft.getSpeed();
+            double y = (HW.sonarControllerFrontLeft.getSpeed()
+                    + HW.sonarControllerFrontRight.getSpeed())
+                    / 2;
             HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
             DiscoUtils.debugPrintln("X: " + x);
             DiscoUtils.debugPrintln("Y: " + y);
@@ -154,5 +170,40 @@ public class Autonomous {
             HW.arm.stopCollector();
             tubeHung = true;
         }
+    }
+
+    public static void initPIDs() {
+        HW.turnController.reset(180.0);//also enables
+        HW.sonarControllerLeft.setDistance(k_leftDistance);
+        HW.sonarControllerLeft.setOutputRange(-0.3, 0.3);
+        HW.sonarControllerLeft.enable();
+        HW.sonarControllerFrontLeft.setDistance(k_approachDistance);
+        HW.sonarControllerFrontRight.setDistance(k_approachDistance);
+        HW.sonarControllerFrontLeft.setOutputRange(-0.6, 0.6);
+        HW.sonarControllerFrontRight.setOutputRange(-0.6, 0.6);
+        HW.sonarControllerFrontLeft.enable();
+        HW.sonarControllerFrontRight.enable();
+        HW.lift.enablePIDControl();
+        HW.lift.setSetpoint(HW.lift.kLiftD);
+        PIDTuner.setPIDs();
+        DiscoUtils.debugPrintln("PIDS ENABLED");
+        DiscoUtils.debugPrintln("L  PIDs: P=" + HW.sonarControllerLeft.getP() + "\tD=" + HW.sonarControllerLeft.getD());
+        DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontLeft.getP() + "\tD=" + HW.sonarControllerFrontLeft.getD());
+        DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
+        DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());
+        HW.sonarControllerFrontLeft.setOutputRange(-0.4, 0.4);
+        HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
+    }
+
+    public static void initEncoders() {
+        HW.encoderFrontLeft.setCodesPerRev(HW.FrontLeftEncoderTicks);
+        HW.encoderFrontRight.setCodesPerRev(HW.FrontRightEncoderTicks);
+        HW.encoderRearRight.setCodesPerRev(HW.RearRightEncoderTicks);
+        HW.encoderRearLeft.setCodesPerRev(HW.RearLeftEncoderTicks);
+        HW.encoderFrontLeft.init();
+        HW.encoderFrontRight.init();
+        HW.encoderRearRight.init();
+        HW.encoderRearLeft.init();
+        HW.liftEncoder.init();
     }
 }

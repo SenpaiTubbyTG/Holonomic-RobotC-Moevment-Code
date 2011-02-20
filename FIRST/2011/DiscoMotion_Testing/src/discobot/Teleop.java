@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Teleop {
 
+    static final double k_scoringDistance = 30.0;
     private static final int k_collectButton = 1; //on left-hand driver joystick
     public static final int k_collectorInButton = 2;//on liftMotor joystick
     public static final int k_collectorOutButton = 3;//on liftMotor joystick
@@ -28,6 +29,15 @@ public class Teleop {
     static boolean[] leftButtons = new boolean[12];
     static boolean[] rightButtons = new boolean[12];
     static boolean[] liftButtons = new boolean[12];
+
+    public static void init() {
+        initPIDs();
+        initEncoders();
+        HW.arm.updateArmSpeed();
+        Teleop.startTime = Timer.getFPGATimestamp();
+        HW.lift.downToSwitch();
+        DiscoUtils.debugPrintln("TELEOP INIT COMPLETE");
+    }
 
     public static void periodic() {
         setControlModes();
@@ -233,6 +243,40 @@ public class Teleop {
             rightButtons[b] = HW.driveStickRight.getRawButton(b);
             liftButtons[b] = HW.liftHandle.getRawButton(b);
         }
+    }
+
+    public static void initPIDs() {
+        HW.turnController.reset(0);//also enables
+        HW.sonarControllerLeft.setOutputRange(-0.5, 0.5);
+        HW.sonarControllerLeft.enable();
+        HW.sonarControllerFrontLeft.setDistance(k_scoringDistance);
+        HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
+        HW.sonarControllerFrontLeft.setOutputRange(-0.5, 0.5);
+        HW.sonarControllerFrontRight.setOutputRange(-0.5, 0.5);
+        HW.sonarControllerFrontLeft.enable();
+        HW.sonarControllerFrontRight.enable();
+        HW.lift.enablePIDControl();
+        HW.lift.setSetpoint(HW.lift.kLiftD);
+        PIDTuner.setPIDs();
+        DiscoUtils.debugPrintln("PIDS ENABLED");
+        DiscoUtils.debugPrintln("L  PIDs: P=" + HW.sonarControllerLeft.getP() + "\tD=" + HW.sonarControllerLeft.getD());
+        DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontLeft.getP() + "\tD=" + HW.sonarControllerFrontLeft.getD());
+        DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
+        DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());
+        HW.sonarControllerFrontLeft.setOutputRange(-0.4, 0.4);
+        HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
+    }
+
+    public static void initEncoders() {
+        HW.encoderFrontLeft.setCodesPerRev(HW.FrontLeftEncoderTicks);
+        HW.encoderFrontRight.setCodesPerRev(HW.FrontRightEncoderTicks);
+        HW.encoderRearRight.setCodesPerRev(HW.RearRightEncoderTicks);
+        HW.encoderRearLeft.setCodesPerRev(HW.RearLeftEncoderTicks);
+        HW.encoderFrontLeft.init();
+        HW.encoderFrontRight.init();
+        HW.encoderRearRight.init();
+        HW.encoderRearLeft.init();
+        HW.liftEncoder.init();
     }
 
     public static void verifyGyro(double currentAngle) {

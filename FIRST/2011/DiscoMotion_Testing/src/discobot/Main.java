@@ -24,11 +24,11 @@ public class Main extends IterativeRobot {
      */
 
     public void robotInit() {
-        Init.robotInit();
+        Disabled.robotInit();
     }
 
     public void disabledInit() {
-        Init.disabledInit();
+        Disabled.init();
     }
 
     public void disabledContinuous() {
@@ -40,7 +40,7 @@ public class Main extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        Init.autonomousInit();
+        Autonomous.init();
     }
 
     public void autonomousContinuous() {
@@ -51,7 +51,7 @@ public class Main extends IterativeRobot {
     }
 
     public void teleopInit() {
-        Init.teleopInit();
+        Teleop.init();
     }
 
     public void teleopContinuous() {

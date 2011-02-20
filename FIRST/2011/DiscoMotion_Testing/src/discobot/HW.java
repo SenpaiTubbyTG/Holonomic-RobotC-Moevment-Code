@@ -146,11 +146,15 @@ public class HW {
 //             Gyro class
 //-------------------------------------
     public static DiscoGyro gyro = new DiscoGyro(1);
-    public static TurnController turnController = new TurnController(gyro);
+    public static TurnController turnController = new TurnController();
 //-------------------------------------
 //         Accelerometer class
 //-------------------------------------
     public static ADXL345_I2C accelerometer = new ADXL345_I2C(4, ADXL345_I2C.DataFormat_Range.k4G);
+//-------------------------------------
+//         Spike Relay class
+//-------------------------------------
+    //public static Relay LED = new Relay();
 //-------------------------------------
 //          Ultrasonic class
 //-------------------------------------
