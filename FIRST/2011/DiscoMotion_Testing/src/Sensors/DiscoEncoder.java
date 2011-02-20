@@ -45,17 +45,9 @@ public class DiscoEncoder extends Encoder implements PIDSource {
         }
     }
 
-    public DiscoEncoder(final int aChannel, final int bChannel, boolean reversed,
+    public DiscoEncoder(DigitalInput aChannel, DigitalInput bChannel, boolean reversed,
             CounterBase.EncodingType x) {
         super(aChannel, bChannel, reversed, x);
-        m_encodingType = x;
-        m_oldPosition = getRawPosition();
-        m_controlLoop = new java.util.Timer();
-        m_controlLoop.scheduleAtFixedRate(new EncoderRateTask(this), 0L, (long) (m_period * 1000));
-    }
-    public DiscoEncoder(DigitalInput a, DigitalInput b, boolean reversed,
-            CounterBase.EncodingType x) {
-        super(a, b, reversed, x);
         m_encodingType = x;
         m_oldPosition = getRawPosition();
         m_controlLoop = new java.util.Timer();
@@ -121,7 +113,7 @@ public class DiscoEncoder extends Encoder implements PIDSource {
      * @return
      */
     public synchronized double getRate() {
-        return m_velocity / m_codesPerRev * Math.PI * .5;
+        return (m_velocity / m_codesPerRev) * Math.PI * .5;
     }
 
     public void setCodesPerRev(double codes) {

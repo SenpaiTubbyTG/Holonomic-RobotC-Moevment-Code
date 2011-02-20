@@ -10,22 +10,23 @@ import Utils.*;
 public class Disabled {
 
     private static int i = 0;
+    private static int printPeriod = 10000;
 
     public static void periodic() {
     }
 
     public static void continuous() {
-        if (i > 100000) {
-            DiscoUtils.debugPrintln("FL Range: " + HW.sonarFrontLeft.getRangeInches());
-            /*DiscoUtils.debugPrintln("L  Range: " + HW.sonarLeft.getRangeInches());
+        if (i > printPeriod) {
+             //debugSonars();
+             //debugEncoders();
+             //debugLimits();
+             //debugLift();
+            /*DiscoUtils.debugPrintln("FL Range: " + HW.sonarFrontLeft.getRangeInches());
+            DiscoUtils.debugPrintln("L  Range: " + HW.sonarLeft.getRangeInches());
             DiscoUtils.debugPrintln("FL Range: " + HW.sonarFrontLeft.getRangeInches());
             DiscoUtils.debugPrintln("FL Error: " + HW.sonarControllerFrontLeft.getError());
-            DiscoUtils.debugPrintln("FL Setpt: " + HW.sonarControllerFrontLeft.getSetpoint());*/
-            DiscoUtils.debugPrintln("ENCODERS:  "
-                    + "FL=" + HW.encoderFrontLeft.getRawPosition()
-                    + " / FR=" + HW.encoderFrontRight.getRawPosition()
-                    + " / RR=" + HW.encoderRearRight.getRawPosition()
-                    + " / RL=" + HW.encoderRearLeft.getRawPosition());
+            DiscoUtils.debugPrintln("FL Setpt: " + HW.sonarControllerFrontLeft.getSetpoint());
+            */
             //DiscoUtils.debugPrintln("FL: " + HW.encoderFrontLeft.getRawPosition());
             //DiscoUtils.debugPrintln("liftGet: " + HW.lift.pidGet());
             //DiscoUtils.debugPrintln("RR: " + HW.encoderRearRight.getRawPosition());
@@ -39,9 +40,55 @@ public class Disabled {
             DiscoUtils.debugPrintln("InnerUp: " + HW.liftLimitInnerUp.get());
             DiscoUtils.debugPrintln("MiddleDown: " + HW.liftLimitMiddleDown.get());
             DiscoUtils.debugPrintln("MiddleUp: " + HW.liftLimitMiddleUp.get());*/
+            //DiscoUtils.debugPrintln("Arm Up: " + HW.armSwitchUp.get());
+            //DiscoUtils.debugPrintln("Arm Down: " + HW.armSwitchDown.get());
             i = 0;
         } else {
             i++;
         }
     }
+
+    static void debugSonars() {
+        DiscoUtils.debugPrintln("SONARS:  "
+                    + "L=" + HW.sonarLeft.getRangeInches()
+                    + " / FL=" + HW.sonarFrontLeft.getRangeInches()
+                    + " / FR=" + HW.sonarFrontRight.getRangeInches()
+                    + " / R=" + HW.sonarRight.getRangeInches());
+    }
+
+    public static void debugEncoders(){
+        DiscoUtils.debugPrintln("ENCODERS POS:  "
+                    + "FL=" + HW.encoderFrontLeft.getRawPosition()
+                    + " / FR=" + HW.encoderFrontRight.getRawPosition()
+                    + " / RR=" + HW.encoderRearRight.getRawPosition()
+                    + " / RL=" + HW.encoderRearLeft.getRawPosition());
+        DiscoUtils.debugPrintln("ENCODERS RATE:  "
+                    + "FL=" + HW.encoderFrontLeft.getRate()
+                    + " / FR=" + HW.encoderFrontRight.getRate()
+                    + " / RR=" + HW.encoderRearRight.getRate()
+                    + " / RL=" + HW.encoderRearLeft.getRate());
+    }
+
+    static void debugLimits(){
+        DiscoUtils.debugPrintln("ARM:  " + "UP:" + HW.armSwitchUp.get() + " / DOWN: " + HW.armSwitchDown.get());
+        DiscoUtils.debugPrintln("LIFT:  "
+                + "MD:" + HW.liftLimitMiddleDown.get()
+                + " / ID:" + HW.liftLimitInnerDown.get()
+                + " / MU:" + HW.liftLimitMiddleUp.get()
+                + " / IU:" + HW.liftLimitInnerUp.get());
+    }
+
+    public static void debugLift(){
+        DiscoUtils.debugPrintln("LIFT LIMITS:  "
+                + "DOWN:" + HW.lift.isLiftDown()
+                + " / MIDDLE:" + HW.lift.isLiftMiddle()
+                + " / UP:" + HW.lift.isLiftUp());
+        DiscoUtils.debugPrintln("LIFT MOTOR:  " + "SPEED:" + HW.liftMotor.getSpeed());
+        DiscoUtils.debugPrintln("LIFT CONTROLLER:  "
+                + "POSITION:" + HW.lift.getPosition()
+                + " / SETPOINT:" + HW.lift.getSetpoint()
+                + " / ERROR:" + HW.lift.getError()
+                + " / OUTPUT:" + HW.lift.getOutput());
+    }
 }
+

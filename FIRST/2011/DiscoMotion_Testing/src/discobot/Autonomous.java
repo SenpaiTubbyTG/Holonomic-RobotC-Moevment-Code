@@ -1,7 +1,6 @@
 package discobot;
 
 import Utils.DiscoUtils;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  * @author Nelson
