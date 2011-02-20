@@ -21,6 +21,10 @@ public class SonarController implements PIDOutput{
         m_sonar = sonar;
         m_pid = new SonarPositionPID(p, i, d, m_sonar, this, .1);
     }
+    public SonarController(MaxbotixSonar sonar, double p, double i, double d, double tol) {
+        this(sonar, p, i, d);
+        setTolerance(tol);
+    }
 
     public void pidWrite(double pidIn){
         output = pidIn;
@@ -30,8 +34,25 @@ public class SonarController implements PIDOutput{
         m_pid.setOutputRange(min, max);
     }
 
+    public void setTolerance(double newTolerance) {
+        m_pid.setTolerance(newTolerance);
+    }
+    public double getTolerance() {
+        return m_pid.m_tolerance;
+    }
+    public boolean onTarget() {
+        return (Math.abs(m_pid.getError()) < m_pid.m_tolerance);
+    }
+    public void setInputRange(double min, double max) {
+        m_pid.setInputRange(min, max);
+    }
+
     public void setDistance(double distance) {
         m_pid.setSetpoint(distance);
+    }
+
+    public double getSetpoint() {
+        return m_pid.getSetpoint();
     }
     
     public void setPID(double p, double i, double d){
