@@ -21,9 +21,9 @@ public class LiftController implements PIDOutput, PIDSource {
 
     public static final double kDefaultPeriod = .1;
     public static final double m_speedUpScaleFactor = 30;
-    public static final double m_speedDownScaleFactor = 15;
+    public static final double m_speedDownScaleFactor = 25;
     //What are the max speeds for the lift
-    public static final double kLiftMaxSpeedDown = -.1;
+    public static final double kLiftMaxSpeedDown = -.2;
     public static final double kLiftSpeedMaxUp = 1;
     //Heights to reset too for the limit switches
     private static final int kLiftUp = 850;
@@ -194,7 +194,13 @@ public class LiftController implements PIDOutput, PIDSource {
                 newTime = Timer.getFPGATimestamp();
                 this.setLiftSpeed(-0.07);
             }
-            this.enablePIDControl();
+
+            if (!isLiftDown()){
+                //We went longer than 4 seconds so disable PID Control
+                this.disablePIDControl();
+            } else {
+                this.enablePIDControl();
+            }
         }
         this.resetPosition(kLiftD);
     }

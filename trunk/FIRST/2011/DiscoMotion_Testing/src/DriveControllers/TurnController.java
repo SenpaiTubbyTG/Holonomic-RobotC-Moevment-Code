@@ -15,12 +15,23 @@ public class TurnController implements PIDOutput {
     private PIDController gyroController;
     //private double incrementStartTime;
     private DiscoGyro gyro;
+    private static double kDefaultMinOutput = -1;
+    private static double kDefaultMaxOutput = 1;
+    private static final double kTurnScaleFactor = 8;
 
     public TurnController(DiscoGyro g) {
         gyro = g;
         gyroController = new PIDController(0.023, 0.0, 0.05, gyro, this);
-        gyroController.setOutputRange(-0.75, 0.75);
+        setDefaultOutputRange();
         //incrementStartTime = Timer.getFPGATimestamp();
+    }
+
+    public void setOutputRange(double min, double max){
+        gyroController.setOutputRange(min, max);
+    }
+
+    public void setDefaultOutputRange(){
+        setOutputRange(kDefaultMinOutput, kDefaultMaxOutput);
     }
 
     /**
@@ -31,17 +42,19 @@ public class TurnController implements PIDOutput {
         gyroController.setSetpoint(setpt);
     }
 
+    public double getAngle(){
+        return gyro.getAngle();
+    }
+
     /**
      * for TELEOP, increments the Setpoint based on a passed joystick value
      * @param inc - right joystick, x-axis value
      */
     public void incrementSetpoint(double inc) {
         if (Math.abs(inc) > .05) {
-            //double currentTime = Timer.getFPGATimestamp();
-            double newHeading = gyroController.getSetpoint()
-                    + (inc * 5);// * (currentTime - incrementStartTime));
+            double newHeading = getAngle()
+                    + (inc * kTurnScaleFactor);
             gyroController.setSetpoint(newHeading);
-            //incrementStartTime = currentTime;
         }
     }
 
