@@ -19,10 +19,10 @@ import java.util.TimerTask;
 public class LiftController implements PIDOutput, PIDSource {
 
     public static final double kDefaultPeriod = .1;
-    public static final double m_speedScaleFactor = 30;
+    public static final double m_speedScaleFactor = 20;
     protected java.util.Timer m_controlLoop;
     protected double m_period = kDefaultPeriod;
-    private static final int kLiftUp = 830;
+    private static final int kLiftUp = 820;
     private static final int kLiftMiddle = 393;
     private static final int kLiftDown = 0;
     private static PositionController positionController;
@@ -31,7 +31,7 @@ public class LiftController implements PIDOutput, PIDSource {
     public static final int kLiftM1 = 370;
     public static final int kLiftM2 = 390;
     public static final int kLiftH1 = 790;
-    public static final int kLiftH2 = 820;
+    public static final int kLiftH2 = 810;
     public static final double kLiftMaxSpeedDown = -.3;
     public static final double kLiftSpeedMaxUp = .5;
 
@@ -84,6 +84,10 @@ public class LiftController implements PIDOutput, PIDSource {
         }
     }
 
+    public void setOutputRange(double min, double max) {
+        positionController.setOutputRange(min, max);
+    }
+
     public double getSetpoint() {
         return positionController.getSetpoint();
     }
@@ -99,13 +103,18 @@ public class LiftController implements PIDOutput, PIDSource {
     private void checkForLimits() {
         if (isLiftDown()) {
             HW.liftEncoder.setPosition(kLiftDown);
+            //DiscoUtils.debugPrintln("LIFT DOWN");
         } else if (isLiftMiddle()) {
             HW.liftEncoder.setPosition(kLiftMiddle);
-            DiscoUtils.debugPrintln("LIFT IN MIDDLE");
+            //DiscoUtils.debugPrintln("LIFT IN MIDDLE");
         } else if (isLiftUp()) {
-            HW.liftEncoder.setPosition(kLiftUp);
-            DiscoUtils.debugPrintln("LIFT IS UP");
+            HW.liftEncoder.setPosition(kLiftH1);
+            //DiscoUtils.debugPrintln("LIFT IS UP");
         }
+    }
+
+    public void resetPosition(double position) {
+        HW.liftEncoder.setPosition(position);
     }
 
     public void setSetpoint(double position) {
@@ -118,7 +127,7 @@ public class LiftController implements PIDOutput, PIDSource {
 
     public void setLiftSpeed(double speed) {
         if (positionController.isEnable()) {
-            positionController.setSetpoint(HW.liftEncoder.get() + speed * m_speedScaleFactor);
+            positionController.setSetpoint(HW.liftEncoder.getRawPosition() + speed * m_speedScaleFactor);
         } else {
             output = speed;
             if (speed < 0 && !isLiftDown()) {
@@ -132,6 +141,25 @@ public class LiftController implements PIDOutput, PIDSource {
 
         }
     }
+
+    public void downToSwitch() {
+        this.disablePIDControl();
+        while (!isLiftDown()) {
+            this.setLiftSpeed(0.1);
+        }
+        this.enablePIDControl();
+        this.resetPosition(kLiftD);
+    }
+
+    /*public void downToSwitchPeriodic() {
+        if (!isLiftDown()) {
+            this.disablePIDControl();
+            this.setLiftSpeed(kLiftMaxSpeedDown);
+        } else {
+            this.enablePIDControl();
+            this.resetPosition(kLiftD);
+        }
+    }*/
 
     public boolean isLiftDown() {
         return !HW.liftLimitInnerDown.get() && !HW.liftLimitMiddleDown.get();
@@ -147,7 +175,7 @@ public class LiftController implements PIDOutput, PIDSource {
     }
 
     public double getLiftSpeed() {
-        return output;
+        return HW.liftMotor.getSpeed();
     }
 
     public double getError() {

@@ -16,11 +16,12 @@ public class Arm {
     public static final double k_collectorInSpeed = 0.5;
 
     public void updateArmSpeed() {
-        k_armUpSpeed = HW.driverStation.getBatteryVoltage() / HW.k_MaxVoltage * -0.4;
-        k_armDownSpeed = HW.driverStation.getBatteryVoltage() / HW.k_MaxVoltage * 0.3;
+        k_armUpSpeed = HW.k_MaxVoltage/HW.driverStation.getBatteryVoltage() * -0.4;
+        k_armDownSpeed = HW.k_MaxVoltage/HW.driverStation.getBatteryVoltage() * 0.3;
     }
 
     public void collect() {
+        HW.lift.setSetpoint(HW.lift.kLiftD);
         down();
         tubeIn();
     }

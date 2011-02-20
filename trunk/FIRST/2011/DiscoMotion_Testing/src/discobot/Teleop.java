@@ -22,6 +22,7 @@ public class Teleop {
     static double oldAngle = 0.0;
     static double liftSpeed = 0.0;
     static double rotation;
+    static double startTime = 0.0;
     static boolean raisingArm = false;
     static int i = 0;
     static boolean[] leftButtons = new boolean[12];
@@ -32,16 +33,21 @@ public class Teleop {
         updateButtons();
         drive();
         lift();
+
+        /*if(leftButtons[1]) {// && (Timer.getFPGATimestamp() - startTime) > 110) {
+        //deploy minibot here... I hope
+        }*/
         /*if (leftButtons[8]) {
-            HW.turnController.disable();
+        HW.turnController.disable();
         } else if (leftButtons[9]) {
-            HW.turnController.enable();
+        HW.turnController.enable();
         }*/
-        /*if (liftButtons[10]) {
+        if (liftButtons[10]) {
             HW.lift.disablePIDControl();
-        } else if (liftButtons[9]) {
+        } else if (liftButtons[11]) {
             HW.lift.enablePIDControl();
-        }*/
+        }
+        HW.arm.updateArmSpeed();
     }
 
     public static void drive() {
@@ -62,9 +68,8 @@ public class Teleop {
             HW.turnController.turnToOrientation(180);
         } else if (rightButtons[4]) {
             HW.turnController.turnToOrientation(270);
-        } else {
-            HW.turnController.incrementSetpoint(HW.driveStickRight.getX() / 2);
         }
+        HW.turnController.incrementSetpoint(HW.driveStickRight.getX());
 
         //Field-centric "HALO" control
         rotation = HW.turnController.getRotation();
@@ -82,6 +87,7 @@ public class Teleop {
             DiscoUtils.debugPrintln("Sonar Positioning Active");
 
         } else {
+            DiscoUtils.debugPrintln("out[0]: " + out[0] + "\tout[1]: " + out[1] + "\trotation: " + rotation);
             HW.drive.HolonomicDrive(out[0], out[1], rotation);
         }
     }
@@ -95,8 +101,10 @@ public class Teleop {
         } else if (liftButtons[8]) {
             HW.lift.setSetpoint(HW.lift.kLiftD);
         } else if (liftButtons[2]) {
-            HW.lift.setSetpoint(HW.lift.getSetpoint() - 20);
-        }
+            HW.lift.setSetpoint(HW.lift.getSetpoint() - 35);
+        } /*else if(liftButtons[9]) {
+        HW.lift.downToSwitchPeriodic();
+        }*/
         if (Math.abs(HW.liftHandle.getY()) > 0.15) {
             HW.lift.setLiftSpeed(-HW.liftHandle.getY());
         }
@@ -151,14 +159,23 @@ public class Teleop {
 
     public static void debugPrint() {
         if (i > 1000) {
+            /*DiscoUtils.debugPrintln("arm DOWN speed: " + HW.arm.k_armDownSpeed);
+            DiscoUtils.debugPrintln("arm  UP  speed: " + HW.arm.k_armUpSpeed);*/
             //DiscoUtils.debugPrintln("Lift Error: " + HW.lift.getError());
-            //DiscoUtils.debugPrintln("Lift Speed: " + HW.lift.getLiftSpeed());
+            //DiscoUtils.debugPrintln("\nLift Speed: " + HW.lift.getLiftSpeed());
+            DiscoUtils.debugPrintln("\nLift Motor: " + HW.liftMotor.get());
+            //DiscoUtils.debugPrintln("Arm Motor: " + HW.armMotor.get());
+            DiscoUtils.debugPrintln("FL: " + HW.DMFrontLeft.get());
+            DiscoUtils.debugPrintln("FR: " + HW.DMFrontRight.get());
+            DiscoUtils.debugPrintln("RR: " + HW.DMRearRight.get());
+            DiscoUtils.debugPrintln("RL: " + HW.DMRearLeft.get());
             //DiscoUtils.debugPrintln("Lift Set Point: " + HW.lift.getSetpoint());
-            //DiscoUtils.debugPrintln("Lift Position: " + HW.lift.getPosition());
-            /*DiscoUtils.debugPrintln("Lift Inner Down: " + HW.liftLimitInnerDown.get());
-            DiscoUtils.debugPrintln("Lift Middle Down: " + HW.liftLimitMiddleDown.get());
-            DiscoUtils.debugPrintln("Lift Middle Up: " + HW.liftLimitMiddleUp.get());
-            DiscoUtils.debugPrintln("Lift Inner Up: " + HW.liftLimitInnerUp.get());*/
+            //DiscoUtils.debugPrintln("Lift Position: " + HW.lift.pidGet());
+            //DiscoUtils.debugPrintln("Lift Inner Down: " + HW.liftLimitInnerDown.get());
+            //DiscoUtils.debugPrintln("Lift Middle Down: " + HW.liftLimitMiddleDown.get());
+            DiscoUtils.debugPrintln("isLiftDown: " + HW.lift.isLiftDown());
+            //DiscoUtils.debugPrintln("Lift Middle Up: " + HW.liftLimitMiddleUp.get());
+            //DiscoUtils.debugPrintln("Lift Inner Up: " + HW.liftLimitInnerUp.get());
             /*DiscoUtils.debugPrintln("FR: " + HW.encoderFrontRight.getRate());
             DiscoUtils.debugPrintln("RR: " + HW.encoderRearRight.getRate());
             DiscoUtils.debugPrintln("RL: " + HW.encoderRearLeft.getRate());*/
