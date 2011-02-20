@@ -67,6 +67,10 @@ public class PIDTuner {
                 HW.PIDConstants[3][0],
                 HW.PIDConstants[3][1],
                 HW.PIDConstants[3][2]);
+        HW.sonarControllerFrontRight.setPID(
+                HW.PIDConstants[4][0],
+                HW.PIDConstants[4][1],
+                HW.PIDConstants[4][2]);
         DiscoUtils.debugPrintln("PID Values Set");
     }
 }
