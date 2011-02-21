@@ -2,6 +2,7 @@ package discobot;
 
 import Utils.*;
 import com.sun.squawk.util.MathUtils;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * @author Nelson
@@ -11,10 +12,10 @@ public class Autonomous {
     /**
      * Distance constants; need to be changed to reflect actual distances
      */
-    private static final double k_scoringDistance = 30.0;
-    private static final double k_approachDistance = 50.0;
+    private static final double k_scoringDistance = 10.0;
+    private static final double k_approachDistance = 30.0;
     private static final double k_leftDistance = 30.0;
-    private static final double k_maxSonarError = 3.0;
+    private static double k_maxSonarError = 3.0;
     private static final double k_maxLiftError = 15.0;
     private static final double k_scoreHeight = HW.lift.kLiftM1;
     /**
@@ -23,13 +24,15 @@ public class Autonomous {
     private static final int k_approachGridMode = 0;
     private static final int k_liftRaisingMode = 1;
     private static final int k_creepToGridMode = 2;
-    private static final int k_hangTubeMode = 3;
-    private static final int k_liftDropMode = 4;
-    private static final int k_takeItBackMode = 5;
-    private static final int k_reverseMode = 6;
-    private static final int k_finishAutonMode = 7;
+    private static final int k_hangTubeP1Mode = 3;
+    private static final int k_hangTubeP2Mode = 4;
+    private static final int k_liftDropMode = 5;
+    private static final int k_takeItBackMode = 7;
+    private static final int k_reverseMode = 9;
+    private static final int k_finishAutonMode = 10;
     private static int currentMode = k_approachGridMode;
     private static boolean tubeHung = false;
+    private static double modeStartTime = 0.0;
 
     public static void init() {
         currentMode = k_approachGridMode;
@@ -37,16 +40,18 @@ public class Autonomous {
         initPIDs();
         HW.arm.updateArmSpeed();
         DiscoUtils.debugPrintln("AUTONOMOUS INIT COMPLETE");
+        modeStartTime = Timer.getFPGATimestamp();
     }
 
     public static void periodic() {
         switch (currentMode) {
             case k_approachGridMode:
                 sonarPositionFar();
-                if (inPosition()) {
+                if (inPosition() && (Timer.getFPGATimestamp() - modeStartTime > 1.0)) {
                     //disableSonarPositioning();
                     HW.drive.HolonomicDrive(0.0, 0.0, 0.0);
                     currentMode = k_liftRaisingMode;
+                    Timer.delay(1.0);
                 }
                 DiscoUtils.debugPrintln("Sonar pos mode");
                 break;
@@ -56,45 +61,61 @@ public class Autonomous {
                     //enableSonarPositioning();
                     setDistanceFromGrid(k_scoringDistance);
                     currentMode = k_creepToGridMode;
+                    Timer.delay(1.0);
                 }
                 DiscoUtils.debugPrintln("Lift raise");
                 break;
             case k_creepToGridMode:
+                setDistanceFromGrid(k_scoringDistance);
                 sonarPositionClose();
                 if (inPosition()) {
                     HW.drive.HolonomicDrive(0.0, 0.0, 0.0);
-                    currentMode = k_hangTubeMode;
+                    currentMode = k_hangTubeP1Mode;
+                    Timer.delay(1.0);
                 }
                 DiscoUtils.debugPrintln("creeping to grid");
                 break;
-            case k_hangTubeMode:
+            case k_hangTubeP1Mode:
                 disableSonarPositioning();
-                hangTube();
-                if (tubeHung) {
-                    currentMode = k_liftDropMode;
+                HW.lift.setSetpoint(k_scoreHeight - 50);
+                if (HW.lift.pidGet() < (k_scoreHeight - 40)) {
+                    currentMode = k_hangTubeP2Mode;
                 }
-                DiscoUtils.debugPrintln("Tube hang mode");
+                DiscoUtils.debugPrintln("Tube hang P1 mode");
+                break;
+            case k_hangTubeP2Mode:
+                disableSonarPositioning();
+                hangTube2();
+                if (tubeHung) {
+                    setDistanceFromGrid(50.0);
+                    currentMode = k_takeItBackMode;
+                    Timer.delay(1.0);
+                    k_maxSonarError = 100.0;
+                }
+                DiscoUtils.debugPrintln("Tube hang P2 mode");
+                break;
+            case k_takeItBackMode:
+                setDistanceFromGrid(50.0);
+                sonarPositionFar();
+                if (inPosition()) {
+                    currentMode = k_liftDropMode;
+                    Timer.delay(1.0);
+                }
+                DiscoUtils.debugPrintln("Take it back now y'all");
                 break;
             case k_liftDropMode:
                 HW.lift.downToSwitch();
                 if (HW.lift.isLiftDown()) {
-                    currentMode = k_takeItBackMode;
+                    currentMode = k_reverseMode;
+                    Timer.delay(1.0);
                 }
                 DiscoUtils.debugPrintln("Lift down mode");
-                break;
-            case k_takeItBackMode:
-                enableSonarPositioning();
-                setDistanceFromGrid(100.0);
-                sonarPositionFar();
-                if (inPosition()) {
-                    currentMode = k_reverseMode;
-                }
-                DiscoUtils.debugPrintln("Take it back now y'all");
                 break;
             case k_reverseMode:
                 HW.turnController.turnToOrientation(360.0);
                 if (HW.turnController.getError() < 5) {
                     currentMode = k_finishAutonMode;
+                    Timer.delay(1.0);
                 }
                 DiscoUtils.debugPrintln("Reverse! Reverse");
                 break;
@@ -108,10 +129,10 @@ public class Autonomous {
 
     public static void stopAllMotors() {
         HW.liftMotor.set(0.0);
-                HW.DMFrontLeft.set(0.0);
-                HW.DMFrontRight.set(0.0);
-                HW.DMRearRight.set(0.0);
-                HW.DMRearLeft.set(0.0);
+        HW.DMFrontLeft.set(0.0);
+        HW.DMFrontRight.set(0.0);
+        HW.DMRearRight.set(0.0);
+        HW.DMRearLeft.set(0.0);
     }
 
     public static void continuous() {
@@ -152,9 +173,9 @@ public class Autonomous {
     }
 
     public static void sonarPositionClose() {
-        HW.turnController.setAngle(
-                MathUtils.atan(HW.sonarFrontLeft.getRangeInches() - HW.sonarFrontRight.getRangeInches() / 21.625));
-        HW.turnController.setSetpoint(180.0);
+        /*HW.turnController.setAngle(
+        MathUtils.atan(HW.sonarFrontLeft.getRangeInches() - HW.sonarFrontRight.getRangeInches() / 21.625));
+        HW.turnController.setSetpoint(180.0);*/
         double x = HW.sonarControllerLeft.getSpeed();
         double y = (HW.sonarControllerFrontLeft.getSpeed()
                 + HW.sonarControllerFrontRight.getSpeed())
@@ -174,10 +195,14 @@ public class Autonomous {
         }
     }
 
-    public static void hangTube() {
-        HW.lift.setSetpoint(k_scoreHeight - 40);
+    public static void hangTube1() {
+    }
+
+    public static void hangTube2() {
         HW.arm.tubeOut();
-        if (HW.lift.pidGet() < (k_scoreHeight - 30)) {
+        HW.lift.setSetpoint(k_scoreHeight - 100);
+        if (HW.lift.pidGet() < (k_scoreHeight - 90)) {
+            Timer.delay(1.0);
             HW.arm.stopCollector();
             tubeHung = true;
         }
