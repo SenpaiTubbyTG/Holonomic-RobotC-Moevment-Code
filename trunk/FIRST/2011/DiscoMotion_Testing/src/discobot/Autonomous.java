@@ -14,7 +14,7 @@ public class Autonomous {
      */
     private static final double k_scoringDistance = 10.0;
     private static final double k_approachDistance = 30.0;
-    private static final double k_leftDistance = 30.0;
+    private static final double k_leftDistance = 33.0;
     private static double k_maxSonarError = 3.0;
     private static final double k_maxLiftError = 15.0;
     private static final double k_scoreHeight = HW.lift.kLiftM1;
@@ -60,6 +60,9 @@ public class Autonomous {
                 if (Math.abs(HW.lift.pidGet()) > k_scoreHeight - k_maxLiftError) {
                     //enableSonarPositioning();
                     setDistanceFromGrid(k_scoringDistance);
+                    HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
+                    HW.sonarControllerFrontLeft.setOutputRange(-0.4, 0.4);
+                    HW.sonarControllerFrontRight.setOutputRange(-0.4, 0.4);
                     currentMode = k_creepToGridMode;
                     Timer.delay(1.0);
                 }
@@ -90,21 +93,22 @@ public class Autonomous {
                     setDistanceFromGrid(50.0);
                     currentMode = k_takeItBackMode;
                     Timer.delay(1.0);
-                    k_maxSonarError = 100.0;
+                    k_maxSonarError = 7.77;
                 }
                 DiscoUtils.debugPrintln("Tube hang P2 mode");
                 break;
             case k_takeItBackMode:
-                setDistanceFromGrid(50.0);
+                setDistanceFromGrid(70.0);
                 sonarPositionFar();
                 if (inPosition()) {
+                    HW.drive.HolonomicDrive(0.0, 0.0, 0.0);
                     currentMode = k_liftDropMode;
                     Timer.delay(1.0);
                 }
                 DiscoUtils.debugPrintln("Take it back now y'all");
                 break;
             case k_liftDropMode:
-                HW.lift.downToSwitch();
+                HW.lift.setSetpoint(HW.lift.kLiftD);
                 if (HW.lift.isLiftDown()) {
                     currentMode = k_reverseMode;
                     Timer.delay(1.0);
@@ -112,7 +116,8 @@ public class Autonomous {
                 DiscoUtils.debugPrintln("Lift down mode");
                 break;
             case k_reverseMode:
-                HW.turnController.turnToOrientation(360.0);
+                HW.turnController.turnToOrientation(0.0);
+                HW.drive.HolonomicDrive(0.0, 0.0, HW.turnController.getRotation());
                 if (HW.turnController.getError() < 5) {
                     currentMode = k_finishAutonMode;
                     Timer.delay(1.0);
@@ -149,6 +154,8 @@ public class Autonomous {
         HW.sonarControllerFrontLeft.enable();
         HW.sonarControllerFrontRight.enable();
         HW.sonarControllerLeft.enable();
+        HW.turnController.enable();
+        HW.turnController.setSetpoint(180);
     }
 
     public static void setDistanceFromGrid(double dist) {
@@ -202,7 +209,6 @@ public class Autonomous {
         HW.arm.tubeOut();
         HW.lift.setSetpoint(k_scoreHeight - 100);
         if (HW.lift.pidGet() < (k_scoreHeight - 90)) {
-            Timer.delay(1.0);
             HW.arm.stopCollector();
             tubeHung = true;
         }
