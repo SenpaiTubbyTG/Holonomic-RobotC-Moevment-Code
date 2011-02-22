@@ -31,6 +31,7 @@ public class HW {
 //------------------------------------
     public static double[][] PIDConstants = PIDTuner.readFile();
     public static double k_MaxVoltage = 12.4;
+    public static double k_LEDRate = 0.25;
 //------------------------------------
 //       Module Locations
 //------------------------------------
@@ -146,7 +147,7 @@ public class HW {
 //             Gyro class
 //-------------------------------------
     public static DiscoGyro gyro = new DiscoGyro(1);
-    public static TurnController turnController = new TurnController();
+    public static TurnController turnController = new TurnController(gyro);
 //-------------------------------------
 //         Accelerometer class
 //-------------------------------------
@@ -154,7 +155,13 @@ public class HW {
 //-------------------------------------
 //         Spike Relay class
 //-------------------------------------
-    //public static Relay LED = new Relay();
+    public static Relay LED = new Relay(1);
+    //blue:  +
+    //white: -
+//-------------------------------------
+//         Servo class (for minibot deploymsne)
+//-------------------------------------
+    public static Servo minibotDeployer = new Servo(8);
 //-------------------------------------
 //          Ultrasonic class
 //-------------------------------------
@@ -167,11 +174,11 @@ public class HW {
     public static MaxbotixSonar sonarRight =
             new MaxbotixSonar(5);
     public static SonarController sonarControllerFrontLeft =
-            new SonarController(sonarFrontLeft, 0.03, 0.0, 0.01);
+            new SonarController(sonarFrontLeft, 0.05, 0.0, 0.035);
     public static SonarController sonarControllerFrontRight =
-            new SonarController(sonarFrontRight, 0.03, 0.0, 0.01);
+            new SonarController(sonarFrontRight, 0.05, 0.0, 0.035);
     public static SonarController sonarControllerLeft =
-            new SonarController(sonarLeft, 0.03, 0.0, 0.01);
+            new SonarController(sonarLeft, 0.05, 0.0, 0.035);
     //-------------------------------------
     //       DriverStationLCD class
     //-------------------------------------

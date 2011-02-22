@@ -1,6 +1,7 @@
 package discobot;
 
 import Utils.*;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -23,20 +24,23 @@ public class Teleop {
     static double oldAngle = 0.0;
     static double liftSpeed = 0.0;
     static double rotation;
-    static double startTime = 0.0;
+    static double LEDcycleStartTime = 0.0;
     static boolean raisingArm = false;
     static int i = 0;
     static boolean[] leftButtons = new boolean[12];
     static boolean[] rightButtons = new boolean[12];
     static boolean[] liftButtons = new boolean[12];
+    static boolean LEDblue = true;
 
     public static void init() {
         initPIDs();
         initEncoders();
+        HW.LED.setDirection(Relay.Direction.kForward);
         HW.arm.updateArmSpeed();
-        Teleop.startTime = Timer.getFPGATimestamp();
+        Teleop.LEDcycleStartTime = Timer.getFPGATimestamp();
         HW.lift.downToSwitch();
         DiscoUtils.debugPrintln("TELEOP INIT COMPLETE");
+        HW.LED.setDirection(Relay.Direction.kBoth);
     }
 
     public static void disablePIDs() {
@@ -53,10 +57,11 @@ public class Teleop {
         limitDrive();
         drive();
         lift();
-
-        /*if(leftButtons[1]) {// && (Timer.getFPGATimestamp() - startTime) > 110) {
-        //deploy minibot here... I hope
-        }*/
+        if (rightButtons[1]) {
+            HW.minibotDeployer.set(1.0);
+        } else {
+            HW.minibotDeployer.set(-1.0);
+        }
         /*if (leftButtons[8]) {
         HW.turnController.disable();
         } else if (leftButtons[9]) {
@@ -67,27 +72,41 @@ public class Teleop {
     public static void continuous() {
         //verifyGyro(HW.gyro.getAngle());
         Disabled.continuous();
+        if(Timer.getFPGATimestamp() - LEDcycleStartTime > HW.k_LEDRate) {
+            if(LEDblue) {
+                HW.LED.set(Relay.Value.kReverse);
+                LEDblue = false;
+            } else {
+                HW.LED.set(Relay.Value.kForward);
+                LEDblue = true;
+            }
+            LEDcycleStartTime = Timer.getFPGATimestamp();
+        }
+        /*HW.LED.set(Relay.Value.kForward);
+        Timer.delay(0.25);
+        HW.LED.set(Relay.Value.kReverse);
+        Timer.delay(0.25);*/
     }
 
     //Used for making switches that will disable control loops
-    public static void setControlModes(){
+    public static void setControlModes() {
         boolean liftOpenLoop = false;
-        if (liftOpenLoop){
+        if (liftOpenLoop) {
             HW.lift.disablePIDControl();
         } else {
             HW.lift.enablePIDControl();
         }
 
         boolean driveOpenLoop = false;
-        if (driveOpenLoop){
+        if (driveOpenLoop) {
             HW.turnController.disable();
         } else {
             HW.turnController.reset(0.0);
         }
     }
 
-    public static void limitDrive(){
-        if (HW.lift.getPosition() > HW.lift.kLiftM1){
+    public static void limitDrive() {
+        if (HW.lift.getPosition() > HW.lift.kLiftM1) {
             //HW.turnController.setOutputRange(-.5, .5);
             HW.drive.setMaxOutput(.75);
         } else {
@@ -95,6 +114,7 @@ public class Teleop {
             HW.drive.setMaxOutput(1);
         }
     }
+
     public static void drive() {
         //Turn Controller Reset and Orientation
         if (leftButtons[3]) {
@@ -236,6 +256,7 @@ public class Teleop {
         DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontLeft.getP() + "\tD=" + HW.sonarControllerFrontLeft.getD());
         DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
         DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());
+        DiscoUtils.debugPrintln("LED Delay: " + HW.k_LEDRate);
         HW.sonarControllerFrontLeft.setOutputRange(-0.4, 0.4);
         HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
     }
@@ -253,14 +274,14 @@ public class Teleop {
     }
 
     /* UNTESTED
-     public static void verifyGyro(double currentAngle) {
-        double angleChange = currentAngle - oldAngle;
-        if (Math.abs(rotation) > k_driveRotationThreshold
-                && Math.abs(angleChange) < k_gyroRotationThreshold) {
-            fieldCentricEnabled = false;
-        } else {
-            fieldCentricEnabled = true;
-        }
-        oldAngle = currentAngle;
+    public static void verifyGyro(double currentAngle) {
+    double angleChange = currentAngle - oldAngle;
+    if (Math.abs(rotation) > k_driveRotationThreshold
+    && Math.abs(angleChange) < k_gyroRotationThreshold) {
+    fieldCentricEnabled = false;
+    } else {
+    fieldCentricEnabled = true;
+    }
+    oldAngle = currentAngle;
     }*/
 }
