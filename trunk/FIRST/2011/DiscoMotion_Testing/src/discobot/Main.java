@@ -41,13 +41,16 @@ public class Main extends IterativeRobot {
 
     public void autonomousInit() {
         Autonomous.init();
+        //EncoderAutonomous.init();
     }
 
     public void autonomousContinuous() {
         Autonomous.continuous();
+        //EncoderAutonomous.continuous();
     }
     public void autonomousPeriodic() {
         Autonomous.periodic();
+        //EncoderAutonomous.periodic();
     }
 
     public void teleopInit() {
