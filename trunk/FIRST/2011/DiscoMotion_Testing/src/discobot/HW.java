@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.*;
  * @purpose puts all of the hardware declarations into one
 place.  In addition, it makes them available to
 both autonomous and teleop.
- * @author Allen Gregory and pavchag and Nelson Chen
+ * @author Allen Gregory, pavchag and Nelson Chen
  */
 public class HW {
 
@@ -31,7 +31,7 @@ public class HW {
 //------------------------------------
     public static double[][] PIDConstants = PIDTuner.readFile();
     public static double k_MaxVoltage = 12.4;
-    public static double k_LEDRate = 0.25;
+    public static double k_LEDRate = 0.5;
 //------------------------------------
 //       Module Locations
 //------------------------------------
@@ -121,18 +121,31 @@ public class HW {
             new DiscoEncoder(new DigitalInput(5), new DigitalInput(6), false, Encoder.EncodingType.k2X);
     public static Encoder bad1 = new Encoder(liftLimitMiddleUp, liftLimitMiddleDown, false, Encoder.EncodingType.k2X);
     public static DiscoEncoder encoderFrontRight =
-            new DiscoEncoder(new DigitalInput(7), new DigitalInput(8), false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(new DigitalInput(7), new DigitalInput(8), true, Encoder.EncodingType.k2X);
     public static Encoder bad2 = new Encoder(liftLimitMiddleUp, liftLimitMiddleDown, false, Encoder.EncodingType.k2X);
     public static DiscoEncoder encoderRearRight =
-            new DiscoEncoder(new DigitalInput(1), new DigitalInput(2), false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(new DigitalInput(1), new DigitalInput(2), true, Encoder.EncodingType.k2X);
     public static Encoder bad3 = new Encoder(liftLimitMiddleUp, liftLimitMiddleDown, false, Encoder.EncodingType.k2X);
     public static DigitalInput liftEncoder1 = new DigitalInput(9);
     public static DigitalInput liftEncoder2 = new DigitalInput(10);
     public static DiscoEncoder liftEncoder =
             new DiscoEncoder(liftEncoder1, liftEncoder2, false, Encoder.EncodingType.k1X);
     public static DiscoEncoder encoderRearLeft =
-            new DiscoEncoder(new DigitalInput(3), new DigitalInput(4), false, Encoder.EncodingType.k2X);
+            new DiscoEncoder(new DigitalInput(3), new DigitalInput(4), true, Encoder.EncodingType.k2X);
     //public static Encoder bad4 = new Encoder(liftLimitMiddleUp, liftLimitMiddleDown, false, Encoder.EncodingType.k2X);
+
+//-----------------------------------
+//  DistanceControllers for sonar-less autonomous
+//-----------------------------------
+
+    public static DistanceController distanceControllerFrontLeft =
+            new DistanceController(0.1, 0.0, 0.0, encoderFrontLeft);
+    public static DistanceController distanceControllerFrontRight =
+            new DistanceController(0.1, 0.0, 0.0, encoderFrontRight);
+    public static DistanceController distanceControllerRearRight =
+            new DistanceController(0.1, 0.0, 0.0, encoderRearRight);
+    public static DistanceController distanceControllerRearLeft =
+            new DistanceController(0.1, 0.0, 0.0, encoderRearLeft);
 //------------------------------------
 //      LIft, Arm, and collector
 //------------------------------------
@@ -155,9 +168,8 @@ public class HW {
 //-------------------------------------
 //         Spike Relay class
 //-------------------------------------
-    public static Relay LED = new Relay(1);
-    //blue:  +
-    //white: -
+    public static Relay LEDminibot = new Relay(1);
+    public static Relay LEDfeederSignal = new Relay(2);
 //-------------------------------------
 //         Servo class (for minibot deploymsne)
 //-------------------------------------
@@ -166,7 +178,7 @@ public class HW {
 //          Ultrasonic class
 //-------------------------------------
     public static MaxbotixSonar sonarLeft =
-            new MaxbotixSonar(2, 11);
+            new MaxbotixSonar(2);//, 11);
     public static MaxbotixSonar sonarFrontLeft =
             new MaxbotixSonar(3);
     public static MaxbotixSonar sonarFrontRight =
@@ -175,8 +187,8 @@ public class HW {
             new MaxbotixSonar(5);
     public static SonarController sonarControllerFrontLeft =
             new SonarController(sonarFrontLeft, 0.05, 0.0, 0.035);
-    public static SonarController sonarControllerFrontRight =
-            new SonarController(sonarFrontRight, 0.05, 0.0, 0.035);
+    //public static SonarController sonarControllerFrontRight =
+      //      new SonarController(sonarFrontRight, 0.05, 0.0, 0.035);
     public static SonarController sonarControllerLeft =
             new SonarController(sonarLeft, 0.05, 0.0, 0.035);
     //-------------------------------------
