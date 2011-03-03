@@ -38,8 +38,8 @@ public class Disabled {
     public static void continuous() {
         if (i > printPeriod) {
             //debugEncoders();
-            debugDistanceControllers();
-            //debugSonars();
+            //debugDistanceControllers();
+            debugSonars();
             //debugLimits();
             //debugLift();
             //debugTurnController();
@@ -47,13 +47,16 @@ public class Disabled {
         } else {
             i++;
         }
+        if(HW.liftHandle.getRawButton(1) && HW.liftHandle.getRawButton(8)) {
+            Autonomous.currentMode = Autonomous.k_finishAutonMode;
+        }
     }
 
     public static void disablePIDs() {
         HW.turnController.disable();
         HW.sonarControllerLeft.disable();
         //HW.sonarControllerFrontRight.disable();
-        HW.sonarControllerFrontLeft.disable();
+        HW.sonarControllerFrontRight.disable();
         HW.lift.disablePIDControl();
         DiscoUtils.debugPrintln("PIDS DISABLED");
     }

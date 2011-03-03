@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Teleop {
 
+    static final double k_teleopDuration = 120.0;
     static final double k_scoringDistance = 30.0;
     private static final int k_collectButton = 1; //on left-hand driver joystick
     public static final int k_collectorInButton = 2;//on liftMotor joystick
@@ -35,19 +36,19 @@ public class Teleop {
     public static void init() {
         initPIDs();
         initEncoders();
-        HW.LED.setDirection(Relay.Direction.kForward);
         HW.arm.updateArmSpeed();
         Teleop.LEDcycleStartTime = Timer.getFPGATimestamp();
         HW.lift.downToSwitch();
+        HW.lift.setOutputRange(HW.lift.kLiftMaxSpeedDown, HW.lift.kLiftSpeedMaxUp);
         DiscoUtils.debugPrintln("TELEOP INIT COMPLETE");
-        HW.LED.setDirection(Relay.Direction.kBoth);
+        HW.LEDminibot.setDirection(Relay.Direction.kBoth);
+        HW.LEDfeederSignal.setDirection(Relay.Direction.kBoth);
     }
 
     public static void disablePIDs() {
         HW.turnController.disable();
         HW.sonarControllerLeft.disable();
         HW.sonarControllerFrontLeft.disable();
-
         DiscoUtils.debugPrintln("PIDS DISABLED");
     }
 
@@ -57,7 +58,7 @@ public class Teleop {
         limitDrive();
         drive();
         lift();
-        if (rightButtons[1]) {
+        if (rightButtons[1] && (k_teleopDuration - Timer.getFPGATimestamp()) < 15.0 ) {
             HW.minibotDeployer.set(1.0);
         } else {
             HW.minibotDeployer.set(-1.0);
@@ -74,18 +75,16 @@ public class Teleop {
         Disabled.continuous();
         if(Timer.getFPGATimestamp() - LEDcycleStartTime > HW.k_LEDRate) {
             if(LEDblue) {
-                HW.LED.set(Relay.Value.kReverse);
+                HW.LEDminibot.set(Relay.Value.kForward);
+                HW.LEDfeederSignal.set(Relay.Value.kForward);
                 LEDblue = false;
             } else {
-                HW.LED.set(Relay.Value.kForward);
+                HW.LEDminibot.set(Relay.Value.kReverse);
+                HW.LEDfeederSignal.set(Relay.Value.kReverse);
                 LEDblue = true;
             }
             LEDcycleStartTime = Timer.getFPGATimestamp();
         }
-        /*HW.LED.set(Relay.Value.kForward);
-        Timer.delay(0.25);
-        HW.LED.set(Relay.Value.kReverse);
-        Timer.delay(0.25);*/
     }
 
     //Used for making switches that will disable control loops
@@ -243,11 +242,11 @@ public class Teleop {
         HW.sonarControllerLeft.setOutputRange(-0.5, 0.5);
         HW.sonarControllerLeft.enable();
         HW.sonarControllerFrontLeft.setDistance(k_scoringDistance);
-        HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
+        //HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
         HW.sonarControllerFrontLeft.setOutputRange(-0.5, 0.5);
-        HW.sonarControllerFrontRight.setOutputRange(-0.5, 0.5);
+        //HW.sonarControllerFrontRight.setOutputRange(-0.5, 0.5);
         HW.sonarControllerFrontLeft.enable();
-        HW.sonarControllerFrontRight.enable();
+        //HW.sonarControllerFrontRight.enable();
         HW.lift.enablePIDControl();
         HW.lift.setSetpoint(HW.lift.kLiftD);
         PIDTuner.setPIDs();

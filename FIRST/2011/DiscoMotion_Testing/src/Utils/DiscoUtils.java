@@ -17,7 +17,7 @@ public class DiscoUtils {
      * Change this field to false to turn off the debug mode of the code
      * Will not allow debugPrintln to print anything to the terminal
      */
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     
     /**
      * Change this field to false to turn off error messages from custom code
@@ -118,5 +118,17 @@ public class DiscoUtils {
      */
     public static double rawToAngle(double num) {
         return (num * (90 / 255));
+    }
+
+    public static double deadband(double input, double deadband){
+        /*if (input > 0 && input < deadband){
+            return (input - deadband) / (1-deadband);
+        } else (input < 0 && input > -deadband){
+            return (input + deadband) / (-1 + deadband);
+        } else {
+            return input
+        }*/
+
+        return input;
     }
 }
