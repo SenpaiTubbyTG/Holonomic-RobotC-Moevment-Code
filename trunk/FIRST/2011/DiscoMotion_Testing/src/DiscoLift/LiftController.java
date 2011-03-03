@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package DiscoLift;
 
 import DriveControllers.PositionController;
@@ -192,7 +188,7 @@ public class LiftController implements PIDOutput, PIDSource {
 
             while (!isLiftDown() && (newTime - startTime) < 4) {
                 newTime = Timer.getFPGATimestamp();
-                this.setLiftSpeed(-0.07);
+                this.setLiftSpeed(-0.1);
             }
 
             if (!isLiftDown()){
