@@ -32,15 +32,17 @@ public class Teleop {
     static boolean[] rightButtons = new boolean[12];
     static boolean[] liftButtons = new boolean[12];
     static boolean LEDblue = true;
+    static double teleopStartTime;
 
     public static void init() {
+        teleopStartTime = Timer.getFPGATimestamp();
         initPIDs();
         initEncoders();
         HW.arm.updateArmSpeed();
         Teleop.LEDcycleStartTime = Timer.getFPGATimestamp();
         HW.lift.downToSwitch();
         HW.lift.setOutputRange(HW.lift.kLiftMaxSpeedDown, HW.lift.kLiftSpeedMaxUp);
-        DiscoUtils.debugPrintln("TELEOP INIT COMPLETE");
+        //DiscoUtils.debugPrintln("TELEOP INIT COMPLETE");
         HW.LEDminibot.setDirection(Relay.Direction.kBoth);
         HW.LEDfeederSignal.setDirection(Relay.Direction.kBoth);
     }
@@ -49,7 +51,7 @@ public class Teleop {
         HW.turnController.disable();
         HW.sonarControllerLeft.disable();
         HW.sonarControllerFrontLeft.disable();
-        DiscoUtils.debugPrintln("PIDS DISABLED");
+        //DiscoUtils.debugPrintln("PIDS DISABLED");
     }
 
     public static void periodic() {
@@ -58,7 +60,7 @@ public class Teleop {
         limitDrive();
         drive();
         lift();
-        if (rightButtons[1] && (k_teleopDuration - Timer.getFPGATimestamp()) < 15.0 ) {
+        if (rightButtons[1] && (k_teleopDuration - (Timer.getFPGATimestamp() - teleopStartTime)) < 15.0 ) {
             HW.minibotDeployer.set(1.0);
         } else {
             HW.minibotDeployer.set(-1.0);
@@ -72,7 +74,7 @@ public class Teleop {
 
     public static void continuous() {
         //verifyGyro(HW.gyro.getAngle());
-        Disabled.continuous();
+        //Disabled.continuous();
         if(Timer.getFPGATimestamp() - LEDcycleStartTime > HW.k_LEDRate) {
             if(LEDblue) {
                 HW.LEDminibot.set(Relay.Value.kForward);
@@ -149,7 +151,7 @@ public class Teleop {
                 currentX = 0;
             }
             HW.drive.HolonomicDrive(currentX, currentY, rotation);
-            DiscoUtils.debugPrintln("Sonar Positioning Active");
+            //DiscoUtils.debugPrintln("Sonar Positioning Active");
         } else {
             //DiscoUtils.debugPrintln("out[0]: " + out[0] + "\tout[1]: " + out[1] + "\trotation: " + rotation);
             HW.drive.HolonomicDrive(out[0], out[1], rotation);
@@ -249,13 +251,13 @@ public class Teleop {
         //HW.sonarControllerFrontRight.enable();
         HW.lift.enablePIDControl();
         HW.lift.setSetpoint(HW.lift.kLiftD);
-        PIDTuner.setPIDs();
-        DiscoUtils.debugPrintln("PIDS ENABLED");
+        //PIDTuner.setPIDs();
+        /*DiscoUtils.debugPrintln("PIDS ENABLED");
         DiscoUtils.debugPrintln("L  PIDs: P=" + HW.sonarControllerLeft.getP() + "\tD=" + HW.sonarControllerLeft.getD());
         DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontLeft.getP() + "\tD=" + HW.sonarControllerFrontLeft.getD());
         DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
         DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());
-        DiscoUtils.debugPrintln("LED Delay: " + HW.k_LEDRate);
+        DiscoUtils.debugPrintln("LED Delay: " + HW.k_LEDRate);*/
         HW.sonarControllerFrontLeft.setOutputRange(-0.4, 0.4);
         HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
     }
