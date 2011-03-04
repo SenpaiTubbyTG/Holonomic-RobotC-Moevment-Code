@@ -1,4 +1,3 @@
-
 package Utils;
 
 import com.sun.squawk.util.StringTokenizer;
@@ -20,7 +19,6 @@ import discobot.HW;
  *
  * @author Nelson Chen
  */
-
 public class PIDTuner {
 
     private static double[][] PIDkonstants;
@@ -38,19 +36,24 @@ public class PIDTuner {
     }
 
     public static double[][] readFile() {
-        String[] rawData = FileIO.readFromFile("PIDTuning.csv");
-        PIDkonstants = new double[rawData.length][3];
-        for (int r = 0; r < PIDkonstants.length; r++) {
-            StringTokenizer buff = new StringTokenizer(rawData[r], ",");
-            for (int c = 0; c < 3; c++) {
-                PIDkonstants[r][c] = Double.parseDouble(buff.nextToken());
+        try {
+            String[] rawData = FileIO.readFromFile("PIDTuning.csv");
+            PIDkonstants = new double[rawData.length][3];
+            for (int r = 0; r < PIDkonstants.length; r++) {
+                StringTokenizer buff = new StringTokenizer(rawData[r], ",");
+                for (int c = 0; c < 3; c++) {
+                    PIDkonstants[r][c] = Double.parseDouble(buff.nextToken());
+                }
             }
+            //PIDkonstants matrix should now be initialized with values from the file
+            return PIDkonstants;
+        } catch (Exception e) {
+            DiscoUtils.debugPrintln("PIDTuning.csv not found, please FTP it to the cRIO!");
+            return new double[100][4];
         }
-        //PIDkonstants matrix should now be initialized with values from the file
-        return PIDkonstants;
     }
 
-    public static void setPIDs() {
+    /*public static void setPIDs() {
         HW.PIDConstants = PIDTuner.readFile();
         HW.sonarControllerLeft.setPID(
                 HW.PIDConstants[0][0],
@@ -67,10 +70,26 @@ public class PIDTuner {
                 HW.PIDConstants[3][0],
                 HW.PIDConstants[3][1],
                 HW.PIDConstants[3][2]);
-        HW.sonarControllerFrontRight.setPID(
+        /*HW.sonarControllerFrontRight.setPID(
                 HW.PIDConstants[4][0],
                 HW.PIDConstants[4][1],
-                HW.PIDConstants[4][2]);
+                HW.PIDConstants[4][2]);*/
+        /*HW.distanceControllerFrontLeft.setPID(
+                HW.PIDConstants[5][0],
+                HW.PIDConstants[5][1],
+                HW.PIDConstants[5][2]);
+        HW.distanceControllerFrontRight.setPID(
+                HW.PIDConstants[5][0],
+                HW.PIDConstants[5][1],
+                HW.PIDConstants[5][2]);
+        HW.distanceControllerRearRight.setPID(
+                HW.PIDConstants[5][0],
+                HW.PIDConstants[5][1],
+                HW.PIDConstants[5][2]);
+        HW.distanceControllerRearLeft.setPID(
+                HW.PIDConstants[5][0],
+                HW.PIDConstants[5][1],
+                HW.PIDConstants[5][2]);
         DiscoUtils.debugPrintln("PID Values Set");
-    }
+    }*/
 }

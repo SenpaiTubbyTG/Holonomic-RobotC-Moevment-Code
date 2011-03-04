@@ -56,6 +56,7 @@ public class LiftController implements PIDOutput, PIDSource {
         HW.liftEncoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
         HW.liftEncoder.start();
         positionController = new PositionController(0.0, 0.0, 0.0, this, this, kDefaultPeriod, false);
+        setPID(0.03, 0.0, 0.0001, 0.01, 0.0, 0.01);
         positionController.disable();
         positionController.setSetpoint(0.0);
         positionController.setOutputRange(kLiftMaxSpeedDown, kLiftSpeedMaxUp);

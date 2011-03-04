@@ -13,7 +13,7 @@ public class Arm {
     public static double k_armUpSpeed = -0.4;
     public static double k_armDownSpeed = 0.3;
     public static final double k_collectorOutSpeed = -0.5;
-    public static final double k_collectorInSpeed = 0.5;
+    public static final double k_collectorInSpeed = 1.0;
 
     public Arm(){
 

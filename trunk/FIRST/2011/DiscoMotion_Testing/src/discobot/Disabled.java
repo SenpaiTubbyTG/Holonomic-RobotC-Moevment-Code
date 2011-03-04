@@ -23,7 +23,7 @@ public class Disabled {
         HW.encoderFrontRight.updateArmSpeed();
         HW.encoderRearRight.updateArmSpeed();
         HW.encoderRearLeft.updateArmSpeed();*/
-        PIDTuner.setPIDs();
+        //PIDTuner.setPIDs();
     }
 
     public static void init() {
