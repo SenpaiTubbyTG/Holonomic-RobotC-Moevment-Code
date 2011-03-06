@@ -29,10 +29,12 @@ public class Disabled {
     public static void init() {
         //dataLoggerWrite();
         //disablePIDs();
+        Autonomous.currentMode = Autonomous.k_approachGridMode;
         DiscoUtils.debugPrintln("DISABLED INIT COMPLETE");
     }
 
     public static void periodic() {
+        Autonomous.currentMode = Autonomous.k_approachGridMode;
     }
 
     public static void continuous() {
