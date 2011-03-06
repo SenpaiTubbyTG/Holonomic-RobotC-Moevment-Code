@@ -60,7 +60,8 @@ public class Teleop {
         limitDrive();
         drive();
         lift();
-        if (rightButtons[1] && (k_teleopDuration - (Timer.getFPGATimestamp() - teleopStartTime)) < 15.0 ) {
+        if ((rightButtons[1] && (k_teleopDuration - (Timer.getFPGATimestamp() - teleopStartTime)) < 15.0 )  ||
+                rightButtons[11]) {
             HW.minibotDeployer.set(1.0);
         } else {
             HW.minibotDeployer.set(-1.0);

@@ -17,7 +17,7 @@ public class Autonomous {
     private static final double k_scoringDistance = 13.0;
     private static final double k_approachDistance = 50.0;
     private static final double k_leftDistance = 35.0;
-    private static double k_maxSonarError = 2.5;
+    private static double k_maxSonarError = 5.0;
     private static final double k_maxLiftError = 15.0;
     private static final double k_scoreHeight = HW.lift.kLiftH1;
     /**
@@ -59,6 +59,7 @@ public class Autonomous {
                     HW.drive.HolonomicDrive(0.0, 0.0, 0.0);
                     currentMode = k_liftRaisingMode;
                     //Timer.delay(1.0);
+                    k_maxSonarError = 2.5;
                 }
                 //DiscoUtils.debugPrintln("Sonar pos mode");
                 break;
@@ -67,8 +68,8 @@ public class Autonomous {
                 if (Math.abs(HW.lift.pidGet()) > k_scoreHeight - k_maxLiftError) {
                     //enableSonarPositioning();
                     setDistanceFromGrid(k_scoringDistance);
-                    HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
-                    HW.sonarControllerFrontRight.setOutputRange(-0.4, 0.4);
+                    HW.sonarControllerLeft.setOutputRange(-0.5, 0.5);
+                    HW.sonarControllerFrontRight.setOutputRange(-0.5, 0.5);
                     //HW.sonarControllerFrontRight.setOutputRange(-0.4, 0.4);
                     currentMode = k_creepToGridMode;
                     modeStartTime = Timer.getFPGATimestamp();
@@ -98,9 +99,9 @@ public class Autonomous {
                 disableSonarPositioning();
                 hangTube2();
                 if (tubeHung) {
-                    setDistanceFromGrid(50.0);
+                    setDistanceFromGrid(40.0);
                     currentMode = k_takeItBackShortMode;
-                    Timer.delay(1.0);
+                    Timer.delay(0.3);
                     k_maxSonarError = 5.00;
                     modeStartTime = Timer.getFPGATimestamp();
                 }
@@ -109,7 +110,7 @@ public class Autonomous {
             case k_takeItBackShortMode:
                 setDistanceFromGrid(50.0);
                 sonarPositionFar(-0.05);
-                if (inPosition() &&  (Timer.getFPGATimestamp() - modeStartTime > 2.0)) {
+                if (inPosition() &&  (Timer.getFPGATimestamp() - modeStartTime > 1.0)) {
                     HW.drive.HolonomicDrive(0.0, 0.0, 0.0);
                     currentMode = k_liftDropMode;
                     //Timer.delay(1.0);
@@ -122,7 +123,7 @@ public class Autonomous {
                 if (HW.lift.isLiftDown()) {
                     HW.lift.setSetpoint(HW.lift.kLiftD);
                     setDistanceFromGrid(k_startDistance);
-                    currentMode = k_takeItBackLongMode;
+                    currentMode = k_finishAutonMode;
                     HW.sonarControllerFrontRight.setOutputRange(-0.75, 0.75);
                     //Timer.delay(1.0);
                     modeStartTime = Timer.getFPGATimestamp();
