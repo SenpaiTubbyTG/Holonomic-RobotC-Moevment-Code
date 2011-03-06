@@ -1,0 +1,34 @@
+Renamed DiscoMotion_Testing to DiscoSlide_Alamo
+
+--This line, and those below, will be ignored--
+
+A  + .
+M    nbproject/project.xml
+A  + src/Utils/DiscoUtils.java
+A  + src/Utils/PIDTuner.java
+M    src/DriveControllers/RobotVelocity.java
+M    src/DriveControllers/SonarController.java
+M    src/DriveControllers/DiscoDriveStandard.java
+A  + src/DriveControllers/TurnController.java
+A    src/DriveControllers/DistanceController.java
+A  + src/DiscoLift/Arm.java
+A  + src/DiscoLift/LiftController.java
+D    src/discobot/Init.java
+A  + src/discobot/Main.java
+A  + src/discobot/AutoScore.java
+A  + src/discobot/LeftAutonomous.java
+A  + src/discobot/Disabled.java
+A    src/discobot/Chacha.java
+A    src/discobot/RightAutonomous.java
+A  + src/discobot/Teleop.java
+A  + src/discobot/Autonomous.java
+A    src/discobot/EncoderAutonomous.java
+A  + src/discobot/HW.java
+A  + src/Sensors/VelocityMatrices.java
+A    suite
+A    suite/META-INF
+A    suite/META-INF/MANIFEST.MF
+AM   suite/image.suite.metadata
+A    suite/image.sym
+AM   suite/image.suite
+AM   suite/DiscoMotion_1.0.0.jar
