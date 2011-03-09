@@ -1,6 +1,7 @@
 package discobot;
 
 import Utils.*;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -10,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class Teleop {
 
     static final double k_teleopDuration = 120.0;
-    static final double k_scoringDistance = 30.0;
+    static final double k_scoringDistance = 13.0;
     private static final int k_collectButton = 1; //on left-hand driver joystick
     public static final int k_collectorInButton = 2;//on liftMotor joystick
     public static final int k_collectorOutButton = 3;//on liftMotor joystick
@@ -50,7 +51,7 @@ public class Teleop {
     public static void disablePIDs() {
         HW.turnController.disable();
         HW.sonarControllerLeft.disable();
-        HW.sonarControllerFrontLeft.disable();
+        HW.sonarControllerFrontRight.disable();
         //DiscoUtils.debugPrintln("PIDS DISABLED");
     }
 
@@ -60,8 +61,8 @@ public class Teleop {
         limitDrive();
         drive();
         lift();
-        if ((rightButtons[1] && (k_teleopDuration - (Timer.getFPGATimestamp() - teleopStartTime)) < 15.0 )  ||
-                rightButtons[11]) {
+        if ((rightButtons[1] && (k_teleopDuration - (Timer.getFPGATimestamp() - teleopStartTime)) < 15.0)
+                || rightButtons[11]) {
             HW.minibotDeployer.set(1.0);
         } else {
             HW.minibotDeployer.set(-1.0);
@@ -76,8 +77,8 @@ public class Teleop {
     public static void continuous() {
         //verifyGyro(HW.gyro.getAngle());
         //Disabled.continuous();
-        if(Timer.getFPGATimestamp() - LEDcycleStartTime > HW.k_LEDRate) {
-            if(LEDblue) {
+        if (Timer.getFPGATimestamp() - LEDcycleStartTime > HW.k_LEDRate) {
+            if (LEDblue) {
                 HW.LEDminibot.set(Relay.Value.kForward);
                 HW.LEDfeederSignal.set(Relay.Value.kForward);
                 LEDblue = false;
@@ -142,16 +143,17 @@ public class Teleop {
         HW.turnController.enable();
         rotation = HW.turnController.getRotation();
         double out[] = rotateVector(HW.driveStickLeft.getX(), HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
-        if (leftButtons[9]) {
-            HW.sonarControllerFrontLeft.enable();
-            currentY = HW.sonarControllerFrontLeft.getSpeed();
+        if (leftButtons[9] && HW.lift.getPosition() > HW.lift.kLiftM1) {
+            HW.sonarControllerFrontRight.enable();
+            currentY = HW.sonarControllerFrontRight.getSpeed();
+            /*sonar x-positioning not available in teleop
             if (HW.sonarFrontLeft.getRangeInches() < 70) {
-                HW.sonarControllerLeft.enable();
-                currentX = HW.sonarControllerLeft.getSpeed();
+            HW.sonarControllerLeft.enable();
+            currentX = HW.sonarControllerLeft.getSpeed();
             } else {
-                currentX = 0;
-            }
-            HW.drive.HolonomicDrive(currentX, currentY, rotation);
+            currentX = 0;
+            }*/
+            HW.drive.HolonomicDrive(out[0], currentY, rotation);
             //DiscoUtils.debugPrintln("Sonar Positioning Active");
         } else {
             //DiscoUtils.debugPrintln("out[0]: " + out[0] + "\tout[1]: " + out[1] + "\trotation: " + rotation);
@@ -168,7 +170,7 @@ public class Teleop {
         } else if (liftButtons[8]) {
             HW.lift.setSetpoint(HW.lift.kLiftD);
         } else if (liftButtons[2]) {
-            HW.lift.setSetpoint(HW.lift.getPosition() - 10);
+            HW.lift.setSetpoint(HW.lift.getPosition() - 70);
         } /*else if(liftButtons[9]) {
         HW.lift.downToSwitchPeriodic();
         }*/
@@ -244,22 +246,19 @@ public class Teleop {
         HW.turnController.reset(0);//also enables
         HW.sonarControllerLeft.setOutputRange(-0.5, 0.5);
         HW.sonarControllerLeft.enable();
-        HW.sonarControllerFrontLeft.setDistance(k_scoringDistance);
-        //HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
-        HW.sonarControllerFrontLeft.setOutputRange(-0.5, 0.5);
-        //HW.sonarControllerFrontRight.setOutputRange(-0.5, 0.5);
-        HW.sonarControllerFrontLeft.enable();
-        //HW.sonarControllerFrontRight.enable();
+        HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
+        HW.sonarControllerFrontRight.setOutputRange(-0.5, 0.5);
+        HW.sonarControllerFrontRight.enable();
         HW.lift.enablePIDControl();
         HW.lift.setSetpoint(HW.lift.kLiftD);
         //PIDTuner.setPIDs();
         /*DiscoUtils.debugPrintln("PIDS ENABLED");
         DiscoUtils.debugPrintln("L  PIDs: P=" + HW.sonarControllerLeft.getP() + "\tD=" + HW.sonarControllerLeft.getD());
-        DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontLeft.getP() + "\tD=" + HW.sonarControllerFrontLeft.getD());
+        DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontRight.getP() + "\tD=" + HW.sonarControllerFrontRight.getD());
         DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
         DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());
         DiscoUtils.debugPrintln("LED Delay: " + HW.k_LEDRate);*/
-        HW.sonarControllerFrontLeft.setOutputRange(-0.4, 0.4);
+        HW.sonarControllerFrontRight.setOutputRange(-0.4, 0.4);
         HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
     }
 
