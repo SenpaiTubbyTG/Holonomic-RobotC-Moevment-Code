@@ -35,6 +35,10 @@ public class Disabled {
 
     public static void periodic() {
         Autonomous.currentMode = Autonomous.k_approachGridMode;
+        Autonomous.leftDistanceToLane = 35.0;
+        Autonomous.leftDistanceToWall = Autonomous.leftDistanceToLane + 51.0;
+        Autonomous.k_maxSonarError = 2.5;
+        Autonomous.tubeHung = false;
     }
 
     public static void continuous() {
@@ -49,7 +53,7 @@ public class Disabled {
         } else {
             i++;
         }
-        if(HW.liftHandle.getRawButton(1) && HW.liftHandle.getRawButton(8)) {
+        if (HW.liftHandle.getRawButton(1) && HW.liftHandle.getRawButton(8)) {
             Autonomous.currentMode = Autonomous.k_finishAutonMode;
         }
     }
@@ -97,10 +101,10 @@ public class Disabled {
                 + " / RR=" + HW.encoderRearRight.getDistance()
                 + " / RL=" + HW.encoderRearLeft.getDistance());
         /*DiscoUtils.debugPrintln("ENCODERS RATE:  "
-                + "FL=" + HW.encoderFrontLeft.getRate()
-                + " / FR=" + HW.encoderFrontRight.getRate()
-                + " / RR=" + HW.encoderRearRight.getRate()
-                + " / RL=" + HW.encoderRearLeft.getRate());*/
+        + "FL=" + HW.encoderFrontLeft.getRate()
+        + " / FR=" + HW.encoderFrontRight.getRate()
+        + " / RR=" + HW.encoderRearRight.getRate()
+        + " / RL=" + HW.encoderRearLeft.getRate());*/
     }
 
     static void debugLimits() {
