@@ -41,7 +41,6 @@ public class Teleop {
         initEncoders();
         HW.arm.updateArmSpeed();
         Teleop.LEDcycleStartTime = Timer.getFPGATimestamp();
-        HW.lift.downToSwitch();
         HW.lift.setOutputRange(HW.lift.kLiftMaxSpeedDown, HW.lift.kLiftSpeedMaxUp);
         //DiscoUtils.debugPrintln("TELEOP INIT COMPLETE");
         HW.LEDminibot.setDirection(Relay.Direction.kBoth);
@@ -109,7 +108,7 @@ public class Teleop {
     }
 
     public static void limitDrive() {
-        if (HW.lift.getPosition() > HW.lift.kLiftM1) {
+        if (HW.lift.getPosition() > HW.lift.kLiftMidSquare) {
             //HW.turnController.setOutputRange(-.5, .5);
             HW.drive.setMaxOutput(.75);
         } else {
@@ -143,7 +142,7 @@ public class Teleop {
         HW.turnController.enable();
         rotation = HW.turnController.getRotation();
         double out[] = rotateVector(HW.driveStickLeft.getX(), HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
-        if (leftButtons[9] && HW.lift.getPosition() > HW.lift.kLiftM1) {
+        if (leftButtons[9] && HW.lift.getPosition() > HW.lift.kLiftMidSquare) {
             HW.sonarControllerFrontRight.enable();
             currentY = HW.sonarControllerFrontRight.getSpeed();
             /*sonar x-positioning not available in teleop
@@ -164,9 +163,9 @@ public class Teleop {
     public static void lift() {
         //Lift control
         if (liftButtons[6]) {
-            HW.lift.setSetpoint(HW.lift.kLiftH2);
+            HW.lift.setSetpoint(HW.lift.kLiftTopSquare);
         } else if (liftButtons[7]) {
-            HW.lift.setSetpoint(HW.lift.kLiftM2);
+            HW.lift.setSetpoint(HW.lift.kLiftMidCircle);
         } else if (liftButtons[8]) {
             HW.lift.setSetpoint(HW.lift.kLiftD);
         } else if (liftButtons[2]) {

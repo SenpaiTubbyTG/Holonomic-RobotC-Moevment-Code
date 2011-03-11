@@ -27,10 +27,10 @@ public class LiftController implements PIDOutput, PIDSource {
     private static final int kLiftDown = 0;
     //Heights of Each Peg
     public static final int kLiftD = 0;
-    public static final int kLiftM1 = 370;
-    public static final int kLiftM2 = 390;
-    public static final int kLiftH1 = 790;
-    public static final int kLiftH2 = 810;
+    public static final int kLiftMidCircle = 390;
+    public static final int kLiftMidSquare = 370;
+    public static final int kLiftTopCircle = 790;
+    public static final int kLiftTopSquare = 770;
     private double output = 0.0;
     protected java.util.Timer m_controlLoop;
     protected double m_period = kDefaultPeriod;
@@ -132,7 +132,7 @@ public class LiftController implements PIDOutput, PIDSource {
             resetPosition(kLiftMiddle);
             //DiscoUtils.debugPrintln("LIFT IN MIDDLE");
         } else if (isLiftUp()) {
-            resetPosition(kLiftH1);
+            resetPosition(kLiftTopCircle);
             //DiscoUtils.debugPrintln("LIFT IS UP");
         }
     }
