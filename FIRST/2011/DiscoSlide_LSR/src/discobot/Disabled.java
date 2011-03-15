@@ -42,8 +42,8 @@ public class Disabled {
     public static void periodic() {
         if(doubleTubeAuton) {
         DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_approachGridMode;
-        DoubleTubeAutonomous.leftDistanceToLane = 35.0;
-        DoubleTubeAutonomous.leftDistanceToWall = DoubleTubeAutonomous.leftDistanceToLane + 51.0;
+        DoubleTubeAutonomous.leftDistToLane = 35.0;
+        DoubleTubeAutonomous.leftDistToWall = DoubleTubeAutonomous.leftDistToLane + 51.0;
         DoubleTubeAutonomous.k_maxSonarError = 2.5;
         DoubleTubeAutonomous.tubeHung = false;
         } else {

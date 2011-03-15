@@ -1,7 +1,6 @@
 package discobot;
 
 import Utils.*;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  * @author Nelson
@@ -14,21 +13,37 @@ public class DoubleTubeAutonomous {
      */
     public static final double k_frontDistanceToTube = 20.0;//TBD: distance to collected tube
     public static final double k_scoringDistance = 13.0;
-    //private static final double k_approachDistance = 50.0;
     public static final double k_leftDistToLaneCircle = 35.0;
     public static final double k_leftDistToWallCircle = k_leftDistToLaneCircle + 51.0;//lane width = 51 inches
-    public static final double k_leftDistToLaneSquare = k_leftDistToLaneCircle + 30.0;//lane width = 51 inches
-    public static final double k_leftDistToWallSquare = k_leftDistToWallCircle + 30.0;//lane width = 51 inches
-    public static final double k_frontDistanceToWallReturning = 130.0;//half the field width - 2 ft 8" (robot width)
-    public static double leftDistanceToLane = k_leftDistToLaneCircle;
-    public static double leftDistanceToWall = k_leftDistToWallCircle;
-    public static final double k_distanceBetweenColumns = 30.0; //columns are 30 in. ctr-to-ctr
+    public static final double k_leftDistToLaneSquare = k_leftDistToLaneCircle + 30.0;
+    public static final double k_leftDistToWallSquare = k_leftDistToWallCircle + 30.0;
+    public static final double k_distanceBetweenColumns = 30.0; //columns are 30" apart
+    public static double leftDistToLane = k_leftDistToLaneCircle;
+    public static double leftDistToWall = k_leftDistToWallCircle;
+    /**
+     * Maximum Error constants
+     */
     public static double k_maxSonarError = 2.5;
     public static double k_maxHeadingError = 5.0;
     public static double k_maxLiftError = 15.0;
+    //public static double k_autonomousModeTimeout = 2.0;//to be implemented for safety
+    /**
+     * Global variables changed within the program
+     */
     public static double scoreHeight = HW.lift.kLiftTopCircle;
+    public static boolean tubeHung = false;
+    private static double k_startDistance;
+    private static double spinX = 0.0;//x-velocity to maintain while spinning
+    private static double spinY = 0.0;//y-velocity to maintain while spinning
+    /**
+     * Variables that needs to be in PIDTuner for frequent testing
+     */
+    public static double k_maxSpeed = 1.0;
+    public static double k_safetySpeed = 0.6;
     public static double k_liftSafetyHeight = HW.lift.kLiftTopCircle - 150;
-    public static double k_autonomousTimeout = 2.0;//to be implemented for safety
+    public static double k_strafeRightYoffset = 0.05;
+    public static double k_frontDistanceBeforeSpin = 70.0;
+    public static double k_frontSafetyDistance = 36.0;//forward clearance for raising lift
     /**
      * Scoring modes
      */
@@ -44,11 +59,6 @@ public class DoubleTubeAutonomous {
     public static final int k_turnToGridMode = 10;
     public static final int k_finishAutonMode = 12;
     public static int currentMode = k_approachGridMode;
-    public static boolean tubeHung = false;
-    private static double modeStartTime = 0.0;
-    private static double k_startDistance;
-    private static double spinX = 0.0;
-    private static double spinY = 0.0;
 
     public static void init() {
         //currentMode = k_approachGridMode;
@@ -57,7 +67,6 @@ public class DoubleTubeAutonomous {
         HW.arm.updateArmSpeed();
         DiscoUtils.debugPrintln("AUTONOMOUS INIT COMPLETE");
         k_startDistance = HW.sonarFrontRight.getRangeInches();
-        modeStartTime = Timer.getFPGATimestamp();
     }
 
     public static void periodic() {
@@ -65,19 +74,20 @@ public class DoubleTubeAutonomous {
             case k_approachGridMode:
                 HW.lift.setSetpoint(scoreHeight);
                 //sonarPosition(0.1);
-                sonarPosition();
-                if (HW.sonarLeft.getRangeInches() <= (leftDistanceToLane + leftDistanceToWall) / 2
-                        && HW.sonarControllerLeft.getSetpoint() != leftDistanceToLane) {
-                    HW.sonarControllerLeft.setDistance(leftDistanceToLane);
+                if (HW.sonarFrontRight.getRangeInches() <= k_frontSafetyDistance
+                        && HW.lift.getPosition() > scoreHeight - k_maxLiftError) {
+                    HW.drive.HolonomicDrive(HW.sonarControllerLeft.getSpeed(), 0.0,
+                            HW.turnController.getRotation());
+                } else {
+                    sonarPosition();
                 }
-                if (inPosition()
-                        && Math.abs(HW.lift.pidGet()) > (scoreHeight - k_maxLiftError)
-                        && (Timer.getFPGATimestamp() - modeStartTime > 1.0)) {
-                    //disableSonarPositioning();
+                if (HW.sonarLeft.getRangeInches() <= (leftDistToLane + leftDistToWall) / 2
+                        && HW.sonarControllerLeft.getSetpoint() != leftDistToLane) {
+                    HW.sonarControllerLeft.setDistance(leftDistToLane);
+                }
+                if (inPosition() && Math.abs(HW.lift.pidGet()) > (scoreHeight - k_maxLiftError)) {
                     HW.drive.HolonomicDrive(0.0, 0.0, 0.0);
                     currentMode = k_pullTubeDownMode;
-                    //Timer.delay(1.0);
-                    modeStartTime = Timer.getFPGATimestamp();
                 }
                 break;
             case k_pullTubeDownMode:
@@ -93,33 +103,34 @@ public class DoubleTubeAutonomous {
                     //limitSonarControllers(0.75);
                     k_maxSonarError = 3.0;
                     currentMode = k_backToMidMode;
-                    modeStartTime = Timer.getFPGATimestamp();
                 }
                 break;
             case k_backToMidMode:
-                //sonarPosition(-0.1);
+                sonarPositionX(-1.0);
+                //if lane divider is passed
+                if (HW.sonarLeft.getRangeInches() >= (leftDistToLane + leftDistToWall) / 2
+                        && HW.sonarControllerLeft.getSetpoint() != leftDistToWall) {
+                    leftDistToLane = k_leftDistToLaneSquare;
+                    leftDistToWall = k_leftDistToWallSquare;
+                    HW.sonarControllerLeft.setDistance(leftDistToWall);
+                }
                 //if far enough from grid that lowering the lift is safe
-                sonarPosition();
-                if (HW.sonarFrontRight.getRangeInches() >= 25.0
+                if (HW.sonarFrontRight.getRangeInches() >= k_frontSafetyDistance
                         && HW.lift.getSetpoint() != HW.lift.kLiftD) {
                     HW.lift.setSetpoint(HW.lift.kLiftD);
-                    HW.sonarControllerLeft.setDistance(k_leftDistToLaneSquare);
                 }
-                if (HW.sonarLeft.getRangeInches() >= k_leftDistToLaneCircle + 10.0) {
-                    //lane divider passed
-                    //X, Y may need to be switched, not sure yet
-                    spinX = HW.sonarControllerFrontRight.getSpeed();
-                    spinY = HW.sonarControllerLeft.getSpeed();
+                if (HW.sonarFrontRight.getRangeInches() >= k_frontDistanceBeforeSpin) {
                     HW.turnController.setSetpoint(270.0);
-                    HW.sonarControllerFrontRight.setDistance(k_frontDistanceToWallReturning);
-                    HW.sonarControllerLeft.setDistance(k_startDistance);
                     currentMode = k_turnToTubeMode;
+                    spinX = HW.sonarControllerFrontRight.getSpeed();
+                    spinY = -1.0;
+                    HW.sonarControllerLeft.setDistance(k_startDistance);
                 }
                 break;
             case k_turnToTubeMode:
                 if (Math.abs(HW.turnController.getAngle() - 270.0)
                         < k_maxHeadingError) {
-                    HW.sonarControllerFrontRight.setDistance(k_frontDistanceToWallReturning);
+                    HW.sonarControllerFrontRight.setDistance(k_frontDistanceToTube);
                     HW.sonarControllerLeft.setDistance(k_startDistance);
                     currentMode = k_moveToTubeMode;
                 } else {
@@ -128,10 +139,7 @@ public class DoubleTubeAutonomous {
                 }
                 break;
             case k_moveToTubeMode:
-                sonarPosition();
-                if (HW.sonarFrontRight.getRangeInches() < 100.0) {
-                    setFrontDistance(k_frontDistanceToTube + 20);//don't pick up yet
-                }
+                sonarPositionX(k_strafeRightYoffset);
                 if (HW.sonarLeft.getRangeInches() > (k_startDistance - k_maxSonarError)
                         && HW.lift.isLiftDown()) {
                     k_maxSonarError = 2.0;
@@ -143,17 +151,16 @@ public class DoubleTubeAutonomous {
                 HW.arm.collect();
                 sonarPosition();
                 if (HW.sonarFrontRight.getRangeInches() < k_frontDistanceToTube + k_maxSonarError) {
-                    setFrontDistance(190.0);//approx distance from square peg to right wall
-                    leftDistanceToWall += k_distanceBetweenColumns;
-                    leftDistanceToLane += k_distanceBetweenColumns;
-                    setLeftDistance(k_scoringDistance);
                     scoreHeight = HW.lift.kLiftTopSquare;
                     currentMode = k_bringTubeBackMode;
                 }
                 break;
             case k_bringTubeBackMode:
-                sonarPosition();
-                if (HW.arm.isArmUp() && HW.sonarFrontRight.getRangeInches() > 100.0) {
+                //sonarPosition();
+                spinX = -1.0;
+                spinY = -1.0;
+                HW.drive.HolonomicDrive(spinX, spinY, HW.turnController.getRotation());
+                if (HW.arm.isArmUp()) {
                     HW.turnController.setSetpoint(180.0);
                     currentMode = k_turnToGridMode;
                     k_maxSonarError = 3.0;
@@ -162,10 +169,8 @@ public class DoubleTubeAutonomous {
             case k_turnToGridMode:
                 if (Math.abs(HW.turnController.getAngle() - 180.0)
                         < k_maxHeadingError) {
-                    leftDistanceToLane = k_leftDistToLaneSquare;
-                    leftDistanceToWall = k_leftDistToWallSquare;
                     HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
-                    HW.sonarControllerLeft.setDistance(leftDistanceToWall);
+                    HW.sonarControllerLeft.setDistance(leftDistToWall);
                     currentMode = k_approachGridMode;
                 } else {
                     double out[] = rotateVector(spinX, spinY, -1 * HW.gyro.getAngle());
@@ -184,6 +189,89 @@ public class DoubleTubeAutonomous {
 
     public static void continuous() {
         //Disabled.continuous();
+    }
+
+    public static void sonarPosition() {
+        if (HW.lift.getPosition() > k_liftSafetyHeight) {
+            limitSonarControllers(k_safetySpeed);
+        } else {
+            limitSonarControllers(k_maxSpeed);
+        }
+        //OR limitSonarControllers(HW.lift.getPosition());
+        HW.drive.HolonomicDrive(HW.sonarControllerLeft.getSpeed(),
+                HW.sonarControllerFrontRight.getSpeed(),
+                HW.turnController.getRotation());
+        //DiscoUtils.debugPrintln("X: " + x);
+        //DiscoUtils.debugPrintln("Y: " + y);
+    }
+
+    /**
+     * Sonar positioning based off ONLY Left sonar
+     * @param y y-speed; may also be the offset
+     */
+    public static void sonarPositionX(double y) {
+        if (HW.lift.getPosition() > k_liftSafetyHeight) {
+            limitSonarControllers(k_safetySpeed);
+        } else {
+            limitSonarControllers(k_maxSpeed);
+        }
+        HW.drive.HolonomicDrive(HW.sonarControllerLeft.getSpeed(), y,
+                HW.turnController.getRotation());
+        //DiscoUtils.debugPrintln("X: " + x);
+        //DiscoUtils.debugPrintln("Y: " + y);
+    }
+
+    public static boolean inPosition() {
+        if (Math.abs(HW.sonarControllerLeft.getError()) < k_maxSonarError
+                && Math.abs(HW.sonarControllerFrontRight.getError()) < k_maxSonarError) {
+            //&& Math.abs(HW.sonarControllerFrontRight.getError()) < k_maxSonarError) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void hangTube() {
+        HW.lift.setSetpoint(scoreHeight - 110);
+        if (HW.lift.pidGet() < (scoreHeight - 100)) {
+            HW.arm.stopCollector();
+            HW.lift.setSetpoint(HW.lift.pidGet());
+            tubeHung = true;
+        } else {
+            HW.arm.tubeOut();
+        }
+    }
+
+    public static void initPIDs() {
+        HW.turnController.reset(180.0);//also enables
+        HW.turnController.setOutputRange(-0.75, 0.75);
+        HW.turnController.setSetpoint(180.0);
+        HW.sonarControllerLeft.setDistance(leftDistToWall);
+        HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
+        limitSonarControllers(k_maxSpeed);
+        enableSonarPositioning();
+        HW.lift.enablePIDControl();
+        HW.lift.setOutputRange(-0.2, 1.0);
+        //HW.lift.setSetpoint(HW.lift.kLiftD);
+        //PIDTuner.setPIDs();
+        /*DiscoUtils.debugPrintln("PIDS ENABLED");
+        DiscoUtils.debugPrintln("L  PIDs: P=" + HW.sonarControllerLeft.getP() + "\tD=" + HW.sonarControllerLeft.getD());
+        DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontRight.getP() + "\tD=" + HW.sonarControllerFrontRight.getD());
+        //DiscoUtils.debugPrintln("FR PIDs: P=" + HW.sonarControllerFrontRight.getP() + "\tD=" + HW.sonarControllerFrontRight.getD());
+        DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
+        DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());*/
+    }
+
+    public static void initEncoders() {
+        HW.encoderFrontLeft.setCodesPerRev(HW.FrontLeftEncoderTicks);
+        HW.encoderFrontRight.setCodesPerRev(HW.FrontRightEncoderTicks);
+        HW.encoderRearRight.setCodesPerRev(HW.RearRightEncoderTicks);
+        HW.encoderRearLeft.setCodesPerRev(HW.RearLeftEncoderTicks);
+        HW.encoderFrontLeft.init();
+        HW.encoderFrontRight.init();
+        HW.encoderRearRight.init();
+        HW.encoderRearLeft.init();
+        HW.liftEncoder.init();
     }
 
     protected static double[] rotateVector(double x, double y, double angle) {
@@ -232,73 +320,6 @@ public class DoubleTubeAutonomous {
         HW.sonarControllerLeft.setDistance(dist);
         //HW.sonarControllerFrontRight.setDistance(dist);
         enableSonarPositioning();
-    }
-
-    public static void sonarPosition() {
-        if (HW.lift.getPosition() > k_liftSafetyHeight) {
-            limitSonarControllers(0.6);
-        } else {
-            limitSonarControllers(1.0);
-        }
-        //OR limitSonarControllers(HW.lift.getPosition());
-        HW.drive.HolonomicDrive(HW.sonarControllerLeft.getSpeed(),
-                HW.sonarControllerFrontRight.getSpeed(),
-                HW.turnController.getRotation());
-        //DiscoUtils.debugPrintln("X: " + x);
-        //DiscoUtils.debugPrintln("Y: " + y);
-    }
-
-    public static boolean inPosition() {
-        if (Math.abs(HW.sonarControllerLeft.getError()) < k_maxSonarError
-                && Math.abs(HW.sonarControllerFrontRight.getError()) < k_maxSonarError) {
-            //&& Math.abs(HW.sonarControllerFrontRight.getError()) < k_maxSonarError) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static void hangTube() {
-        HW.lift.setSetpoint(scoreHeight - 110);
-        if (HW.lift.pidGet() < (scoreHeight - 100)) {
-            HW.arm.stopCollector();
-            HW.lift.setSetpoint(HW.lift.pidGet());
-            tubeHung = true;
-        } else {
-            HW.arm.tubeOut();
-        }
-    }
-
-    public static void initPIDs() {
-        HW.turnController.reset(180.0);//also enables
-        HW.turnController.setOutputRange(-0.75, 0.75);
-        HW.turnController.setSetpoint(180.0);
-        HW.sonarControllerLeft.setDistance(leftDistanceToWall);
-        HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
-        limitSonarControllers(1.0);
-        enableSonarPositioning();
-        HW.lift.enablePIDControl();
-        HW.lift.setOutputRange(-0.2, 1.0);
-        //HW.lift.setSetpoint(HW.lift.kLiftD);
-        //PIDTuner.setPIDs();
-        /*DiscoUtils.debugPrintln("PIDS ENABLED");
-        DiscoUtils.debugPrintln("L  PIDs: P=" + HW.sonarControllerLeft.getP() + "\tD=" + HW.sonarControllerLeft.getD());
-        DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontRight.getP() + "\tD=" + HW.sonarControllerFrontRight.getD());
-        //DiscoUtils.debugPrintln("FR PIDs: P=" + HW.sonarControllerFrontRight.getP() + "\tD=" + HW.sonarControllerFrontRight.getD());
-        DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
-        DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());*/
-    }
-
-    public static void initEncoders() {
-        HW.encoderFrontLeft.setCodesPerRev(HW.FrontLeftEncoderTicks);
-        HW.encoderFrontRight.setCodesPerRev(HW.FrontRightEncoderTicks);
-        HW.encoderRearRight.setCodesPerRev(HW.RearRightEncoderTicks);
-        HW.encoderRearLeft.setCodesPerRev(HW.RearLeftEncoderTicks);
-        HW.encoderFrontLeft.init();
-        HW.encoderFrontRight.init();
-        HW.encoderRearRight.init();
-        HW.encoderRearLeft.init();
-        HW.liftEncoder.init();
     }
 
     /**
