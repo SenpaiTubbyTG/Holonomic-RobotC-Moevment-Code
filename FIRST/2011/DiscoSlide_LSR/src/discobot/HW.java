@@ -185,14 +185,14 @@ public class HW {
             new MaxbotixSonar(3);
     public static MaxbotixSonar sonarRight =
             new MaxbotixSonar(5);
-    public static SonarController sonarControllerFrontLeft =
-            new SonarController(sonarFrontLeft, 0.05, 0.0, 0.035);
+    //public static SonarController sonarControllerFrontLeft =
+      //      new SonarController(sonarFrontLeft, 0.05, 0.0, 0.035);
     public static SonarController sonarControllerFrontRight =
             new SonarController(sonarFrontRight, 0.05, 0.0, 0.035);
     public static SonarController sonarControllerLeft =
             new SonarController(sonarLeft, 0.05, 0.0, 0.035);
-    public static SonarController sonarControllerRight =
-            new SonarController(sonarRight, 0.05, 0.0, 0.035);
+    //public static SonarController sonarControllerRight =
+      //      new SonarController(sonarRight, 0.05, 0.0, 0.035);
     //-------------------------------------
     //       DriverStationLCD class
     //-------------------------------------
