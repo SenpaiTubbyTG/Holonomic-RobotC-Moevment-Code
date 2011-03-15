@@ -18,7 +18,8 @@ public class AutoScore {
     private static boolean enabled = false;
 
 
-    public static void sonarPositionClose() {
+    /*this is old and very broken... I'll fix this eventually
+     public static void sonarPositionClose() {
         enableSonarPositioning();
         HW.sonarControllerFrontLeft.setDistance(k_scoringDistance);
         //HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
@@ -63,5 +64,5 @@ public class AutoScore {
     }
     public static boolean isAutoScore(){
         return enabled;
-    }
+    }*/
 }

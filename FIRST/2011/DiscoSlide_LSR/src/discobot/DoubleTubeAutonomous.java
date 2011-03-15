@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
  * @author Nelson
  *       
  */
-public class Autonomous {
+public class DoubleTubeAutonomous {
 
     /**
      * Distance constants
@@ -32,6 +32,7 @@ public class Autonomous {
     /**
      * Scoring modes
      */
+    //Some numbers deliberately skipped to accomodate addition of other cases
     public static final int k_approachGridMode = 0;
     public static final int k_pullTubeDownMode = 2;
     public static final int k_hangTubeMode = 3;
@@ -41,7 +42,6 @@ public class Autonomous {
     public static final int k_collectTubeMode = 8;
     public static final int k_bringTubeBackMode = 9;
     public static final int k_turnToGridMode = 10;
-    public static final int k_returnToGridMode = 11;
     public static final int k_finishAutonMode = 12;
     public static int currentMode = k_approachGridMode;
     public static boolean tubeHung = false;
@@ -49,7 +49,6 @@ public class Autonomous {
     private static double k_startDistance;
     private static double spinX = 0.0;
     private static double spinY = 0.0;
-    private static double currentY = 0.0;
 
     public static void init() {
         //currentMode = k_approachGridMode;
@@ -173,34 +172,6 @@ public class Autonomous {
                     HW.drive.HolonomicDrive(out[0], out[1], HW.turnController.getRotation());
                 }
                 break;
-            /*case k_returnToGridMode:
-                if (HW.sonarLeft.getRangeInches() <= (leftDistanceToLane + leftDistanceToWall) / 2
-                        && HW.sonarControllerLeft.getSetpoint() != leftDistanceToLane) {
-                    HW.sonarControllerLeft.setDistance(leftDistanceToLane);
-                }
-                if (HW.arm.isArmUp() && HW.turnController.getSetpoint() != 180.0) {
-                    HW.turnController.setSetpoint(180.0);
-                }
-                if (HW.turnController.getSetpoint() == 180.0) {
-                    if (HW.turnController.getError() < k_maxHeadingError) {
-                        setLeftDistance(k_leftDistToWallCircle);
-                        setFrontDistance(k_scoringDistance);
-                        if (HW.sonarLeft.getRangeInches() < (k_scoringDistance + k_maxSonarError)
-                                && HW.lift.isLiftUp()) {
-                            tubeHung = false;
-                            currentMode = k_pullTubeDownMode;
-                        }
-                    } else {
-                        //TODO: use old speeds based on rotateVector
-                    }
-
-                } else {
-                    sonarPosition();
-                }
-                HW.lift.setSetpoint(scoreHeight);
-                //WORK PAUSED HERE
-                break;*/
-
             case k_finishAutonMode:
                 Disabled.disablePIDs();
                 stopAllMotors();
@@ -209,6 +180,10 @@ public class Autonomous {
         if (currentMode != k_collectTubeMode) {
             HW.arm.up();
         }
+    }
+
+    public static void continuous() {
+        //Disabled.continuous();
     }
 
     protected static double[] rotateVector(double x, double y, double angle) {
@@ -231,10 +206,6 @@ public class Autonomous {
         HW.DMFrontRight.set(0.0);
         HW.DMRearRight.set(0.0);
         HW.DMRearLeft.set(0.0);
-    }
-
-    public static void continuous() {
-        //Disabled.continuous();
     }
 
     public static void disableSonarPositioning() {
@@ -263,31 +234,6 @@ public class Autonomous {
         enableSonarPositioning();
     }
 
-    /**
-     * @deprecated sonarPositioningFar based on a hard-coded offset
-     * to correct mechanical imbalance in drive train
-     */
-    public static void sonarPositionFar(double offset) {
-        if (HW.lift.getPosition() > HW.lift.kLiftTopCircle - 100) {
-            limitSonarControllers(0.5);
-        } else {
-            limitSonarControllers(0.75);
-        }
-        //limitSonarControllers(HW.lift.getPosition());
-        double x;
-        if (HW.sonarFrontRight.getRangeInches() < 65) {
-            x = HW.sonarControllerLeft.getSpeed();
-        } else {
-            x = offset; //trying to correct drive train deficiency
-        }
-        double y = HW.sonarControllerFrontRight.getSpeed();
-        //+ HW.sonarControllerFrontRight.getSpeed())
-        /// 2;
-        HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
-        //DiscoUtils.debugPrintln("X: " + x);
-        //DiscoUtils.debugPrintln("Y: " + y);
-    }
-
     public static void sonarPosition() {
         if (HW.lift.getPosition() > k_liftSafetyHeight) {
             limitSonarControllers(0.6);
@@ -295,23 +241,9 @@ public class Autonomous {
             limitSonarControllers(1.0);
         }
         //OR limitSonarControllers(HW.lift.getPosition());
-        currentY = HW.sonarControllerFrontRight.getSpeed();
         HW.drive.HolonomicDrive(HW.sonarControllerLeft.getSpeed(),
-                currentY,
+                HW.sonarControllerFrontRight.getSpeed(),
                 HW.turnController.getRotation());
-        //DiscoUtils.debugPrintln("X: " + x);
-        //DiscoUtils.debugPrintln("Y: " + y);
-    }
-
-    public static void sonarPositionClose() {
-        /*HW.turnController.setAngle(
-        MathUtils.atan(HW.sonarFrontLeft.getRangeInches() - HW.sonarFrontRight.getRangeInches() / 21.625));
-        HW.turnController.setSetpoint(180.0);*/
-        double x = HW.sonarControllerLeft.getSpeed();
-        double y = HW.sonarControllerFrontRight.getSpeed();
-        //+ HW.sonarControllerFrontRight.getSpeed())
-        /// 2;
-        HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
         //DiscoUtils.debugPrintln("X: " + x);
         //DiscoUtils.debugPrintln("Y: " + y);
     }
@@ -367,5 +299,46 @@ public class Autonomous {
         HW.encoderRearRight.init();
         HW.encoderRearLeft.init();
         HW.liftEncoder.init();
+    }
+
+    /**
+     * @deprecated sonarPositioningFar based on a hard-coded offset
+     * to correct mechanical imbalance in drive train
+     */
+    public static void sonarPositionFar(double offset) {
+        if (HW.lift.getPosition() > HW.lift.kLiftTopCircle - 100) {
+            limitSonarControllers(0.5);
+        } else {
+            limitSonarControllers(0.75);
+        }
+        //limitSonarControllers(HW.lift.getPosition());
+        double x;
+        if (HW.sonarFrontRight.getRangeInches() < 65) {
+            x = HW.sonarControllerLeft.getSpeed();
+        } else {
+            x = offset; //trying to correct drive train deficiency
+        }
+        double y = HW.sonarControllerFrontRight.getSpeed();
+        //+ HW.sonarControllerFrontRight.getSpeed())
+        /// 2;
+        HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
+        //DiscoUtils.debugPrintln("X: " + x);
+        //DiscoUtils.debugPrintln("Y: " + y);
+    }
+
+    /**
+     * @deprecated  sonarPositionClose
+     */
+    public static void sonarPositionClose() {
+        /*HW.turnController.setAngle(
+        MathUtils.atan(HW.sonarFrontLeft.getRangeInches() - HW.sonarFrontRight.getRangeInches() / 21.625));
+        HW.turnController.setSetpoint(180.0);*/
+        double x = HW.sonarControllerLeft.getSpeed();
+        double y = HW.sonarControllerFrontRight.getSpeed();
+        //+ HW.sonarControllerFrontRight.getSpeed())
+        /// 2;
+        HW.drive.HolonomicDrive(x, y, HW.turnController.getRotation());
+        //DiscoUtils.debugPrintln("X: " + x);
+        //DiscoUtils.debugPrintln("Y: " + y);
     }
 }

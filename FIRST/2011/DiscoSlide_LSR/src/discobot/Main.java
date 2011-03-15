@@ -40,17 +40,26 @@ public class Main extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        Autonomous.init();
-        //EncoderAutonomous.init();
+        if(Disabled.doubleTubeAuton) {
+            DoubleTubeAutonomous.init();
+        } else {
+            SingleTubeAutonomous.init();
+        }
     }
 
     public void autonomousContinuous() {
-        Autonomous.continuous();
-        //EncoderAutonomous.continuous();
+        if(Disabled.doubleTubeAuton) {
+            DoubleTubeAutonomous.continuous();
+        } else {
+            SingleTubeAutonomous.continuous();
+        }
     }
     public void autonomousPeriodic() {
-        Autonomous.periodic();
-        //EncoderAutonomous.periodic();
+        if(Disabled.doubleTubeAuton) {
+            DoubleTubeAutonomous.periodic();
+        } else {
+            SingleTubeAutonomous.periodic();
+        }
     }
 
     public void teleopInit() {
