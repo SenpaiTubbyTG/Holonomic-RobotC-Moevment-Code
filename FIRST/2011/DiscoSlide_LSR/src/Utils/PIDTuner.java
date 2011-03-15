@@ -53,16 +53,16 @@ public class PIDTuner {
         }
     }
 
-    /*public static void setPIDs() {
+    public static void setPIDs() {
         HW.PIDConstants = PIDTuner.readFile();
         HW.sonarControllerLeft.setPID(
                 HW.PIDConstants[0][0],
                 HW.PIDConstants[0][1],
                 HW.PIDConstants[0][2]);
-        HW.sonarControllerFrontLeft.setPID(
-                HW.PIDConstants[1][0],
-                HW.PIDConstants[1][1],
-                HW.PIDConstants[1][2]);
+        HW.sonarControllerFrontRight.setPID(
+                HW.PIDConstants[4][0],
+                HW.PIDConstants[4][1],
+                HW.PIDConstants[4][2]);
         HW.lift.setPID(
                 HW.PIDConstants[2][0],
                 HW.PIDConstants[2][1],
@@ -70,26 +70,10 @@ public class PIDTuner {
                 HW.PIDConstants[3][0],
                 HW.PIDConstants[3][1],
                 HW.PIDConstants[3][2]);
-        /*HW.sonarControllerFrontRight.setPID(
+        HW.turnController.setPID(
                 HW.PIDConstants[4][0],
                 HW.PIDConstants[4][1],
-                HW.PIDConstants[4][2]);*/
-        /*HW.distanceControllerFrontLeft.setPID(
-                HW.PIDConstants[5][0],
-                HW.PIDConstants[5][1],
-                HW.PIDConstants[5][2]);
-        HW.distanceControllerFrontRight.setPID(
-                HW.PIDConstants[5][0],
-                HW.PIDConstants[5][1],
-                HW.PIDConstants[5][2]);
-        HW.distanceControllerRearRight.setPID(
-                HW.PIDConstants[5][0],
-                HW.PIDConstants[5][1],
-                HW.PIDConstants[5][2]);
-        HW.distanceControllerRearLeft.setPID(
-                HW.PIDConstants[5][0],
-                HW.PIDConstants[5][1],
-                HW.PIDConstants[5][2]);
+                HW.PIDConstants[4][2]);
         DiscoUtils.debugPrintln("PID Values Set");
-    }*/
+    }
 }
