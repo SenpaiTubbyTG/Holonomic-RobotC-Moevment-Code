@@ -12,6 +12,8 @@ public class Disabled {
     private static int i = 0;
     private static int printPeriod = 10000;
     public static final String[] k_DataLoggerHeader = {"FL", "FR", "RR", "RL"};
+    public static String autonType = "Double Tube";
+    public static boolean doubleTubeAuton = true;
 
     public static void robotInit() {
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
@@ -29,16 +31,35 @@ public class Disabled {
     public static void init() {
         //dataLoggerWrite();
         //disablePIDs();
-        Autonomous.currentMode = Autonomous.k_approachGridMode;
+        if(doubleTubeAuton) {
+        DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_approachGridMode;
+        } else {
+            SingleTubeAutonomous.currentMode = SingleTubeAutonomous.k_approachGridMode;
+        }
         DiscoUtils.debugPrintln("DISABLED INIT COMPLETE");
     }
 
     public static void periodic() {
-        Autonomous.currentMode = Autonomous.k_approachGridMode;
-        Autonomous.leftDistanceToLane = 35.0;
-        Autonomous.leftDistanceToWall = Autonomous.leftDistanceToLane + 51.0;
-        Autonomous.k_maxSonarError = 2.5;
-        Autonomous.tubeHung = false;
+        if(doubleTubeAuton) {
+        DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_approachGridMode;
+        DoubleTubeAutonomous.leftDistanceToLane = 35.0;
+        DoubleTubeAutonomous.leftDistanceToWall = DoubleTubeAutonomous.leftDistanceToLane + 51.0;
+        DoubleTubeAutonomous.k_maxSonarError = 2.5;
+        DoubleTubeAutonomous.tubeHung = false;
+        } else {
+            SingleTubeAutonomous.currentMode = SingleTubeAutonomous.k_approachGridMode;
+            SingleTubeAutonomous.tubeHung = false;
+            SingleTubeAutonomous.k_maxSonarError = 3.0;
+        }
+        if(HW.liftHandle.getRawButton(2) && HW.liftHandle.getRawButton(8)) {
+            autonType = "Single Tube";
+            doubleTubeAuton = false;
+        } else if (HW.liftHandle.getTrigger()){
+            autonType = "Double Tube";
+            doubleTubeAuton = true;
+        }
+        HW.lcd.getInstance().println(DriverStationLCD.Line.kMain6, 0, "DoubleTubeAutonomous Type: " + autonType);
+        HW.lcd.getInstance().updateLCD();
     }
 
     public static void continuous() {
@@ -54,7 +75,7 @@ public class Disabled {
             i++;
         }
         if (HW.liftHandle.getRawButton(1) && HW.liftHandle.getRawButton(8)) {
-            Autonomous.currentMode = Autonomous.k_finishAutonMode;
+            DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_finishAutonMode;
         }
     }
 
