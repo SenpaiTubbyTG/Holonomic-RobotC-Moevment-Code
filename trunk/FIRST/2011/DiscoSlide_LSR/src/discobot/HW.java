@@ -29,7 +29,8 @@ public class HW {
 //------------------------------------
 //      Public Constants
 //------------------------------------
-    //public static double[][] PIDConstants = PIDTuner.readFile();
+    public static double[][] PIDConstants;
+    public static double[] AutonConstants;
     public static double k_MaxVoltage = 12.4;
     public static double k_LEDRate = 0.5;
 //------------------------------------
