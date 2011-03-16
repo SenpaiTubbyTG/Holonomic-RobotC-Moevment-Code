@@ -35,8 +35,8 @@ public class DoubleTubeAutonomous {
     public static double k_collectionSpeed = 0.75;
     public static double k_spinXtoMid = 0.0;//x-velocity to maintain while spinning to midfield
     public static double k_spinYtoMid = 0.0;//y-velocity to maintain while spinning after picking up 2nd tube
-    public static double k_spinYTube2 = 0.0;//y-velocity to maintain while spinning to midfield
     public static double k_spinXTube2 = 0.0;//x-velocity to maintain while spinning after picking up 2nd tube
+    public static double k_spinYTube2 = 0.0;//y-velocity to maintain while spinning to midfield
     public static double k_liftSafetyHeight = HW.lift.kLiftTopCircle - 150;
     public static double k_strafeRightYoffset = 0.05;
     public static double k_frontDistanceBeforeSpin = 70.0;
@@ -173,7 +173,7 @@ public class DoubleTubeAutonomous {
             case k_bringTubeBackMode:
                 HW.arm.tubeIn(HW.arm.k_collectorInSpeed - 0.2);
                 //sonarPosition();
-                HW.drive.HolonomicDrive(-k_spinXTube2, -k_spinYTube2, HW.turnController.getRotation());
+                HW.drive.HolonomicDrive(k_spinXTube2, k_spinYTube2, HW.turnController.getRotation());
                 if (HW.arm.isArmUp()) {
                     HW.turnController.setSetpoint(180.0);
                     currentMode = k_turnToGridMode;

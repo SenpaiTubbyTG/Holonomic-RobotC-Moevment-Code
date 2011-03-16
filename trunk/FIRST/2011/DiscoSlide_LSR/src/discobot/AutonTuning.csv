@@ -1,0 +1,12 @@
+1.0,maxSpeed
+0.6,safetySpeed
+0.75,collectionSpeed
+0.5,spinXtoMid
+0.5,spinYtoMid
+-0.5,spinXTube2
+-0.5,spinYTube2
+640.0,liftSafetyHeight (topCircle-150)
+0.0,strafeRightYOffset
+70.0,frontDistanceBeforeSpin
+40.0,frontSafetyDistance
+2.0,modeTimeout
