@@ -43,11 +43,15 @@ public class AutonTuner {
         DoubleTubeAutonomous.k_maxSpeed = HW.AutonConstants[0];
         DoubleTubeAutonomous.k_safetySpeed = HW.AutonConstants[1];
         DoubleTubeAutonomous.k_collectionSpeed = HW.AutonConstants[2];
-        DoubleTubeAutonomous.k_liftSafetyHeight = HW.AutonConstants[3];
-        DoubleTubeAutonomous.k_strafeRightYoffset = HW.AutonConstants[4];
-        DoubleTubeAutonomous.k_frontDistanceBeforeSpin = HW.AutonConstants[5];
-        DoubleTubeAutonomous.k_frontSafetyDistance = HW.AutonConstants[6];
-        DoubleTubeAutonomous.k_modeTimeout = HW.AutonConstants[7];
+        DoubleTubeAutonomous.k_spinXtoMid = HW.AutonConstants[3];
+        DoubleTubeAutonomous.k_spinYtoMid = HW.AutonConstants[4];
+        DoubleTubeAutonomous.k_spinXTube2 = HW.AutonConstants[5];
+        DoubleTubeAutonomous.k_spinYTube2 = HW.AutonConstants[6];
+        DoubleTubeAutonomous.k_liftSafetyHeight = HW.AutonConstants[7];
+        DoubleTubeAutonomous.k_strafeRightYoffset = HW.AutonConstants[8];
+        DoubleTubeAutonomous.k_frontDistanceBeforeSpin = HW.AutonConstants[9];
+        DoubleTubeAutonomous.k_frontSafetyDistance = HW.AutonConstants[10];
+        DoubleTubeAutonomous.k_modeTimeout = HW.AutonConstants[11];
         DiscoUtils.debugPrintln("Autonomous Constants Set");
     }
 }

@@ -46,6 +46,7 @@ public class Disabled {
         DoubleTubeAutonomous.leftDistToWall = DoubleTubeAutonomous.leftDistToLane + 51.0;
         DoubleTubeAutonomous.k_maxSonarError = 2.5;
         DoubleTubeAutonomous.tubeHung = false;
+        DoubleTubeAutonomous.tube2Hung = false;
         } else {
             SingleTubeAutonomous.currentMode = SingleTubeAutonomous.k_approachGridMode;
             SingleTubeAutonomous.tubeHung = false;

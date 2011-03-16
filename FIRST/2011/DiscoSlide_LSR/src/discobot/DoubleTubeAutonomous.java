@@ -24,7 +24,7 @@ public class DoubleTubeAutonomous {
     /**
      * Maximum Error constants
      */
-    public static double k_maxSonarError = 2.5;
+    public static double k_maxSonarError = 3.0;
     public static double k_maxHeadingError = 5.0;
     public static double k_maxLiftError = 15.0;
     /**
@@ -33,6 +33,10 @@ public class DoubleTubeAutonomous {
     public static double k_maxSpeed = 1.0;
     public static double k_safetySpeed = 0.6;
     public static double k_collectionSpeed = 0.75;
+    public static double k_spinXtoMid = 0.0;//x-velocity to maintain while spinning to midfield
+    public static double k_spinYtoMid = 0.0;//y-velocity to maintain while spinning after picking up 2nd tube
+    public static double k_spinYTube2 = 0.0;//y-velocity to maintain while spinning to midfield
+    public static double k_spinXTube2 = 0.0;//x-velocity to maintain while spinning after picking up 2nd tube
     public static double k_liftSafetyHeight = HW.lift.kLiftTopCircle - 150;
     public static double k_strafeRightYoffset = 0.05;
     public static double k_frontDistanceBeforeSpin = 70.0;
@@ -44,9 +48,8 @@ public class DoubleTubeAutonomous {
     public static double scoreHeight = HW.lift.kLiftTopCircle;
     public static double maxSpeed = k_maxSpeed;
     public static boolean tubeHung = false;
+    public static boolean tube2Hung = false;
     private static double k_startDistance;
-    private static double spinX = 0.0;//x-velocity to maintain while spinning
-    private static double spinY = 0.0;//y-velocity to maintain while spinning
     private static double modeStartTime;
     /**
      * Scoring modes
@@ -77,7 +80,6 @@ public class DoubleTubeAutonomous {
         switch (currentMode) {
             case k_approachGridMode:
                 HW.lift.setSetpoint(scoreHeight);
-                //sonarPosition(0.1);
                 if (HW.sonarFrontRight.getRangeInches() <= k_frontSafetyDistance
                         && HW.lift.getPosition() > scoreHeight - k_maxLiftError) {
                     HW.drive.HolonomicDrive(HW.sonarControllerLeft.getSpeed(), 0.0,
@@ -104,8 +106,9 @@ public class DoubleTubeAutonomous {
                 hangTube();
                 if (tubeHung) {
                     setFrontDistance(k_startDistance);
-                    //limitSonarControllers(0.75);
                     k_maxSonarError = 3.0;
+                    tubeHung = false;
+                    scoreHeight = HW.lift.kLiftTopSquare;
                     currentMode = k_backToMidMode;
                 }
                 break;
@@ -125,10 +128,15 @@ public class DoubleTubeAutonomous {
                 }
                 if (HW.sonarFrontRight.getRangeInches() >= k_frontDistanceBeforeSpin) {
                     HW.turnController.setSetpoint(270.0);
-                    currentMode = k_turnToTubeMode;
-                    spinX = HW.sonarControllerFrontRight.getSpeed();
-                    spinY = -1.0;
+                    if (!tube2Hung) {
+                        currentMode = k_turnToTubeMode;
+                    } else {
+                        currentMode = k_finishAutonMode;
+                    }
                     HW.sonarControllerLeft.setDistance(k_startDistance);
+                }
+                if (tube2Hung && HW.lift.isLiftDown() && HW.sonarFrontRight.getRangeInches() > 70.0) {
+                    currentMode = k_finishAutonMode;
                 }
                 break;
             case k_turnToTubeMode:
@@ -138,7 +146,7 @@ public class DoubleTubeAutonomous {
                     HW.sonarControllerLeft.setDistance(k_startDistance);
                     currentMode = k_moveToTubeMode;
                 } else {
-                    double out[] = rotateVector(spinX, spinY, -1 * HW.gyro.getAngle());
+                    double out[] = rotateVector(k_spinXtoMid, k_spinYtoMid, -1 * HW.gyro.getAngle());
                     HW.drive.HolonomicDrive(out[0], out[1], HW.turnController.getRotation());
                 }
                 break;
@@ -158,16 +166,14 @@ public class DoubleTubeAutonomous {
                 sonarPosition();
                 if (HW.sonarFrontRight.getRangeInches() < k_frontDistanceToTube + k_maxSonarError
                         || (Timer.getFPGATimestamp() - modeStartTime) > k_modeTimeout) {
-                    scoreHeight = HW.lift.kLiftTopSquare;
                     currentMode = k_bringTubeBackMode;
+                    maxSpeed = k_maxSpeed;
                 }
                 break;
             case k_bringTubeBackMode:
                 HW.arm.tubeIn(HW.arm.k_collectorInSpeed - 0.2);
                 //sonarPosition();
-                spinX = -1.0;
-                spinY = -1.0;
-                HW.drive.HolonomicDrive(spinX, spinY, HW.turnController.getRotation());
+                HW.drive.HolonomicDrive(-k_spinXTube2, -k_spinYTube2, HW.turnController.getRotation());
                 if (HW.arm.isArmUp()) {
                     HW.turnController.setSetpoint(180.0);
                     currentMode = k_turnToGridMode;
@@ -182,7 +188,7 @@ public class DoubleTubeAutonomous {
                     HW.sonarControllerLeft.setDistance(leftDistToWall);
                     currentMode = k_approachGridMode;
                 } else {
-                    double out[] = rotateVector(spinX, spinY, -1 * HW.gyro.getAngle());
+                    double out[] = rotateVector(k_spinXtoMid, k_spinYtoMid, -1 * HW.gyro.getAngle());
                     HW.drive.HolonomicDrive(out[0], out[1], HW.turnController.getRotation());
                 }
                 break;
