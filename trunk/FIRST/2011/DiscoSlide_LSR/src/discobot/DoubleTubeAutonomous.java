@@ -69,11 +69,13 @@ public class DoubleTubeAutonomous {
 
     public static void init() {
         //currentMode = k_approachGridMode;
+        DataLogger.dataLogger.init();
         initEncoders();
         initPIDs();
         HW.arm.updateArmSpeed();
-        DiscoUtils.debugPrintln("AUTONOMOUS INIT COMPLETE");
         k_startDistance = HW.sonarFrontRight.getRangeInches();
+        DiscoUtils.debugPrintln("AUTONOMOUS INIT COMPLETE");
+        initDataLogger();
     }
 
     public static void periodic() {
@@ -202,6 +204,12 @@ public class DoubleTubeAutonomous {
         }
     }
 
+    public static void initDataLogger() {
+        String[] header = {"L Sonar","FR Sonar"};
+        DataLogger.dataLogger.setHeader(header);
+        DataLogger.dataLogger.setTimeOffset(Timer.getFPGATimestamp());
+    }
+
     public static void initPIDs() {
         HW.turnController.reset(180.0);//also enables
         HW.turnController.setOutputRange(-0.75, 0.75);
@@ -235,6 +243,8 @@ public class DoubleTubeAutonomous {
     }
 
     public static void continuous() {
+        double[] data = {HW.sonarLeft.getRangeInches(), HW.sonarFrontRight.getRangeInches()};
+        DataLogger.dataLogger.setEntryValue(data);
         //Disabled.continuous();
     }
 
