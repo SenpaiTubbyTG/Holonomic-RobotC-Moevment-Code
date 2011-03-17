@@ -115,8 +115,8 @@ public class DataLogger {
         }
         String[] data = DataLogHelper.getData();
         String[] contents = new String[data.length + 1];
-        contents[0] = header;
         System.arraycopy(data, 0, contents, 1, data.length);
+        contents[0] = header;
         FileIO.writeToFile(filename, contents);
         DiscoUtils.debugPrintln("DataLog written");
     }
@@ -128,6 +128,7 @@ public class DataLogger {
         String[] data = DataLogHelper.getData();
         String[] contents = new String[data.length + 1];
         System.arraycopy(data, 0, contents, 1, data.length);
+        contents[0] = header;
         FileIO.writeToFile(filename, contents);
         DiscoUtils.debugPrintln("DataLog written");
     }

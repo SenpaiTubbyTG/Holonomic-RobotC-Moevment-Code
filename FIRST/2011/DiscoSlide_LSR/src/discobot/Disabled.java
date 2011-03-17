@@ -29,7 +29,7 @@ public class Disabled {
     }
 
     public static void init() {
-        //dataLoggerWrite();
+        dataLoggerWrite();
         //disablePIDs();
         if(doubleTubeAuton) {
         DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_approachGridMode;
