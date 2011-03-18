@@ -17,11 +17,11 @@ public class TurnController implements PIDOutput {
     private DiscoGyro gyro;
     private static double kDefaultMinOutput = -1;
     private static double kDefaultMaxOutput = 1;
-    private static final double kTurnScaleFactor = 20;
+    private static final double kTurnScaleFactor = 30;
 
     public TurnController(DiscoGyro g) {
         gyro = g;
-        gyroController = new PIDController(0.023, 0.0, 0.05, gyro, this);
+        gyroController = new PIDController(0.02, 0.0, 0.05, gyro, this);
         setDefaultOutputRange();
         //incrementStartTime = Timer.getFPGATimestamp();
     }
