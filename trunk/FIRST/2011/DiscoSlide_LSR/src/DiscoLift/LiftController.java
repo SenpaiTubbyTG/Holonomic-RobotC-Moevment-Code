@@ -16,21 +16,21 @@ import java.util.TimerTask;
 public class LiftController implements PIDOutput, PIDSource {
 
     public static final double kDefaultPeriod = .1;
-    public static final double m_speedUpScaleFactor = 30;
-    public static final double m_speedDownScaleFactor = 25;
+    public static final double m_speedUpScaleFactor = 23;
+    public static final double m_speedDownScaleFactor = 19;
     //What are the max speeds for the lift
     public static final double kLiftMaxSpeedDown = -.2;
     public static final double kLiftSpeedMaxUp = 1;
     //Heights to reset too for the limit switches
-    private static final int kLiftUp = 850;
-    private static final int kLiftMiddle = 393;
+    private static final int kLiftUp = 637;
+    private static final int kLiftMiddle = 295;
     private static final int kLiftDown = 0;
     //Heights of Each Peg
     public static final int kLiftD = 0;
-    public static final int kLiftMidCircle = 390;
-    public static final int kLiftMidSquare = 370;
-    public static final int kLiftTopCircle = 790;
-    public static final int kLiftTopSquare = 770;
+    public static final int kLiftMidCircle = 293;
+    public static final int kLiftMidSquare = 278;
+    public static final int kLiftTopCircle = 593;
+    public static final int kLiftTopSquare = 578;
     private double output = 0.0;
     protected java.util.Timer m_controlLoop;
     protected double m_period = kDefaultPeriod;
@@ -119,8 +119,8 @@ public class LiftController implements PIDOutput, PIDSource {
     }
 
     private void checkForLimits() {
-        if (getPosition() < kLiftDown && !isLiftDown()) {
-            resetPosition(kLiftDown + 1);
+        if (getPosition() <= kLiftDown && !isLiftDown()) {
+            resetPosition(kLiftDown + 2);
         } else if (getPosition() > kLiftUp && !isLiftUp()) {
             resetPosition(kLiftUp - 1);
         }
