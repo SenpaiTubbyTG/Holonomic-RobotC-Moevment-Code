@@ -244,12 +244,15 @@ public class SingleTubeAutonomous {
     }
 
     public static void initPIDs() {
+        HW.turnController.setPID(0.02, 0.0, 0.05);
         HW.turnController.reset(180.0);//also enables
         HW.turnController.setOutputRange(-0.5, 0.5);
         HW.turnController.setSetpoint(180.0);
+        HW.sonarControllerLeft.setPID(0.05, 0.0, 0.035);
         HW.sonarControllerLeft.setDistance(k_leftDistance);
         HW.sonarControllerLeft.setOutputRange(-0.75, 0.75);
         HW.sonarControllerLeft.enable();
+        HW.sonarControllerFrontRight.setPID(0.05, 0.0, 0.035);
         HW.sonarControllerFrontRight.setDistance(k_approachDistance);
         HW.sonarControllerFrontRight.setOutputRange(-0.75, 0.75);
         HW.sonarControllerFrontRight.enable();
