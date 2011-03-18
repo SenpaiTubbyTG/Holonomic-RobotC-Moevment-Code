@@ -12,8 +12,8 @@ public class Disabled {
     private static int i = 0;
     private static int printPeriod = 10000;
     public static final String[] k_DataLoggerHeader = {"FL", "FR", "RR", "RL"};
-    public static String autonType = "Double Tube";
-    public static boolean doubleTubeAuton = true;
+    public static String autonType = "Single Tube";
+    public static boolean doubleTubeAuton = false;
 
     public static void robotInit() {
         HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
@@ -29,10 +29,12 @@ public class Disabled {
     }
 
     public static void init() {
-        dataLoggerWrite();
+        if (SingleTubeAutonomous.tubeHung || DoubleTubeAutonomous.tubeHung || DoubleTubeAutonomous.tube2Hung) {
+            dataLoggerWrite();
+        }
         //disablePIDs();
-        if(doubleTubeAuton) {
-        DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_approachGridMode;
+        if (doubleTubeAuton) {
+            DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_approachGridMode;
         } else {
             SingleTubeAutonomous.currentMode = SingleTubeAutonomous.k_approachGridMode;
         }
@@ -40,26 +42,30 @@ public class Disabled {
     }
 
     public static void periodic() {
-        if(doubleTubeAuton) {
-        DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_approachGridMode;
-        DoubleTubeAutonomous.leftDistToLane = 35.0;
-        DoubleTubeAutonomous.leftDistToWall = DoubleTubeAutonomous.leftDistToLane + 51.0;
-        DoubleTubeAutonomous.k_maxSonarError = 2.5;
-        DoubleTubeAutonomous.tubeHung = false;
-        DoubleTubeAutonomous.tube2Hung = false;
+        if (doubleTubeAuton) {
+            DoubleTubeAutonomous.leftDistToLane = 35.0;
+            DoubleTubeAutonomous.leftDistToWall = DoubleTubeAutonomous.leftDistToLane + 51.0;
+            DoubleTubeAutonomous.k_maxSonarError = 2.5;
+            DoubleTubeAutonomous.tubeHung = false;
+            DoubleTubeAutonomous.tube2Hung = false;
         } else {
-            SingleTubeAutonomous.currentMode = SingleTubeAutonomous.k_approachGridMode;
             SingleTubeAutonomous.tubeHung = false;
             SingleTubeAutonomous.k_maxSonarError = 3.0;
         }
-        if(HW.liftHandle.getRawButton(2) && HW.liftHandle.getRawButton(8)) {
+        if (HW.liftHandle.getRawButton(2) && HW.liftHandle.getRawButton(8)) {
             autonType = "Single Tube";
             doubleTubeAuton = false;
-        } else if (HW.liftHandle.getTrigger()){
+            SingleTubeAutonomous.currentMode = SingleTubeAutonomous.k_approachGridMode;
+        } else if (HW.liftHandle.getTrigger()) {
             autonType = "Double Tube";
             doubleTubeAuton = true;
+            DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_approachGridMode;
+        } else if (HW.liftHandle.getRawButton(9) && HW.liftHandle.getRawButton(2)) {
+            autonType = "Disabled   ";
+            DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_finishAutonMode;
+            SingleTubeAutonomous.currentMode = SingleTubeAutonomous.k_finishAutonMode;
         }
-        HW.lcd.getInstance().println(DriverStationLCD.Line.kMain6, 0, "DoubleTubeAutonomous Type: " + autonType);
+        HW.lcd.getInstance().println(DriverStationLCD.Line.kMain6, 1, "Auton: " + autonType);
         HW.lcd.getInstance().updateLCD();
     }
 
@@ -74,9 +80,6 @@ public class Disabled {
             i = 0;
         } else {
             i++;
-        }
-        if (HW.liftHandle.getRawButton(1) && HW.liftHandle.getRawButton(8)) {
-            DoubleTubeAutonomous.currentMode = DoubleTubeAutonomous.k_finishAutonMode;
         }
     }
 

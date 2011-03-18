@@ -34,10 +34,12 @@ public class Teleop {
     static boolean[] liftButtons = new boolean[12];
     static boolean LEDblue = true;
     static double teleopStartTime;
+    static boolean minibotDeployed = false;
 
     public static void init() {
-        teleopStartTime = Timer.getFPGATimestamp();
+        minibotDeployed = false;
         initPIDs();
+        PIDTuner.setPIDs();
         initEncoders();
         HW.arm.updateArmSpeed();
         Teleop.LEDcycleStartTime = Timer.getFPGATimestamp();
@@ -45,6 +47,7 @@ public class Teleop {
         //DiscoUtils.debugPrintln("TELEOP INIT COMPLETE");
         HW.LEDminibot.setDirection(Relay.Direction.kBoth);
         HW.LEDfeederSignal.setDirection(Relay.Direction.kBoth);
+        teleopStartTime = Timer.getFPGATimestamp();
     }
 
     public static void disablePIDs() {
@@ -60,9 +63,10 @@ public class Teleop {
         limitDrive();
         drive();
         lift();
-        if ((rightButtons[1] && (k_teleopDuration - (Timer.getFPGATimestamp() - teleopStartTime)) < 15.0)
+        if ((rightButtons[1] && (k_teleopDuration - (Timer.getFPGATimestamp() - teleopStartTime)) < 20.0)
                 || rightButtons[11]) {
             HW.minibotDeployer.set(1.0);
+            minibotDeployed = true;
         } else {
             HW.minibotDeployer.set(-1.0);
         }
@@ -141,7 +145,14 @@ public class Teleop {
         //Field-centric "HALO" control
         HW.turnController.enable();
         rotation = HW.turnController.getRotation();
-        double out[] = rotateVector(HW.driveStickLeft.getX(), HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
+        double out[];
+        out = rotateVector(HW.driveStickLeft.getX(), HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
+        /* Speed limitation after minibot
+         if (!minibotDeployed) {
+            out = rotateVector(HW.driveStickLeft.getX(), HW.driveStickLeft.getY(), -1 * HW.gyro.getAngle());
+        } else {
+            out = rotateVector(HW.driveStickLeft.getX() / 2, HW.driveStickLeft.getY() / 2, -1 * HW.gyro.getAngle());
+        }*/
         if (leftButtons[9] && HW.lift.getPosition() > HW.lift.kLiftMidSquare) {
             HW.sonarControllerFrontRight.enable();
             currentY = HW.sonarControllerFrontRight.getSpeed();
@@ -169,14 +180,13 @@ public class Teleop {
         } else if (liftButtons[8]) {
             HW.lift.setSetpoint(HW.lift.kLiftD);
         } else if (liftButtons[2]) {
-            HW.lift.setSetpoint(HW.lift.getPosition() - 70);
+            HW.lift.setSetpoint(HW.lift.getPosition() - 52.5);
         } /*else if(liftButtons[9]) {
         HW.lift.downToSwitchPeriodic();
         }*/
         if (Math.abs(HW.liftHandle.getY()) > 0.15) {
             HW.lift.setLiftSpeed(-HW.liftHandle.getY());
         }
-
 
         //Arm control for driver and liftMotor operator
         //arm raises automatically unless ordered downards
@@ -243,6 +253,7 @@ public class Teleop {
 
     public static void initPIDs() {
         HW.turnController.reset(0);//also enables
+        HW.turnController.setOutputRange(-0.75, 0.75);
         HW.sonarControllerLeft.setOutputRange(-0.5, 0.5);
         HW.sonarControllerLeft.enable();
         HW.sonarControllerFrontRight.setDistance(k_scoringDistance);
@@ -250,26 +261,24 @@ public class Teleop {
         HW.sonarControllerFrontRight.enable();
         HW.lift.enablePIDControl();
         HW.lift.setSetpoint(HW.lift.kLiftD);
-        //PIDTuner.setPIDs();
         /*DiscoUtils.debugPrintln("PIDS ENABLED");
         DiscoUtils.debugPrintln("L  PIDs: P=" + HW.sonarControllerLeft.getP() + "\tD=" + HW.sonarControllerLeft.getD());
         DiscoUtils.debugPrintln("FL PIDs: P=" + HW.sonarControllerFrontRight.getP() + "\tD=" + HW.sonarControllerFrontRight.getD());
         DiscoUtils.debugPrintln("lift PIDs: P=" + HW.lift.getP() + "\tD=" + HW.lift.getD());
         DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());
         DiscoUtils.debugPrintln("LED Delay: " + HW.k_LEDRate);*/
-        HW.sonarControllerFrontRight.setOutputRange(-0.4, 0.4);
-        HW.sonarControllerLeft.setOutputRange(-0.4, 0.4);
+        DiscoUtils.debugPrintln("turnC PIDs: P=" + HW.turnController.getP() + "\tD=" + HW.turnController.getD());
     }
 
     public static void initEncoders() {
-        HW.encoderFrontLeft.setCodesPerRev(HW.FrontLeftEncoderTicks);
+        /*HW.encoderFrontLeft.setCodesPerRev(HW.FrontLeftEncoderTicks);
         HW.encoderFrontRight.setCodesPerRev(HW.FrontRightEncoderTicks);
         HW.encoderRearRight.setCodesPerRev(HW.RearRightEncoderTicks);
         HW.encoderRearLeft.setCodesPerRev(HW.RearLeftEncoderTicks);
         HW.encoderFrontLeft.init();
         HW.encoderFrontRight.init();
         HW.encoderRearRight.init();
-        HW.encoderRearLeft.init();
+        HW.encoderRearLeft.init();*/
         HW.liftEncoder.init();
     }
 
