@@ -13,39 +13,34 @@
 #pragma config(Motor,  port9,           ArmLU,         tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port10,          SuckL,         tmotorNormal, openLoop, reversed)
 
-#include "Delta_Function_Library_1.0.c" //Main Funtion Library
-#define FULL 127
+#pragma platform(VEX)
+
+//Competition Control and Duration Settings
+#pragma competitionControl(Competition)
+#pragma autonomousDuration(20)
+#pragma userControlDuration(200)
 
 
-
-
-task autonomous()
+void pre_auton()
 {
-  pre_auton();
-  int arm_in_position = 0;  //arm is down; 0 for false and 1 for true
 
-drive_straight_suck(100,FULL,5);//speed,suckspeed,inches//drive straight and inhale the red stack at the same time
+//Encoders:
+  SensorValue[EncoderL] = 0;
+  SensorValue[EncoderR] = 0;
 
-
-
-while(arm_in_position != 1) {
-	  arm_in_position = lock(low_lock_point);
-	}
-
-turn(127,-90);//speed,degrees turn left
-
-while(arm_in_position != 1) {//place tubes
-	  arm_in_position = lock(low_descore_point);
-	}
-
-drive_straight(-FULL,5);// back up
-turn(FULL,180); //left or shouldn't matter, turn to face blue stack
-
-drive_straight_suck(FULL,FULL,10);//drive to blue stack//drive straight and inhale the blue stack at the same time
-
-turn(FULL,90);//turn right
-drive_straight(FULL,7);//drive straight
-turn(FULL,-45);//turn left to face tower
-drive_straight(FULL,7);//drive to tower
-sucker(-FULL,3);//spit tube into tower
+//Arm:
+  arm_grounded = SensorValue[PotArm];    // sets ground point
+  low_descore_point = arm_grounded + 500; // sets low descore arm pooint
+  low_lock_point = arm_grounded + 800;   //...lowgoal
+  high_lock_point = arm_grounded + 1100; // ...high goal
+  arm_grounded += 250;
 }
+
+#include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
+#include "Delta_Function_Library_1.0.c" //Main Funtion Library
+#include "Delta_Tele_1.0.c"             //Tele-Op Code goes here
+#include "Delta_Auton_Cheater_Red_1.0.c"//Auton Modes go here, pick on and comment the rest
+//#include "Delta_Auton_Red_1.0.c"
+//#include "Delta_Auton_Cheater_Blue_1.0.c"
+//#include "Delta_Auton_Blue_1.0.c"
+//#include "Delta_Auton_Skills_1.0.c"

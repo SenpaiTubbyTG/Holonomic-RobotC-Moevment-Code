@@ -13,21 +13,6 @@
 #pragma config(Motor,  port9,           ArmLU,         tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port10,          SuckL,         tmotorNormal, openLoop, reversed)
 
-/*
-#pragma config(Sensor, in1,    pot,                 sensorPotentiometer)
-#pragma config(Sensor, dgtl1,  EncoderR,        sensorQuadEncoder)
-#pragma config(Sensor, dgtl3,  EncoderL,         sensorQuadEncoder)
-#pragma config(Motor,  port2,           DriveR,        tmotorNormal, openLoop)
-#pragma config(Motor,  port3,           DriveL,        tmotorNormal, openLoop, reversed)
-#pragma config(Motor,  port4,           SuckUpper,     tmotorNormal, openLoop)
-#pragma config(Motor,  port5,           ArmR,          tmotorNormal, openLoop)
-#pragma config(Motor,  port6,           ArmL,          tmotorNormal, openLoop, reversed)
-#pragma config(Motor,  port7,           SuckLower,     tmotorNormal, openLoop, reversed)
-#pragma config(Motor,  port8,           ExtendR,       tmotorNormal, openLoop)
-#pragma config(Motor,  port9,           ExtendL,       tmotorNormal, openLoop, reversed)
-*/
-
-
 int lock(int final_pos) //locks arm to final_pos potentiometer point
 {
   int current_pos = SensorValue(PotArm); //reads potentiometer
