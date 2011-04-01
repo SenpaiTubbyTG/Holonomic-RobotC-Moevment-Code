@@ -13,7 +13,7 @@
 #pragma config(Motor,  port9,           ArmLU,         tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port10,          SuckL,         tmotorNormal, openLoop, reversed)
 
-
+#define FULL 127
 
 int lock(int final_pos) //locks arm to final_pos potentiometer point
 {
@@ -28,17 +28,17 @@ int lock(int final_pos) //locks arm to final_pos potentiometer point
     else if(current_pos < final_pos) { //arm too low
       direction = -1; //will move up
     }
-    motor[ArmRU] = 127 * direction; //sets motors
-    motor[ArmRL] = 127 * direction;
-    motor[ArmLU] = 127 * direction;
-    motor[ArmLL] = 127 * direction;
+    motor[ArmRU] = FULL * direction; //sets motors
+    motor[ArmRL] = FULL * direction;
+    motor[ArmLU] = FULL * direction;
+    motor[ArmLL] = FULL * direction;
     return 0;
   }
   else {  //in hindsight, I don't think this is necessary
-    motor[ArmRU] = -10; //no need to move for lock; will continue holding
-    motor[ArmRL] = -10;
-    motor[ArmLU] = -10;
-    motor[ArmLL] = -10;
+    motor[ArmRU] = 0; //no need to move for lock; will continue holding
+    motor[ArmRL] = 0;
+    motor[ArmLU] = 0;
+    motor[ArmLL] = 0;
     return 1;
   }
 }
@@ -248,83 +248,3 @@ void turn(int speed, int degrees) {
   motor[DriveLB] = 0;
 
 }
-
-
-/* MODE SELECTION FUNCTION
- * mode_select
- * @purpose use a potentiometer to set mode
- * high potentiometer values return 1, low potentiometer values return 0
- */
-
-/*int mode_select() {
-  if(SensorValue[Mode] >= 2000)
-    return 1;
-  else
-    return 0;
-
-}*/
-
-
-/* LINE FOLLOWER FUNCTIONS
- * follow_line_msec
- * follow_line_distance
- */
-
- /*follow_line_msec
- * @purpose follow a line for provided duration using 3 light sensors
- * @param speed: speed of motors, 0 to 127
- * @param duration: duration of line following in milliseconds
- */
-/*void follow_line_msec(int speed, int duration) {
-  ClearTimer(T1);
-  int threshold = 250;  //guessed threshold; low numbers are lighter
-  while(time1[T1] < duration) {
-    if(SensorValue[MidLine] < threshold) {  //middle sensor is on line
-     motor[DriveL]  = speed;
-     motor[DriveR] = speed;
-    }
-    else if(SensorValue[LeftLine] < threshold) {  //left sensor is on line
-      motor[DriveL]  = speed - 1;
-      motor[DriveR] = speed;
-    }
-    else if(SensorValue[RightLine] < threshold) { //right sensor is on line
-      motor[DriveL]  = speed;
-      motor[DriveR] = speed - 1;
-    }
-  }
-}*/
-
-
- /*follow_line_distance
- * @purpose follow a line for provided duration using 3 light sensors
- * precondition: 4-inch wheels
- * @param speed: speed of motors, 0 to 127
- * @param distance: distance to travel in inches
- */
-
-/*void follow_line_distance(int speed, float distance) {
-  int threshold = 250;  //guessed threshold; low numbers are lighter
-  while(((float)SensorValue[EncoderL]+(float)SensorValue[EncoderR])/2 * 4 / 360 * PI
-                                                                      < distance){
-    if(SensorValue[MidLine] < threshold) {  //middle sensor is on line
-     motor[DriveRF] = speed;
-     motor[DriveRB] = speed;
-     motor[DriveLF] = speed;
-     motor[DriveLB] = speed;
-    }
-    else if(SensorValue[LeftLine] < threshold) {  //left sensor is on line
-
-      motor[DriveRF] = speed;
-      motor[DriveRB] = speed;
-      motor[DriveLF] = speed - 1;
-      motor[DriveLB] = speed - 1;
-
-    }
-    else if(SensorValue[RightLine] < threshold) { //right sensor is on line
-      motor[DriveRF] = speed - 1;
-      motor[DriveRB] = speed - 1;
-      motor[DriveLF] = speed;
-      motor[DriveLB] = speed;
-    }
-  }
-}*/

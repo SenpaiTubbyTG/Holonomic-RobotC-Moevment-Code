@@ -12,6 +12,7 @@
 #pragma config(Motor,  port8,           ArmLL,         tmotorNormal, openLoop)
 #pragma config(Motor,  port9,           ArmLU,         tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port10,          SuckL,         tmotorNormal, openLoop, reversed)
+////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma platform(VEX)
 
@@ -21,13 +22,12 @@
 #pragma userControlDuration(200)
 
 #include "delta_lib_V2.c" //Main Funtion Library
-#define FULL 127
 
-  int arm_grounded = SensorValue[PotArm];    // sets ground point
-  int low_descore_point = arm_grounded + 500; // sets low descore arm pooint
-  int low_lock_point = arm_grounded + 800;   //...lowgoal
-  int descore_high_point= arm_grounded + 1000;//...high descore
-  int high_lock_point = arm_grounded + 1100; // ...high goal
+int arm_grounded = SensorValue[PotArm];    // sets ground point
+int low_descore_point = arm_grounded + 500; // sets low descore arm pooint
+int low_lock_point = arm_grounded + 800;   //...lowgoal
+int descore_high_point= arm_grounded + 1000;//...high descore
+int high_lock_point = arm_grounded + 1100; // ...high goal
 
 void pre_auton()
 {
@@ -57,7 +57,7 @@ task autonomous()
     arm_in_position = lock(low_lock_point);
   }
 
-  turn(127,-90);//speed,degrees turn left
+  turn(FULL,-90);//speed,degrees turn left
 
   while(arm_in_position != 1) {//place tubes
       arm_in_position = lock(low_descore_point);
@@ -118,13 +118,13 @@ task usercontrol()
     //Manual_Arm/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
 
     if(vexRT[Ch3] < 15 && vexRT[Ch3] > -15){//Trim, if stick is between 15 & negative 15 motors equal 0.
-        motor[ArmRL] = 0;
+      motor[ArmRL] = 0;
       motor[ArmRU] = 0;
       motor[ArmLL] = 0;
       motor[ArmLU] = 0;
     }
     else{//motors = stick angle
-        motor[ArmRL] = vexRT[Ch3];
+      motor[ArmRL] = vexRT[Ch3];
       motor[ArmRU] = vexRT[Ch3];
       motor[ArmLL] = vexRT[Ch3];
       motor[ArmLU] = vexRT[Ch3];
@@ -133,23 +133,22 @@ task usercontrol()
     //Claw/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
     switch(vexRT[Btn5U] - vexRT[Btn5D])
     {
-    case  1:motor[SuckR] = 127;
-      motor[SuckL] = 127;
+    case  1:motor[SuckR] = FULL;
+      motor[SuckL] = FULL;
       break;
-    case -1:motor[SuckR] = -127;
-      motor[SuckL] = -127;
+    case -1:motor[SuckR] = -FULL;
+      motor[SuckL] = -FULL;
       break;
     case  0:motor[SuckR] = 0;
       motor[SuckL] = 0;
       break;
     }//: switch
 
-
     //Drive_Train/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
-    motor[DriveRB]  = (vexRT[Ch2] - vexRT[Ch1]);  // (y + x)
-    motor[DriveRF]  = (vexRT[Ch2] - vexRT[Ch1]);  // (y + x)
-    motor[DriveLB] = (vexRT[Ch2] + vexRT[Ch1]);  // (y - x)
-    motor[DriveLF] = (vexRT[Ch2] + vexRT[Ch1]);  // (y - x)
+    motor[DriveRB] = (vexRT[Ch2] - vexRT[Ch1]); // (y + x)
+    motor[DriveRF] = (vexRT[Ch2] - vexRT[Ch1]); // (y + x)
+    motor[DriveLB] = (vexRT[Ch2] + vexRT[Ch1]); // (y - x)
+    motor[DriveLF] = (vexRT[Ch2] + vexRT[Ch1]); // (y - x)
 
   }//while
 }//taskusercontrol
