@@ -1,21 +1,22 @@
 typedef struct {
-	double k_P;
-	double k_I;
-	double k_D;
+	int k_P;
+	int k_I;
+	int k_D;
 
 	bool enabled;
 
-	double minInput;
-	double maxInput;
-	double minOutput;
-	double maxOutput;
+	int minInput;
+	int maxInput;
+	int minOutput;
+	int maxOutput;
+	int maxError;
 
-	double setpoint;
-	double result;
-	double input;
-	double error;
-	double prevError;
-	double totalError;
+	int setpoint;
+	int result;
+	int input;
+	int error;
+	int prevError;
+	int totalError;
 
 	int inputSensorIndex;
 	int outputMotorIndex;
@@ -29,22 +30,35 @@ void disable(PIDController controller) {
 	controller.enabled = false;
 }
 
-void setSetpoint(PIDController controller, double newSetpoint) {
+void setMaxError(PIDController controller, int maxError) {
+	controller.maxError = maxError
+}
+
+bool onTarget(PIDController controller) {
+	int error = abs(controller.setpoint - SensorValue[controller.inputSensorIndex]);
+	if (error <= maxError) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+void setSetpoint(PIDController controller, int newSetpoint) {
 	controller.setpoint = newSetpoint;
 }
 
-void setPIDs(PIDController controller, double kP, double kI, double kD) {
+void setPIDs(PIDController controller, int kP, int kI, int kD) {
 	controller.k_P = kP;
 	controller.k_I = kI;
 	controller.k_D = kD;
 }
 
-void setInputRange(PIDController controller, double min, double max) {
+void setInputRange(PIDController controller, int min, int max) {
 	controller.minInput = min;
 	controller.maxInput = max;
 }
 
-void setOutputRange(PIDController controller, double min, double max) {
+void setOutputRange(PIDController controller, int min, int max) {
 	controller.minOutput = min;
 	controller.maxOutput = max;
 }
@@ -82,7 +96,7 @@ void calculatePID(PIDController controller) {
 	}
 }
 
-double calculatePID(PIDController controller) {
+int calculatePID(PIDController controller) {
 
 	if (controller.enabled) {
 		controller.input = SensorValue[controller.inputSensorIndex];
