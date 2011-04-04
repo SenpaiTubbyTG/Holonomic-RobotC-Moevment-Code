@@ -199,34 +199,6 @@ void drive_forward_msec(int speed, int duration) {
     return 1;
 }
 
-/* drive_straight_to_touch
-  * @purpose: autonomously drive robot forward until touch sensors are triggered
-  * precondition: 2 touch sensors, left and right
-  * @param speed: speed of motors, -127 to 127; negative values go reverse
- */
-/*void drive_straight_to_touch(int speed) {
-  while(SensorValue[LeftTouch]  == 0 || SensorValue[RightTouch] == 0) {
-    if(SensorValue[EncoderL] > SensorValue[EncoderR]) {
-      motor[DriveRF] = speed;
-      motor[DriveRB] = speed;
-      motor[DriveLF]  = speed - 1;
-      motor[DriveLB]  = speed - 1;
-    }
-    else if(SensorValue[EncoderL] < SensorValue[EncoderR]) {
-      motor[DriveRF] = speed - 1;
-      motor[DriveRF] = speed - 1;
-      motor[DriveLF]  = speed;
-      motor[DriveLB]  = speed;
-    }
-    else {
-      motor[DriveRF] = speed;
-      motor[DriveRB] = speed;
-      motor[DriveLF]  = speed;
-      motor[DriveLB]  = speed;
-    }
-  }
-}*/
-
 /* turn
   * @purpose: autonomously execute a point turn
   * @param speed: speed of motors, 0 to 127; no negative values
@@ -246,5 +218,4 @@ void turn(int speed, int degrees) {
   motor[DriveRB] = 0;
   motor[DriveLF] = 0;
   motor[DriveLB] = 0;
-
 }
