@@ -18,53 +18,19 @@
 #pragma userControlDuration(120)
 
 #include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
+#define FULL 127
 
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-//                          Pre-Autonomous Functions
-//
-// You may want to perform some actions before the competition starts. Do them in the
-// following function.
-//
-/////////////////////////////////////////////////////////////////////////////////////////
-
-void pre_auton()
-{
-	// All activities that occur before the competition starts
-	// Example: clearing encoders, setting servo positions, ...
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-//                                 Autonomous Task
-//
-// This task is used to control your robot during the autonomous phase of a VEX Competition.
-// You must modify the code to add your own robot specific commands here.
-//
-/////////////////////////////////////////////////////////////////////////////////////////
-
+void pre_auton() { }
 task autonomous() { }
-
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-//                                 User Control Task
-//
-// This task is used to control your robot during the user control phase of a VEX Competition.
-// You must modify the code to add your own robot specific commands here.
-//
-/////////////////////////////////////////////////////////////////////////////////////////
-
 task usercontrol()
 {
-	// User control code here, inside the loop
-
 	while (true)
 	{
 	  motor[frontLeft] = motor[backLeft] = vexRT[Ch3];
 	  motor[frontRight] = motor[backRight] = vexRT[Ch2];
 
 	    motor[armLeft1] = motor[armLeft2] = motor[armRight1] = motor[armRight2] = 
-		(vexRT[Btn6U] - vexRT[Btn6D]) * 127;
-	    motor[collector1] = motor[collector2] = (vexRT[Btn5U] - vexRT[Btn5D]) * 127;
+		(vexRT[Btn6U] - vexRT[Btn6D]) * FULL;
+	    motor[collector1] = motor[collector2] = (vexRT[Btn5U] - vexRT[Btn5D]) * FULL;
 	}
 }
