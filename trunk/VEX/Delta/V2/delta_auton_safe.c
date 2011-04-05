@@ -15,7 +15,6 @@
 
 #include "delta_lib_V2.c"
 
-
 //RED CHEATER
 task autonomous {
   drive_straight_suck_msec(127, 127, 1000); //drive forward and suck in stack, score cheater tube by driving
@@ -24,4 +23,13 @@ task autonomous {
   drive_straight_msec(127,500); //drive to goal
   lock_msec(-127, 700); //lower arm, scoring tubes
   drive_straight_suck_msec(-127, -127, 1000); //back up and spit out
+}
+//BLUE CHEATER
+task autonomous {
+}
+//RED
+task autonomous {
+}
+//BLUE
+task autonomous {
 }
