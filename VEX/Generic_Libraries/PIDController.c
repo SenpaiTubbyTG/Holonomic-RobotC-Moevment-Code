@@ -48,8 +48,8 @@ void init(PIDController controller, int inputIndex, int outputIndex) {
 	controller.maxError = 0;
 	controller.totalError = 0;
 	controller.prevError = 0;
-	controller.inputIndex = inputIndex;
-	controller.outputIndex = outputIndex;
+	controller.inputSensorIndex = inputIndex;
+	controller.outputMotorIndex = outputIndex;
 }
 
 void enable(PIDController controller) {
@@ -66,7 +66,7 @@ void setMaxError(PIDController controller, int maxError) {
 
 bool onTarget(PIDController controller) {
 	int error = abs(controller.setpoint - SensorValue[controller.inputSensorIndex]);
-	if (error <= maxError) {
+	if (error <= controller.maxError) {
 		return true;
 	} else {
 		return false;
