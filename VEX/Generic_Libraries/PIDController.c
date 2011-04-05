@@ -29,9 +29,9 @@ void init(PIDController controller) {
 	controller.enabled = false;
 	controller.minInput = 0;
 	controller.maxInput = 0;
-	controller.minOutput = 0;
-	controller.maxOutput = 0;
-	controller.maxError = 9999;
+	controller.minOutput = -127;
+	controller.maxOutput = 127;
+	controller.maxError = 0;
 	controller.totalError = 0;
 	controller.prevError = 0;
 }
@@ -43,9 +43,9 @@ void init(PIDController controller, int inputIndex, int outputIndex) {
 	controller.enabled = false;
 	controller.minInput = 0;
 	controller.maxInput = 0;
-	controller.minOutput = 0;
-	controller.maxOutput = 0;
-	controller.maxError = 9999;
+	controller.minOutput = -127;
+	controller.maxOutput = 127;
+	controller.maxError = 0;
 	controller.totalError = 0;
 	controller.prevError = 0;
 	controller.inputIndex = inputIndex;
@@ -61,7 +61,7 @@ void disable(PIDController controller) {
 }
 
 void setMaxError(PIDController controller, int maxError) {
-	controller.maxError = maxError
+	controller.maxError = maxError;
 }
 
 bool onTarget(PIDController controller) {
