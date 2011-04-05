@@ -27,3 +27,4 @@ bool onTarget(PIDController controller);
 //add ONE to continuous section(s) like autonomous or teleop
 void calculatePID(PIDController controller);
 int calculatePID(PIDController controller);
+int calculatePID(PIDController controller, int sensorInput);
