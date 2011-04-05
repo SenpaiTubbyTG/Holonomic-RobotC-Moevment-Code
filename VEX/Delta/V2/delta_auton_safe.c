@@ -26,10 +26,28 @@ task autonomous {
 }
 //BLUE CHEATER
 task autonomous {
+  drive_straight_suck_msec(127, 127, 1000); //drive forward and suck in stack, score cheater tube by driving
+  lock_msec(127, 1000); //raise arm to y hieght
+  turn_timed(-127,127,500); //turn right to face goal
+  drive_straight_msec(127,500); //drive to goal
+  lock_msec(-127, 700); //lower arm, scoring tubes
+  drive_straight_suck_msec(-127, -127, 1000); //back up and spit out
 }
 //RED
 task autonomous {
+drive_straight_suck_msec(127, 127, 1000); //drive forward and suck in stack
+  lock_msec(127, 1000); //raise arm to y hieght
+  turn_timed(-127,127,500); //turn right to face goal
+  drive_straight_msec(127,500); //drive to goal
+  lock_msec(-127, 700); //lower arm, scoring tubes
+  drive_straight_suck_msec(-127, -127, 1000); //back up and spit out
 }
 //BLUE
 task autonomous {
+  drive_straight_suck_msec(127, 127, 1000); //drive forward and suck in stack
+  lock_msec(127, 1000); //raise arm to y hieght
+  turn_timed(127,-127,500); //turn left to face goal
+  drive_straight_msec(127,500); //drive to goal
+  lock_msec(-127, 700); //lower arm, scoring tubes
+  drive_straight_suck_msec(-127, -127, 1000); //back up and spit out
 }
