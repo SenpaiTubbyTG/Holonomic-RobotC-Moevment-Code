@@ -22,13 +22,24 @@
 #pragma userControlDuration(200)
 
 #include "delta_lib_V2.c" //Main Funtion Library
+#include "PIDController.c"
+#include "PIDController.c"
 
+//Standard Lock////////
 int arm_grounded = SensorValue[PotArm];    // sets ground point
 int low_descore_point = arm_grounded + 500; // sets low descore arm pooint
 int low_lock_point = arm_grounded + 800;   //...lowgoal
 int descore_high_point= arm_grounded + 1000;//...high descore
 int high_lock_point = arm_grounded + 1100; // ...high goal
 
+//PID//////////////////
+PIDController arm;
+int goal_value = 1000;
+int k_P = 100;
+int k_I = 0;
+int k_D = 20;
+
+//Pre Auton///////////
 void pre_auton()
 {
 
@@ -36,43 +47,26 @@ void pre_auton()
   SensorValue[EncoderL] = 0;
   SensorValue[EncoderR] = 0;
 
-  //Arm:
+  //Standard Arm:
   arm_grounded = SensorValue[PotArm];    // sets ground point
   low_descore_point = arm_grounded + 500; // sets low descore arm pooint
   low_lock_point = arm_grounded + 800;   //...lowgoal
   descore_high_point= arm_grounded + 1000;//...high descore
   high_lock_point = arm_grounded + 1100; // ...high goal
   arm_grounded += 250;
+
+  //PID Arm
+  init(arm);
+	setSetpoint(arm, goal_value);
+	setPIDs(arm, k_P, k_I, k_D);
+	enable(arm);
 }
 
 task autonomous()
 {
   pre_auton();
+	motor[arm1] = motor[arm2] = calculatePID(arm);
 
-  int arm_in_position = 0;  //arm is down; 0 for false and 1 for true
-
-  drive_straight_suck(100,FULL,5);//speed,suckspeed,inches//drive straight and inhale the red stack at the same time
-
-  while(arm_in_position != 1) {
-    arm_in_position = lock(low_lock_point);
-  }
-
-  turn(FULL,-90);//speed,degrees turn left
-
-  while(arm_in_position != 1) {//place tubes
-      arm_in_position = lock(low_descore_point);
-  }
-
-  drive_straight(-FULL,5);// back up
-  turn(FULL,180); //left or shouldn't matter, turn to face blue stack
-
-  drive_straight_suck(FULL,FULL,10);//drive to blue stack//drive straight and inhale the blue stack at the same time
-
-  turn(FULL,90);//turn right
-  drive_straight(FULL,7);//drive straight
-  turn(FULL,-45);//turn left to face tower
-  drive_straight(FULL,7);//drive to tower
-  sucker(-FULL,3);//spit tube into tower
 }
 
 task usercontrol()
