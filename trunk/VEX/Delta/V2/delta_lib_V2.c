@@ -15,6 +15,38 @@
 
 #define FULL 127
 
+/*Set Arm Speed*/
+void setArmSpeed(int speed) {
+  motor[ArmLL] = motor[ArmLU] = motor[ArmRL] = motor[ArmRU] = speed;
+}
+
+/*Set Suck Speed*/
+void setSuckSpeed(int speed) {
+  motor[SuckR] = motor[SuckL] = speed;
+}
+
+/*Set Drive Right Speed*/
+void setDriveRSpeed(int speed) {
+  motor[DriveRF] = motor[DriveRB] = speed;
+}
+
+/*Set Drive Left Speed*/
+void setDriveLSpeed(int speed) {
+  motor[DriveLF] = motor[DriveLB] = speed;
+}
+
+/*Kill Drive Train Motors*/
+void killdrive() {
+  setDriveRSpeed(0);
+  setDriveLSpeed(0);
+}
+
+/*Kill Drive Train Motors*/
+void killsuck() {
+  setSuckSpeed(0);
+}
+
+/*Arm Lock*/
 int lock(int final_pos) //locks arm to final_pos potentiometer point
 {
   int current_pos = SensorValue(PotArm); //reads potentiometer
@@ -28,17 +60,14 @@ int lock(int final_pos) //locks arm to final_pos potentiometer point
     else if(current_pos < final_pos) { //arm too low
         direction = -1; //will move up
     }
-    motor[ArmRU] = FULL * direction; //sets motors
-    motor[ArmRL] = FULL * direction;
-    motor[ArmLU] = FULL * direction;
-    motor[ArmLL] = FULL * direction;
+
+    setArmSpeed(FULL * direction);
+
     return 0;
   }
   else {  //in hindsight, I don't think this is necessary
-      motor[ArmRU] = 0; //no need to move for lock; will continue holding
-    motor[ArmRL] = 0;
-    motor[ArmLU] = 0;
-    motor[ArmLL] = 0;
+
+    setArmSpeed(0);
     return 1;
   }
 }
@@ -46,25 +75,17 @@ int lock(int final_pos) //locks arm to final_pos potentiometer point
 /*ARM TIME FUNCTION*/
 
 void lock_msec(int speed, int duration){
-  motor[ArmRU] = speed;
-  motor[ArmRL] = speed;
-  motor[ArmLU] = speed;
-  motor[ArmLL] = speed;
+  setArmSpeed(speed);
   wait1Msec(duration);
-  motor[ArmRU] = 0;
-  motor[ArmRL] = 0;
-  motor[ArmLU] = 0;
-  motor[ArmLL] = 0;
+  setArmSpeed(0);
 }
 
 /* SUCKER TIME FUNCTION */
 
 int sucker(int speed, int duration) { //positive numbers for out
-  motor[SuckR] = speed;
-  motor[SuckL] = speed;
+  setSuckSpeed(speed);
   wait1Msec(duration);
-  motor[SuckR] = 0;
-  motor[SuckL] = 0;
+  setSuckSpeed(0);
   return 1;
 }
 
@@ -81,15 +102,10 @@ int sucker(int speed, int duration) { //positive numbers for out
 */
 
 void drive_straight_msec(int speed, int duration) {
-  motor[DriveRF] = speed;
-  motor[DriveRB] = speed;
-  motor[DriveLF] = speed;
-  motor[DriveLB] = speed;
+  setDriveRSpeed(speed);
+  setDriveLSpeed(speed);
   wait1Msec(duration);
-  motor[DriveRF] = 0;
-  motor[DriveRB] = 0;
-  motor[DriveLF] = 0;
-  motor[DriveLB] = 0;
+  killdrive;
 }
 /* drive_forward_suck_msec
 * @purpose: autonomously drive robot forward for provided duration
@@ -98,19 +114,12 @@ void drive_straight_msec(int speed, int duration) {
 */
 
 void drive_straight_suck_msec(int speed, int suckspeed, int duration) {
-  motor[DriveRF] = speed;
-  motor[DriveRB] = speed;
-  motor[DriveLF] = speed;
-  motor[DriveLB] = speed;
-  motor[SuckR] = suckspeed;
-  motor[SuckL] = suckspeed;
+  setDriveRSpeed(speed);
+  setDriveLSpeed(speed);
+  setSuckSpeed(suckspeed);
   wait1Msec(duration);
-  motor[DriveRF] = 0;
-  motor[DriveRB] = 0;
-  motor[DriveLF] = 0;
-  motor[DriveLB] = 0;
-  motor[SuckR] = 0;
-  motor[SuckL] = 0;
+  killdrive;
+  killsuck;
 }
 /* drive_straight_suck
 * @purpose: autonomously drive robot forward for provided distance in inches
@@ -127,37 +136,24 @@ void drive_straight_suck(int speed, int suckspeed, float distance) {
   while( ( (float) abs(SensorValue[EncoderL])  * 4 / 360 * PI) < distance &&
     ( (float) abs(SensorValue[EncoderR]) * 4 / 360 * PI) < distance) {
     if(abs(SensorValue[EncoderL]) > abs(SensorValue[EncoderR])) {
-      motor[DriveRF] = -speed;
-      motor[DriveRB] = -speed;
-      motor[DriveLF] = -speed + 1;
-      motor[DriveLB] = -speed + 1;
-      motor[SuckR] = suckspeed;
-      motor[SuckL] = suckspeed;
+      setDriveRSpeed(speed);
+      setDriveLSpeed(speed + 1);
+      setSuckSpeed(suckspeed);
 
     }
     else if(abs(SensorValue[EncoderL]) < abs(SensorValue[EncoderR])) {
-      motor[DriveRF] = -speed + 1;
-      motor[DriveRB] = -speed + 1;
-      motor[DriveLF] = -speed;
-      motor[DriveLB] = -speed;
-      motor[SuckR] = suckspeed;
-      motor[SuckL] = suckspeed;
+      setDriveRSpeed(speed +1);
+      setDriveLSpeed(speed);
+      setSuckSpeed(suckspeed);
     }
     else {
-      motor[DriveRF] = -speed;
-      motor[DriveRB] = -speed;
-      motor[DriveLF] = -speed;
-      motor[DriveLB] = -speed;
-      motor[SuckR] = suckspeed;
-      motor[SuckL] = suckspeed;
+      setDriveRSpeed(speed);
+      setDriveLSpeed(speed);
+      setSuckSpeed(suckspeed);
     }
   }
-  motor[DriveRF] = 0;
-  motor[DriveRB] = 0;
-  motor[DriveLF] = 0;
-  motor[DriveLB] = 0;
-  motor[SuckR] = 0;
-  motor[SuckL] = 0;
+  killdrive;
+  killsuck;
 }
 
 /* drive_straight
@@ -174,28 +170,19 @@ void drive_straight(int speed, float distance) {
   while( ( (float) abs(SensorValue[EncoderL])  * 4 / 360 * PI) < distance &&
     ( (float) abs(SensorValue[EncoderR]) * 4 / 360 * PI) < distance) {
     if(abs(SensorValue[EncoderL]) > abs(SensorValue[EncoderR])) {
-      motor[DriveRF] = -speed;
-      motor[DriveRB] = -speed;
-      motor[DriveLF] = -speed + 1;
-      motor[DriveLB] = -speed + 1;
+      setDriveRSpeed(speed);
+      setDriveLSpeed(speed + 1);
     }
     else if(abs(SensorValue[EncoderL]) < abs(SensorValue[EncoderR])) {
-      motor[DriveRF] = -speed + 1;
-      motor[DriveRB] = -speed + 1;
-      motor[DriveLF] = -speed;
-      motor[DriveLB] = -speed;
+      setDriveRSpeed(speed + 1);
+      setDriveLSpeed(speed);
     }
     else {
-      motor[DriveRF] = -speed;
-      motor[DriveRB] = -speed;
-      motor[DriveLF] = -speed;
-      motor[DriveLB] = -speed;
+      setDriveRSpeed(speed);
+      setDriveLSpeed(speed);
     }
   }
-  motor[DriveRF] = 0;
-  motor[DriveRB] = 0;
-  motor[DriveLF] = 0;
-  motor[DriveLB] = 0;
+  killdrive
 }
 
 /* drive_straight_unlocked
@@ -212,22 +199,16 @@ int drive_straight_unlocked(int speed, float distance) {
   if( ( (float) abs(SensorValue[EncoderL])  * 2 / 360 * PI) < distance &&
     ( (float) abs(SensorValue[EncoderR]) * 2 / 360 * PI) < distance) {
     if(abs(SensorValue[EncoderL]) > abs(SensorValue[EncoderR])) {
-      motor[DriveRF] = -speed;
-      motor[DriveRB] = -speed;
-      motor[DriveLF] = -speed + 1;
-      motor[DriveLB] = -speed + 1;
+      setDriveRSpeed(speed);
+      setDriveLSpeed(speed + 1);
     }
     else if(abs(SensorValue[EncoderL]) < abs(SensorValue[EncoderR])) {
-      motor[DriveRF] = -speed + 1;
-      motor[DriveRB] = -speed + 1;
-      motor[DriveLF] = -speed;
-      motor[DriveLB] = -speed;
+      setDriveRSpeed(speed + 1);
+      setDriveLSpeed(speed);
     }
     else {
-      motor[DriveRF] = -speed;
-      motor[DriveRB] = -speed;
-      motor[DriveLF] = -speed;
-      motor[DriveLB] = -speed;
+      setDriveRSpeed(speed);
+      setDriveLSpeed(speed);
     }
     return 0;
   }
@@ -236,23 +217,18 @@ int drive_straight_unlocked(int speed, float distance) {
 }
 
 /* turn (SAFE)
- * timed, no Sensor
- * in this funtion you set the speed of the left and right sides of the drive train individually
- *@param speedL: speed of left motors
- *@param speedR: speed of right motors
+* timed, no Sensor
+* in this funtion you set the speed of the left and right sides of the drive train individually
+*@param speedL: speed of left motors
+*@param speedR: speed of right motors
 */
 void turn_timed(int speedr, int speedl, duration){
-  //left drive
-  motor[DriveLF] = speedl;
-  motor[DriveLB] = speedl;
   //right drive
-  motor[DriveRF] = speedr;
-  motor[DriveRB] = speedr;
+  setDriveRSpeed(speedl);
+  //left drive
+  setDriveLSpeed(speedr);
   wait1Msec(duration);
-  motor[DriveRF] = 0;
-  motor[DriveRB] = 0;
-  motor[DriveLF] = 0;
-  motor[DriveLB] = 0;
+  killdrive;
 }
 
 /* turn
@@ -265,13 +241,9 @@ void turn(int speed, int degrees) {
   SensorValue[EncoderL] = 0;
   SensorValue[EncoderR] = 0;
   while(SensorValue[EncoderL] < degrees || SensorValue[EncoderR] < degrees*2) {
-    motor[DriveRF] = speed;
-    motor[DriveRB] = speed;
-    motor[DriveLF] = -speed;
-    motor[DriveLB] = -speed;
+    setDriveRSpeed(speed);
+    setDriveLSpeed(-speed);
   }
-  motor[DriveRF] = 0;
-  motor[DriveRB] = 0;
-  motor[DriveLF] = 0;
-  motor[DriveLB] = 0;
+  setDriveRSpeed(0);
+  setDriveLSpeed(0);
 }
