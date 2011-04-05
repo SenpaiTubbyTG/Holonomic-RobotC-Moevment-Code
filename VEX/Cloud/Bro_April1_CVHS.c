@@ -136,8 +136,8 @@ void driveArcade(int power, int turn, bool square, bool ramp){
 }
 /*******************************************************************************************Arm & Claw Code****************************************************************************************/
 int armPower, clawPower, armPosition, clawPosition, armTolerance, clawTolerance, initialArmPosition, initialClawPosition, armOffset, clawOffset;//arm and claw tolerance to be set
-int armFloor, armLowPlace, armLowScore, armHighPlace, armHighScore, armMax;//arm positions. Place is position above goal, Score is on goal for tubes, floor is start position
-int clawOpen, clawClosed, clawGuiding;//claw positions. Open is initial position, close is closed on tubes, Guiding is open slightly to better align on tubes for close
+int armFloor = 2213, armLowPlace = 3079, armLowScore = 2472, armHighPlace = 3303, armHighScore = 2872, armMax = 3845;//arm positions. Place is position above goal, Score is on goal for tubes, floor is start position
+int clawOpen = 2253, clawClosed = 3616, clawGuiding = 2989;//claw positions. Open is initial position, close is closed on tubes, Guiding is open slightly to better align on tubes for close
 int armInput, clawInput;//arm variables used in competitions code. Placed here to keep them with the rest of the arm variables
 bool armPositionReached, clawPositionReached;
 /*
@@ -169,7 +169,6 @@ bool armMove(int aPower, int cPower, int armPos, int clawPos){//basic controls r
   if((SensorValue[armPot] <= (armPos - armTolerance))||(SensorValue[armPot] >= (armPos + armTolerance))){
     armPower = ((armPos - armPot)/armPos) * aPower;
     armPositionReached = false;
-
   }
   else{
     armPower = 0;
