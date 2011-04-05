@@ -154,3 +154,37 @@ int calculatePID(PIDController controller) {
     return 0.0;
   }
 }
+
+int calculatePID(PIDController controller, int sensorInput) {
+
+	if (controller.enabled) {
+		controller.input = sensorInput;
+		controller.error = controller.setpoint - controller.input;
+		            if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
+		                if (controller.error > 0) {
+		                    controller.error = controller.error - controller.maxInput + controller.minInput;
+		                } else {
+		                    controller.error = controller.error + controller.maxInput - controller.minInput;
+		                }
+		            }
+
+		        if ( ((controller.totalError + controller.error) * controller.k_I < controller.maxOutput)
+		                && ((controller.totalError + controller.error) * controller.k_I > controller.minOutput) ) {
+		            controller.totalError += controller.error;
+		        }
+
+		        controller.result = (controller.k_P * controller.error +
+		                              controller.k_I * controller.totalError +
+		                              controller.k_D * (controller.error - controller.prevError));
+		        controller.prevError = controller.error;
+
+		        if (controller.result > controller.maxOutput) {
+		            controller.result = controller.maxOutput;
+		        } else if (controller.result < controller.minOutput) {
+		            controller.result = controller.minOutput;
+		        }
+		  return controller.result;
+    } else {
+    return 0.0;
+  }
+}
