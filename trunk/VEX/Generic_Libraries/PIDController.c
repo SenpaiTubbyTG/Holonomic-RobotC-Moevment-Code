@@ -22,6 +22,36 @@ typedef struct {
 	int outputMotorIndex;
 } PIDController;
 
+void init(PIDController controller) {
+	controller.k_P = 0;
+	controller.k_I = 0;
+	controller.k_D = 0;
+	controller.enabled = false;
+	controller.minInput = 0;
+	controller.maxInput = 0;
+	controller.minOutput = 0;
+	controller.maxOutput = 0;
+	controller.maxError = 9999;
+	controller.totalError = 0;
+	controller.prevError = 0;
+}
+
+void init(PIDController controller, int inputIndex, int outputIndex) {
+	controller.k_P = 0;
+	controller.k_I = 0;
+	controller.k_D = 0;
+	controller.enabled = false;
+	controller.minInput = 0;
+	controller.maxInput = 0;
+	controller.minOutput = 0;
+	controller.maxOutput = 0;
+	controller.maxError = 9999;
+	controller.totalError = 0;
+	controller.prevError = 0;
+	controller.inputIndex = inputIndex;
+	controller.outputIndex = outputIndex;
+}
+
 void enable(PIDController controller) {
 	controller.enabled = true;
 }
