@@ -51,6 +51,7 @@ void disable(PIDController controller) {
 }
 
 void setMaxError(PIDController controller, int maxError) {
+	if(maxError >= 0);
 	controller.maxError = maxError;
 }
 
@@ -74,13 +75,17 @@ void setPIDs(PIDController controller, int kP, int kI, int kD) {
 }
 
 void setInputRange(PIDController controller, int min, int max) {
-	controller.minInput = min;
-	controller.maxInput = max;
+	if(max > min) {	
+		controller.minInput = min;
+		controller.maxInput = max;
+	}
 }
 
 void setOutputRange(PIDController controller, int min, int max) {
-	controller.minOutput = min;
-	controller.maxOutput = max;
+	if(max > min && min >= -127 && max <= 127) {
+		controller.minOutput = min;
+		controller.maxOutput = max;
+	}	
 }
 
 void calculatePID(PIDController controller) {
