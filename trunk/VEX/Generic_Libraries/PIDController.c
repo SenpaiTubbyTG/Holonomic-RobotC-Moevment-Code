@@ -37,17 +37,7 @@ void init(PIDController controller) {
 }
 
 void init(PIDController controller, int inputIndex, int outputIndex) {
-	controller.k_P = 0;
-	controller.k_I = 0;
-	controller.k_D = 0;
-	controller.enabled = false;
-	controller.minInput = 0;
-	controller.maxInput = 0;
-	controller.minOutput = -127;
-	controller.maxOutput = 127;
-	controller.maxError = 0;
-	controller.totalError = 0;
-	controller.prevError = 0;
+	init(controller);
 	controller.inputSensorIndex = inputIndex;
 	controller.outputMotorIndex = outputIndex;
 }
