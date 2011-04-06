@@ -57,7 +57,31 @@ void pre_auton()
 task autonomous()
 {
   pre_auton();
-  setArmSpeed(calculatePID(arm));
+  int arm_in_position = 0;  //arm is down; 0 for false and 1 for true
+
+drive_straight_suck(100,FULL,5);//speed,suckspeed,inches//drive straight and inhale the red stack at the same time
+
+while(arm_in_position != 1) {
+	  arm_in_position = lock(low_lock_point);
+	}
+
+turn(127,-90);//speed,degrees turn left
+
+while(arm_in_position != 1) {//place tubes
+	  arm_in_position = lock(low_descore_point);
+	}
+
+drive_straight(-FULL,5);// back up
+turn(FULL,180); //left or shouldn't matter, turn to face blue stack
+
+drive_straight_suck(FULL,FULL,10);//drive to blue stack//drive straight and inhale the blue stack at the same time
+
+turn(FULL,90);//turn right
+drive_straight(FULL,7);//drive straight
+turn(FULL,-45);//turn left to face tower
+drive_straight(FULL,7);//drive to tower
+sucker(-FULL,3);//spit tube into tower
+
 }
 
 task usercontrol()
@@ -74,7 +98,6 @@ task usercontrol()
   //end calibrarion*/
   while(true)
   {
-
     //Auto_Arm/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
     if(vexRT[Btn7L] == 1)//auto button close loop
     {
