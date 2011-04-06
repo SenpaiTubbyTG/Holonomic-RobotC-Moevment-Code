@@ -38,7 +38,7 @@ void pre_auton()
 }
 
 /****************************************************************************************DRIVING FUNCTIONS*****************************************************************************************/
-int leftDrivePower, rightDrivePower, x, y, rampLimit = 5, leftDrivePrevious, rightDrivePrevious;//drivetrain variables
+int leftDrivePower, rightDrivePower, x, y, rampLimit = 2, leftDrivePrevious, rightDrivePrevious;//drivetrain variables
 
 
 void resetDriveVariables(){
@@ -60,14 +60,14 @@ void stopDrive(){
 void driveTank(int left, int right, bool square, bool ramp){
   if(square){
     if(left!=0){
-      leftDrivePower = ((left*left)/128)*(left/abs(left));
+      leftDrivePower = ((left*left)/127)*(left/abs(left));
     }
     else{
       leftDrivePower = 0;
     }
 
     if(right!=0){
-      rightDrivePower = ((right*right)/128)*(right/abs(right));
+      rightDrivePower = ((right*right)/127)*(right/abs(right));
     }
     else{
       rightDrivePower = 0;
@@ -78,8 +78,24 @@ void driveTank(int left, int right, bool square, bool ramp){
     rightDrivePower = right;
   }
 
-  if(ramp == true){//ramping code by taking a running average of the past two motor values and the current motor value and averaging the three together
+  if(ramp == true){
+    if(abs(rightDrivePower) > abs(rightDrivePrevious) + rampLimit){
+      if(rightDrivePower > (rightDrivePower + rampLimit)){
+        rightDrivePower = rightDrivePrevious + rampLimit;
+      }
+      else{
+        rightDrivePower = rightDrivePrevious - rampLimit;
+      }
+    }
 
+    if(abs(leftDrivePower) > abs(leftDrivePrevious) + rampLimit){
+      if(leftDrivePower > (leftDrivePower + rampLimit)){
+        leftDrivePower = leftDrivePrevious + rampLimit;
+      }
+      else{
+        leftDrivePower = leftDrivePrevious - rampLimit;
+      }
+    }
   }
 
   setDriveMotors();
@@ -88,14 +104,14 @@ void driveTank(int left, int right, bool square, bool ramp){
 void driveArcade(int power, int turn, bool square, bool ramp){
   if(square){
     if(power != 0){
-      y = ((power*power)/128)*(power/abs(power));
+      y = ((power*power)/127)*(power/abs(power));
     }
     else{
       y = 0;
     }
 
     if(turn!=0){
-      x = ((turn*turn)/128)*(turn/abs(turn));
+      x = ((turn*turn)/127)*(turn/abs(turn));
     }
     else{
       x = 0;
@@ -109,7 +125,7 @@ void driveArcade(int power, int turn, bool square, bool ramp){
   leftDrivePower = y+x;
   rightDrivePower = y-x;
 
-  if(ramp == true){//ramping code by taking a running average of the past two motor values and the current motor value and averaging the three together.
+  if(ramp == true){
     if(abs(rightDrivePower) > abs(rightDrivePrevious) + rampLimit){
       if(rightDrivePower > (rightDrivePower + rampLimit)){
         rightDrivePower = rightDrivePrevious + rampLimit;
@@ -135,17 +151,20 @@ void driveArcade(int power, int turn, bool square, bool ramp){
   rightDrivePrevious = rightDrivePower;
 }
 /*******************************************************************************************Arm & Claw Code****************************************************************************************/
+
 int armPower, clawPower, armPosition, clawPosition, armTolerance, clawTolerance, initialArmPosition, initialClawPosition, armOffset, clawOffset;//arm and claw tolerance to be set
-int armFloor = 2213, armLowPlace = 3079, armLowScore = 2472, armHighPlace = 3303, armHighScore = 2872, armMax = 3845;//arm positions. Place is position above goal, Score is on goal for tubes, floor is start position
+int armFloor = 2213, armLowPlace = 3079, armLowScore = 2472, armHighPlace = 3303, armHighScore = 2872, armMax = 3845, armSetPoint, armState = 0;//arm positions. Place is position above goal, Score is on goal for tubes, floor is start position
 int clawOpen = 2253, clawClosed = 3616, clawGuiding = 2989;//claw positions. Open is initial position, close is closed on tubes, Guiding is open slightly to better align on tubes for close
-int armInput, clawInput;//arm variables used in competitions code. Placed here to keep them with the rest of the arm variables
+int armInput, clawInput, armPreviousInput, armRampLimit = 2;//arm variables used in competitions code. Placed here to keep them with the rest of the arm variables
 bool armPositionReached, clawPositionReached;
+
 /*
   setInitialPosition() is used to save the beginning values of the arm and claw at the start of the program. The program will assume that the arm and claw start out with the arm at the lowest
   point and the claw to be fully open. This will allow for relative positions of the arm and claw throughout programs to account for any possible shift in the potentiometers.
   Possible addition is to add a limitswitch to the bar that is the physical limit for the arm to reset the initial position of the arm whenever the arm is fully lowered to account for any
   possible shift of the potentiometer during the match. (STILL TO BE DONE, NOT NECESSARY BUT WOULD BE NICE)
 */
+
 void setInitialPosition(){
   initialArmPosition = SensorValue[armPot];
   initialClawPosition = SensorValue[clawPot];
@@ -161,11 +180,20 @@ void setArmPosition(){
 }
 
 void setArmMotors(){
+  /*if(abs(armPower) > abs(armPreviousInput)+armRampLimit){
+    if(armPower > armPreviousInput + armRampLimit){
+      armPower = armPreviousInput + armRampLimit;
+    }
+    else if(armPower < armPreviousInput - armRampLimit){
+      armPower = armPreviousInput - armRampLimit;
+    }
+  }
+  */
   motor[armleft1] = motor[armleft2] = motor[armright1] = motor[armright2] = armPower;
   motor[claw] = clawPower;
 }
 
-bool armMove(int aPower, int cPower, int armPos, int clawPos){//basic controls right now. Should be replaced with a proper PID loop control on the arm position when the programmer isn't tired.
+bool armMoveAuton(int aPower, int cPower, int armPos, int clawPos){//basic controls right now. Should be replaced with a proper PID loop control on the arm position when the programmer isn't tired.
   if((SensorValue[armPot] <= (armPos - armTolerance))||(SensorValue[armPot] >= (armPos + armTolerance))){
     armPower = ((armPos - armPot)/armPos) * aPower;
     armPositionReached = false;
@@ -188,6 +216,46 @@ bool armMove(int aPower, int cPower, int armPos, int clawPos){//basic controls r
   return clawPositionReached && armPositionReached;
 }
 
+void armMoveTeleop(int cPower, int armPos, int clawPos){
+
+  if((SensorValue[armPot] <= (armPos - armTolerance))||(SensorValue[armPot] >= (armPos + armTolerance))){
+    armPower = ((armPos - armPot)/armPos) * 128;
+  }
+  else{
+    armPower = 0;
+  }
+
+  if((SensorValue[clawPot] <= (clawPos - clawTolerance))||(SensorValue[clawPot] >= (clawPos + clawTolerance))){
+    clawPower = ((clawPos - clawPot)/clawPos) * cPower;
+  }
+  else{
+    clawPower = 0;
+  }
+
+  setArmMotors();
+}
+
+void armMoveTeleop(int cPower, int armPos){
+
+  /*if((SensorValue[armPot] <= (armPos - armTolerance))||(SensorValue[armPot] >= (armPos + armTolerance))){
+    armPower = ((armPos - armPot)/armPos) * 128;
+  }
+  else{
+    armPower = 0;
+  }
+  */
+
+  if(SensorValue[armPot] > armPos){
+    armPower = 50;
+  }
+  else if(SensorValue[armPot] < armPos){
+    armPower = -128;
+  }
+  clawPower = cPower;
+
+  setArmMotors();
+}
+
 void armMove(int aPower, int cPower){
   armPower = aPower;
   clawPower = cPower;
@@ -207,17 +275,79 @@ task autonomous()
 task usercontrol()
 {
   resetDriveVariables();
+  armState = 0;
 	while (true)
 	{
     driveArcade(vexRT[Ch3],vexRT[Ch4],true,true);//leave both square and ramp as false until the code is proven to work
 
     if (vexRT[Btn6U] != 0 ||vexRT[Btn5U] != 0 )
-      clawInput = 110;
+      clawInput = 128;
     else if(vexRT[Btn6D] != 0 || vexRT[Btn5D] != 0)
       clawInput = -63;
     else
       clawInput = 0;
 
-    armMove(vexRT[Ch2], clawInput);
-	}
+    armMove(vexRT[Ch2],clawInput);
+
+    /*
+    switch(armState){
+      case 0://arm at floor
+        if(vexRT[Btn8D] != 0){//arm go to above low goal
+          armSetPoint = armLowPlace;
+          armState = 1;
+        }
+        else if(vexRT[Btn8R] != 0){//arm go to above high goal
+          armSetPoint = armHighPlace;
+          armState = 3;
+        }
+      break;
+      case 1://arm above low goal
+        if(vexRT[Btn8D] != 0){//arm going to score on low goal
+          armSetPoint = armLowScore;
+          armState = 2;
+        }
+        else if(vexRT[Btn8R] != 0){//arm going to above high goal
+	        armSetPoint = armHighPlace;
+	        armState = 3;
+        }
+      break;
+      case 2://arm scoring on low goal
+        if (vexRT[Btn8D] != 0){//arm going to floor
+          armSetPoint = armFloor;
+          armState = 0;
+        }
+        else if(vexRT[Btn8R] != 0){//arm going to above low goal
+          armSetPoint = armLowPlace;
+          armState = 1;
+        }
+      break;
+      case 3://arm above high goal
+        if (vexRT[Btn8D] != 0){//arm going to score on high goal
+          armSetPoint = armHighScore;
+          armState = 4;
+        }
+        else if(vexRT[Btn8R] != 0){//arm going to above low goal
+          armSetPoint = armHighPlace;
+          armState = 1;
+        }
+      break;
+      case 4://arm scoring on high goal
+        if (vexRT[Btn8D] != 0){
+          armSetPoint = armFloor;
+          armState = 0;
+        }
+        else if(vexRT[Btn8R] != 0){
+          armSetPoint = armHighPlace;
+          armState = 3;
+        }
+      break;
+      default:
+        armMove(0,0);
+        armState = 0;
+    }
+
+    armSetPoint = armSetPoint + vexRT[Ch2];
+    armMoveTeleop(clawInput,armSetPoint);
+	  */
+  }
 }
