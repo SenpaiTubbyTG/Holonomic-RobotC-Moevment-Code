@@ -106,9 +106,9 @@ void calculatePID(PIDController controller) {
 		            controller.totalError += controller.error;
 		        }
 
-		        controller.result = (controller.k_P * controller.error +
-		                              controller.k_I * controller.totalError +
-		                              controller.k_D * (controller.error - controller.prevError));
+		        controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
+                                               controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
+                                               (controller.error - controller.prevError) / controller.k_D);
 		        controller.prevError = controller.error;
 
 		        if (controller.result > controller.maxOutput) {
@@ -139,9 +139,9 @@ int calculatePID(PIDController controller) {
 		            controller.totalError += controller.error;
 		        }
 
-		        controller.result = (controller.k_P * controller.error +
-		                              controller.k_I * controller.totalError +
-		                              controller.k_D * (controller.error - controller.prevError));
+		        controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
+                                               controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
+                                               (controller.error - controller.prevError) / controller.k_D);
 		        controller.prevError = controller.error;
 
 		        if (controller.result > controller.maxOutput) {
@@ -155,35 +155,35 @@ int calculatePID(PIDController controller) {
   }
 }
 
-int calculatePID(PIDController controller, int sensorInput) {
+int calculatePID(PIDController controller) {
 
-	if (controller.enabled) {
-		controller.input = sensorInput;
-		controller.error = controller.setpoint - controller.input;
-		            if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
-		                if (controller.error > 0) {
-		                    controller.error = controller.error - controller.maxInput + controller.minInput;
-		                } else {
-		                    controller.error = controller.error + controller.maxInput - controller.minInput;
-		                }
-		            }
+        if (controller.enabled) {
+                controller.input = SensorValue[controller.inputSensorIndex];
+                controller.error = controller.setpoint - controller.input;
+                            if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
+                                if (controller.error > 0) {
+                                    controller.error = controller.error - controller.maxInput + controller.minInput;
+                                } else {
+                                    controller.error = controller.error + controller.maxInput - controller.minInput;
+                                }
+                            }
 
-		        if ( ((controller.totalError + controller.error) * controller.k_I < controller.maxOutput)
-		                && ((controller.totalError + controller.error) * controller.k_I > controller.minOutput) ) {
-		            controller.totalError += controller.error;
-		        }
+                        if ( ((controller.totalError + controller.error) * controller.k_I < controller.maxOutput)
+                                && ((controller.totalError + controller.error) * controller.k_I > controller.minOutput) ) {
+                            controller.totalError += controller.error;
+                        }
 
-		        controller.result = (controller.k_P * controller.error +
-		                              controller.k_I * controller.totalError +
-		                              controller.k_D * (controller.error - controller.prevError));
-		        controller.prevError = controller.error;
+                        controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
+                                               controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
+                                               (controller.error - controller.prevError) / controller.k_D);
+                        controller.prevError = controller.error;
 
-		        if (controller.result > controller.maxOutput) {
-		            controller.result = controller.maxOutput;
-		        } else if (controller.result < controller.minOutput) {
-		            controller.result = controller.minOutput;
-		        }
-		  return controller.result;
+                        if (controller.result > controller.maxOutput) {
+                            controller.result = controller.maxOutput;
+                        } else if (controller.result < controller.minOutput) {
+                            controller.result = controller.minOutput;
+                        }
+                  return controller.result;
     } else {
     return 0.0;
   }
