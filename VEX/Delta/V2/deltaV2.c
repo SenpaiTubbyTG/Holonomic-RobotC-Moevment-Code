@@ -69,6 +69,7 @@ void pre_auton()
 task autonomous()
 {
   pre_auton();
+
   int arm_in_position = 0;  //arm is down; 0 for false and 1 for true
 
   drive_straight_suck(100,FULL,5);//speed,suckspeed,inches//drive straight and inhale the red stack at the same time
