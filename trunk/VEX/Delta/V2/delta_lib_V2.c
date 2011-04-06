@@ -13,7 +13,6 @@
 #pragma config(Motor,  port9,           SuckL,         tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port10,          DriveLB,       tmotorNormal, openLoop, reversed)
 
-
 #define FULL 127
 
 /*Set Arm Speed*/

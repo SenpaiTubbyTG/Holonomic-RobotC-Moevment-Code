@@ -1,4 +1,3 @@
-/////////////////////////////////////////////////////
 typedef struct {
 	int k_P;
 	int k_I;
@@ -142,8 +141,8 @@ int calculatePID(PIDController controller) {
 		            controller.totalError += controller.error;
 		        }
 
-		        controller.result = (controller.k_P * controller.error +
-		                              controller.k_I * controller.totalError +
+		        controller.result = (controller.error/ controller.k_P +// inverted and switch from "*" to "/"
+		                               controller.totalError/controller.k_I + // inverted and switch from "*" to "/"
 		                              controller.k_D * (controller.error - controller.prevError));
 		        controller.prevError = controller.error;
 
@@ -157,4 +156,3 @@ int calculatePID(PIDController controller) {
     return 0.0;
   }
 }
-/////////////////////////////////////////////////////

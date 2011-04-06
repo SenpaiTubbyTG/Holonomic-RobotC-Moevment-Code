@@ -33,9 +33,13 @@ int high_lock_point = arm_grounded + 1100;  // ...high goal
 
 //PID//////////////////
 
-int k_P = 127/160;
+PIDController arm;
+
+int goal_value = 1000;
+int k_P = 1;
 int k_I = 0;
 int k_D = 0;
+
 
 //Pre Auton///////////
 void pre_auton()
@@ -52,6 +56,14 @@ void pre_auton()
   descore_high_point= arm_grounded + 1000;//...high descore
   high_lock_point = arm_grounded + 1100; // ...high goal
   arm_grounded += 250;
+
+  //PID:
+  init(arm,PotArm,port4);
+	setSetpoint(arm, goal_value);
+	setPIDs(arm, k_P, k_I, k_D);
+	enable(arm);
+
+
 }
 
 task autonomous()
