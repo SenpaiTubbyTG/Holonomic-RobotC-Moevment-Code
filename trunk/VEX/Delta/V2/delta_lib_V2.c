@@ -25,9 +25,14 @@ void setSuckSpeed(int speed) {
   motor[SuckR] = motor[SuckL] = speed;
 }
 
+/*Set Drive Speed: Left & Right*/
+void setDriveSpeed(int speed) {
+  motor[DriveRF] = motor[DriveRB] = speed;
+}
+
 /*Set Drive Right Speed*/
 void setDriveRSpeed(int speed) {
-  motor[DriveRF] = motor[DriveRB] = speed;
+  motor[DriveRF] = motor[DriveRB] = motor[DriveLF] = motor[DriveLB] = speed;
 }
 
 /*Set Drive Left Speed*/
@@ -37,8 +42,7 @@ void setDriveLSpeed(int speed) {
 
 /*Kill Drive Train Motors*/
 void killdrive() {
-  setDriveRSpeed(0);
-  setDriveLSpeed(0);
+  setDriveSpeed(0);
 }
 
 /*Kill Drive Train Motors*/
@@ -102,8 +106,7 @@ int sucker(int speed, int duration) { //positive numbers for out
 */
 
 void drive_straight_msec(int speed, int duration) {
-  setDriveRSpeed(speed);
-  setDriveLSpeed(speed);
+  setDriveSpeed(speed);
   wait1Msec(duration);
   killdrive;
 }
@@ -114,8 +117,7 @@ void drive_straight_msec(int speed, int duration) {
 */
 
 void drive_straight_suck_msec(int speed, int suckspeed, int duration) {
-  setDriveRSpeed(speed);
-  setDriveLSpeed(speed);
+  setDriveSpeed(speed);
   setSuckSpeed(suckspeed);
   wait1Msec(duration);
   killdrive;
@@ -147,8 +149,7 @@ void drive_straight_suck(int speed, int suckspeed, float distance) {
       setSuckSpeed(suckspeed);
     }
     else {
-      setDriveRSpeed(speed);
-      setDriveLSpeed(speed);
+      setDriveSpeed(speed);
       setSuckSpeed(suckspeed);
     }
   }
@@ -178,9 +179,8 @@ void drive_straight(int speed, float distance) {
       setDriveLSpeed(speed);
     }
     else {
-      setDriveRSpeed(speed);
-      setDriveLSpeed(speed);
-    }
+      setDriveSpeed(speed);
+      }
   }
   killdrive
 }
@@ -207,9 +207,8 @@ int drive_straight_unlocked(int speed, float distance) {
       setDriveLSpeed(speed);
     }
     else {
-      setDriveRSpeed(speed);
-      setDriveLSpeed(speed);
-    }
+      setDriveSpeed(speed);
+      }
     return 0;
   }
   else
@@ -244,6 +243,5 @@ void turn(int speed, int degrees) {
     setDriveRSpeed(speed);
     setDriveLSpeed(-speed);
   }
-  setDriveRSpeed(0);
-  setDriveLSpeed(0);
+  killdrive
 }

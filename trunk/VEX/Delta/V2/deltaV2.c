@@ -22,22 +22,20 @@
 #pragma userControlDuration(200)
 
 #include "delta_lib_V2.c" //Main Funtion Library
-#include "PIDController.c"
-#include "PIDController.c"
+#include "PID Test.c"
 
 //Standard Lock////////
-int arm_grounded = SensorValue[PotArm];    // sets ground point
+int arm_grounded = SensorValue[PotArm];     // sets ground point
 int low_descore_point = arm_grounded + 500; // sets low descore arm pooint
-int low_lock_point = arm_grounded + 800;   //...lowgoal
+int low_lock_point = arm_grounded + 800;    //...lowgoal
 int descore_high_point= arm_grounded + 1000;//...high descore
-int high_lock_point = arm_grounded + 1100; // ...high goal
+int high_lock_point = arm_grounded + 1100;  // ...high goal
 
 //PID//////////////////
-PIDController arm;
-int goal_value = 1000;
-int k_P = 100;
+
+int k_P = 127/160;
 int k_I = 0;
-int k_D = 20;
+int k_D = 0;
 
 //Pre Auton///////////
 void pre_auton()
@@ -54,19 +52,12 @@ void pre_auton()
   descore_high_point= arm_grounded + 1000;//...high descore
   high_lock_point = arm_grounded + 1100; // ...high goal
   arm_grounded += 250;
-
-  //PID Arm
-  init(arm);
-	setSetpoint(arm, goal_value);
-	setPIDs(arm, k_P, k_I, k_D);
-	enable(arm);
 }
 
 task autonomous()
 {
   pre_auton();
-	motor[arm1] = motor[arm2] = calculatePID(arm);
-
+  setArmSpeed(calculatePID(arm));
 }
 
 task usercontrol()
@@ -112,16 +103,10 @@ task usercontrol()
     //Manual_Arm/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
 
     if(vexRT[Ch3] < 15 && vexRT[Ch3] > -15){//Trim, if stick is between 15 & negative 15 motors equal 0.
-      motor[ArmRL] = 0;
-      motor[ArmRU] = 0;
-      motor[ArmLL] = 0;
-      motor[ArmLU] = 0;
+        setArmSpeed(0);
     }
     else{//motors = stick angle
-      motor[ArmRL] = vexRT[Ch3];
-      motor[ArmRU] = vexRT[Ch3];
-      motor[ArmLL] = vexRT[Ch3];
-      motor[ArmLU] = vexRT[Ch3];
+        setArmSpeed(vexRT[Ch3]);
     }
 
     //Claw/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
@@ -139,10 +124,8 @@ task usercontrol()
     }//: switch
 
     //Drive_Train/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
-    motor[DriveRB] = (vexRT[Ch2] - vexRT[Ch1]); // (y + x)
-    motor[DriveRF] = (vexRT[Ch2] - vexRT[Ch1]); // (y + x)
-    motor[DriveLB] = (vexRT[Ch2] + vexRT[Ch1]); // (y - x)
-    motor[DriveLF] = (vexRT[Ch2] + vexRT[Ch1]); // (y - x)
+    setDriveRSpeed((vexRT[Ch2] - vexRT[Ch1]));// (y + x)
+    setDriveLSpeed((vexRT[Ch2] + vexRT[Ch1]));// (y - x)
 
   }//while
 }//taskusercontrol
