@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 typedef struct {
 	int k_P;
 	int k_I;
@@ -21,7 +21,29 @@ typedef struct {
 
 	int inputSensorIndex;
 	int outputMotorIndex;
+
 } PIDController;
+
+
+void init(PIDController controller) {
+	controller.k_P = 0;
+	controller.k_I = 0;
+	controller.k_D = 0;
+	controller.enabled = false;
+	controller.minInput = 0;
+	controller.maxInput = 0;
+	controller.minOutput = -127;
+	controller.maxOutput = 127;
+	controller.maxError = 0;
+	controller.totalError = 0;
+	controller.prevError = 0;
+}
+
+void init(PIDController controller, int inputIndex, int outputIndex) {
+	init(controller);
+	controller.inputSensorIndex = inputIndex;
+	controller.outputMotorIndex = outputIndex;
+}
 
 void enable(PIDController controller) {
 	controller.enabled = true;
@@ -32,12 +54,13 @@ void disable(PIDController controller) {
 }
 
 void setMaxError(PIDController controller, int maxError) {
-	controller.maxError = maxError
+	if(maxError >= 0);
+	controller.maxError = maxError;
 }
 
 bool onTarget(PIDController controller) {
 	int error = abs(controller.setpoint - SensorValue[controller.inputSensorIndex]);
-	if (error <= maxError) {
+	if (error <= controller.maxError) {
 		return true;
 	} else {
 		return false;
@@ -55,13 +78,17 @@ void setPIDs(PIDController controller, int kP, int kI, int kD) {
 }
 
 void setInputRange(PIDController controller, int min, int max) {
-	controller.minInput = min;
-	controller.maxInput = max;
+	if(max > min) {
+		controller.minInput = min;
+		controller.maxInput = max;
+	}
 }
 
 void setOutputRange(PIDController controller, int min, int max) {
-	controller.minOutput = min;
-	controller.maxOutput = max;
+	if(max > min && min >= -127 && max <= 127) {
+		controller.minOutput = min;
+		controller.maxOutput = max;
+	}
 }
 
 void calculatePID(PIDController controller) {
@@ -130,31 +157,4 @@ int calculatePID(PIDController controller) {
     return 0.0;
   }
 }
-
-
-/////////////////////////////////////////////////////////
-//enables the PIDController
-void enable(PIDController controller);
-//disables the PIDController
-void disable(PIDController controller);
-
-//change the setpoint/goal value of the PIDController
-void setSetpoint(PIDController controller, int newSetpoint);
-
-//change the PID Constant/gain values
-void setPIDs(PIDController controller, int kP, int kI, int kD);
-
-//set input/output ranges
-void setInputRange(PIDController controller, int min, int max);
-void setOutputRange(PIDController controller, int min, int max);
-
-//set maximum allowed error
-void setMaxError(PIDController controller, int maxError);
-
-//returns a boolean value based on whether or not currentError <= maxError
-bool onTarget(PIDController controller);
-
-//add ONE to continuous section(s) like autonomous or teleop
-void calculatePID(PIDController controller);
-int calculatePID(PIDController controller);
-/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
