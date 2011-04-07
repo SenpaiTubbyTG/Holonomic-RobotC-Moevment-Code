@@ -20,15 +20,15 @@ task autonomous()
   pre_auton();
   int arm_in_position = 0;  //arm is down; 0 for false and 1 for true
 
-  drive_suck(100,FULL,5);//speed,suckspeed,inches//drive straight and inhale the red stack at the same time
+  drive_suck_linetube(100,FULL,5);//drive straight and inhale until red stack is possesed
   while(arm_in_position != 1) {
-    arm_in_position = lock(low_lock_point);
+    arm_in_position = lock(low_lock);
   }
 
   turn(127,-90);//speed,degrees turn left
 
   while(arm_in_position != 1) {//place tubes
-      arm_in_position = lock(low_descore_point);
+      arm_in_position = lock(low_descore);
   }
 
   drive(-FULL,5);// back up

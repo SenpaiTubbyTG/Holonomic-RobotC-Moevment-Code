@@ -2,22 +2,20 @@
 #pragma config(Sensor, dgtl1,  EncoderR,            sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  EncoderL,            sensorQuadEncoder)
 #pragma config(Sensor, dgtl12, TouchGoal,           sensorTouch)
-#pragma config(Motor,  port1,           SuckR,         tmotorNormal, openLoop)
-#pragma config(Motor,  port2,           DriveRB,       tmotorNormal, openLoop, reversed)
-#pragma config(Motor,  port3,           DriveRF,       tmotorNormal, openLoop, reversed)
-#pragma config(Motor,  port4,           DriveLB,       tmotorNormal, openLoop)
-#pragma config(Motor,  port5,           DriveLF,       tmotorNormal, openLoop)
-#pragma config(Motor,  port6,           ArmRL,         tmotorNormal, openLoop, reversed)
-#pragma config(Motor,  port7,           ArmRU,         tmotorNormal, openLoop, reversed)
-#pragma config(Motor,  port8,           ArmLL,         tmotorNormal, openLoop)
-#pragma config(Motor,  port9,           ArmLU,         tmotorNormal, openLoop, reversed)
-#pragma config(Motor,  port10,          SuckL,         tmotorNormal, openLoop, reversed)
+#pragma config(Motor,  port1,           DriveRB,       tmotorNormal, openLoop, reversed)
+#pragma config(Motor,  port2,           DriveRF,       tmotorNormal, openLoop, reversed)
+#pragma config(Motor,  port3,           DriveLF,       tmotorNormal, openLoop)
+#pragma config(Motor,  port4,           ArmRL,         tmotorNormal, openLoop, reversed)
+#pragma config(Motor,  port5,           ArmLL,         tmotorNormal, openLoop)
+#pragma config(Motor,  port6,           ArmRU,         tmotorNormal, openLoop, reversed)
+#pragma config(Motor,  port7,           ArmLU,         tmotorNormal, openLoop)
+#pragma config(Motor,  port8,           SuckR,         tmotorNormal, openLoop)
+#pragma config(Motor,  port9,           SuckL,         tmotorNormal, openLoop, reversed)
+#pragma config(Motor,  port10,          DriveLB,       tmotorNormal, openLoop, reversed)
 
 #include "Delta_Function_Library_1.0.c" //Main Funtion Library
 #define FULL 127
-
-
-
+#include "delta_V2.c"
 
 task autonomous()
 {
@@ -25,8 +23,6 @@ task autonomous()
   int arm_in_position = 0;  //arm is down; 0 for false and 1 for true
 
 drive_straight_suck(100,FULL,5);//speed,suckspeed,inches//drive straight and inhale the red stack at the same time
-
-
 
 while(arm_in_position != 1) {
 	  arm_in_position = lock(low_lock_point);
