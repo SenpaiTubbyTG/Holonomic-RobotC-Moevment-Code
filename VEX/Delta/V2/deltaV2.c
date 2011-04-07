@@ -54,11 +54,11 @@ void pre_auton()
   SensorValue[EncoderR] = 0;
 
   //Standard Arm:
-  arm_grounded = SensorValue[PotArm];    // sets ground point
-  low_descore = arm_grounded + 500; // sets low descore arm pooint
-  low_lock = arm_grounded + 800;   //...lowgoal
-  high_descore = arm_grounded + 1000;//...high descore
-  high_lock = arm_grounded + 1100; // ...high goal
+  arm_grounded = SensorValue[PotArm];       // sets ground point           (0 inches)
+  low_descore = arm_grounded + 1556 - 1247; // sets low descore arm point  (4.5 inches)
+  low_lock = arm_grounded + 2326 - 1247;    //...lowgoal                   (15 inches)
+  high_descore = arm_grounded + 1879- 1247; //...high descore              (x inches)
+  high_lock = arm_grounded + 2599 - 1247;   // ...high goal                (18.5 inches)
   //arm_grounded += 250;//what is this?????
 
   //PID:
