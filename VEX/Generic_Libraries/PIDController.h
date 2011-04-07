@@ -2,6 +2,8 @@
 void init(PIDController controller);
 //initializes constants, sensor input index, and motor output index so PID output sets motor speeds directly
 void init(PIDController controller, int inputIndex, int outputIndex);
+void init(PIDController controller, int inputIndex);
+void init(PIDController controller, int outputIndex);
 
 //enables the PIDController
 void enable(PIDController controller);
