@@ -27,8 +27,8 @@
 #pragma userControlDuration(200)
 
 #include "delta_lib_V2.c" //Main Funtion Library
+//#include "PIDController.c"
 #include "PID Test.c"
-
 //Standard Lock////////
 int arm_grounded;
 int low_descore;
@@ -44,6 +44,7 @@ int k_P = 1;
 int k_I = 0;
 int k_D = 0;
 
+bool PID_arm = false;
 
 //Pre Auton///////////
 void pre_auton()
@@ -59,15 +60,14 @@ void pre_auton()
   low_lock = arm_grounded + 2326 - 1247;    //...lowgoal                   (15 inches)
   high_descore = arm_grounded + 1879- 1247; //...high descore              (x inches)
   high_lock = arm_grounded + 2599 - 1247;   // ...high goal                (18.5 inches)
-  //arm_grounded += 250;//what is this?????
 
   //PID:
   init(arm,PotArm,port4);
-	setSetpoint(arm, goal_value);
-	setPIDs(arm, k_P, k_I, k_D);
-	enable(arm);
+  setSetpoint(arm, goal_value);
+  setPIDs(arm, k_P, k_I, k_D);
+  enable(arm);
 
-	}
+}
 
 task autonomous()
 {
@@ -98,7 +98,6 @@ task autonomous()
   turn(FULL,-45);//turn left to face tower
   drive(FULL,7);//drive to tower
   sucker(-FULL,3);//spit tube into tower
-
 }
 
 task usercontrol()
@@ -115,76 +114,85 @@ task usercontrol()
   //end calibrarion*/
   while(true)
   {
-    //Auto_Arm/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+    /*
+    //Auto_Arm//
     if(vexRT[Btn7L] == 1)//auto button close loop
     {
-      goal_lock = -1;   //sets to low lock
+    goal_lock = -1;   //sets to low lock
     }
     else if(vexRT[Btn7U] == 1) {
-      goal_lock = 1;	//sets to high lock
+    goal_lock = 1;	//sets to high lock
     }
     else if(vexRT[Btn7D] == 1) {// descore/ score on low goal...
-        goal_lock = 2;
+    goal_lock = 2;
     }
 
     if(goal_lock == -1)
-      lock(low_lock); //brings to low lock point
+    lock(low_lock); //brings to low lock point
     else if(goal_lock == 1)
-      lock(high_lock);//moves arm to high lock point
+    lock(high_lock);//moves arm to high lock point
 
-    ///////////////////////////////////////////////////////////////NEW STUFF TAKE THIS OUT IF IT DOESNT WORK
+    //NEW STUFF TAKE THIS OUT IF IT DOESNT WORK
     else if (goal_lock == 2)
-      lock(low_descore);//moves arm to descore lock point
+    lock(low_descore);//moves arm to descore lock point
     else if(goal_lock == 3)
-      lock(high_descore);
-    //////////////////////////////////////////////////////////////
+    lock(high_descore);
+    //------------------
 
-
-    //Manual_Arm/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
-
+    //Manual_Arm//
     if(vexRT[Ch3] < 15 && vexRT[Ch3] > -15){//Trim, if stick is between 15 & negative 15 motors equal 0.
-        setArmSpeed(0);
+    setArmSpeed(0);
     }
     else{//motors = stick angle
-        setArmSpeed(vexRT[Ch3]);
+    setArmSpeed(vexRT[Ch3]);
     }
 
-    //Claw/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+    //Claw//
     switch(vexRT[Btn5U] - vexRT[Btn5D])
     {
     case  1:motor[SuckR] = FULL;
-      motor[SuckL] = FULL;
-      break;
+    motor[SuckL] = FULL;
+    break;
     case -1:motor[SuckR] = -FULL;
-      motor[SuckL] = -FULL;
-      break;
+    motor[SuckL] = -FULL;
+    break;
     case  0:motor[SuckR] = 0;
-      motor[SuckL] = 0;
-      break;
+    motor[SuckL] = 0;
+    break;
     }//: switch
-/*PID ARM
-if (vexRT[ch3] > 5 || vexRT < -5) {
-  setArmSpeed(ch3);
-}
-else if (vexRT[Btn7L] == 1) {
-  setSetpoint(low_descore)
-}
-else if
-  (vexRT[Btn7U] == 1) {
-  setSetpoint(low_lock)
-}
-else if
-  (vexRT[Btn7R] == 1) {
-  setSetpoint(high_descore)
-}
-else if
-  (vexRT[Btn7D] == 1) {
-  setSetpoint(high_lock)
-}
-*/
-    //Drive_Train/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+    */
+
+    //PID ARM//
+    if (vexRT[ch3] > 5 || vexRT[ch3] < -5) {
+      PID_arm;
+      setArmSpeed(ch3);
+    }
+    else if (vexRT[Btn7L] == 1) {
+      PID_arm = false;
+      setSetpoint(arm, low_lock);
+    }
+    else if
+      (vexRT[Btn7U] == 1) {
+      PID_arm;
+      setSetpoint(arm, low_descore);
+    }
+    else if
+      (vexRT[Btn7R] == 1) {
+      PID_arm;
+      setSetpoint(arm, high_descore);
+    }
+    else if
+      (vexRT[Btn7D] == 1) {
+      PID_arm;
+      setSetpoint(arm, high_lock);
+    }
+
+    //Drive_Train//
     setDriveRSpeed((vexRT[Ch2] - vexRT[Ch1]));// (y + x)
     setDriveLSpeed((vexRT[Ch2] + vexRT[Ch1]));// (y - x)
 
+    if (PID_arm){
+      setArmSpeed(calculatePID(arm));
+    }
   }//while
 }//taskusercontrol

@@ -38,6 +38,16 @@ void init(PIDController controller) {
 	controller.prevError = 0;
 }
 
+void init(PIDController controller, int inputIndex) {
+	init(controller);
+	controller.inputSensorIndex = inputIndex;
+}
+
+void init(PIDController controller, int outputIndex) {
+	init(controller);
+	controller.outputMotorIndex = outputIndex;
+}
+
 void init(PIDController controller, int inputIndex, int outputIndex) {
 	init(controller);
 	controller.inputSensorIndex = inputIndex;
@@ -90,6 +100,7 @@ void setOutputRange(PIDController controller, int min, int max) {
 	}
 }
 
+/*
 void calculatePID(PIDController controller) {
 
 	if (controller.enabled) {
@@ -108,9 +119,9 @@ void calculatePID(PIDController controller) {
 		            controller.totalError += controller.error;
 		        }
 
-		        controller.result = (controller.k_P * controller.error +
-		                              controller.k_I * controller.totalError +
-		                              controller.k_D * (controller.error - controller.prevError));
+		        controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
+                                               controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
+                                               (controller.error - controller.prevError) / controller.k_D);
 		        controller.prevError = controller.error;
 
 		        if (controller.result > controller.maxOutput) {
@@ -122,7 +133,7 @@ void calculatePID(PIDController controller) {
 		motor[controller.outputMotorIndex] = controller.result;
 	}
 }
-
+*/
 int calculatePID(PIDController controller) {
 
 	if (controller.enabled) {
@@ -141,9 +152,9 @@ int calculatePID(PIDController controller) {
 		            controller.totalError += controller.error;
 		        }
 
-		        controller.result = (controller.error/ controller.k_P +// inverted and switch from "*" to "/"
-		                               controller.totalError/controller.k_I + // inverted and switch from "*" to "/"
-		                              controller.k_D * (controller.error - controller.prevError));
+		        controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
+                                               controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
+                                               (controller.error - controller.prevError) / controller.k_D);
 		        controller.prevError = controller.error;
 
 		        if (controller.result > controller.maxOutput) {
@@ -153,6 +164,6 @@ int calculatePID(PIDController controller) {
 		        }
 		  return controller.result;
     } else {
-    return 0.0;
+    return 0;
   }
 }
