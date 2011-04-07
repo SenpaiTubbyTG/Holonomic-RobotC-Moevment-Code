@@ -36,6 +36,16 @@ void init(PIDController controller) {
 	controller.prevError = 0;
 }
 
+void init(PIDController controller, int inputIndex) {
+	init(controller);
+	controller.inputSensorIndex = inputIndex;
+}
+
+void init(PIDController controller, int outputIndex) {
+	init(controller);
+	controller.outputMotorIndex = outputIndex;
+}
+
 void init(PIDController controller, int inputIndex, int outputIndex) {
 	init(controller);
 	controller.inputSensorIndex = inputIndex;
