@@ -30,7 +30,7 @@ int low_lock;
 int high_descore;
 int high_lock;
 
-//PID//////////////////
+/******ARM PID*****************************************************************/
 PIDController arm; //initializes PID controller
 //PID constants
 int goal_value = 1000;
@@ -38,132 +38,21 @@ int k_P = 1;
 int k_I = 0;
 int k_D = 0;
 
-bool PID_arm = false;//arm PID enabled flag
-
-/**************Drive functions*************************************************/
-int leftDrivePower, rightDrivePower; //drivetrain variables
-//NOTE 10 IS AN ARBITRARY VALUE, HAS NOT BEEN TESTED
-int DeadZone = 10; //dead zone value for joysticks
-
-//checks dead zone and scales values excluding deadzone back to 0-127
-
-int checkDeadZone(int x) {
-    if (abs(x) < DeadZone) {
-        return 0;
-    } else {
-        if (x < 0)
-            return (x + DeadZone)*(FULL / (FULL - DeadZone)
-
-        else
-            return (x - DeadZone)*(FULL / (FULL - DeadZone)
-        }
-}
-int getSign(int x) {
-    if (x < 0)
-        return -1;
-
-    else
-        return 1;
-    }
-//Rate filter function, returns motor value, define rate limit
-//NOTE: @Allen else without matching if ln 84? is that necessary? is it default?
-//Also,
-int rateFilter(int JoystickValue, int MotorValue, int accelRateLimit) {
-    if (JoystickValue > 0) { //Want to go fwd
-        if (MotorValue >= 0) { //already going fwd
-            if (JoystickValue > MotorValue) {
-                MotorValue += accelRateLimit; //accelerating from fwd to faster fwd
-            } else {
-                MotorValue = JoystickValue; //Declarating to a value greater than zero
-            }
-        } else { //want to go foward but going rev
-            if (MotorValue < -64) {
-                MotorValue = MotorValue / 2; //slow down a little
-            } else {
-                MotorValue = 0; //slow down to zero for a cyle if motor is already going less than half speed
-            }
-        }
-    } else if (JoystickValue < 0) { //Want to go rev
-        if (MotorValue <= 0) { //already going rev
-            if (JoystickValue > MotorValue) {
-                MotorValue -= accelRateLimit; //accelerating from rev to faster rev
-            } else {
-                MotorValue = JoystickValue; //Declarating to a value less than zero
-            }
-        }
-    } else { //want to go rev but going fwd
-        if (MotorValue > 64) {
-            MotorValue = MotorValue / 2; //slow down a little
-        } else {
-            MotorValue = 0; //slow down to zero for a cyle if motor is going slowly
-        } else { //should only be when joystick equals 0
-
-            MotorValue = 0;
-        }
-    }
-}
-
-void setDriveMotors() {
-
-    motor[DriveLF] = leftDrivePower;
-    motor[DriveLB] = leftDrivePower;
-    motor[DriveRF] = rightDrivePower;
-    motor[DriveRB] = rightDrivePower;
-}
-
-void stopDrive() {
-
-    rightDrivePower = leftDrivePower = 0;
-            setDriveMotors();
-}
-//scales input based on function, arcsin by default
-int scaleInput(int input) {
-    if (input != 0) {
-        //Squaring input scaling (technically cubic, used to preserve sign)
-        //  leftDrivePower = (left^3)/(127^2);
-        return asin(input / 127) / asin(1)*127;
-    } else {
-        return = 0;
-    }
-}
-
-//standard tank drive using left and right joysticks
-//note arcsin indicates method for scaling input values, pass true to enable
-void driveTank(int leftInput, int rightInput, bool scale, bool filter) {
-    //checks for dead zone and rescales from -127 to 127
-    leftInput = checkDeadZone(leftInput);
-    rightInput = checkDeadZone(leftInput);
-    //scales initial input by specified function (arcsin)
-    if (scale) {
-        scaleInput(leftInput);
-        scaleInput(rightInput);
-    }
-    //sets power of drive train based on rate filter
-    if(filter){
-        leftDrivePower = rateFilter(leftInput, leftDrivePower, 1);
-        rightDrivePower = rateFilter(rightInput, rightDrivePower, 1);
-    }
-    else{
-        leftDrivePower = leftInput;
-        rightDrivePower = rightInput;
-    }
-    //sets motors to power values
-    setDriveMotors();
-}
+bool PID_arm = false; //arm PID enabled flag
 
 void pre_auton() {
-  //Standard Arm:
-  arm_grounded = SensorValue[PotArm];       // sets ground point           (0 inches)
-  low_descore = arm_grounded + 1556 - 1247; // sets low descore arm point  (4.5 inches)
-  low_lock = arm_grounded + 2326 - 1247;    //...lowgoal                   (15 inches)
-  high_descore = arm_grounded + 1879- 1247; //...high descore              (x inches)
-  high_lock = arm_grounded + 2599 - 1247;   // ...high goal                (18.5 inches)
-
-  //PID:
-  init(arm,PotArm,port4);
-  setSetpoint(arm, goal_value);
-  setPIDs(arm, k_P, k_I, k_D);
-  enable(arm);
+    /*Standard Arm:
+    arm_grounded = SensorValue[PotArm];       // sets ground point           (0 inches)
+    low_descore = arm_grounded + 1556 - 1247; // sets low descore arm point  (4.5 inches)
+    low_lock = arm_grounded + 2326 - 1247;    //...lowgoal                   (15 inches)
+    high_descore = arm_grounded + 1879- 1247; //...high descore              (x inches)
+    high_lock = arm_grounded + 2599 - 1247;   // ...high goal                (18.5 inches)
+     */
+    //ARM PID:
+    init(arm, PotArm, port4);
+    setSetpoint(arm, goal_value);
+    setPIDs(arm, k_P, k_I, k_D);
+    enable(arm);
 }
 
 task autonomous() {
@@ -172,57 +61,80 @@ task autonomous() {
 task usercontrol() {
     pre_auton();
     int goal_lock = 0;
-  //0 for unlocked, -1 for low gal, 1 for high goal
-  //calibration for potentiometer setting the arm
-  /*int low_lock_point = SensorValue[in1] + 703;
-  //low goal potentiometer reading
-  //sets the low lock point based on the starting potentiometer point int high_lock_point = SensorValue[in1] + 1000;
-  //high goal potentiometer reading
-  //end calibrarion*/
+    //0 for unlocked, -1 for low gal, 1 for high goal
+    //calibration for potentiometer setting the arm
+    /*int low_lock_point = SensorValue[in1] + 703;
+    //low goal potentiometer reading
+    //sets the low lock point based on the starting potentiometer point int high_lock_point = SensorValue[in1] + 1000;
+    //high goal potentiometer reading
+    //end calibrarion*/
+
     while (true) {
-/*******DRIVE******************************************************************/
- /* Original drive code, basic, no input scaling
+        /*******DRIVE******************************************************************/
+        /* Original drive code, basic, no input scaling
          * motor[frontLeft] = motor[backLeft] = vexRT[Ch3];
-         motor[frontRight] = motor[backRight] = vexRT[Ch2];*/
+                motor[frontRight] = motor[backRight] = vexRT[Ch2];*/
 
         //Drive function with input scaling, disabled by default
- driveTank(vexRT[Ch3], vexRT[Ch2], false,false);
-/*******ARM********************************************************************/
-    //Auto_Arm//
-   /* if(vexRT[Btn7L] == 1)//auto button close loop
-    {
-    goal_lock = -1;   //sets to low lock
-    }
-    else if(vexRT[Btn7U] == 1) {
-    goal_lock = 1;	//sets to high lock
-    }
-    else if(vexRT[Btn7D] == 1) {// descore/ score on low goal...
-    goal_lock = 2;
-    }
+        driveTank(vexRT[Ch3], vexRT[Ch2], false, false);
+        /*******ARM********************************************************************/
 
-    if(goal_lock == -1)
-    lock(low_lock); //brings to low lock point
-    else if(goal_lock == 1)
-    lock(high_lock);//moves arm to high lock point
+        /*  if(vexRT[Btn7L] == 1)//auto button close loop
+            {
+                goal_lock = -1;   //sets to low lock
+            }
+            else if(vexRT[Btn7U] == 1) {
+                goal_lock = 1;	//sets to high lock
+            }
+            else if(vexRT[Btn7D] == 1) {// descore/ score on low goal...
+                goal_lock = 2;
+            }
 
-    //NEW STUFF TAKE THIS OUT IF IT DOESNT WORK
-    else if (goal_lock == 2)
-    lock(low_descore);//moves arm to descore lock point
-    else if(goal_lock == 3)
-    lock(high_descore);
-    //------------------
+            if(goal_lock == -1)
+                lock(low_lock); //brings to low lock point
+            else if(goal_lock == 1)
+                lock(high_lock);//moves arm to high lock point
 
-    //Manual_Arm//
-    if(vexRT[Ch3] < 15 && vexRT[Ch3] > -15){//Trim, if stick is between 15 & negative 15 motors equal 0.
-    setArmSpeed(0);
-    }
-    else{//motors = stick angle
-    setArmSpeed(vexRT[Ch3]);
-    }*/
+            //NEW STUFF TAKE THIS OUT IF IT DOESNT WORK
+            else if (goal_lock == 2)
+                lock(low_descore);//moves arm to descore lock point
+            else if(goal_lock == 3)
+                lock(high_descore);
+            //------------------
 
-    /* Original arm code*/
-    motor[ArmLU] = motor[ArmLL] = motor[ArmRU] = motor[ArmRL] =
-        (vexRT[Btn6D] - vexRT[Btn6U]) * FULL;
-    motor[collector1] = motor[collector2] = (vexRT[Btn5U] - vexRT[Btn5D]) * FULL;
+            //Manual_Arm//
+            if(vexRT[Ch3] < 15 && vexRT[Ch3] > -15){//Trim, if stick is between 15 & negative 15 motors equal 0.
+            setArmSpeed(0);
+            }
+            else{//motors = stick angle
+            setArmSpeed(vexRT[Ch3]);
+            }
+
+             Original arm code
+            motor[ArmLU] = motor[ArmLL] = motor[ArmRU] = motor[ArmRL] =
+                (vexRT[Btn6D] - vexRT[Btn6U]) * FULL;
+            motor[collector1] = motor[collector2] = (vexRT[Btn5U] - vexRT[Btn5D]) * FULL;
+         */
+        //PID ARM//
+        if (vexRT[Btn7L] == 1) {
+            PID_arm = true;
+            setSetpoint(arm, low_lock);
+        } else if
+            (vexRT[Btn7U] == 1) {
+            PID_arm = true;
+            setSetpoint(arm, low_descore);
+        } else if
+            (vexRT[Btn7R] == 1) {
+            PID_arm = true;
+            setSetpoint(arm, high_descore);
+        } else if
+            (vexRT[Btn7D] == 1) {
+            PID_arm = true;
+            setSetpoint(arm, high_lock);
+        }
+
+        if (PID_arm) {
+            setArmSpeed(calculatePID(arm));
+        }
     }
 }
