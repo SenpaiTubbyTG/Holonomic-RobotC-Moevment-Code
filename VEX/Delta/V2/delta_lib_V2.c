@@ -52,30 +52,54 @@ void killsuck() {
 }
 
 /*Arm Lock*/
+/*
+int lock(int final_pos) //locks arm to final_pos potentiometer point
+{
+int current_pos = SensorValue(PotArm); //reads potentiometer
+int direction;                      //up or down?
+int arm_diff = abs(current_pos - final_pos);//difference between current and desired points
+
+if(arm_diff > 100) {  //potentiometer is very precise, so
+if (current_pos > final_pos) {//arm too high
+direction = 1;    //will move down
+}
+else if(current_pos < final_pos) { //arm too low
+direction = -1; //will move up
+}
+
+setArmSpeed(FULL * direction);
+
+return 0;
+}
+else {  //in hindsight, I don't think this is necessary
+
+setArmSpeed(0);
+return 1;
+}
+}
+*/
 int lock(int final_pos) //locks arm to final_pos potentiometer point
 {
   int current_pos = SensorValue(PotArm); //reads potentiometer
   int direction;                      //up or down?
   int arm_diff = abs(current_pos - final_pos);//difference between current and desired points
 
-  if(arm_diff > 100) {  //potentiometer is very precise, so
+  if(arm_diff > 200) {  //potentiometer is very precise, so
       if (current_pos > final_pos) {//arm too high
         direction = 1;    //will move down
     }
     else if(current_pos < final_pos) { //arm too low
         direction = -1; //will move up
     }
-
     setArmSpeed(FULL * direction);
-
     return 0;
   }
   else {  //in hindsight, I don't think this is necessary
-
-    setArmSpeed(0);
+      setArmSpeed(0);
     return 1;
   }
 }
+/////////
 
 /*ARM TIME FUNCTION*/
 

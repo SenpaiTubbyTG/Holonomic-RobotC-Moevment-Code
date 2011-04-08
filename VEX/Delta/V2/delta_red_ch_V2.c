@@ -14,14 +14,14 @@
 #pragma config(Motor,  port10,          DriveLB,       tmotorNormal, openLoop, reversed)
 
 #include "delta_lib_V2.c" //Main Funtion Library
-
+#inclde
 task autonomous()
 {
   pre_auton();
   int arm_in_position = 0;  //arm is down; 0 for false and 1 for true
 
   drive_suck_linetube(100,FULL,5);//drive straight and inhale until red stack is possesed
-  while(arm_in_position != 1) {
+  /*while(arm_in_position != 1) {
     arm_in_position = lock(low_lock);
   }
 
@@ -41,4 +41,5 @@ task autonomous()
   turn(FULL,-45);//turn left to face tower
   drive(FULL,7);//drive to tower
   sucker(-FULL,3);//spit tube into tower
+*/
 }
