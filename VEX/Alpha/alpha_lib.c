@@ -36,11 +36,25 @@ int getSign(int x) {
     }
 
 //scales input based on function, arcsin by default
-int scaleInput(int input) {
+int scaleInput(int input, int function) {
     if (input != 0) {
         //Squaring input scaling (technically cubic, used to preserve sign)
         //  leftDrivePower = (left^3)/(127^2);
-        return asin(input / 127) / asin(1)*127;
+        switch (function)
+        {
+            case 1 :
+                return (input^3)/(127^2);
+                break;
+            case 2 :
+                return asin(input / 127) / asin(1)*127;
+                break;
+            case 3 :
+                atan((input^3)/(127^2))*127/atan(127);
+                break;
+            default :
+                return input;
+        }
+
     } else {
         return 0;
     }

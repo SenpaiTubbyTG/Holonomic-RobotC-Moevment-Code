@@ -20,24 +20,26 @@
 
 #include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
 #include "alpha_lib.c" //Main Funtion Library
-//#include "PIDController.c"
-#include "PID Test.c"
+#include "PIDController.c
 //Standard Lock////////
 int arm_grounded;
 int low_descore;
 int low_lock;
 int high_descore;
 int high_lock;
+int DriveMode;
 
 /******ARM PID*****************************************************************/
-/*PIDController arm; //initializes PID controller
-//PID constants
-int goal_value = 1000;
-int k_P = 1;
+PIDController arm;
+
+int startpoint = 0;
+int goal_value = startpoint;
+int change = -1000;
+int k_P = 10;
 int k_I = 0;
 int k_D = 0;
 
-bool PID_arm = false; //arm PID enabled flag*/
+bool PID_arm = false; //arm PID enabled flag
 
 void pre_auton() {
     //Standard Arm:
@@ -46,12 +48,15 @@ void pre_auton() {
     low_lock = arm_grounded + 2326 - 1247;    //...lowgoal                   (15 inches)
     high_descore = arm_grounded + 1879- 1247; //...high descore              (x inches)
     high_lock = arm_grounded + 2599 - 1247;   // ...high goal                (18.5 inches)
+    DriveMode=0;
 
-    /*//ARM PID:
-    init(arm, PotArm, port4);
-    setSetpoint(arm, goal_value);
+    startpoint = SensorValue[PotArm];
+    goal_value = startpoint + change;
+    //PID:
+    init(arm);
     setPIDs(arm, k_P, k_I, k_D);
-    enable(arm);*/
+    setSetpoint(arm, goal_value);
+    enable(arm);
 }
 
 task autonomous() {
@@ -60,7 +65,7 @@ task autonomous() {
 task usercontrol() {
     pre_auton();
     int goal_lock = 0;
-    //0 for unlocked, -1 for low gal, 1 for high goal
+    //0 for unlocked, -1 for low goal, 1 for high goal
     //calibration for potentiometer setting the arm
     /*int low_lock_point = SensorValue[in1] + 703;
     //low goal potentiometer reading
@@ -69,71 +74,59 @@ task usercontrol() {
     //end calibrarion*/
 
     while (true) {
-        /*******DRIVE******************************************************************/
-        // Original drive code, basic, no input scaling
-          motor[DriveLB] = motor[DriveLF] = vexRT[Ch3];
-                motor[DriveRB] = motor[DriveRF] = vexRT[Ch2];
+/*******DRIVE******************************************************************/
+        /* Original drive code, basic, no input scaling
+          motor[DriveLB] = motor[DriveLF] = checkDeadZone(vexRT[Ch3]);
+          motor[DriveRB] = motor[DriveRF] = checkDeadZone(vexRT[Ch2]);*/
 
-        //Drive function with input scaling, disabled by default
-       // driveTank(vexRT[Ch3], vexRT[Ch2], true, true);
-        /*******ARM********************************************************************/
-/*
-            if(vexRT[Btn7L] == 1)//auto button close loop
+        //Allows buttons to change drive mode (scaling function)
+        if(vexRT[Btn8U] == 1)// no scaling
             {
-                goal_lock = -1;   //sets to low lock
+                DriveMode = 0;
             }
-            else if(vexRT[Btn7U] == 1) {
-                goal_lock = 1;	//sets to high lock
+        if(vexRT[Btn8R] == 1)//Squaring function, concave up
+            {
+                DriveMode = 1;
             }
-            else if(vexRT[Btn7D] == 1) {// descore/ score on low goal...
-                goal_lock = 2;
+        if(vexRT[Btn8D] == 1)//arcsin function, concave up
+            {
+                DriveMode = 2;
             }
-
-            if(goal_lock == -1)
-                lock(low_lock); //brings to low lock point
-            else if(goal_lock == 1)
-                lock(high_lock);//moves arm to high lock point
-
-            //NEW STUFF TAKE THIS OUT IF IT DOESNT WORK
-            else if (goal_lock == 2)
-                lock(low_descore);//moves arm to descore lock point
-            else if(goal_lock == 3)
-                lock(high_descore);
-            //------------------
-
-            //Manual_Arm//
-            if(vexRT[Ch3] < 15 && vexRT[Ch3] > -15){//Trim, if stick is between 15 & negative 15 motors equal 0.
-            setArmSpeed(0);
+        
+        if(vexRT[Btn8L] == 1)//Sets to arctan(x^2) function, concave down
+            {
+                DriveMode = 3;
             }
-            else{//motors = stick angle
-            setArmSpeed(vexRT[Ch3]);
-            }*/
+//parameters (left input,right input,scaling (t/f),rate filter,(t/f),DriveMode)
+//rate filter disabled by default as constant has not been determined
+        driveTank(vexRT[Ch3], vexRT[Ch2], true, false,DriveMode)
+/*******ARM********************************************************************/
 
-            /* Original arm code*/
+        // Manual arm code
+        if(abs(vexRT[Btn5U])==1||abs(vexRT[btn5D])==1){
+            PID_arm=false;
             motor[ArmLU] = motor[ArmLL] = motor[ArmRU] = motor[ArmRL] =
                 (vexRT[Btn5D] - vexRT[Btn5U]) * FULL;
-            motor[collector1] = motor[collector2] = (vexRT[Btn6U] - vexRT[Btn6D]) * FULL;
-
-       /* //PID ARM//
-        if (vexRT[Btn7L] == 1) {
+        }
+        //PID ARM
+        if (vexRT[Btn7L] == 1) { //sets arm to low score
             PID_arm = true;
             setSetpoint(arm, low_lock);
-        } else if
-            (vexRT[Btn7U] == 1) {
+        } else if(vexRT[Btn7U] == 1) { //sets arm to low descore
             PID_arm = true;
             setSetpoint(arm, low_descore);
-        } else if
-            (vexRT[Btn7R] == 1) {
+        } else if(vexRT[Btn7R] == 1) { //sets arm to high descore
             PID_arm = true;
             setSetpoint(arm, high_descore);
-        } else if
-            (vexRT[Btn7D] == 1) {
+        } else if(vexRT[Btn7D] == 1) { //sets arm to high score
             PID_arm = true;
             setSetpoint(arm, high_lock);
         }
 
         if (PID_arm) {
-            setArmSpeed(calculatePID(arm));
-        }*/
+            setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
+        }
+/*******COLLECTOR**************************************************************/
+        motor[collector1] = motor[collector2] = (vexRT[Btn6U] - vexRT[Btn6D]) * FULL;
     }
 }
