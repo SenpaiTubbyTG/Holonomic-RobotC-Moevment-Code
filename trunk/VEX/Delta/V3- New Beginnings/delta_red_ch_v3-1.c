@@ -442,7 +442,7 @@ void pre_auton()
   low_lock = startpoint + 2265 - 1236;             //...lowgoal                   (15 inches)
   high_descore = startpoint + 1879- 1247;          //...high descore              (x inches)
   high_lock = startpoint + 2599 - 1247;            // ...high goal                (18.5 inches)
-
+  goal_value = startpoint;
   //--/ PID /------------------------------/
   init(arm);
 
@@ -451,7 +451,7 @@ void pre_auton()
 
   enable(arm);
 
-  arm.k_P = 10;
+  arm.k_P = 5;
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
@@ -499,31 +499,25 @@ task usercontrol()
   pre_auton();
   while (true)
   {
-
     //--/ Manual_Arm /------------------------------/
     //if(checkDeadZone(vexRT[Ch3]) != 0) {
-    if (vexRT[Ch3] > 1 || (vexRT[Ch3]) < -1){
+    if (vexRT[Ch3] > 15 || (vexRT[Ch3]) < -15){
       setArmSpeed(vexRT[Ch3]);
+      disable(arm);
+    } else {
+      setArmSpeed(calculatePID(arm, SensorValue[PotArm]));
     }
-    else if(vexRT[Btn7U] == 1) {
-      //setSetPoint(arm, low_lock);
-      setArmSpeed(-calculatePID(arm, SensorValue[PotArm]));
-      } else {
-      setArmSpeed(0);
-    }    //}
-    /*else if (vexRT[Btn7D] == 1) {
-    //setSetPoint(arm, low_descore);
-    calculatePID(arm, low_descore);
+
+    if(vexRT[Btn7U] == 1) {
+      setSetPoint(arm, high_lock);
+      enable(arm);
+    } else if (vexRT[Btn7D] == 1) {
+      setSetPoint(arm, low_descore);
+      enable(arm);
+    } else if(vexRT[Btn7L] == 1) {
+      disable(arm);
     }
-    else if (vexRT[Btn6U] == 1) {
-    //setSetPoint(arm, high_descore);
-    calculatePID(arm, high_descore);
-    }
-    else if (vexRT[Btn6D] == 1) {
-    //setSetPoint(arm, high_lock);
-    calculatePID(arm, high_lock);
-    }
-    */
+
     //  }
 
     //--/ INHALE /----------------------------------/
