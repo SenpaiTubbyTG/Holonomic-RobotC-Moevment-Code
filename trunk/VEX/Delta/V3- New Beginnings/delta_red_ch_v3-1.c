@@ -32,129 +32,129 @@
 #define AutonFULL 100
 //---------------------
 typedef struct {
-	int k_P;
-	int k_I;
-	int k_D;
+  int k_P;
+  int k_I;
+  int k_D;
 
-	bool enabled;
+  bool enabled;
 
-	int minInput;
-	int maxInput;
-	int minOutput;
-	int maxOutput;
-	int maxError;
+  int minInput;
+  int maxInput;
+  int minOutput;
+  int maxOutput;
+  int maxError;
 
-	int setpoint;
-	int result;
-	int input;
-	int error;
-	int prevError;
-	int totalError;
+  int setpoint;
+  int result;
+  int input;
+  int error;
+  int prevError;
+  int totalError;
 
-	int inputSensorIndex;
-	int outputMotorIndex;
+  int inputSensorIndex;
+  int outputMotorIndex;
 } PIDController;
 
 void init(PIDController controller) {
-	controller.k_P = 0;
-	controller.k_I = 0;
-	controller.k_D = 0;
-	controller.enabled = false;
-	controller.minInput = 0;
-	controller.maxInput = 0;
-	controller.minOutput = -127;
-	controller.maxOutput = 127;
-	controller.maxError = 0;
-	controller.totalError = 0;
-	controller.prevError = 0;
+  controller.k_P = 0;
+  controller.k_I = 0;
+  controller.k_D = 0;
+  controller.enabled = false;
+  controller.minInput = 0;
+  controller.maxInput = 0;
+  controller.minOutput = -127;
+  controller.maxOutput = 127;
+  controller.maxError = 0;
+  controller.totalError = 0;
+  controller.prevError = 0;
 }
 
 void init(PIDController controller, int inputIndex) {
-	init(controller);
-	controller.inputSensorIndex = inputIndex;
+  init(controller);
+  controller.inputSensorIndex = inputIndex;
 }
 
 void init(PIDController controller, int inputIndex, int outputIndex) {
-	init(controller);
-	controller.inputSensorIndex = inputIndex;
-	controller.outputMotorIndex = outputIndex;
+  init(controller);
+  controller.inputSensorIndex = inputIndex;
+  controller.outputMotorIndex = outputIndex;
 }
 
 void enable(PIDController controller) {
-	controller.enabled = true;
+  controller.enabled = true;
 }
 
 void disable(PIDController controller) {
-	controller.enabled = false;
+  controller.enabled = false;
 }
 
 void setMaxError(PIDController controller, int maxError) {
-	if(maxError >= 0);
-	controller.maxError = maxError;
+  if(maxError >= 0);
+  controller.maxError = maxError;
 }
 
 bool onTarget(PIDController controller) {
-	int error = abs(controller.setpoint - SensorValue[controller.inputSensorIndex]);
-	if (error <= controller.maxError) {
-		return true;
-	} else {
-		return false;
-	}
+  int error = abs(controller.setpoint - SensorValue[controller.inputSensorIndex]);
+  if (error <= controller.maxError) {
+    return true;
+    } else {
+    return false;
+  }
 }
 
 void setSetpoint(PIDController controller, int newSetpoint) {
-	controller.setpoint = newSetpoint;
+  controller.setpoint = newSetpoint;
 }
 
 void setPIDs(PIDController controller, int kP, int kI, int kD) {
-	controller.k_P = kP;
-	controller.k_I = kI;
-	controller.k_D = kD;
+  controller.k_P = kP;
+  controller.k_I = kI;
+  controller.k_D = kD;
 }
 
 void setInputRange(PIDController controller, int min, int max) {
-	if(max > min) {
-		controller.minInput = min;
-		controller.maxInput = max;
-	}
+  if(max > min) {
+    controller.minInput = min;
+    controller.maxInput = max;
+  }
 }
 
 void setOutputRange(PIDController controller, int min, int max) {
-	if(max > min && min >= -127 && max <= 127) {
-		controller.minOutput = min;
-		controller.maxOutput = max;
-	}
+  if(max > min && min >= -127 && max <= 127) {
+    controller.minOutput = min;
+    controller.maxOutput = max;
+  }
 }
 
 int calculatePID(PIDController controller) {
 
-	if (controller.enabled) {
-		controller.input = SensorValue[controller.inputSensorIndex];
-		controller.error = controller.setpoint - controller.input;
-		            if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
-		                if (controller.error > 0) {
-		                    controller.error = controller.error - controller.maxInput + controller.minInput;
-		                } else {
-		                    controller.error = controller.error + controller.maxInput - controller.minInput;
-		                }
-		            }
+  if (controller.enabled) {
+    controller.input = SensorValue[controller.inputSensorIndex];
+    controller.error = controller.setpoint - controller.input;
+    if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
+      if (controller.error > 0) {
+        controller.error = controller.error - controller.maxInput + controller.minInput;
+        } else {
+        controller.error = controller.error + controller.maxInput - controller.minInput;
+      }
+    }
 
-		        if ( ((controller.totalError + controller.error) * controller.k_I < controller.maxOutput)
-		                && ((controller.totalError + controller.error) * controller.k_I > controller.minOutput) ) {
-		            controller.totalError += controller.error;
-		        }
+    if ( ((controller.totalError + controller.error) * controller.k_I < controller.maxOutput)
+      && ((controller.totalError + controller.error) * controller.k_I > controller.minOutput) ) {
+      controller.totalError += controller.error;
+    }
 
-		        controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
-                                               controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
-                                               (controller.error - controller.prevError) / controller.k_D);
-		        controller.prevError = controller.error;
+    controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
+    controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
+    (controller.error - controller.prevError) / controller.k_D);
+    controller.prevError = controller.error;
 
-		        if (controller.result > controller.maxOutput) {
-		            controller.result = controller.maxOutput;
-		        } else if (controller.result < controller.minOutput) {
-		            controller.result = controller.minOutput;
-		        }
-		  return controller.result;
+    if (controller.result > controller.maxOutput) {
+      controller.result = controller.maxOutput;
+      } else if (controller.result < controller.minOutput) {
+      controller.result = controller.minOutput;
+    }
+    return controller.result;
     } else {
     return 0.0;
   }
@@ -162,33 +162,33 @@ int calculatePID(PIDController controller) {
 
 int calculatePID(PIDController controller, int input) {
 
-        if (controller.enabled) {
-                controller.input = input;
-                controller.error = controller.setpoint - controller.input;
-                            if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
-                                if (controller.error > 0) {
-                                    controller.error = controller.error - controller.maxInput + controller.minInput;
-                                } else {
-                                    controller.error = controller.error + controller.maxInput - controller.minInput;
-                                }
-                            }
+  if (controller.enabled) {
+    controller.input = input;
+    controller.error = controller.setpoint - controller.input;
+    if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
+      if (controller.error > 0) {
+        controller.error = controller.error - controller.maxInput + controller.minInput;
+        } else {
+        controller.error = controller.error + controller.maxInput - controller.minInput;
+      }
+    }
 
-                        if ( ((controller.totalError + controller.error) * controller.k_I < controller.maxOutput)
-                                && ((controller.totalError + controller.error) * controller.k_I > controller.minOutput) ) {
-                            controller.totalError += controller.error;
-                        }
+    if ( ((controller.totalError + controller.error) * controller.k_I < controller.maxOutput)
+      && ((controller.totalError + controller.error) * controller.k_I > controller.minOutput) ) {
+      controller.totalError += controller.error;
+    }
 
-                        controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
-                                               controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
-                                               (controller.error - controller.prevError) / controller.k_D);
-                        controller.prevError = controller.error;
+    controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
+    controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
+    (controller.error - controller.prevError) / controller.k_D);
+    controller.prevError = controller.error;
 
-                        if (controller.result > controller.maxOutput) {
-                            controller.result = controller.maxOutput;
-                        } else if (controller.result < controller.minOutput) {
-                            controller.result = controller.minOutput;
-                        }
-                  return controller.result;
+    if (controller.result > controller.maxOutput) {
+      controller.result = controller.maxOutput;
+      } else if (controller.result < controller.minOutput) {
+      controller.result = controller.minOutput;
+    }
+    return controller.result;
     } else {
     return 0.0;
   }
@@ -271,6 +271,8 @@ int high_lock;
 /* which is one full rotation of the wheel (ie. 2 'rotations' */
 /* will equal 720.0 clicks, 2 full rotations of the wheel).   */
 const float rotations = 360.0;
+
+
 
 //---------------------------------/ Pre Autonomous /-------------------------------------------//
 //--------------------------------/                  /------------------------------------------//
@@ -390,7 +392,7 @@ void raise_arm(int armSpeed, int finalPos)
     motor[ArmLL] = armSpeed;
   }
   else {/*Zero Arm Motors*/
-    motor[ArmRU] = 0;
+      motor[ArmRU] = 0;
     motor[ArmRL] = 0;
     motor[ArmLU] = 0;
     motor[ArmLL] = 0;
@@ -436,8 +438,8 @@ void pre_auton()
   //--/ Arm Points /-----------------------/
   //goal_value = startpoint + change;
   startpoint/*arm_grounded*/ = SensorValue[PotArm];  // sets ground point           (0 inches)
-  low_descore = startpoint + 1556 - 1247;          // sets low descore arm point  (4.5 inches)
-  low_lock = startpoint+ 2326 - 1247;             //...lowgoal                   (15 inches)
+  low_descore = startpoint + 1556 - 1236;          // sets low descore arm point  (4.5 inches)
+  low_lock = startpoint + 2265 - 1236;             //...lowgoal                   (15 inches)
   high_descore = startpoint + 1879- 1247;          //...high descore              (x inches)
   high_lock = startpoint + 2599 - 1247;            // ...high goal                (18.5 inches)
 
@@ -494,50 +496,40 @@ task autonomous()
 task usercontrol()
 {
   // User control code here, inside the loop
-
+  pre_auton();
   while (true)
   {
-  pre_auton();
+
     //--/ Manual_Arm /------------------------------/
     //if(checkDeadZone(vexRT[Ch3]) != 0) {
-    if (vexRT[Ch3] > 10 || (vexRT[Ch3]) < -15){
-        setArmSpeed(vexRT[Ch3]);
+    if (vexRT[Ch3] > 1 || (vexRT[Ch3]) < -1){
+      setArmSpeed(vexRT[Ch3]);
     }
-
-else {
-  if (vexRT[Btn7U] == 1) {
-   //setSetPoint(arm, low_lock);
-   setArmSpeed(calculatePID(arm, SensorValue[PotArm]));
- }
-      //}
-      /*else if (vexRT[Btn7D] == 1) {
-        //setSetPoint(arm, low_descore);
-        calculatePID(arm, low_descore);
-      }
-      else if (vexRT[Btn6U] == 1) {
-        //setSetPoint(arm, high_descore);
-        calculatePID(arm, high_descore);
-      }
-      else if (vexRT[Btn6D] == 1) {
-        //setSetPoint(arm, high_lock);
-        calculatePID(arm, high_lock);
-      }
-     */
+    else if(vexRT[Btn7U] == 1) {
+      //setSetPoint(arm, low_lock);
+      setArmSpeed(-calculatePID(arm, SensorValue[PotArm]));
+      } else {
+      setArmSpeed(0);
+    }    //}
+    /*else if (vexRT[Btn7D] == 1) {
+    //setSetPoint(arm, low_descore);
+    calculatePID(arm, low_descore);
     }
+    else if (vexRT[Btn6U] == 1) {
+    //setSetPoint(arm, high_descore);
+    calculatePID(arm, high_descore);
+    }
+    else if (vexRT[Btn6D] == 1) {
+    //setSetPoint(arm, high_lock);
+    calculatePID(arm, high_lock);
+    }
+    */
+    //  }
 
     //--/ INHALE /----------------------------------/
-    switch(vexRT[Btn5U] - vexRT[Btn5D])
-    {
-    case  1:motor[SuckR] = FULL;
-      motor[SuckL] = FULL;
-      break;
-    case -1:motor[SuckR] = -FULL;
-      motor[SuckL] = -FULL;
-      break;
-    case  0:motor[SuckR] = 0;
-      motor[SuckL] = 0;
-      break;
-    }//: switch
+
+
+    motor[SuckL] = motor[SuckR] = (vexRT[Btn5U] - vexRT[Btn5D]) * FULL;
 
     //--/ Drive_Train /---------------------------/
     setDriveRSpeed((vexRT[Ch2] - vexRT[Ch1]));// (y + x)
