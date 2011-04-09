@@ -30,6 +30,12 @@
 
 #define FULL 127
 #define AutonFULL 100
+#define k_driveStraightMode 1;
+#define k_turnRaiseMode 3;
+#define k_dropMode 5;
+#define k_exhaleReverseMode 7;
+#define k_finishAutonMode 10;
+
 //---------------------
 typedef struct {
   int k_P;
@@ -93,12 +99,12 @@ void setMaxError(PIDController controller, int maxError) {
   controller.maxError = maxError;
 }
 
-bool onTarget(PIDController controller) {
-  int error = abs(controller.setpoint - SensorValue[controller.inputSensorIndex]);
+int onTarget(PIDController controller) {
+  int error = abs(controller.error);
   if (error <= controller.maxError) {
-    return true;
+    return 1;
     } else {
-    return false;
+    return 0;
   }
 }
 
@@ -195,6 +201,10 @@ int calculatePID(PIDController controller, int input) {
 }
 
 PIDController arm;
+int currentMode = k_driveStraightMode;
+int driveStraightDist = 500;
+PIDController left;
+PIDController right;
 
 //---------------------
 //-------------------------------------------| MOTOR SHORTCUTS |---------------------------------------
@@ -442,16 +452,29 @@ void pre_auton()
   low_lock = startpoint + 2265 - 1236;             //...lowgoal                   (15 inches)
   high_descore = startpoint + 1879- 1247;          //...high descore              (x inches)
   high_lock = startpoint + 2599 - 1247;            // ...high goal                (18.5 inches)
-  goal_value = startpoint;
+  goal_value = high_lock;
   //--/ PID /------------------------------/
   init(arm);
+  init(right);
+  init(left);
 
   setPIDs(arm, k_P, k_I, k_D);
+  setPIDs(left, k_P, k_I, k_D);
+  setPIDs(right, k_P, k_I, k_D);
   setSetpoint(arm, goal_value);
+  setSetpoint(left, driveStraightDist);
+  setSetpoint(right, driveStraightDist);
+  setMaxError(arm, 100);
+  setMaxError(left, 50);
+  setMaxError(right, 50);
 
   enable(arm);
+  enable(left);
+  enable(right);
 
-  arm.k_P = 5;
+  arm.k_P = 3;
+  left.k_P = 3;
+  right.k_P = 3;
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
@@ -464,6 +487,52 @@ task autonomous()
 {
   while(true)		// Creates an infinite loop, since "true" always evaluates to true
   {
+    switch(currentMode) {
+      case 1:
+            setDriveLSpeed(calculatePID(left, SensorValue[EncoderL]));
+            setDriveRSpeed(calculatePID(right, SensorValue[EncoderR]));
+            setSuckSpeed(-FULL);
+            if(onTarget(left) == 1 && onTarget(right) == 1) {
+              currentMode = k_turnRaiseMode;
+            }
+            break;
+      case 3:
+            setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
+            if(onTarget(arm) == 1) {
+              setSetpoint(arm, high_descore);
+              currentMode = k_dropMode;
+            }
+            break;
+      case 5:
+            setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
+            if(onTarget(arm) == 1) {
+              SensorValue[EncoderL] = 0;
+              SensorValue[EncoderR] = 0;
+              setSetpoint(left, -500);
+              setSetpoint(right, -500);
+              currentMode = k_exhaleReverseMode;
+            }
+            break;
+      case 7:
+            setDriveLSpeed(calculatePID(left, SensorValue[EncoderL]));
+            setDriveRSpeed(calculatePID(right, SensorValue[EncoderR]));
+            setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
+            if(SensorValue[EncoderL] < 200) {
+              setSuckSpeed(0);
+              setSetpoint(arm, startpoint);
+            } else {
+              setSuckSpeed(AutonFULL);
+            }
+            if(onTarget(left) == 1 && onTarget(right) == 1) {
+              currentMode = k_finishAutonMode;
+            }
+            break;
+      case 10:
+            setDriveSpeed(0);
+            setArmSpeed(calculatePID(arm, SensorValue[PotArm]));
+    }
+
+    /*4/4/11 OLD FROM NICK
     int i;
     for(i=0; i<4; i++)      // While 'i' is less than 4:
     {
@@ -485,7 +554,7 @@ task autonomous()
       setSetPoint(arm, low_lock);//raise arm
       drive(AutonFULL, 3.0);//drive up against tower
       suck(FULL,1500);//spit tubes into tower
-    }
+    }*/
   }//while
 }//task auto
 
