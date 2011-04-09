@@ -3,7 +3,8 @@ typedef struct {
 	int k_I;
 	int k_D;
 
-	bool enabled;
+	//enabled = 0 for false, = 1 for true
+	int enabled;
 
 	int minInput;
 	int maxInput;
@@ -26,7 +27,7 @@ void init(PIDController controller) {
 	controller.k_P = 0;
 	controller.k_I = 0;
 	controller.k_D = 0;
-	controller.enabled = false;
+	controller.enabled = 0;
 	controller.minInput = 0;
 	controller.maxInput = 0;
 	controller.minOutput = -127;
@@ -48,11 +49,11 @@ void init(PIDController controller, int inputIndex, int outputIndex) {
 }
 
 void enable(PIDController controller) {
-	controller.enabled = true;
+	controller.enabled = 1;
 }
 
 void disable(PIDController controller) {
-	controller.enabled = false;
+	controller.enabled = 0;
 }
 
 void setMaxError(PIDController controller, int maxError) {
@@ -63,9 +64,9 @@ void setMaxError(PIDController controller, int maxError) {
 bool onTarget(PIDController controller) {
 	int error = abs(controller.setpoint - SensorValue[controller.inputSensorIndex]);
 	if (error <= controller.maxError) {
-		return true;
+		return 1;
 	} else {
-		return false;
+		return 0;
 	}
 }
 
@@ -95,7 +96,7 @@ void setOutputRange(PIDController controller, int min, int max) {
 
 int calculatePID(PIDController controller) {
 
-	if (controller.enabled) {
+	if (controller.enabled == 1) {
 		controller.input = SensorValue[controller.inputSensorIndex];
 		controller.error = controller.setpoint - controller.input;
 		            if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
@@ -129,7 +130,7 @@ int calculatePID(PIDController controller) {
 
 int calculatePID(PIDController controller, int input) {
 
-        if (controller.enabled) {
+        if (controller.enabled == 1) {
                 controller.input = input;
                 controller.error = controller.setpoint - controller.input;
                             if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
