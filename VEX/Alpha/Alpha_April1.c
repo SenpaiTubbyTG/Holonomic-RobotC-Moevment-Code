@@ -29,8 +29,8 @@ task usercontrol()
 	  motor[frontLeft] = motor[backLeft] = vexRT[Ch3];
 	  motor[frontRight] = motor[backRight] = vexRT[Ch2];
 
-	    motor[armLeft1] = motor[armLeft2] = motor[armRight1] = motor[armRight2] = 
-		(vexRT[Btn6U] - vexRT[Btn6D]) * FULL;
-	    motor[collector1] = motor[collector2] = (vexRT[Btn5U] - vexRT[Btn5D]) * FULL;
+	    motor[armLeft1] = motor[armLeft2] = motor[armRight1] = motor[armRight2] =
+		(vexRT[Btn5D] - vexRT[Btn5U]) * FULL;
+	    motor[collector1] = motor[collector2] = (vexRT[Btn6U] - vexRT[Btn6D]) * FULL;
 	}
 }
