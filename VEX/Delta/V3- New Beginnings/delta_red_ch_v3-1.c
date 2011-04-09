@@ -449,6 +449,7 @@ void pre_auton()
 
   enable(arm);
 
+  arm.k_P = 10;
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
@@ -503,10 +504,11 @@ task usercontrol()
         setArmSpeed(vexRT[Ch3]);
     }
 
-//    else {
-  //    if (vexRT[Btn7U] == 1) {
-    //     //setSetPoint(arm, low_lock);
-      //   setArmSpeed(calculatePID(arm, SensorValue[PotArm]));
+else {
+  if (vexRT[Btn7U] == 1) {
+   //setSetPoint(arm, low_lock);
+   setArmSpeed(calculatePID(arm, SensorValue[PotArm]));
+ }
       //}
       /*else if (vexRT[Btn7D] == 1) {
         //setSetPoint(arm, low_descore);
@@ -521,7 +523,7 @@ task usercontrol()
         calculatePID(arm, high_lock);
       }
      */
-    //}
+    }
 
     //--/ INHALE /----------------------------------/
     switch(vexRT[Btn5U] - vexRT[Btn5D])
