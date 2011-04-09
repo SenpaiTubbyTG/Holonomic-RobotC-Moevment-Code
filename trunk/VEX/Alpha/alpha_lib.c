@@ -1,4 +1,4 @@
-#pragma config(Sensor, in1,    PotArm,              sensorPotentiometer)
+#pragma config(Sensor, in1,             PotArm,     sensorPotentiometer)
 #pragma config(Motor,  port1,           ArmLL,      tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port2,           DriveLF,     tmotorNormal, openLoop)
 #pragma config(Motor,  port3,           DriveLB,      tmotorNormal, openLoop)
@@ -13,7 +13,7 @@
 #define FULL 127
 //NOTE 10 IS AN ARBITRARY VALUE, HAS NOT BEEN TESTED
 int DeadZone = 10; //dead zone value for joysticks
-
+int leftDrivePower, rightDrivePower; //drivetrain variables
 /*****GENERIC FUNCTIONS********************************************************/
 
 //checks dead zone and scales values excluding deadzone back to 0-127
@@ -22,9 +22,9 @@ int checkDeadZone(int x) {
         return 0;
     } else {
         if (x < 0)
-            return (x + DeadZone)*(FULL / (FULL - DeadZone)
+            return (x + DeadZone)*(FULL / (FULL - DeadZone));
         else
-            return (x - DeadZone)*(FULL / (FULL - DeadZone)
+            return (x - DeadZone)*(FULL / (FULL - DeadZone));
         }
 }
 
@@ -42,11 +42,11 @@ int scaleInput(int input) {
         //  leftDrivePower = (left^3)/(127^2);
         return asin(input / 127) / asin(1)*127;
     } else {
-        return = 0;
+        return 0;
     }
 }
 
-//Tube Detection
+/*//Tube Detection
 bool tube_detection() {
     if (SensorValue[DetectTube] < 3075) {
         return true
@@ -64,7 +64,7 @@ void setArmSpeed(int speed) {
 
 //Set collector speed
 void setCollectorSpeed(int speed) {
-    motor[SuckR] = motor[SuckL] = speed;
+    motor[collector1] = motor[collector2] = speed;
 }
 
 //Set Drive Speed (Left & Right)
@@ -126,10 +126,10 @@ void lock_msec(int speed, int duration) {
 
 /*SUCKER TIME FUNCTION */
 
-int sucker(int speed, int duration) { //positive numbers for out
-    setSuckSpeed(speed);
+int collector(int speed, int duration) { //positive numbers for out
+    setCollectorSpeed(speed);
     wait1Msec(duration);
-    setSuckSpeed(0);
+    setCollectorSpeed(0);
     return 1;
 }
 
@@ -140,37 +140,7 @@ int sucker(int speed, int duration) { //positive numbers for out
  * drive_straight_to_touch
  */
 
-int leftDrivePower, rightDrivePower; //drivetrain variables
-/* driveTank
-* @purpose: Teleop tank drive
-* @param leftInput: raw left joystick input, -127 to 127; negative values reverse
-* @param rightInput: raw right joystick input, -127 to 127; negative values reverse
-* @param scale: boolean value to enable joystick input scaling
-* @param filter: boolean value to enable rate filtering
-*/
-
-void driveTank(int leftInput, int rightInput, bool scale, bool filter) {
-    //checks for dead zone and rescales from -127 to 127
-    leftInput = checkDeadZone(leftInput);
-    rightInput = checkDeadZone(leftInput);
-            //scales initial input by specified function (arcsin)
-    if (scale) {
-        scaleInput(leftInput);
-        scaleInput(rightInput);
-    }
-    //sets power of drive train based on rate filter
-    if (filter) {
-        leftDrivePower = rateFilter(leftInput, 1);
-                rightDrivePower = rateFilter(rightInput, rightDrivePower, 1);
-    } else {
-        leftDrivePower = leftInput;
-        rightDrivePower = rightInput;
-    }
-    //sets motors to power values
-    setDriveLSpeed(leftDrivePower);
-    setDriveRSpeed(rightDrivePower);
-}
-/* rateFilter
+ /* rateFilter
  * @purpose: protect motors from sudden acceleration (teleop)
  * @param JoystickValue: raw joystick input, -127 to 127; negative values reverse
  * @param MotorValue: current motor value, -127 to 127; negative values reverse
@@ -211,6 +181,36 @@ int rateFilter(int JoystickValue, int MotorValue, int accelRateLimit) {
     return MotorValue;
 }
 
+/* driveTank
+* @purpose: Teleop tank drive
+* @param leftInput: raw left joystick input, -127 to 127; negative values reverse
+* @param rightInput: raw right joystick input, -127 to 127; negative values reverse
+* @param scale: boolean value to enable joystick input scaling
+* @param filter: boolean value to enable rate filtering
+*/
+
+void driveTank(int leftInput, int rightInput, bool scale, bool filter) {
+    //checks for dead zone and rescales from -127 to 127
+    leftInput = checkDeadZone(leftInput);
+    rightInput = checkDeadZone(rightInput);
+            //scales initial input by specified function (arcsin)
+    if (scale) {
+        scaleInput(leftInput);
+        scaleInput(rightInput);
+    }
+    //sets power of drive train based on rate filter
+    if (filter) {
+        leftDrivePower = rateFilter(leftInput,leftDrivePower, 1);
+        rightDrivePower = rateFilter(rightInput, rightDrivePower, 1);
+    } else {
+        leftDrivePower = leftInput;
+        rightDrivePower = rightInput;
+    }
+    //sets motors to power values
+    setDriveLSpeed(leftDrivePower);
+    setDriveRSpeed(rightDrivePower);
+}
+
 /* drive_forward_msec
  * @purpose: autonomously drive robot forward for provided duration
  * @param speed: speed of motors, -127 to 127; negative values go reverse
@@ -219,7 +219,7 @@ int rateFilter(int JoystickValue, int MotorValue, int accelRateLimit) {
 void drive_msec(int speed, int duration) {
     setDriveSpeed(speed);
     wait1Msec(duration);
-    killdrive;
+    stopDrive();
 }
 
 /* drive_straight
@@ -283,7 +283,7 @@ int drive_unlocked(int speed, float distance) {
  * in this funtion you set the speed of the left and right sides of the drive train individually
  *@param speedL: speed of left motors
  *@param speedR: speed of right motors
- 
+
 void turn_timed(int speedr, int speedl, duration) {
     //right drive
 
@@ -299,7 +299,7 @@ void turn_timed(int speedr, int speedl, duration) {
  * @param speed: speed of motors, 0 to 127; no negative values
  * @param degrees: number of degrees to turn, positive degrees go to left
  * TODO: complete this function
- 
+
 void turn(int speed, int degrees) {
     SensorValue[EncoderL] = 0;
             SensorValue[EncoderR] = 0;
