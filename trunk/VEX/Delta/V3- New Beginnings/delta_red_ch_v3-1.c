@@ -3,6 +3,7 @@
 #pragma config(Sensor, dgtl1,  EncoderR,            sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  EncoderL,            sensorQuadEncoder)
 #pragma config(Sensor, dgtl5,  BaseSonar,           sensorSONAR_cm)
+#pragma config(Sensor, dgtl7,  Pneu1,            sensorDigitalOut)
 #pragma config(Sensor, dgtl11, ArmUp,               sensorTouch)
 #pragma config(Sensor, dgtl12, ArmDown,             sensorTouch)
 #pragma config(Motor,  port1,           DriveRB,       tmotorNormal, openLoop, reversed)
@@ -275,12 +276,6 @@ int high_lock;
 /* will equal 720.0 clicks, 2 full rotations of the wheel).   */
 const float rotations = 360.0;
 
-
-
-//---------------------------------/ Pre Autonomous /-------------------------------------------//
-//--------------------------------/                  /------------------------------------------//
-//-------------------------------/                    /-----------------------------------------//
-
 //---------------------------------/ Library /-------------------------------------------------//
 //--------------------------------/           /------------------------------------------------//
 //-------------------------------/             /-----------------------------------------------//
@@ -420,7 +415,7 @@ void Suck(int suckSpeed, int msec) {
   wait1Msec(msec);
   killsuck();
 }
-//-------------------------------------------| Dead Zone |-------------------------------------------
+//-------------------------------------------| Dead Zone |--------------------------------------------
 int checkDeadZone(int x) {
   if (abs(x) < DeadZone) {
     return 0;
@@ -431,6 +426,10 @@ int checkDeadZone(int x) {
       return (x - DeadZone)*(FULL / (FULL - DeadZone)
   }
 }
+
+//---------------------------------/ Pre Autonomous /-------------------------------------------//
+//--------------------------------/                  /------------------------------------------//
+//-------------------------------/                    /-----------------------------------------//
 
 void pre_auton()
 {
@@ -548,7 +547,7 @@ task usercontrol()
   setSetpoint(arm, startpoint);
   while (true)
   {
-    //--/ Manual_Arm /------------------------------/
+    //--/ Arm /-------------------------------------/
     //if(checkDeadZone(vexRT[Ch3]) != 0) {
     if (vexRT[Ch3] > 15 || (vexRT[Ch3]) < -15){
       setArmSpeed(vexRT[Ch3]);
@@ -558,20 +557,31 @@ task usercontrol()
     }
 
     if(vexRT[Btn7U] == 1) {
-      setSetPoint(arm, high_lock);
+      setSetPoint(arm, low_lock);
       enable(arm);
     } else if (vexRT[Btn7D] == 1) {
       setSetPoint(arm, low_descore);
       enable(arm);
-    } else if(vexRT[Btn7L] == 1) {
-      disable(arm);
+    } else if(vexRT[Btn6U] == 1) {
+	  setSetPoint(arm, high_lock);
+      enable(arm);
+   } else if(vexRT[Btn6D] == 1) {
+	  setSetPoint(arm, high_descore);
+      enable(arm);
+	} else if(vexRT[Btn7L] == 1) {
+	      disable(arm);
+	}
+    //--/ DESCORE /----------------------------------/
+
+	if(vexRT[Btn7R] == 1)         // If button 6U (upper right shoulder button) is pressed:
+    {
+      SensorValue[Pneu1] = 1;  // ...activate the solenoid.
     }
-
-    //  }
-
+    else                          // If button 6U (upper right shoulder button) is  NOT pressed:
+    {
+      SensorValue[Pneu1] = 0;  // ..deactivate the solenoid.
+    }
     //--/ INHALE /----------------------------------/
-
-
     motor[SuckL] = motor[SuckR] = (vexRT[Btn5U] - vexRT[Btn5D]) * FULL;
 
     //--/ Drive_Train /---------------------------/
