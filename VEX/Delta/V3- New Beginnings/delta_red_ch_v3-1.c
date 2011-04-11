@@ -48,12 +48,9 @@ PIDController right;
 #define k_distToStack 500;
 
 int currentMode = k_driveStraightMode;
-//try the following fix using typecasting:
-int distToGoal = (int) k_distToStack + (int) k_stackToGoalDist;
-/*If it doesn't work (I don't know exactly how typecasting works in RobotC), use following segment, which should work
 int distToStack = k_distToStack;
 int stackToGoalDist = k_stackToGoalDist;
-int distToGoal = distToStack + stackToGoalDist;*/
+int distToGoal = distToStack + stackToGoalDist;
 
 //---------------------------------/ Pre Autonomous /-------------------------------------------//
 //--------------------------------/                  /------------------------------------------//
@@ -82,8 +79,8 @@ void pre_auton()
   setPIDs(left, k_P, k_I, k_D);
   setPIDs(right, k_P, k_I, k_D);
   setSetpoint(arm, goal_value);
-  setSetpoint(left, k_distToStack);
-  setSetpoint(right, k_distToStack);
+  setSetpoint(left, distToStack);
+  setSetpoint(right, distToStack);
   setMaxError(arm, 100);
   setMaxError(left, 50);
   setMaxError(right, 50);
