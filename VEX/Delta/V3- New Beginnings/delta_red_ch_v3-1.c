@@ -67,8 +67,8 @@ void pre_auton()
   setPIDs(left, k_P, k_I, k_D);
   setPIDs(right, k_P, k_I, k_D);
   setSetpoint(arm, goal_value);
-  //setSetpoint(left, distToStack);//why wont this work?? distToStack is defined
-  //setSetpoint(right, distToStack);
+  setSetpoint(left, distToStack);//why wont this work?? distToStack is defined
+  setSetpoint(right, distToStack);
   setMaxError(arm, 100);
   setMaxError(left, 50);
   setMaxError(right, 50);
@@ -99,7 +99,7 @@ void pre_auton()
 #define k_distToStack 500;
 
 int currentMode = k_driveStraightMode;
-int distToStack = 9;//what should this be??????????????????
+//int distToStack = 500;//what should this be??????????????????
 int distToGoal = distToStack + k_stackToGoalDist;
 
 task autonomous()
