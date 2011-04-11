@@ -27,405 +27,18 @@
 
 #include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
 //#include "delta_lib_v3.c" //Main Funtion Library
-//#include "PIDController.c"
+#include "delta_lib_v3-1.c" //Main Funtion Library
+#include "PIDController.c"
 
 #define FULL 127
 #define AutonFULL 100
-
-//---------------------
-typedef struct {
-  int k_P;
-  int k_I;
-  int k_D;
-
-  bool enabled;
-
-  int minInput;
-  int maxInput;
-  int minOutput;
-  int maxOutput;
-  int maxError;
-
-  int setpoint;
-  int result;
-  int input;
-  int error;
-  int prevError;
-  int totalError;
-
-  int inputSensorIndex;
-  int outputMotorIndex;
-} PIDController;
-
-void init(PIDController controller) {
-  controller.k_P = 0;
-  controller.k_I = 0;
-  controller.k_D = 0;
-  controller.enabled = false;
-  controller.minInput = 0;
-  controller.maxInput = 0;
-  controller.minOutput = -127;
-  controller.maxOutput = 127;
-  controller.maxError = 0;
-  controller.totalError = 0;
-  controller.prevError = 0;
-}
-
-void init(PIDController controller, int inputIndex) {
-  init(controller);
-  controller.inputSensorIndex = inputIndex;
-}
-
-void init(PIDController controller, int inputIndex, int outputIndex) {
-  init(controller);
-  controller.inputSensorIndex = inputIndex;
-  controller.outputMotorIndex = outputIndex;
-}
-
-void enable(PIDController controller) {
-  controller.enabled = true;
-}
-
-void disable(PIDController controller) {
-  controller.enabled = false;
-}
-
-void setMaxError(PIDController controller, int maxError) {
-  if(maxError >= 0);
-  controller.maxError = maxError;
-}
-
-int onTarget(PIDController controller) {
-  int error = abs(controller.error);
-  if (error <= controller.maxError) {
-    return 1;
-    } else {
-    return 0;
-  }
-}
-
-void setSetpoint(PIDController controller, int newSetpoint) {
-  controller.setpoint = newSetpoint;
-}
-
-void setPIDs(PIDController controller, int kP, int kI, int kD) {
-  controller.k_P = kP;
-  controller.k_I = kI;
-  controller.k_D = kD;
-}
-
-void setInputRange(PIDController controller, int min, int max) {
-  if(max > min) {
-    controller.minInput = min;
-    controller.maxInput = max;
-  }
-}
-
-void setOutputRange(PIDController controller, int min, int max) {
-  if(max > min && min >= -127 && max <= 127) {
-    controller.minOutput = min;
-    controller.maxOutput = max;
-  }
-}
-
-int calculatePID(PIDController controller) {
-
-  if (controller.enabled) {
-    controller.input = SensorValue[controller.inputSensorIndex];
-    controller.error = controller.setpoint - controller.input;
-    if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
-      if (controller.error > 0) {
-        controller.error = controller.error - controller.maxInput + controller.minInput;
-        } else {
-        controller.error = controller.error + controller.maxInput - controller.minInput;
-      }
-    }
-
-    if ( ((controller.totalError + controller.error) * controller.k_I < controller.maxOutput)
-      && ((controller.totalError + controller.error) * controller.k_I > controller.minOutput) ) {
-      controller.totalError += controller.error;
-    }
-
-    controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
-    controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
-    (controller.error - controller.prevError) / controller.k_D);
-    controller.prevError = controller.error;
-
-    if (controller.result > controller.maxOutput) {
-      controller.result = controller.maxOutput;
-      } else if (controller.result < controller.minOutput) {
-      controller.result = controller.minOutput;
-    }
-    return controller.result;
-    } else {
-    return 0.0;
-  }
-}
-
-int calculatePID(PIDController controller, int input) {
-
-  if (controller.enabled) {
-    controller.input = input;
-    controller.error = controller.setpoint - controller.input;
-    if (abs(controller.error) > (controller.maxInput - controller.minInput) / 2) {
-      if (controller.error > 0) {
-        controller.error = controller.error - controller.maxInput + controller.minInput;
-        } else {
-        controller.error = controller.error + controller.maxInput - controller.minInput;
-      }
-    }
-
-    if ( ((controller.totalError + controller.error) * controller.k_I < controller.maxOutput)
-      && ((controller.totalError + controller.error) * controller.k_I > controller.minOutput) ) {
-      controller.totalError += controller.error;
-    }
-
-    controller.result = (controller.error / controller.k_P +// inverted and switch from "*" to "/"
-    controller.totalError / controller.k_I + // inverted and switch from "*" to "/"
-    (controller.error - controller.prevError) / controller.k_D);
-    controller.prevError = controller.error;
-
-    if (controller.result > controller.maxOutput) {
-      controller.result = controller.maxOutput;
-      } else if (controller.result < controller.minOutput) {
-      controller.result = controller.minOutput;
-    }
-    return controller.result;
-    } else {
-    return 0.0;
-  }
-}
 
 PIDController arm;
 PIDController left;
 PIDController right;
 
 //---------------------
-//-------------------------------------------| MOTOR SHORTCUTS |---------------------------------------
-/*Set Arm Speed*/
-void setArmSpeed(int speed) {
-  motor[ArmLL] = motor[ArmLU] = motor[ArmRL] = motor[ArmRU] = speed;
-}
 
-/*Set Suck Speed*/
-void setSuckSpeed(int speed) {
-  motor[SuckR] = motor[SuckL] = speed;
-}
-
-/*Set Drive Speed: Left & Right*/
-void setDriveSpeed(int speed) {
-  motor[DriveRF] = motor[DriveRB] = motor[DriveLF] = motor[DriveLB] = speed;
-}
-
-/*Set Drive Right Speed*/
-void setDriveRSpeed(int speed) {
-  motor[DriveRF] = motor[DriveRB] = speed;
-}
-
-/*Set Drive Left Speed*/
-void setDriveLSpeed(int speed) {
-  motor[DriveLF] = motor[DriveLB] = speed;
-}
-
-/*Kill Drive Train Motors*/
-void killdrive() {
-  setDriveSpeed(0);
-}
-/*Kill Arm Motors*/
-void killarm() {
-  setArmSpeed(0);
-}
-/*Kill Suck Motors*/
-void killsuck() {
-  setSuckSpeed(0);
-}
-
-
-//---------------------------------/ Functions Prototypes /--------------------------------------//
-//--------------------------------/                        /-------------------------------------//
-//-------------------------------/                          /------------------------------------//
-/*void drive(int driveSpeed, float r);
-void drive_suck(int driveSpeed, int suckSpeed, float r);
-void turn_left(int, driveSpeed, float r);
-void turn_right(int, driveSpeed, float r);
-void raise_arm(int armSpeed, int finalPos);
-void lower_arm(int armSpeed, int finalPos);
-void suck(int suckSpeed, int msec);
-*/
-//--/ PID /-------------------------------------------------------/
-
-int startpoint = 0;
-int goal_value = startpoint;
-int change = -1000;
-int k_P = 10;
-int k_I = 0;
-int k_D = 0;
-
-//--/ Dead Zone /-------------------------------------------------/
-int DeadZone = 10; //dead zone value for joysticks
-
-//--/ Arm Position /----------------------------------------------/
-int low_descore;
-int low_lock;
-int high_descore;
-int high_lock;
-
-//--Declare Global Variables--------------------------------------/
-/* 'rotations' will be a counter for every 360 encoder clicks */
-/* which is one full rotation of the wheel (ie. 2 'rotations' */
-/* will equal 720.0 clicks, 2 full rotations of the wheel).   */
-const float rotations = 360.0;
-
-//---------------------------------/ Library /-------------------------------------------------//
-//--------------------------------/           /------------------------------------------------//
-//-------------------------------/             /-----------------------------------------------//
-
-//--| FORWARD |---------------------------------------------
-void drive(int driveSpeed, float r)
-{
-  SensorValue[EncoderR] = 0;    /* Clear the encoders for    */
-  SensorValue[EncoderL] = 0;    /* consistancy and accuracy. */
-
-  // While the encoders have not yet met their goal: (r * rotations) ie (3.0 * 360.0) or "three rotations"
-  while(SensorValue[EncoderR] < (r * rotations) && SensorValue[EncoderL] < (r * rotations))
-  {
-    setDriveSpeed(driveSpeed); /* Run all motors */ /* at driveSpeed. */
-  }
-  killdrive();
-}
-//----------------------------------------------------------------------------------------------------
-
-//--------------------------------------------| FORWARD + SUCK |---------------------------------------------
-void drive_suck(int driveSpeed, int suckSpeed, float r)
-{
-  SensorValue[EncoderR] = 0;    /* Clear the encoders for     */
-  SensorValue[EncoderL] = 0;    /* consistancy and accuracy. */
-  // While the encoders have not yet met their goal: (r * rotations) ie (3.0 * 360.0) or "three rotations"
-  while(SensorValue[EncoderR] < (r * rotations) && SensorValue[EncoderL] < (r * rotations))
-  {
-    setDriveSpeed(driveSpeed);
-    setSuckSpeed(suckspeed);
-  }
-  killdrive();
-  killsuck();
-}
-//--------------------------------------------| Arc |---------------------------------------------
-void drive_arc(int rightSpeed, int leftSpeed, float r)
-{
-  SensorValue[EncoderR] = 0;    /* Clear the encoders for    */
-  SensorValue[EncoderL] = 0;    /* consistancy and accuracy. */
-
-  // While the encoders have not yet met their goal: (r * rotations) ie (3.0 * 360.0) or "three rotations"
-  while(SensorValue[EncoderR] < (r * rotations) && SensorValue[EncoderL] < (r * rotations))
-  {
-    setDriveRSpeed(rightSpeed);
-    setDriveLSpeed(leftSpeed);
-  }
-  killdrive();
-}
-//-------------------------------------------| TURN LEFT |--------------------------------------------
-void turn_left(int driveSpeed, float r)
-{
-  SensorValue[EncoderR] = 0;    /* Clear the encoders for    */
-  SensorValue[EncoderL]  = 0;    /* consistancy and accuracy. */
-
-  // While the encoders have not yet met their goal: (left is compared negativly since it will in reverse)
-  while(SensorValue[EncoderR] < (r * rotations) && SensorValue[EncoderL] > (-1 * r * rotations))
-  {
-    setDriveRSpeed(driveSpeed);
-    setDriveLSpeed(-driveSpeed);
-  }
-  killdrive();
-}
-//-------------------------------------------| TURN RIGHT |-------------------------------------------
-void turn_right(int driveSpeed, float r)
-{
-  SensorValue[EncoderR] = 0;    /* Clear the encoders for    */
-  SensorValue[EncoderL]  = 0;    /* consistancy and accuracy. */
-
-  // While the encoders have not yet met their goal: (left is compared negativly since it will in reverse)
-  while(SensorValue[EncoderL] < (r * rotations) && SensorValue[EncoderR] > (-1 * r * rotations))
-  {
-    setDriveRSpeed(-driveSpeed);
-    setDriveLSpeed(driveSpeed);
-
-
-  }
-  killdrive()
-}
-//-------------------------------------------| MOVE ARM |---------------------------------------------
-void move_arm(int armSpeed, int target)
-{
-  //Upper limit is 610, lower limit is 990
-  //While the pot value is greater than +5 of the target, or less than -5 of the target...
-
-  while(SensorValue(PotArm) > target + 5 || SensorValue(PotArm) < target - 5)
-  {
-    //If the pot value is greater than the target...move the arm up
-    if (SensorValue(PotArm) > target)
-    {
-      setArmSpeed(-armSpeed);
-      //motor[port5] = (speed) + 35;
-      //motor[port6] = (speed * -1) + 35;
-    }
-    //If the pot value is less than the target...move the arm down
-    if (SensorValue(PotArm) < target)
-    {
-      setArmSpeed(armSpeed);
-      //motor[port5] = (speed * -1) + 35;
-      //motor[port6] = (speed) + 35;
-    }
-  }
-  setArmSpeed(0);
-  //motor[port5] = 15;
-  //motor[port6] = -15;
-}
-//-------------------------------------------| RAISE ARM |---------------------------------------------
-void raise_arm(int armSpeed, int finalPos)
-{
-  if (SensorValue[PotArm] < finalPos){
-    motor[ArmRU] = armSpeed;
-    motor[ArmRL] = armSpeed;
-    motor[ArmLU] = armSpeed;
-    motor[ArmLL] = armSpeed;
-  }
-  else {/*Zero Arm Motors*/
-      motor[ArmRU] = 0;
-    motor[ArmRL] = 0;
-    motor[ArmLU] = 0;
-    motor[ArmLL] = 0;
-  }
-}
-//-------------------------------------------| LOWER ARM |---------------------------------------------
-void lower_arm(int armSpeed, int finalPos)
-{
-  if (SensorValue[PotArm] > finalPos) {
-    motor[ArmRU] = -armSpeed;
-    motor[ArmRL] = -armSpeed;
-    motor[ArmLU] = -armSpeed;
-    motor[ArmLL] = -armSpeed;
-  }
-  else {/*Zero Arm Motors*/
-      killarm();
-  }
-}
-//-------------------------------------------| SUCK |--------------------------------------------------
-void Suck(int suckSpeed, int msec) {
-  setSuckSpeed(suckSpeed);
-  wait1Msec(msec);
-  killsuck();
-}
-//-------------------------------------------| Dead Zone |--------------------------------------------
-int checkDeadZone(int x) {
-  if (abs(x) < DeadZone) {
-    return 0;
-    } else {
-    if (x < 0)
-      return (x + DeadZone)*(FULL / (FULL - DeadZone)
-    else
-      return (x - DeadZone)*(FULL / (FULL - DeadZone)
-  }
-}
 
 //---------------------------------/ Pre Autonomous /-------------------------------------------//
 //--------------------------------/                  /------------------------------------------//
@@ -439,10 +52,10 @@ void pre_auton()
 
   //--/ Arm Points /-----------------------/
   //goal_value = startpoint + change;
-  startpoint/*arm_grounded*/ = SensorValue[PotArm];  // sets ground point           (0 inches)
+  startpoint = SensorValue[PotArm];  // sets ground point           (0 inches)
   low_descore = startpoint + 1556 - 1236;          // sets low descore arm point  (4.5 inches)
   low_lock = startpoint + 2265 - 1236;             //...lowgoal                   (15 inches)
-  high_descore = startpoint + 1879- 1247;          //...high descore              (x inches)
+  high_descore = startpoint + 1879 - 1247;          //...high descore              (x inches)
   high_lock = startpoint + 2599 - 1247;            // ...high goal                (18.5 inches)
   goal_value = high_lock;
   //--/ PID /------------------------------/
@@ -454,7 +67,7 @@ void pre_auton()
   setPIDs(left, k_P, k_I, k_D);
   setPIDs(right, k_P, k_I, k_D);
   setSetpoint(arm, goal_value);
-  setSetpoint(left, distToStack);
+  setSetpoint(left, distToStack);//why wont this work?? distToStack is defined
   setSetpoint(right, distToStack);
   setMaxError(arm, 100);
   setMaxError(left, 50);
@@ -481,6 +94,7 @@ void pre_auton()
 #define k_dropMode 5;
 #define k_exhaleReverseMode 7;
 #define k_finishAutonMode 10;
+#define k_turnRaiseMode 11;///should this be 11? i dont know what it does. I added this cause line 112 wont work with out it
 #define k_stackToGoalDist 250;
 #define k_distToStack 500;
 
@@ -490,49 +104,49 @@ int distToGoal = distToStack + k_stackToGoalDist;
 task autonomous()
 {
   while(true) {
-    switch(currentMode) {
-      case 1:
-            setSuckSpeed(-FULL);
-            if(onTarget(left) == 1 && onTarget(right) == 1) {
-	      setSuckSpeed(0);
-              currentMode = k_turnRaiseMode;
-            }
-            break;
-      case 3:
-            if(onTarget(arm) == 1) {
-              setSetpoint(left, distToGoal);
-	      setSetpoint(right, distToGoal);
-              currentMode = k_driveToGoalMode;
-            }
-            break;
-      case 4:
-            if(onTarget(left) == 1 && onTarget(right) == 1) {
-              setSetpoint(arm, low_lock);
-              currentMode = k_dropMode;
-            }
-            break;
-      case 5:
-            setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
-            if(onTarget(arm) == 1) {
-              setSetpoint(left, distToStack);
-              setSetpoint(right, distToStack);
-              currentMode = k_exhaleReverseMode;
-            }
-            break;
-      case 7:
-	    setSuckSpeed(FULL);
-            if(onTarget(left) == 1 && onTarget(right) == 1) {
-	      setSuckSpeed(0);
-              currentMode = k_finishAutonMode;
-            }
-            break;
-      case 10:
-            setDriveSpeed(0);
-	    setSuckSpeed(0);
-    }
-    setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
-    setDriveLSpeed(calculatePID(left, SensorValue[EncoderL]));
-    setDriveRSpeed(calculatePID(right, SensorValue[EncoderR]));
+  switch(currentMode) {
+  case 1:
+  setSuckSpeed(-FULL);
+  if(onTarget(left) == 1 && onTarget(right) == 1) {
+  setSuckSpeed(0);
+  currentMode = k_turnRaiseMode;
+  }
+  break;
+  case 3:
+  if(onTarget(arm) == 1) {
+  setSetpoint(left, distToGoal);
+  setSetpoint(right, distToGoal);
+  currentMode = k_driveToGoalMode;
+  }
+  break;
+  case 4:
+  if(onTarget(left) == 1 && onTarget(right) == 1) {
+  setSetpoint(arm, low_lock);
+  currentMode = k_dropMode;
+  }
+  break;
+  case 5:
+  setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
+  if(onTarget(arm) == 1) {
+  setSetpoint(left, distToStack);
+  setSetpoint(right, distToStack);
+  currentMode = k_exhaleReverseMode;
+  }
+  break;
+  case 7:
+  setSuckSpeed(FULL);
+  if(onTarget(left) == 1 && onTarget(right) == 1) {
+  setSuckSpeed(0);
+  currentMode = k_finishAutonMode;
+  }
+  break;
+  case 10:
+  setDriveSpeed(0);
+  setSuckSpeed(0);
+  }
+  setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
+  setDriveLSpeed(calculatePID(left, SensorValue[EncoderL]));
+  setDriveRSpeed(calculatePID(right, SensorValue[EncoderR]));
   }//while
 }//task auto
 
@@ -548,37 +162,34 @@ task usercontrol()
   while (true)
   {
     //--/ Arm /-------------------------------------/
-    //if(checkDeadZone(vexRT[Ch3]) != 0) {
     if (vexRT[Ch3] > 15 || (vexRT[Ch3]) < -15){
       setArmSpeed(vexRT[Ch3]);
       disable(arm);
-    } else {
+      } else {
       setArmSpeed(calculatePID(arm, SensorValue[PotArm]));
     }
 
     if(vexRT[Btn7U] == 1) {
       setSetPoint(arm, low_lock);
       enable(arm);
-    } else if (vexRT[Btn7D] == 1) {
+      } else if (vexRT[Btn7D] == 1) {
       setSetPoint(arm, low_descore);
       enable(arm);
-    } else if(vexRT[Btn6U] == 1) {
-	  setSetPoint(arm, high_lock);
+      } else if(vexRT[Btn6U] == 1) {
+      setSetPoint(arm, high_lock);
       enable(arm);
-   } else if(vexRT[Btn6D] == 1) {
-	  setSetPoint(arm, high_descore);
+      } else if(vexRT[Btn6D] == 1) {
+      setSetPoint(arm, high_descore);
       enable(arm);
-	} else if(vexRT[Btn7L] == 1) {
-	      disable(arm);
-	}
+      } else if(vexRT[Btn7L] == 1) {
+      disable(arm);
+    }
     //--/ DESCORE /----------------------------------/
 
-	if(vexRT[Btn7R] == 1)         // If button 6U (upper right shoulder button) is pressed:
-    {
+    if(vexRT[Btn7R] == 1) {
       SensorValue[Pneu1] = 1;  // ...activate the solenoid.
     }
-    else                          // If button 6U (upper right shoulder button) is  NOT pressed:
-    {
+    else {
       SensorValue[Pneu1] = 0;  // ..deactivate the solenoid.
     }
     //--/ INHALE /----------------------------------/
