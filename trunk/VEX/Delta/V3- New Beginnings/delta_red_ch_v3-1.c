@@ -38,7 +38,22 @@ PIDController left;
 PIDController right;
 
 //---------------------
+#define k_driveStraightMode 1;
+#define k_armRaiseMode 3;
+#define k_driveToGoalMode 4;
+#define k_dropMode 5;
+#define k_exhaleReverseMode 7;
+#define k_finishAutonMode 10;
+#define k_stackToGoalDist 250;
+#define k_distToStack 500;
 
+int currentMode = k_driveStraightMode;
+//try the following fix using typecasting:
+int distToGoal = (int) k_distToStack + (int) k_stackToGoalDist;
+/*If it doesn't work (I don't know exactly how typecasting works in RobotC), use following segment, which should work
+int distToStack = k_distToStack;
+int stackToGoalDist = k_stackToGoalDist;
+int distToGoal = distToStack + stackToGoalDist;*/
 
 //---------------------------------/ Pre Autonomous /-------------------------------------------//
 //--------------------------------/                  /------------------------------------------//
@@ -67,8 +82,8 @@ void pre_auton()
   setPIDs(left, k_P, k_I, k_D);
   setPIDs(right, k_P, k_I, k_D);
   setSetpoint(arm, goal_value);
-  setSetpoint(left, distToStack);//why wont this work?? distToStack is defined
-  setSetpoint(right, distToStack);
+  setSetpoint(left, k_distToStack);
+  setSetpoint(right, k_distToStack);
   setMaxError(arm, 100);
   setMaxError(left, 50);
   setMaxError(right, 50);
@@ -87,18 +102,6 @@ void pre_auton()
 //---------------------------------/ Autonomous /-----------------------------------------------//
 //--------------------------------/              /----------------------------------------------//
 //-------------------------------/                /---------------------------------------------//
-
-#define k_driveStraightMode 1;
-#define k_armRaiseMode 3;
-#define k_driveToGoalMode 4;
-#define k_dropMode 5;
-#define k_exhaleReverseMode 7;
-#define k_finishAutonMode 10;
-#define k_stackToGoalDist 250;
-#define k_distToStack 500;
-
-int currentMode = k_driveStraightMode;
-int distToGoal = k_distToStack + k_stackToGoalDist;
 
 task autonomous()
 {
