@@ -30,11 +30,6 @@
 
 #define FULL 127
 #define AutonFULL 100
-#define k_driveStraightMode 1;
-#define k_turnRaiseMode 3;
-#define k_dropMode 5;
-#define k_exhaleReverseMode 7;
-#define k_finishAutonMode 10;
 
 //---------------------
 typedef struct {
@@ -201,8 +196,6 @@ int calculatePID(PIDController controller, int input) {
 }
 
 PIDController arm;
-int currentMode = k_driveStraightMode;
-int driveStraightDist = 500;
 PIDController left;
 PIDController right;
 
@@ -462,8 +455,8 @@ void pre_auton()
   setPIDs(left, k_P, k_I, k_D);
   setPIDs(right, k_P, k_I, k_D);
   setSetpoint(arm, goal_value);
-  setSetpoint(left, driveStraightDist);
-  setSetpoint(right, driveStraightDist);
+  setSetpoint(left, distToStack);
+  setSetpoint(right, distToStack);
   setMaxError(arm, 100);
   setMaxError(left, 50);
   setMaxError(right, 50);
@@ -483,78 +476,64 @@ void pre_auton()
 //--------------------------------/              /----------------------------------------------//
 //-------------------------------/                /---------------------------------------------//
 
+#define k_driveStraightMode 1;
+#define k_armRaiseMode 3;
+#define k_driveToGoalMode 4;
+#define k_dropMode 5;
+#define k_exhaleReverseMode 7;
+#define k_finishAutonMode 10;
+#define k_stackToGoalDist 250;
+#define k_distToStack 500;
+
+int currentMode = k_driveStraightMode;
+int distToGoal = distToStack + k_stackToGoalDist;
+
 task autonomous()
 {
-  while(true)		// Creates an infinite loop, since "true" always evaluates to true
-  {
+  while(true) {
     switch(currentMode) {
       case 1:
-            setDriveLSpeed(calculatePID(left, SensorValue[EncoderL]));
-            setDriveRSpeed(calculatePID(right, SensorValue[EncoderR]));
             setSuckSpeed(-FULL);
             if(onTarget(left) == 1 && onTarget(right) == 1) {
+	      setSuckSpeed(0);
               currentMode = k_turnRaiseMode;
             }
             break;
       case 3:
-            setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
             if(onTarget(arm) == 1) {
-              setSetpoint(arm, high_descore);
+              setSetpoint(left, distToGoal);
+	      setSetpoint(right, distToGoal);
+              currentMode = k_driveToGoalMode;
+            }
+            break;
+      case 4:
+            if(onTarget(left) == 1 && onTarget(right) == 1) {
+              setSetpoint(arm, low_lock);
               currentMode = k_dropMode;
             }
             break;
       case 5:
             setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
             if(onTarget(arm) == 1) {
-              SensorValue[EncoderL] = 0;
-              SensorValue[EncoderR] = 0;
-              setSetpoint(left, -500);
-              setSetpoint(right, -500);
+              setSetpoint(left, distToStack);
+              setSetpoint(right, distToStack);
               currentMode = k_exhaleReverseMode;
             }
             break;
       case 7:
-            setDriveLSpeed(calculatePID(left, SensorValue[EncoderL]));
-            setDriveRSpeed(calculatePID(right, SensorValue[EncoderR]));
-            setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
-            if(SensorValue[EncoderL] < 200) {
-              setSuckSpeed(0);
-              setSetpoint(arm, startpoint);
-            } else {
-              setSuckSpeed(AutonFULL);
-            }
+	    setSuckSpeed(FULL);
             if(onTarget(left) == 1 && onTarget(right) == 1) {
+	      setSuckSpeed(0);
               currentMode = k_finishAutonMode;
             }
             break;
       case 10:
             setDriveSpeed(0);
-            setArmSpeed(calculatePID(arm, SensorValue[PotArm]));
+	    setSuckSpeed(0);
     }
-
-    /*4/4/11 OLD FROM NICK
-    int i;
-    for(i=0; i<4; i++)      // While 'i' is less than 4:
-    {
-      drive_suck(AutonFULL, FULL, 3.0);//drive forward and inhale redstack, scoring cheater tube
-      //move_arm(FULL, 2326);//raise arm
-      setSetPoint(arm, low_lock);//raise arm
-      turn_left(AutonFULL, 3.0);//turn to face goal
-      drive(AutonFULL, 3.0);// drive to goal
-      //move_arm(FULL, 1556);//score tubes
-      setSetPoint(arm, low_descore);//score tubes
-      drive_suck(AutonFULL, -FULL, 3.0);//back up while exhaling
-      turn_left(AutonFULL, 3.0);//turn around to face blue stack
-      drive_suck(AutonFULL, FULL, 3.0);//drive to and inhale blue stack
-      //arc(-AutonFULL, -FULL, 3.0);// drive back wards in an arc to tower
-      turn_left(AutonFULL, 3.0);// turn left away put parallel to tower
-      drive(-AutonFULL, 3.0);// back up, parallel to tower
-      turn_right(AutonFULL, 3.0);// turn right to face tower
-      //move_arm(127, low_lock)//raise arm
-      setSetPoint(arm, low_lock);//raise arm
-      drive(AutonFULL, 3.0);//drive up against tower
-      suck(FULL,1500);//spit tubes into tower
-    }*/
+    setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
+    setDriveLSpeed(calculatePID(left, SensorValue[EncoderL]));
+    setDriveRSpeed(calculatePID(right, SensorValue[EncoderR]));
   }//while
 }//task auto
 
@@ -566,6 +545,7 @@ task usercontrol()
 {
   // User control code here, inside the loop
   pre_auton();
+  setSetpoint(arm, startpoint);
   while (true)
   {
     //--/ Manual_Arm /------------------------------/
