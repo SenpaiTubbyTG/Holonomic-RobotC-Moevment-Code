@@ -94,23 +94,21 @@ void pre_auton()
 #define k_dropMode 5;
 #define k_exhaleReverseMode 7;
 #define k_finishAutonMode 10;
-#define k_turnRaiseMode 11;///should this be 11? i dont know what it does. I added this cause line 112 wont work with out it
 #define k_stackToGoalDist 250;
 #define k_distToStack 500;
 
 int currentMode = k_driveStraightMode;
-//int distToStack = 500;//what should this be??????????????????
-int distToGoal = distToStack + k_stackToGoalDist;
+int distToGoal = k_distToStack + k_stackToGoalDist;
 
 task autonomous()
 {
-  /*while(true) {
+  while(true) {
   switch(currentMode) {
   case 1:
   setSuckSpeed(-FULL);
   if(onTarget(left) == 1 && onTarget(right) == 1) {
   setSuckSpeed(0);
-  currentMode = k_turnRaiseMode;
+  currentMode = k_armRaiseMode;
   }
   break;
   case 3:
@@ -148,7 +146,7 @@ task autonomous()
   setArmSpeed(calculatePID(arm, SensorValue[PotArm]);
   setDriveLSpeed(calculatePID(left, SensorValue[EncoderL]));
   setDriveRSpeed(calculatePID(right, SensorValue[EncoderR]));
-  }//while*/
+  }//while
 }//task auto
 
 //---------------------------------/ User Control /---------------------------------------------//
