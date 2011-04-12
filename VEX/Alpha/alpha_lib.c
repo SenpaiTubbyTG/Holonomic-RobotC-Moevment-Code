@@ -1,6 +1,5 @@
+#pragma config(Sensor, in1,    TubeSensor,          sensorLineFollower)
 #pragma config(Sensor, in5,    PotArm,              sensorPotentiometer)
-#pragma config(Sensor, dgtl1,  EncoderR,                    sensorQuadEncoder)
-#pragma config(Sensor, dgtl3,  EncoderL,                    sensorQuadEncoder)
 #pragma config(Motor,  port1,           ArmLL,         tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port2,           DriveLF,       tmotorNormal, openLoop)
 #pragma config(Motor,  port3,           DriveLB,       tmotorNormal, openLoop)
@@ -23,8 +22,13 @@
 const float rotations = 360.0;
 
 //NOTE 10 IS AN ARBITRARY VALUE, HAS NOT BEEN TESTED
-int DeadZone = 10; //dead zone value for joysticks
+int DeadZone = 25; //dead zone value for joysticks
 int leftDrivePower, rightDrivePower; //drivetrain variables
+int lightMaxValue = 0;
+int tubeCount = 0;
+int spinOutPrev = 0;
+int fullLightCycles = 0;
+int justSpunOut = 0;
 
 /*****GENERIC FUNCTIONS********************************************************/
 
@@ -35,13 +39,9 @@ int checkDeadZone(int x) {
     //int scale=FULL/(FULL-DeadZone);
     if (abs(x) < DeadZone) {
         return 0;
-    } /*else {
-        if (x < 0)
-
-            return (int)(scale*(x + DeadZone));
-        else
-            return (int)(scale*(x - DeadZone));
-        }*/
+    } else {
+        return (x);
+    }
 }
 
 int getSign(int x) {
@@ -168,6 +168,63 @@ int collector(int speed, int duration) { //positive numbers for out
     return 1;
 }
 
+int tubeCounter() {
+    int motorValue;
+  	short sensor_val = SensorValue(TubeSensor);
+    int spinOut = vexRT[Btn6D];
+  	if ((spinOut != spinOutPrev) && spinOut){
+	    tubeCount++;
+	  }
+
+	  spinOutPrev = spinOut;
+
+	  if (tubeCount > 0) {
+	    motorValue = -127;
+	    if (sensor_val < (lightMaxValue - 400) && justSpunOut == 0) {
+	      tubeCount--;
+        justSpunOut = 1000;
+	      lightMaxValue = 0;
+	    } else {
+	      if (justSpunOut > 0) {
+	        justSpunOut--;
+	      }
+        if (lightMaxValue < sensor_val) {
+          lightMaxValue = sensor_val;
+        }
+      }
+    } else if (tubeCount == 0 && justSpunOut > 0) {
+      justSpunOut--;
+      motorValue = 127;
+    } else {
+      lightMaxValue = 0;
+      motorValue = 0;
+    }
+
+    if (fullLightCycles > 100) {
+      tubeCount = 0;
+      fullLightCycles = 0;
+    } else if (sensor_val > 3000) {
+      fullLightCycles++;
+    }
+
+
+    return motorValue;
+ }
+
+ int spinners(){
+   int motorValue;
+  if (vexRT[Btn6U]){
+    motorValue = 127;
+    tubeCount = 0;
+  } else if (vexRT(Btn8U)) {
+    motorValue = -127;
+    tubeCount = 0;
+  } else {
+    motorValue = tubeCounter();
+  }
+    return motorValue;
+ }
+
 /* DRIVE FUNCTIONS
  *
  * drive_forward_1msec
@@ -225,7 +282,7 @@ int rateFilter(int JoystickValue, int MotorValue, int accelRateLimit) {
 */
 
 void driveTank(int leftInput, int rightInput, bool scale, bool filter, int function) {
-    //checks for dead zone and rescales from -127 to 127
+    //checks for dead zone
     leftInput = checkDeadZone(leftInput);
     rightInput = checkDeadZone(rightInput);
             //scales initial input by specified function (arcsin)
@@ -256,100 +313,7 @@ void drive_msec(int speed, int duration) {
     wait1Msec(duration);
     stopDrive();
 }
-void drive_encoder(int driveSpeed, float r)
-{
-  SensorValue[EncoderR] = 0;    /* Clear the encoders for */
-  SensorValue[EncoderL] = 0;    /* consistancy and accuracy. */
-  // While the encoders have not yet met their goal: (r * rotations) ie (3.0 * 360.0) or "three rotations"
-  while(SensorValue[EncoderR] < (r * rotations) && SensorValue[EncoderL] < (r * rotations))
-  {
-    setDriveSpeed(driveSpeed);
-  }
-  stopDrive();
-}
-//Turn left
-void turn_left(int driveSpeed, float r)
-{
-  SensorValue[EncoderR] = 0;    /* Clear the encoders for    */
-  SensorValue[EncoderL]  = 0;    /* consistancy and accuracy. */
-
-  // While the encoders have not yet met their goal: (left is compared negativly since it will in reverse)
-  while(SensorValue[EncoderR] < (r * rotations) && SensorValue[EncoderL] > (-1 * r * rotations))
-  {
-    setDriveRSpeed(driveSpeed);
-    setDriveLSpeed(-driveSpeed);
-  }
-  stopDrive();
-}
-void turn_right(int driveSpeed, float r)
-{
-  SensorValue[EncoderR] = 0;    /* Clear the encoders for    */
-  SensorValue[EncoderL]  = 0;    /* consistancy and accuracy. */
-
-  // While the encoders have not yet met their goal: (left is compared negativly since it will in reverse)
-  while(SensorValue[EncoderL] < (r * rotations) && SensorValue[EncoderR] > (-1 * r * rotations))
-  {
-    setDriveRSpeed(-driveSpeed);
-    setDriveLSpeed(driveSpeed);
-  }
-  stopDrive();
-}
-
-/* drive_straight
- * @purpose: autonomously drive robot forward for provided distance in inches
- * precondition: 4 inch wheels used; if other wheels, change the 4 in the while loop
- * @param speed: speed of motors, -127 to 127; negative values go reverse
- * @param distance: distance in inches
- * TODO: consider adding an acceleration loop
- *///there are 360 ticks in an encoder revolution
-
-/*void drive(int speed, float distance) {
-    SensorValue[EncoderL] = 0;
-            SensorValue[EncoderR] = 0;
-    while (((float) abs(SensorValue[EncoderL]) * 4 / 360 * PI) < distance &&
-            ((float) abs(SensorValue[EncoderR]) * 4 / 360 * PI) < distance) {
-        if (abs(SensorValue[EncoderL]) > abs(SensorValue[EncoderR])) {
-            setDriveRSpeed(speed);
-                    setDriveLSpeed(speed + 1);
-        } else if (abs(SensorValue[EncoderL]) < abs(SensorValue[EncoderR])) {
-            setDriveRSpeed(speed + 1);
-                    setDriveLSpeed(speed);
-        } else {
-
-            setDriveSpeed(speed);
-        }
-    }
-    killdrive
-}
-
- drive_straight_unlocked
- * @purpose: autonomously drive robot forward for provided distance in inches WHILE allowing
- * precondition: 4 inch wheels used; if other wheels, change the 4 in the while loop
- * @param speed: speed of motors, -127 to 127; negative values go reverse
- * @param distance: distance in inches
- * TODO: consider adding an acceleration loop
- //there are 360 ticks in an encoder revolution
-
-int drive_unlocked(int speed, float distance) {
-    SensorValue[EncoderL] = 0;
-            SensorValue[EncoderR] = 0;
-    if (((float) abs(SensorValue[EncoderL]) * 2 / 360 * PI) < distance &&
-            ((float) abs(SensorValue[EncoderR]) * 2 / 360 * PI) < distance) {
-        if (abs(SensorValue[EncoderL]) > abs(SensorValue[EncoderR])) {
-            setDriveRSpeed(speed);
-                    setDriveLSpeed(speed + 1);
-        } else if (abs(SensorValue[EncoderL]) < abs(SensorValue[EncoderR])) {
-            setDriveRSpeed(speed + 1);
-                    setDriveLSpeed(speed);
-        } else {
-            setDriveSpeed(speed);
-        }
-        return 0;
-    }
-
-      else
-        return 1;
-    }
+/*
 
  turn (SAFE)
  * timed, no Sensor
@@ -366,19 +330,4 @@ void turn_timed(int speedr, int speedl, duration) {
             wait1Msec(duration);
             killdrive;
 }
-
- turn
- * @purpose: autonomously execute a point turn
- * @param speed: speed of motors, 0 to 127; no negative values
- * @param degrees: number of degrees to turn, positive degrees go to left
- * TODO: complete this function
-
-void turn(int speed, int degrees) {
-    SensorValue[EncoderL] = 0;
-            SensorValue[EncoderR] = 0;
-    while (SensorValue[EncoderL] < degrees || SensorValue[EncoderR] < degrees * 2) {
-        setDriveRSpeed(speed);
-                setDriveLSpeed(-speed);
-    }
-    stopDrive();
-}*/
+*/
