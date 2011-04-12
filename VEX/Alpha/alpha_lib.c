@@ -152,6 +152,7 @@ void lock_msec(int speed, int duration) {
     wait1Msec(duration);
     setArmSpeed(0);
 }
+
 void score(PIDController arm,int low, int high){
   setSetpoint(arm, low);
   setCollectorSpeed(127);
@@ -172,34 +173,40 @@ int tubeCounter() {
     int motorValue;
   	short sensor_val = SensorValue(TubeSensor);
     int spinOut = vexRT[Btn6D];
-  	if ((spinOut != spinOutPrev) && spinOut){
+  	if ((spinOut != spinOutPrev) && spinOut){ //if we just pressed the button increment tube count
 	    tubeCount++;
 	  }
 
-	  spinOutPrev = spinOut;
+	  spinOutPrev = spinOut; //keep track of previous button state
 
 	  if (tubeCount > 0) {
 	    motorValue = -127;
-	    if (sensor_val < (lightMaxValue - 400) && justSpunOut == 0) {
+	    if (sensor_val < (lightMaxValue - 400) && justSpunOut == 0) { //if we detect we spit a tube decrement tubeCount and set the justSpunOut variable
 	      tubeCount--;
         justSpunOut = 1000;
 	      lightMaxValue = 0;
 	    } else {
-	      if (justSpunOut > 0) {
+	      if (justSpunOut > 0) { //Wait before checking if we have dropped the next tube
 	        justSpunOut--;
 	      }
-        if (lightMaxValue < sensor_val) {
+        if (lightMaxValue < sensor_val) { //keep track of largest light value while we are spining out the tubes
           lightMaxValue = sensor_val;
         }
       }
-    } else if (tubeCount == 0 && justSpunOut > 0) {
+    } else if (tubeCount == 0 && justSpunOut > 0) { // if we just spit out spin the collectors in to hold the tubes
       justSpunOut--;
       motorValue = 127;
-    } else {
+    } else { //if tube count is zero than turn off the spinners and reset max light value to zero
       lightMaxValue = 0;
       motorValue = 0;
     }
 
+    //Override the tube counter if the driver is holding spit out
+    if (spinOut) {
+      motorValue = -127;
+    }
+
+    //if we are empty drop the tubeCount to zero
     if (fullLightCycles > 100) {
       tubeCount = 0;
       fullLightCycles = 0;
@@ -220,7 +227,13 @@ int tubeCounter() {
     motorValue = -127;
     tubeCount = 0;
   } else {
-    motorValue = tubeCounter();
+     if (SensorValue[TubeSensor] > 260) { //if tubeSensor plugged in
+       motorValue = tubeCounter();
+     } else if (vexRT[Btn6D]){ // else run spinners directly off the button
+       motorValue = -127;
+     } else {  //stop if the button isn't pressed
+       motorValue = 0;
+     }
   }
     return motorValue;
  }
