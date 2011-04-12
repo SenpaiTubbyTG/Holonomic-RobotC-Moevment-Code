@@ -35,7 +35,7 @@ int k_I = 0;
 int k_D = 0;
 
 //--/ Arm Position /----------------------------------------------/
-int low_stop = 1950;
+int low_stop = 2025;
 int drive = 1400;
 int low_goal = 780;
 int high_goal = 415;
@@ -60,6 +60,8 @@ void pre_auton() {
 }
 
 task autonomous() {
+  lock_msec(127, 20);
+  drive_msec(-127, 2000); //Drive backwards ar goal or other
 }
 
 task usercontrol() {
@@ -90,55 +92,37 @@ task usercontrol() {
 //parameters (left input,right input,scaling (t/f),rate filter,(t/f),DriveMode)
 //rate filter disabled by default as constant has not been determined*/
         driveTank(vexRT[Ch3], vexRT[Ch2], true, filter,DriveMode);
+
+
 /*******ARM********************************************************************/
     short pot = SensorValue[PotArm];
-    /*if ((vexRT[Btn5D] - vexRT[Btn5U])!=0){
-      setArmSpeed((vexRT[Btn5D] - vexRT[Btn5U]) * FULL);
-      disable(arm);
-    } else {
-      setArmSpeed(calculatePID(arm, pot));
-    }*/
-
-    //PID Controlled Presets
-    /*if(vexRT[Btn7U] == 1) {
-      setSetpoint(arm, high_goal);
-      enable(arm);
-    } else if (vexRT[Btn7D] == 1) {
-      setSetpoint(arm, low_goal);
-      enable(arm);
-    } else if(vexRT[Btn7L] == 1) {
-      disable(arm);
-    }*/
-
-    if (vexRT[Btn5D]) {
+    if (pot > 258) { //if pot is plugged in
+    if (vexRT[Btn5D]) { //if down button check we aren't at down stop and move the arm down, also set armMoved counter
       if (pot < low_stop) {
         setArmSpeed(FULL);
         armMoved = 500;
       } else {
-        setArmSpeed(0);
+        setArmSpeed(0); //go to zero if at our lower limit
       }
-      //disable(arm);
-      preset = 0;
-    } else if (vexRT[Btn5U]) {
-      if (pot > high_stop) {
-        setArmSpeed(-FULL);
-        armMoved = 100;
+      preset = 0;  //disable the preset once the button is pushed
+    } else if (vexRT[Btn5U]) { //if up button is pushed
+      if (pot > high_stop) { //if we are not at are high limit
+        setArmSpeed(-FULL); //let arm go up
+        armMoved = 500;     //set armMoved Counter used for pid positioning
       } else {
-        setArmSpeed(0);
+        setArmSpeed(0);    //if at the limit don't let the arm move
       }
-      //disable(arm);
-      preset = 0;
-    } else {
-      if (preset == 0 && armMoved > 0) {
+      preset = 0;         //turn off preset positions
+    } else {              // if neither button is pushed
+      if (preset == 0 && armMoved > 0) { //let the arm steady itself then set the arm setpoint
         setSetpoint(arm, pot);
         armMoved--;
       }
-        setArmSpeed(calculatePID(arm,pot));
+        setArmSpeed(calculatePID(arm,pot)); //use the pid control to control the arm if neither button is pushed
     }
 
-    if(vexRT[Btn7U]) {
-      //enable(arm);
-      preset = 1;
+    if(vexRT[Btn7U]) { //arm state machine moves to the next heights height
+      preset = 1;       //enables presets
       if (pot > drive + 100) {
         setSetpoint(arm, drive);
       } else if (pot > low_goal + 100) {
@@ -147,6 +131,11 @@ task usercontrol() {
         setSetpoint(arm, high_goal);
       }
     }
+  } else { //if pot gets unplugged revert to old code and if it gets plugged back in hold current position
+    preset = 0;
+    armMoved = 500;
+    setArmSpeed((vexRT[Btn5D] - vexRT[Btn5U]) * FULL);
+  }
 
 
 
