@@ -1,6 +1,7 @@
+#pragma config(Sensor, in1,    TubeSensor,          sensorLineFollower)
 #pragma config(Sensor, in5,    PotArm,              sensorPotentiometer)
-#pragma config(Sensor, dgtl1,  EncoderR,                    sensorQuadEncoder)
-#pragma config(Sensor, dgtl3,  EncoderL,                    sensorQuadEncoder)
+#pragma config(Sensor, dgtl1,  EncoderR,            sensorQuadEncoder)
+#pragma config(Sensor, dgtl3,  EncoderL,            sensorQuadEncoder)
 #pragma config(Motor,  port1,           ArmLL,         tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port2,           DriveLF,       tmotorNormal, openLoop)
 #pragma config(Motor,  port3,           DriveLB,       tmotorNormal, openLoop)
@@ -25,6 +26,7 @@
 //#include "PIDController.c"
 //--/ Drive /-------------------------------------------------------/
 int DriveMode;
+bool filter;
 
 //--/ PID /-------------------------------------------------------/
 PIDController arm;
@@ -48,10 +50,10 @@ void pre_auton() {
   //--/ Arm Points /-----------------------/
   //goal_value = startpoint + change;
   startpoint/*arm_grounded*/ = SensorValue[PotArm];  // sets ground point           (0 inches)
-  low_descore = startpoint + 1556 - 1236;          // sets low descore arm point  (4.5 inches)
-  low_lock = startpoint + 2265 - 1236;             //...lowgoal                   (15 inches)
-  high_descore = startpoint + 1879- 1247;          //...high descore              (x inches)
-  high_lock = startpoint + 2599 - 1247;            // ...high goal                (18.5 inches)
+  low_descore = 1592;//startpoint + 1556 - 1236;          // sets low descore arm point  (4.5 inches)
+  low_lock = 917;//startpoint + 2265 - 1236;             //...lowgoal                   (15 inches)
+  high_descore = 917;//startpoint + 1879- 1247;          //...high descore              (x inches)
+  high_lock = 556;//tartpoint + 2599 - 1247;            // ...high goal                (18.5 inches)
   goal_value = startpoint;
   //--/ PID /------------------------------/
   init(arm);
@@ -65,20 +67,6 @@ void pre_auton() {
 }
 
 task autonomous() {
-    drive_encoder(AutonFULL, 3.0);//drive forward and inhale redstack, scoring cheater tube
-    setSetpoint(arm, low_lock);//raise arm
-    turn_left(AutonFULL, 3.0);//turn to face goal
-    drive_encoder(AutonFULL, 3.0);// drive to goal
-    //setSetPoint(arm, low_descore);//score tubes
-    score(arm,low_descore,low_lock);
-    turn_left(AutonFULL, 3.0);//turn around to face blue stack
-    drive_encoder(AutonFULL, 3.0);//drive to and inhale blue stack
-    turn_left(AutonFULL, 3.0);// turn left away put parallel to tower
-    drive_encoder(-AutonFULL, 3.0);// back up, parallel to tower
-    turn_right(AutonFULL, 3.0);// turn right to face tower
-    setSetpoint(arm, low_lock);//raise arm
-    drive_encoder(AutonFULL, 3.0);//drive up against tower
-   // suck(FULL,1500);//spit tubes into tower
 }
 
 task usercontrol() {
@@ -93,19 +81,22 @@ task usercontrol() {
         //Allows buttons to change drive mode (scaling function)
         if(vexRT[Btn8U] == 1){// no scaling
                 DriveMode = 0;
+                filter=false;
             }
         if(vexRT[Btn8R] == 1){//Squaring function, concave up
                 DriveMode = 1;
+                filter=false;
             }
         if(vexRT[Btn8D] == 1){//arcsin function, concave up
                 DriveMode = 2;
+                filter=false;
             }
         if(vexRT[Btn8L] == 1){//Sets to arctan(x^2) function, concave down
-                DriveMode = 3;
+                filter=true;
             }
 //parameters (left input,right input,scaling (t/f),rate filter,(t/f),DriveMode)
 //rate filter disabled by default as constant has not been determined*/
-        driveTank(vexRT[Ch3], vexRT[Ch2], true, false,DriveMode);
+        driveTank(vexRT[Ch3], vexRT[Ch2], true, filter,DriveMode);
 /*******ARM********************************************************************/
     if ((vexRT[Btn5D] - vexRT[Btn5U])!=0){
       setArmSpeed((vexRT[Btn5D] - vexRT[Btn5U]) * FULL);

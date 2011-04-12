@@ -28,16 +28,20 @@ int leftDrivePower, rightDrivePower; //drivetrain variables
 
 /*****GENERIC FUNCTIONS********************************************************/
 
+/*Apparently robotc doesn't like the scaling math so it's commented out as
+Motor value under 10 are negligible */
 //checks dead zone and scales values excluding deadzone back to 0-127
 int checkDeadZone(int x) {
+    //int scale=FULL/(FULL-DeadZone);
     if (abs(x) < DeadZone) {
         return 0;
-    } else {
+    } /*else {
         if (x < 0)
-            return (x + DeadZone)*(FULL / (FULL - DeadZone));
+
+            return (int)(scale*(x + DeadZone));
         else
-            return (x - DeadZone)*(FULL / (FULL - DeadZone));
-        }
+            return (int)(scale*(x - DeadZone));
+        }*/
 }
 
 int getSign(int x) {
@@ -231,8 +235,8 @@ void driveTank(int leftInput, int rightInput, bool scale, bool filter, int funct
     }
     //sets power of drive train based on rate filter
     if (filter) {
-        leftDrivePower = rateFilter(leftInput,leftDrivePower, 1);
-        rightDrivePower = rateFilter(rightInput, rightDrivePower, 1);
+        leftDrivePower = rateFilter(leftInput,leftDrivePower, 40);
+        rightDrivePower = rateFilter(rightInput, rightDrivePower, 40);
     } else {
         leftDrivePower = leftInput;
         rightDrivePower = rightInput;
