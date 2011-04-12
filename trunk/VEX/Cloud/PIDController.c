@@ -64,9 +64,9 @@ void setMaxError(PIDController controller, int maxError) {
 bool onTarget(PIDController controller) {
 	int error = abs(controller.setpoint - SensorValue[controller.inputSensorIndex]);
 	if (error <= controller.maxError) {
-		return 1;
+		return true;
 	} else {
-		return 0;
+		return false;
 	}
 }
 
@@ -81,7 +81,7 @@ void setPIDs(PIDController controller, int kP, int kI, int kD) {
 }
 
 void setInputRange(PIDController controller, int min, int max) {
-	if(max > min) {	
+	if(max > min) {
 		controller.minInput = min;
 		controller.maxInput = max;
 	}
@@ -91,7 +91,7 @@ void setOutputRange(PIDController controller, int min, int max) {
 	if(max > min && min >= -127 && max <= 127) {
 		controller.minOutput = min;
 		controller.maxOutput = max;
-	}	
+	}
 }
 
 int calculatePID(PIDController controller) {
