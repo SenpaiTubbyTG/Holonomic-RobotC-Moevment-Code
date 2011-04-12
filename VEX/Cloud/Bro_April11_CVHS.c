@@ -177,7 +177,7 @@ void setClawPids(kp, ki, kd){
 
 int armPower, clawPower, armPosition, clawPosition, armTolerance, clawTolerance, initialArmPosition, initialClawPosition, armOffset, clawOffset;//arm and claw tolerance to be set
 int armFloor = 2213, armLowPlace = 3079, armLowScore = 2472, armHighPlace = 3303, armHighScore = 2872, armMax = 3845, armSetPoint, armState = 0;//arm positions. Place is position above goal, Score is on goal for tubes, floor is start position
-int clawOpen = -1, clawClosed = -1, clawGuiding = -1;//claw positions. Open is initial position, close is closed on tubes, Guiding is open slightly to better align on tubes for close
+int clawOpen = 2100, clawClosed = 3500, clawGuiding = 2900;//claw positions. Open is initial position, close is closed on tubes, Guiding is open slightly to better align on tubes for close
 int armInput, clawInput, armPreviousInput, armRampLimit = 2, rampClawLimit = 0.2;//arm variables used in competitions code. Placed here to keep them with the rest of the arm variables
 bool armPositionReached, clawPositionReached, slowClose = false;
 
@@ -314,12 +314,12 @@ void armMove(int aPower, int cPower){
 /*****************************************************************************************Competition Code*****************************************************************************************/
 void pre_auton()
 {
-  init(Arm,armPot);
+  //init(Arm,1);
 }
 
 task autonomous()
 {
-  bool reached = false;
+  /*bool reached = false;
   setArmPids(ArmKp, ArmKi, ArmKd);
   setMaxError(Arm, 10);
   setOutputRange(Arm, -20, 127);
@@ -334,6 +334,23 @@ task autonomous()
   }
 
   disable(Arm);
+  */
+  while(sensorValue[clawPot] < clawClosed){
+    clawPower = 128;
+    armMove(0,clawPower);
+  }
+
+  while(sensorValue[armPot] < armLowPlace){
+    armPower = 64;
+    armMove(armpower,0);
+  }
+  armMove(0,0);
+
+  time1[T1] = 0;
+  while(time1[T1] < 500){
+    driveArcade(32,0,false,true);
+  }
+  driveArcade(0,0,false,false);
 }
 
 task usercontrol()
