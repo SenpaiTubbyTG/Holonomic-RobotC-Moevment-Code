@@ -38,19 +38,17 @@ PIDController left;
 PIDController right;
 
 //---------------------
-#define k_driveStraightMode 1;
-#define k_armRaiseMode 3;
-#define k_driveToGoalMode 4;
-#define k_dropMode 5;
-#define k_exhaleReverseMode 7;
-#define k_finishAutonMode 10;
-#define k_stackToGoalDist 250;
-#define k_distToStack 500;
+int k_driveToStackMode 1;
+int k_armRaiseMode 3;
+int k_driveToGoalMode 4;
+int k_dropMode 5;
+int k_exhaleReverseMode 7;
+int k_finishAutonMode 10;
+int k_stackToGoalDist 250;
+int k_distToStack 500;
+int k_distToGoal = k_distToStack + k_stackToGoalDist;
 
-int currentMode = k_driveStraightMode;
-int distToStack = k_distToStack;
-int stackToGoalDist = k_stackToGoalDist;
-int distToGoal = distToStack + stackToGoalDist;
+int currentMode = k_driveToStackMode;
 
 //---------------------------------/ Pre Autonomous /-------------------------------------------//
 //--------------------------------/                  /------------------------------------------//
@@ -79,8 +77,8 @@ void pre_auton()
   setPIDs(left, k_P, k_I, k_D);
   setPIDs(right, k_P, k_I, k_D);
   setSetpoint(arm, goal_value);
-  setSetpoint(left, distToStack);
-  setSetpoint(right, distToStack);
+  setSetpoint(left, k_distToStack);
+  setSetpoint(right, k_distToStack);
   setMaxError(arm, 100);
   setMaxError(left, 50);
   setMaxError(right, 50);
