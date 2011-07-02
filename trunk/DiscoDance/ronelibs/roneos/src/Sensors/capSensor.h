@@ -10,7 +10,7 @@
 
 
 void initCapSensor();
-boolean getCapSensor(uint8 base, uint8 pin);
+boolean getCapSensor(uint32 base, uint32 pin);
 
 
 #endif /* CAPSENSOR_H_ */
