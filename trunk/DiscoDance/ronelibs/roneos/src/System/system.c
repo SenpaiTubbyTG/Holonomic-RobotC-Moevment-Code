@@ -94,10 +94,10 @@ void systemPreInit(void) {
 	roneID = systemGetId();
 
 #ifdef PART_LM3S8962
-	charger_init();
+
 #endif
 
-	blinky_led_init();
+	//blinky_led_init();
 
 #ifdef PART_LM3S8962
 	led_init();
@@ -108,11 +108,11 @@ void systemPreInit(void) {
 	// triple flash
 	for (i = 0; i < 3; i++) {
 		uint32 j;
-		blinkyLedSet(1);
+		//blinkyLedSet(1);
 		for (j = 0; j < 150000;) {
 			j++;
 		}
-		blinkyLedSet(0);
+		//blinkyLedSet(0);
 		for (j = 0; j < 250000;) {
 			j++;
 		}
@@ -151,19 +151,7 @@ uint32 systemUSBConnected(void) {
 	return false;
 }
 
-/**
- * @brief Gets the file name from path.
- *
- * @param filepathString the file path
- * @returns a pointer that points to the file name
- */
-char* sysGetFilenameFromPath(char* filepathString) {
-	return (strrchr(filepathString, '/') + 1);
-}
 
-void _sysPrintFilename(char* fileName) {
-	cprintf("%s\n", sysGetFilenameFromPath(fileName));
-}
 
 
 /**
@@ -205,12 +193,10 @@ void systemHeartbeatTask(void* parameters) {
 	lastWakeTime = osTaskGetTickCount();
 
 	for (;;) {
-		// enable nested interrupts for the ir_comms system
-		//radioIntDisable();
 		//MAP_IntMasterEnable();
 
 		// blink the blinky LED
-		blinkyUpdate();
+		//blinkyUpdate();
 #ifdef PART_LM3S8962
 		leds_update();
 
@@ -220,30 +206,11 @@ void systemHeartbeatTask(void* parameters) {
 			heart_beat_10hz_timer = HEARTBEAT_10HZ_COUNTER;
 
 			// enable charge mode if the motors have not been driven in a while
-			motor_command_timer_update();
 		}
 		//MAP_IntMasterDisable();
 		//radio_int_enable();
 #endif
 		osTaskDelayUntil(&lastWakeTime, HEARTBEAT_PERIOD);
-	}
-}
-
-/**
- * @brief Print the heap and stack usage.
- *
- * @returns void
- */
-void systemPrintMemUsage(void) {
-	uint8 i;
-
-	//
-	cprintf("FreeRTOS heap: %d free bytes\n", xPortGetFreeHeapSize());
-	cprintf("%d tasks:\n", (int) osTaskGetNumberOfTasks());
-	for (i = 0; i < sysTaskCount; ++i) {
-		cprintf("  %s: stack use %d/%d\n", osTaskGetName(sysTaskHandles[i]),
-				sysTaskStackSizes[i] - (uint32) osTaskGetStackHighWaterMark(
-						sysTaskHandles[i]), sysTaskStackSizes[i]);
 	}
 }
 
@@ -258,7 +225,6 @@ void systemBootloader(void) {
 	// Also disable the SysTick interrupt.
 	//
 	MAP_SysTickIntDisable();
-	radioIntDisable();
 
 	/*
 	 * Jump to Bootloader
