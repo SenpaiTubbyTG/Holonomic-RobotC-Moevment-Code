@@ -1,0 +1,59 @@
+\hypertarget{gyro_8c}{
+\section{Sensors/gyro.c File Reference}
+\label{gyro_8c}\index{Sensors/gyro.c@{Sensors/gyro.c}}
+}
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-qei.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/adc.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{gyro_8c_a91a537907b8a354d5dd86215f39b8109}{gyro\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Initializes gyro. \end{DoxyCompactList}\item 
+int32 \hyperlink{gyro_8c_ab8c7dbdb64da14fc282057fa946a310c}{gyro\_\-get\_\-value} (void)
+\begin{DoxyCompactList}\small\item\em Gets the ADC value of the gyro. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\hypertarget{gyro_8c_ab8c7dbdb64da14fc282057fa946a310c}{
+\index{gyro.c@{gyro.c}!gyro\_\-get\_\-value@{gyro\_\-get\_\-value}}
+\index{gyro\_\-get\_\-value@{gyro\_\-get\_\-value}!gyro.c@{gyro.c}}
+\subsubsection[{gyro\_\-get\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}int32 gyro\_\-get\_\-value (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{gyro_8c_ab8c7dbdb64da14fc282057fa946a310c}
+
+
+Gets the ADC value of the gyro. 
+
+\begin{DoxyReturn}{Returns}
+the value of the gyro 
+\end{DoxyReturn}
+\hypertarget{gyro_8c_a91a537907b8a354d5dd86215f39b8109}{
+\index{gyro.c@{gyro.c}!gyro\_\-init@{gyro\_\-init}}
+\index{gyro\_\-init@{gyro\_\-init}!gyro.c@{gyro.c}}
+\subsubsection[{gyro\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void gyro\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{gyro_8c_a91a537907b8a354d5dd86215f39b8109}
+
+
+Initializes gyro. 
+
+Sets sampling speed, configures and enables the gyro. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

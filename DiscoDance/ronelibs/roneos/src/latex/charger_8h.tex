@@ -1,0 +1,67 @@
+\hypertarget{charger_8h}{
+\section{System/charger.h File Reference}
+\label{charger_8h}\index{System/charger.h@{System/charger.h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{charger_8h_a3612b6bd740e2b58f32b40bd72e822d8}{charger\_\-init} (void)
+\item 
+void \hyperlink{charger_8h_a836a56710a7b62e0f6762db9ce2b3736}{charger\_\-enable} (void)
+\item 
+void \hyperlink{charger_8h_a26cbbccd5a2f0f474f711722695ff177}{charger\_\-disable} (void)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{charger_8h_a17d8804da64d88a65075092aae437c2e}{charger\_\-get\_\-status} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{charger_8h_a26cbbccd5a2f0f474f711722695ff177}{
+\index{charger.h@{charger.h}!charger\_\-disable@{charger\_\-disable}}
+\index{charger\_\-disable@{charger\_\-disable}!charger.h@{charger.h}}
+\subsubsection[{charger\_\-disable}]{\setlength{\rightskip}{0pt plus 5cm}void charger\_\-disable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{charger_8h_a26cbbccd5a2f0f474f711722695ff177}
+Disables the charger. Disables the charger. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{charger_8h_a836a56710a7b62e0f6762db9ce2b3736}{
+\index{charger.h@{charger.h}!charger\_\-enable@{charger\_\-enable}}
+\index{charger\_\-enable@{charger\_\-enable}!charger.h@{charger.h}}
+\subsubsection[{charger\_\-enable}]{\setlength{\rightskip}{0pt plus 5cm}void charger\_\-enable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{charger_8h_a836a56710a7b62e0f6762db9ce2b3736}
+
+
+Enables the charger
+
+\hypertarget{charger_8h_a17d8804da64d88a65075092aae437c2e}{
+\index{charger.h@{charger.h}!charger\_\-get\_\-status@{charger\_\-get\_\-status}}
+\index{charger\_\-get\_\-status@{charger\_\-get\_\-status}!charger.h@{charger.h}}
+\subsubsection[{charger\_\-get\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} charger\_\-get\_\-status (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{charger_8h_a17d8804da64d88a65075092aae437c2e}
+Gets the status of the charger. Gets the status (whether it is enabled ) of the charger. \begin{DoxyReturn}{Returns}
+true if the charger is enabled, false otherwise 
+\end{DoxyReturn}
+\hypertarget{charger_8h_a3612b6bd740e2b58f32b40bd72e822d8}{
+\index{charger.h@{charger.h}!charger\_\-init@{charger\_\-init}}
+\index{charger\_\-init@{charger\_\-init}!charger.h@{charger.h}}
+\subsubsection[{charger\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void charger\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{charger_8h_a3612b6bd740e2b58f32b40bd72e822d8}
+Initializes charger. Enables peripheral and sets the charger pin as output. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

@@ -1,0 +1,101 @@
+\hypertarget{int_math_8c}{
+\section{System/intMath.c File Reference}
+\label{int_math_8c}\index{System/intMath.c@{System/intMath.c}}
+}
+{\ttfamily \#include $<$math.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$stdlib.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}intMathTrigLookup.c\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint32 \hyperlink{group__kernel_ga7aa1a4f036edc99f7edcff72aef7f31b}{decToZero} (uint32 val)
+\begin{DoxyCompactList}\small\item\em Continually decrements the input value by one until it is closest to zero. \end{DoxyCompactList}\item 
+uint32 \hyperlink{int_math_8c_a7ec1407887748e6201638f4573c29370}{circularInc} (uint32 index, uint32 maxIndex)
+\begin{DoxyCompactList}\small\item\em Circularly increments the index by 1. \end{DoxyCompactList}\item 
+uint32 \hyperlink{int_math_8c_a95c68d5f5e07267a9bf3d2d14897c637}{circularDec} (uint32 index, uint32 maxIndex)
+\begin{DoxyCompactList}\small\item\em Circularly decrements the index by 1. \end{DoxyCompactList}\item 
+uint32 \hyperlink{group__kernel_gaf4aef950d3b64a0efc3cd598e9a6c17d}{sqrtInt} (uint32 val)
+\begin{DoxyCompactList}\small\item\em Compute the integer square root of a number. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga5231492647a7f6d3f3d3a32e6ca01443}{normalizeAngleMilliRad} (int16 angle)
+\begin{DoxyCompactList}\small\item\em Normalizes the angle. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga1e615bf4f7531815855c532d3a14aad9}{normalizeAngleMilliRad2} (int16 angle)
+\begin{DoxyCompactList}\small\item\em Normalizes the angle. \end{DoxyCompactList}\item 
+int32 \hyperlink{group__kernel_ga9e055eb22ac5e1998989df3e3d2e56df}{normalizeAngleMicroRad} (int32 angle)
+\begin{DoxyCompactList}\small\item\em Normalizes the angle. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga9b5d702c682c6b2b84408c42baba8744}{sinMilliRad} (int16 angle)
+\begin{DoxyCompactList}\small\item\em Interprets the angle as milli-\/radian of sine. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_gac1cf09ca3eee6afd3b10336ee379499b}{cosMilliRad} (int16 angle)
+\item 
+int16 \hyperlink{group__kernel_ga656f7470125f125f27498a2d73eb360d}{smallestAngleDifference} (int16 thetaGoal, int16 theta)
+\begin{DoxyCompactList}\small\item\em Calculates the smallest angle difference between the two input angles. \end{DoxyCompactList}\item 
+int32 \hyperlink{group__kernel_gaf504b0a24c0021553b5c0fa226c1889a}{boundAbs} (int32 val, int32 bound)
+\begin{DoxyCompactList}\small\item\em Bounds the value with one specified bound as both lower and upper bound. \end{DoxyCompactList}\item 
+int32 \hyperlink{group__kernel_gabb0bf0ea240f580412056369844c3a86}{bound} (int32 val, int32 lowerBound, int32 upperBound)
+\begin{DoxyCompactList}\small\item\em Bounds the value with specified lower and upper bound. \end{DoxyCompactList}\item 
+uint8 \hyperlink{group__kernel_ga296505f686197250917aa5e4804a1af3}{countBits} (uint32 val)
+\begin{DoxyCompactList}\small\item\em Counts how many bits the value has. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga1f218222edc73fbd18dfcf47d9542a9b}{atan2MilliRad} (int32 y, int32 x)
+\begin{DoxyCompactList}\small\item\em Gets atan2 approximation in miiliradians. \end{DoxyCompactList}\item 
+int32 \hyperlink{group__kernel_ga9054288f0277dbfaefbcddb2ce91cbc5}{averageAnglesMicroRad} (int32 theta1, int32 theta2)
+\begin{DoxyCompactList}\small\item\em Calculates the average of the two angles in microrad,. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga22381e287b289e40aaeee3cfd24ceeb0}{averageAngles} (int16 angle1, int16 angle2)
+\begin{DoxyCompactList}\small\item\em Calculates the average of the two angles in millirad. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga4df4d9942bd8770a19eb7fd4acdff4b6}{averageArrayAngle} (int16 angleArray\mbox{[}$\,$\mbox{]}, int32 size)
+\begin{DoxyCompactList}\small\item\em Calculates the average of the angles in the array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\hypertarget{int_math_8c_a95c68d5f5e07267a9bf3d2d14897c637}{
+\index{intMath.c@{intMath.c}!circularDec@{circularDec}}
+\index{circularDec@{circularDec}!intMath.c@{intMath.c}}
+\subsubsection[{circularDec}]{\setlength{\rightskip}{0pt plus 5cm}uint32 circularDec (
+\begin{DoxyParamCaption}
+\item[{uint32}]{index, }
+\item[{uint32}]{maxIndex}
+\end{DoxyParamCaption}
+)}}
+\label{int_math_8c_a95c68d5f5e07267a9bf3d2d14897c637}
+
+
+Circularly decrements the index by 1. 
+
+Decrements the index by 1. If the index reaches 0, resets it to maximum index. Circular meaning it goes back to maximum index. 
+\begin{DoxyParams}{Parameters}
+{\em index} & the index to be decremented \\
+\hline
+{\em maxIndex} & the maximum index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the decremented circular index 
+\end{DoxyReturn}
+\hypertarget{int_math_8c_a7ec1407887748e6201638f4573c29370}{
+\index{intMath.c@{intMath.c}!circularInc@{circularInc}}
+\index{circularInc@{circularInc}!intMath.c@{intMath.c}}
+\subsubsection[{circularInc}]{\setlength{\rightskip}{0pt plus 5cm}uint32 circularInc (
+\begin{DoxyParamCaption}
+\item[{uint32}]{index, }
+\item[{uint32}]{maxIndex}
+\end{DoxyParamCaption}
+)}}
+\label{int_math_8c_a7ec1407887748e6201638f4573c29370}
+
+
+Circularly increments the index by 1. 
+
+Increments the index by 1. Resets index to 0 if it exceeds the maximum index Circular meaning it goes back to 0. 
+\begin{DoxyParams}{Parameters}
+{\em index} & is the index to be incremented \\
+\hline
+{\em maxIndex} & is the maximum index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the incremented circular index 
+\end{DoxyReturn}

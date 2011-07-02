@@ -1,0 +1,230 @@
+\hypertarget{encoder_8c}{
+\section{Motors/encoder.c File Reference}
+\label{encoder_8c}\index{Motors/encoder.c@{Motors/encoder.c}}
+}
+{\ttfamily \#include $<$stdlib.h$>$}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-qei.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/pwm.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/qei.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{encoder_8c_adc192850b7621e17ba23d7cb6eada1ac}{VEL\_\-CAP\_\-F}~10
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{encoder_8c_ab885d9bad57d89e5f53eb590dc3d6011}{encoder\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the encoder. \end{DoxyCompactList}\item 
+int32 \hyperlink{encoder_8c_a102b12c8c18bd6ea904d4242f7bd93fe}{encoder\_\-get\_\-ticks} (uint32 enc)
+\item 
+int32 \hyperlink{encoder_8c_aaef59aed3360a598731333fc42d84c3e}{encoder\_\-delta\_\-ticks} (uint32 new, uint32 old)
+\begin{DoxyCompactList}\small\item\em Gets the difference between the two input ticks. \end{DoxyCompactList}\item 
+int32 \hyperlink{encoder_8c_a397c6cb7980a1a17c71de3f59fbc17dd}{encoder\_\-get\_\-direction} (uint32 enc)
+\begin{DoxyCompactList}\small\item\em Gets the current rotating direction of the encoder. \end{DoxyCompactList}\item 
+int32 \hyperlink{encoder_8c_a0f988a414e4926b9fefe7a38c5851057}{encoder\_\-get\_\-velocity} (uint32 enc)
+\begin{DoxyCompactList}\small\item\em Gets the current velocity of the specified encoder. \end{DoxyCompactList}\item 
+void \hyperlink{encoder_8c_ad323477d4bd1274cbf43d8966cc88130}{encoder\_\-pose\_\-update} (void)
+\begin{DoxyCompactList}\small\item\em Updates the encoder's pose. \end{DoxyCompactList}\item 
+void \hyperlink{encoder_8c_a95912972332a5920f6e48c7012a6ca0e}{encoder\_\-pose\_\-clear} (void)
+\begin{DoxyCompactList}\small\item\em Clears the x, y, and theta values of the encoder. \end{DoxyCompactList}\item 
+void \hyperlink{encoder_8c_a5911010e8d153e64f3ea0404533d3e13}{encoder\_\-get\_\-pose} (Pose $\ast$posePtr)
+\begin{DoxyCompactList}\small\item\em Gets the pose of the encoder and stores it in variables (x, y, theta) of where posePtr points to. \end{DoxyCompactList}\item 
+void \hyperlink{encoder_8c_a83826f6388434850720c603128d5be7f}{encoder\_\-set\_\-pose} (Pose $\ast$posePtr)
+\begin{DoxyCompactList}\small\item\em Sets the pose of the encoder as variables of where posePtr points to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Define Documentation}
+\hypertarget{encoder_8c_adc192850b7621e17ba23d7cb6eada1ac}{
+\index{encoder.c@{encoder.c}!VEL\_\-CAP\_\-F@{VEL\_\-CAP\_\-F}}
+\index{VEL\_\-CAP\_\-F@{VEL\_\-CAP\_\-F}!encoder.c@{encoder.c}}
+\subsubsection[{VEL\_\-CAP\_\-F}]{\setlength{\rightskip}{0pt plus 5cm}\#define VEL\_\-CAP\_\-F~10}}
+\label{encoder_8c_adc192850b7621e17ba23d7cb6eada1ac}
+Defines 
+
+\subsection{Function Documentation}
+\hypertarget{encoder_8c_aaef59aed3360a598731333fc42d84c3e}{
+\index{encoder.c@{encoder.c}!encoder\_\-delta\_\-ticks@{encoder\_\-delta\_\-ticks}}
+\index{encoder\_\-delta\_\-ticks@{encoder\_\-delta\_\-ticks}!encoder.c@{encoder.c}}
+\subsubsection[{encoder\_\-delta\_\-ticks}]{\setlength{\rightskip}{0pt plus 5cm}int32 encoder\_\-delta\_\-ticks (
+\begin{DoxyParamCaption}
+\item[{uint32}]{new, }
+\item[{uint32}]{old}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8c_aaef59aed3360a598731333fc42d84c3e}
+
+
+Gets the difference between the two input ticks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new} & is the new encoder position \\
+\hline
+{\em old} & is the old encoder position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the difference between old and new position 
+\end{DoxyReturn}
+\hypertarget{encoder_8c_a397c6cb7980a1a17c71de3f59fbc17dd}{
+\index{encoder.c@{encoder.c}!encoder\_\-get\_\-direction@{encoder\_\-get\_\-direction}}
+\index{encoder\_\-get\_\-direction@{encoder\_\-get\_\-direction}!encoder.c@{encoder.c}}
+\subsubsection[{encoder\_\-get\_\-direction}]{\setlength{\rightskip}{0pt plus 5cm}int32 encoder\_\-get\_\-direction (
+\begin{DoxyParamCaption}
+\item[{uint32}]{enc}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8c_a397c6cb7980a1a17c71de3f59fbc17dd}
+
+
+Gets the current rotating direction of the encoder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enc} & specifies which encoder (right or left) to look up \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the current rotating direction 
+\end{DoxyReturn}
+\hypertarget{encoder_8c_a5911010e8d153e64f3ea0404533d3e13}{
+\index{encoder.c@{encoder.c}!encoder\_\-get\_\-pose@{encoder\_\-get\_\-pose}}
+\index{encoder\_\-get\_\-pose@{encoder\_\-get\_\-pose}!encoder.c@{encoder.c}}
+\subsubsection[{encoder\_\-get\_\-pose}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-get\_\-pose (
+\begin{DoxyParamCaption}
+\item[{Pose $\ast$}]{posePtr}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8c_a5911010e8d153e64f3ea0404533d3e13}
+
+
+Gets the pose of the encoder and stores it in variables (x, y, theta) of where posePtr points to. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em posePtr} & points to a Pose structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{encoder_8c_a102b12c8c18bd6ea904d4242f7bd93fe}{
+\index{encoder.c@{encoder.c}!encoder\_\-get\_\-ticks@{encoder\_\-get\_\-ticks}}
+\index{encoder\_\-get\_\-ticks@{encoder\_\-get\_\-ticks}!encoder.c@{encoder.c}}
+\subsubsection[{encoder\_\-get\_\-ticks}]{\setlength{\rightskip}{0pt plus 5cm}int32 encoder\_\-get\_\-ticks (
+\begin{DoxyParamCaption}
+\item[{uint32}]{enc}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8c_a102b12c8c18bd6ea904d4242f7bd93fe}
+the current ticks of the specified encoder.
+
+Ticks can then be converted to a measurement of distance. 
+\begin{DoxyParams}{Parameters}
+{\em enc} & specifies which encoder's ticks you want \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the current position of the specified encoder; returns 0 if it's unavailable 
+\end{DoxyReturn}
+\hypertarget{encoder_8c_a0f988a414e4926b9fefe7a38c5851057}{
+\index{encoder.c@{encoder.c}!encoder\_\-get\_\-velocity@{encoder\_\-get\_\-velocity}}
+\index{encoder\_\-get\_\-velocity@{encoder\_\-get\_\-velocity}!encoder.c@{encoder.c}}
+\subsubsection[{encoder\_\-get\_\-velocity}]{\setlength{\rightskip}{0pt plus 5cm}int32 encoder\_\-get\_\-velocity (
+\begin{DoxyParamCaption}
+\item[{uint32}]{enc}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8c_a0f988a414e4926b9fefe7a38c5851057}
+
+
+Gets the current velocity of the specified encoder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enc} & specifies which encoder (right or left) to look up \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the current velocity 
+\end{DoxyReturn}
+\hypertarget{encoder_8c_ab885d9bad57d89e5f53eb590dc3d6011}{
+\index{encoder.c@{encoder.c}!encoder\_\-init@{encoder\_\-init}}
+\index{encoder\_\-init@{encoder\_\-init}!encoder.c@{encoder.c}}
+\subsubsection[{encoder\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8c_ab885d9bad57d89e5f53eb590dc3d6011}
+
+
+Initializes the encoder. 
+
+Enables the peripherals. Sets the state of the odometry to 0,0,0. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{encoder_8c_a95912972332a5920f6e48c7012a6ca0e}{
+\index{encoder.c@{encoder.c}!encoder\_\-pose\_\-clear@{encoder\_\-pose\_\-clear}}
+\index{encoder\_\-pose\_\-clear@{encoder\_\-pose\_\-clear}!encoder.c@{encoder.c}}
+\subsubsection[{encoder\_\-pose\_\-clear}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-pose\_\-clear (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8c_a95912972332a5920f6e48c7012a6ca0e}
+
+
+Clears the x, y, and theta values of the encoder. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{encoder_8c_ad323477d4bd1274cbf43d8966cc88130}{
+\index{encoder.c@{encoder.c}!encoder\_\-pose\_\-update@{encoder\_\-pose\_\-update}}
+\index{encoder\_\-pose\_\-update@{encoder\_\-pose\_\-update}!encoder.c@{encoder.c}}
+\subsubsection[{encoder\_\-pose\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-pose\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8c_ad323477d4bd1274cbf43d8966cc88130}
+
+
+Updates the encoder's pose. 
+
+There is an assumption that this function will be called on a regular basis in to ensure accuracy. Keep updating in micrometers. The encoders have a resolution of 0.0625mm. That is, each tick represents a change of 0.0625 mm. Our pose is stored in micrometers and microradians. Each tick corresponds to 62.5 micrometers. Rounding to 63. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{encoder_8c_a83826f6388434850720c603128d5be7f}{
+\index{encoder.c@{encoder.c}!encoder\_\-set\_\-pose@{encoder\_\-set\_\-pose}}
+\index{encoder\_\-set\_\-pose@{encoder\_\-set\_\-pose}!encoder.c@{encoder.c}}
+\subsubsection[{encoder\_\-set\_\-pose}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-set\_\-pose (
+\begin{DoxyParamCaption}
+\item[{Pose $\ast$}]{posePtr}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8c_a83826f6388434850720c603128d5be7f}
+
+
+Sets the pose of the encoder as variables of where posePtr points to. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em posePtr} & points to a Pose structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

@@ -1,0 +1,84 @@
+\hypertarget{accelerometer_8h}{
+\section{Sensors/accelerometer.h File Reference}
+\label{accelerometer_8h}\index{Sensors/accelerometer.h@{Sensors/accelerometer.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{accelerometer_8h_a29ea31605f7e130a9979a69609d91cb8}{ACCELEROMETER\_\-X}~0
+\item 
+\#define \hyperlink{accelerometer_8h_ac7713da7de982b5b2e2c49e77c5956e4}{ACCELEROMETER\_\-Y}~1
+\item 
+\#define \hyperlink{accelerometer_8h_a774143d5b8b0aead9386ff71a3a5fbec}{ACCELEROMETER\_\-Z}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{accelerometer_8h_a4987d8d30a75237baf8a7a13c03dffe8}{accelerometer\_\-init} (void)
+\item 
+void \hyperlink{accelerometer_8h_a3edddabfc4b8e97f440ea97ed2a3fffa}{accelerometer\_\-update} (void)
+\item 
+\hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} \hyperlink{accelerometer_8h_aeb8e26f1f7a515807c13e12f3fd1c99a}{accelerometer\_\-get\_\-value} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} axis)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{accelerometer_8h_a29ea31605f7e130a9979a69609d91cb8}{
+\index{accelerometer.h@{accelerometer.h}!ACCELEROMETER\_\-X@{ACCELEROMETER\_\-X}}
+\index{ACCELEROMETER\_\-X@{ACCELEROMETER\_\-X}!accelerometer.h@{accelerometer.h}}
+\subsubsection[{ACCELEROMETER\_\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCELEROMETER\_\-X~0}}
+\label{accelerometer_8h_a29ea31605f7e130a9979a69609d91cb8}
+\hypertarget{accelerometer_8h_ac7713da7de982b5b2e2c49e77c5956e4}{
+\index{accelerometer.h@{accelerometer.h}!ACCELEROMETER\_\-Y@{ACCELEROMETER\_\-Y}}
+\index{ACCELEROMETER\_\-Y@{ACCELEROMETER\_\-Y}!accelerometer.h@{accelerometer.h}}
+\subsubsection[{ACCELEROMETER\_\-Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCELEROMETER\_\-Y~1}}
+\label{accelerometer_8h_ac7713da7de982b5b2e2c49e77c5956e4}
+\hypertarget{accelerometer_8h_a774143d5b8b0aead9386ff71a3a5fbec}{
+\index{accelerometer.h@{accelerometer.h}!ACCELEROMETER\_\-Z@{ACCELEROMETER\_\-Z}}
+\index{ACCELEROMETER\_\-Z@{ACCELEROMETER\_\-Z}!accelerometer.h@{accelerometer.h}}
+\subsubsection[{ACCELEROMETER\_\-Z}]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCELEROMETER\_\-Z~2}}
+\label{accelerometer_8h_a774143d5b8b0aead9386ff71a3a5fbec}
+
+
+\subsection{Function Documentation}
+\hypertarget{accelerometer_8h_aeb8e26f1f7a515807c13e12f3fd1c99a}{
+\index{accelerometer.h@{accelerometer.h}!accelerometer\_\-get\_\-value@{accelerometer\_\-get\_\-value}}
+\index{accelerometer\_\-get\_\-value@{accelerometer\_\-get\_\-value}!accelerometer.h@{accelerometer.h}}
+\subsubsection[{accelerometer\_\-get\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int32} accelerometer\_\-get\_\-value (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{axis}
+\end{DoxyParamCaption}
+)}}
+\label{accelerometer_8h_aeb8e26f1f7a515807c13e12f3fd1c99a}
+Gets the value of the specified axis 
+\begin{DoxyParams}{Parameters}
+{\em axis} & specifies which axis to look up \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the value of the axis; 0 if the input parameter is not recognized 
+\end{DoxyReturn}
+\hypertarget{accelerometer_8h_a4987d8d30a75237baf8a7a13c03dffe8}{
+\index{accelerometer.h@{accelerometer.h}!accelerometer\_\-init@{accelerometer\_\-init}}
+\index{accelerometer\_\-init@{accelerometer\_\-init}!accelerometer.h@{accelerometer.h}}
+\subsubsection[{accelerometer\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void accelerometer\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{accelerometer_8h_a4987d8d30a75237baf8a7a13c03dffe8}
+Initializes the accelerometer. Enable power-\/on, X, Y, Z, channels. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{accelerometer_8h_a3edddabfc4b8e97f440ea97ed2a3fffa}{
+\index{accelerometer.h@{accelerometer.h}!accelerometer\_\-update@{accelerometer\_\-update}}
+\index{accelerometer\_\-update@{accelerometer\_\-update}!accelerometer.h@{accelerometer.h}}
+\subsubsection[{accelerometer\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void accelerometer\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{accelerometer_8h_a3edddabfc4b8e97f440ea97ed2a3fffa}
+Updates the x, y, and z axes of the accelerometer. Updates the x, y, and z axes of the accelerometer. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

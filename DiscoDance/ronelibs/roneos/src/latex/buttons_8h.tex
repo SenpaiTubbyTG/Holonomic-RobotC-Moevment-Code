@@ -1,0 +1,70 @@
+\hypertarget{buttons_8h}{
+\section{InputOutput/buttons.h File Reference}
+\label{buttons_8h}\index{InputOutput/buttons.h@{InputOutput/buttons.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{buttons_8h_a8cb2b86d95f57510a6e4398da3759123}{BUTTON\_\-RED}~0
+\item 
+\#define \hyperlink{buttons_8h_a175fa572fd0ebf404c7b5936b65b6f29}{BUTTON\_\-GREEN}~1
+\item 
+\#define \hyperlink{buttons_8h_a99914856e73996c3b4420aa6eccc7a91}{BUTTON\_\-BLUE}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{buttons_8h_acef6dd444cb6560da652897ee43ab306}{buttons\_\-init} (void)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{buttons_8h_ad02cd43bc027e626dc731a28059cf523}{buttons\_\-get} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} button)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{buttons_8h_a99914856e73996c3b4420aa6eccc7a91}{
+\index{buttons.h@{buttons.h}!BUTTON\_\-BLUE@{BUTTON\_\-BLUE}}
+\index{BUTTON\_\-BLUE@{BUTTON\_\-BLUE}!buttons.h@{buttons.h}}
+\subsubsection[{BUTTON\_\-BLUE}]{\setlength{\rightskip}{0pt plus 5cm}\#define BUTTON\_\-BLUE~2}}
+\label{buttons_8h_a99914856e73996c3b4420aa6eccc7a91}
+\hypertarget{buttons_8h_a175fa572fd0ebf404c7b5936b65b6f29}{
+\index{buttons.h@{buttons.h}!BUTTON\_\-GREEN@{BUTTON\_\-GREEN}}
+\index{BUTTON\_\-GREEN@{BUTTON\_\-GREEN}!buttons.h@{buttons.h}}
+\subsubsection[{BUTTON\_\-GREEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define BUTTON\_\-GREEN~1}}
+\label{buttons_8h_a175fa572fd0ebf404c7b5936b65b6f29}
+\hypertarget{buttons_8h_a8cb2b86d95f57510a6e4398da3759123}{
+\index{buttons.h@{buttons.h}!BUTTON\_\-RED@{BUTTON\_\-RED}}
+\index{BUTTON\_\-RED@{BUTTON\_\-RED}!buttons.h@{buttons.h}}
+\subsubsection[{BUTTON\_\-RED}]{\setlength{\rightskip}{0pt plus 5cm}\#define BUTTON\_\-RED~0}}
+\label{buttons_8h_a8cb2b86d95f57510a6e4398da3759123}
+
+
+\subsection{Function Documentation}
+\hypertarget{buttons_8h_ad02cd43bc027e626dc731a28059cf523}{
+\index{buttons.h@{buttons.h}!buttons\_\-get@{buttons\_\-get}}
+\index{buttons\_\-get@{buttons\_\-get}!buttons.h@{buttons.h}}
+\subsubsection[{buttons\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} buttons\_\-get (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{button}
+\end{DoxyParamCaption}
+)}}
+\label{buttons_8h_ad02cd43bc027e626dc731a28059cf523}
+Gets the state of the specified button. Tells you whether the specified button is on or off 
+\begin{DoxyParams}{Parameters}
+{\em button} & specifies which button to check (BUTTON\_\-RED, BUTTON\_\-BLUE, or BUTTON\_\-GREEN) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{buttons_8h_acef6dd444cb6560da652897ee43ab306}{
+\index{buttons.h@{buttons.h}!buttons\_\-init@{buttons\_\-init}}
+\index{buttons\_\-init@{buttons\_\-init}!buttons.h@{buttons.h}}
+\subsubsection[{buttons\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void buttons\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{buttons_8h_acef6dd444cb6560da652897ee43ab306}
+Initializes the buttons. Initializes the red, green, and blue buttons as input. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

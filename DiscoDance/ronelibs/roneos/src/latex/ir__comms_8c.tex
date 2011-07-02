@@ -1,0 +1,145 @@
+\hypertarget{ir__comms_8c}{
+\section{IRComms/ir\_\-comms.c File Reference}
+\label{ir__comms_8c}\index{IRComms/ir\_\-comms.c@{IRComms/ir\_\-comms.c}}
+}
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-ints.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/uart.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/ssi.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/timer.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/interrupt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/debug.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/pwm.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}FreeRTOS.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}Task.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}queue.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}semphr.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8 \hyperlink{ir__comms_8c_a69279b62d4c8fb8eeb06691c72a3076d}{CRCcalculate} (uint8 msg\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Calculates the CRC for the message. \end{DoxyCompactList}\item 
+void \hyperlink{ir__comms_8c_aa1cd62348c6808cdefa217bf055ac3d4}{clear\_\-msg\_\-bits\_\-buffer} (uint32 $\ast$bitBufferPtr)
+\begin{DoxyCompactList}\small\item\em Clears the first two bits (buffer) of the message. \end{DoxyCompactList}\item 
+void \hyperlink{ir__comms_8c_a50915ad11274a2772df1a50ece4abebc}{ir\_\-comms\_\-int\_\-enable} ()
+\begin{DoxyCompactList}\small\item\em Enables ir\_\-comms. \end{DoxyCompactList}\item 
+void \hyperlink{ir__comms_8c_ac98ebc133b5cbbb1ecad5363d0fbfc19}{ir\_\-comms\_\-int\_\-disable} ()
+\begin{DoxyCompactList}\small\item\em Disables ir\_\-comms. \end{DoxyCompactList}\item 
+void \hyperlink{ir__comms_8c_ac195678b0da5cbace8a512cee7e286e0}{ir\_\-comms\_\-set\_\-message\_\-length} (uint8 msg\_\-length)
+\item 
+boolean \hyperlink{ir__comms_8c_a1572d2afc9148e6c5666168abc9a294d}{ir\_\-comms\_\-send\_\-message} (ir\_\-comms\_\-message $\ast$irMessagePtr)
+\begin{DoxyCompactList}\small\item\em Sends a message to the computer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Created on: Jul 22, 2010 Author: jamesm 
+
+\subsection{Function Documentation}
+\hypertarget{ir__comms_8c_aa1cd62348c6808cdefa217bf055ac3d4}{
+\index{ir\_\-comms.c@{ir\_\-comms.c}!clear\_\-msg\_\-bits\_\-buffer@{clear\_\-msg\_\-bits\_\-buffer}}
+\index{clear\_\-msg\_\-bits\_\-buffer@{clear\_\-msg\_\-bits\_\-buffer}!ir_comms.c@{ir\_\-comms.c}}
+\subsubsection[{clear\_\-msg\_\-bits\_\-buffer}]{\setlength{\rightskip}{0pt plus 5cm}void clear\_\-msg\_\-bits\_\-buffer (
+\begin{DoxyParamCaption}
+\item[{uint32 $\ast$}]{bitBufferPtr}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8c_aa1cd62348c6808cdefa217bf055ac3d4}
+
+
+Clears the first two bits (buffer) of the message. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{ir__comms_8c_a69279b62d4c8fb8eeb06691c72a3076d}{
+\index{ir\_\-comms.c@{ir\_\-comms.c}!CRCcalculate@{CRCcalculate}}
+\index{CRCcalculate@{CRCcalculate}!ir_comms.c@{ir\_\-comms.c}}
+\subsubsection[{CRCcalculate}]{\setlength{\rightskip}{0pt plus 5cm}uint8 CRCcalculate (
+\begin{DoxyParamCaption}
+\item[{uint8}]{msg\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8c_a69279b62d4c8fb8eeb06691c72a3076d}
+
+
+Calculates the CRC for the message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg\mbox{[}$\,$\mbox{]}} & the mssage to be calculated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the CRC for the message 
+\end{DoxyReturn}
+\hypertarget{ir__comms_8c_ac98ebc133b5cbbb1ecad5363d0fbfc19}{
+\index{ir\_\-comms.c@{ir\_\-comms.c}!ir\_\-comms\_\-int\_\-disable@{ir\_\-comms\_\-int\_\-disable}}
+\index{ir\_\-comms\_\-int\_\-disable@{ir\_\-comms\_\-int\_\-disable}!ir_comms.c@{ir\_\-comms.c}}
+\subsubsection[{ir\_\-comms\_\-int\_\-disable}]{\setlength{\rightskip}{0pt plus 5cm}void ir\_\-comms\_\-int\_\-disable (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8c_ac98ebc133b5cbbb1ecad5363d0fbfc19}
+
+
+Disables ir\_\-comms. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{ir__comms_8c_a50915ad11274a2772df1a50ece4abebc}{
+\index{ir\_\-comms.c@{ir\_\-comms.c}!ir\_\-comms\_\-int\_\-enable@{ir\_\-comms\_\-int\_\-enable}}
+\index{ir\_\-comms\_\-int\_\-enable@{ir\_\-comms\_\-int\_\-enable}!ir_comms.c@{ir\_\-comms.c}}
+\subsubsection[{ir\_\-comms\_\-int\_\-enable}]{\setlength{\rightskip}{0pt plus 5cm}void ir\_\-comms\_\-int\_\-enable (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8c_a50915ad11274a2772df1a50ece4abebc}
+
+
+Enables ir\_\-comms. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{ir__comms_8c_a1572d2afc9148e6c5666168abc9a294d}{
+\index{ir\_\-comms.c@{ir\_\-comms.c}!ir\_\-comms\_\-send\_\-message@{ir\_\-comms\_\-send\_\-message}}
+\index{ir\_\-comms\_\-send\_\-message@{ir\_\-comms\_\-send\_\-message}!ir_comms.c@{ir\_\-comms.c}}
+\subsubsection[{ir\_\-comms\_\-send\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}boolean ir\_\-comms\_\-send\_\-message (
+\begin{DoxyParamCaption}
+\item[{ir\_\-comms\_\-message $\ast$}]{irMessagePtr}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8c_a1572d2afc9148e6c5666168abc9a294d}
+
+
+Sends a message to the computer. 
+
+message is 1-\/5 bytes of data, first byte is robot ID 
+\begin{DoxyParams}{Parameters}
+{\em irMessagePtr} & is the message to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the message is sent (TRUE/FALSE) 
+\end{DoxyReturn}
+\hypertarget{ir__comms_8c_ac195678b0da5cbace8a512cee7e286e0}{
+\index{ir\_\-comms.c@{ir\_\-comms.c}!ir\_\-comms\_\-set\_\-message\_\-length@{ir\_\-comms\_\-set\_\-message\_\-length}}
+\index{ir\_\-comms\_\-set\_\-message\_\-length@{ir\_\-comms\_\-set\_\-message\_\-length}!ir_comms.c@{ir\_\-comms.c}}
+\subsubsection[{ir\_\-comms\_\-set\_\-message\_\-length}]{\setlength{\rightskip}{0pt plus 5cm}void ir\_\-comms\_\-set\_\-message\_\-length (
+\begin{DoxyParamCaption}
+\item[{uint8}]{msg\_\-length}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8c_ac195678b0da5cbace8a512cee7e286e0}
+Sets the length of the message 

@@ -1,0 +1,103 @@
+\hypertarget{blinky__led_8c}{
+\section{InputOutput/blinky\_\-led.c File Reference}
+\label{blinky__led_8c}\index{InputOutput/blinky\_\-led.c@{InputOutput/blinky\_\-led.c}}
+}
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{blinky__led_8c_a595643250bd2aa6c9ac97098ae75ba6d}{blinky\_\-led\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Initializes blinky. \end{DoxyCompactList}\item 
+void \hyperlink{blinky__led_8c_a7d8a21d12c478c022a2488523d543e10}{blinky\_\-led\_\-flip} (void)
+\begin{DoxyCompactList}\small\item\em Flips the blinky on or off. \end{DoxyCompactList}\item 
+void \hyperlink{blinky__led_8c_a9cf5259f9fbf1a0a9e488e56dbd3d4cd}{blinkyLedSet} (uint32 state)
+\begin{DoxyCompactList}\small\item\em Sets the blinky on or off. \end{DoxyCompactList}\item 
+void \hyperlink{blinky__led_8c_a8e4b89b2123d0ea0fde2c8e4f8a7fe94}{blinky\_\-led\_\-flash} (uint32 delay)
+\begin{DoxyCompactList}\small\item\em Flashes the blinky once with delay. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions that control the blinky\_\-led 
+
+\subsection{Function Documentation}
+\hypertarget{blinky__led_8c_a8e4b89b2123d0ea0fde2c8e4f8a7fe94}{
+\index{blinky\_\-led.c@{blinky\_\-led.c}!blinky\_\-led\_\-flash@{blinky\_\-led\_\-flash}}
+\index{blinky\_\-led\_\-flash@{blinky\_\-led\_\-flash}!blinky_led.c@{blinky\_\-led.c}}
+\subsubsection[{blinky\_\-led\_\-flash}]{\setlength{\rightskip}{0pt plus 5cm}void blinky\_\-led\_\-flash (
+\begin{DoxyParamCaption}
+\item[{uint32}]{delay}
+\end{DoxyParamCaption}
+)}}
+\label{blinky__led_8c_a8e4b89b2123d0ea0fde2c8e4f8a7fe94}
+
+
+Flashes the blinky once with delay. 
+
+Flashes the blinky once (turns it on and then off) with a specified delay in between). 
+\begin{DoxyParams}{Parameters}
+{\em delay} & determines how long the delay is \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{blinky__led_8c_a7d8a21d12c478c022a2488523d543e10}{
+\index{blinky\_\-led.c@{blinky\_\-led.c}!blinky\_\-led\_\-flip@{blinky\_\-led\_\-flip}}
+\index{blinky\_\-led\_\-flip@{blinky\_\-led\_\-flip}!blinky_led.c@{blinky\_\-led.c}}
+\subsubsection[{blinky\_\-led\_\-flip}]{\setlength{\rightskip}{0pt plus 5cm}void blinky\_\-led\_\-flip (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{blinky__led_8c_a7d8a21d12c478c022a2488523d543e10}
+
+
+Flips the blinky on or off. 
+
+If the blinky were turned on, this turns it off. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{blinky__led_8c_a595643250bd2aa6c9ac97098ae75ba6d}{
+\index{blinky\_\-led.c@{blinky\_\-led.c}!blinky\_\-led\_\-init@{blinky\_\-led\_\-init}}
+\index{blinky\_\-led\_\-init@{blinky\_\-led\_\-init}!blinky_led.c@{blinky\_\-led.c}}
+\subsubsection[{blinky\_\-led\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void blinky\_\-led\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{blinky__led_8c_a595643250bd2aa6c9ac97098ae75ba6d}
+
+
+Initializes blinky. 
+
+Initializes blinky with port B, pin 4 as output. Blinky is turned off with initialization. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{blinky__led_8c_a9cf5259f9fbf1a0a9e488e56dbd3d4cd}{
+\index{blinky\_\-led.c@{blinky\_\-led.c}!blinkyLedSet@{blinkyLedSet}}
+\index{blinkyLedSet@{blinkyLedSet}!blinky_led.c@{blinky\_\-led.c}}
+\subsubsection[{blinkyLedSet}]{\setlength{\rightskip}{0pt plus 5cm}void blinkyLedSet (
+\begin{DoxyParamCaption}
+\item[{uint32}]{state}
+\end{DoxyParamCaption}
+)}}
+\label{blinky__led_8c_a9cf5259f9fbf1a0a9e488e56dbd3d4cd}
+
+
+Sets the blinky on or off. 
+
+Sets the blinky on or off depending on the parameter. 
+\begin{DoxyParams}{Parameters}
+{\em state} & determines whether the pin should be on or off (active low: 0 is on, 1 is off) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

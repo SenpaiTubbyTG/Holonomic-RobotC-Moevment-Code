@@ -1,0 +1,183 @@
+\hypertarget{motor_8h}{
+\section{Motors/motor.h File Reference}
+\label{motor_8h}\index{Motors/motor.h@{Motors/motor.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{motor_8h_a0e2d750df9008232cafa398d2424b778}{MOTOR\_\-LEFT}~0
+\item 
+\#define \hyperlink{motor_8h_a9eff471d17bc68f18b14ff75f23aa3bc}{MOTOR\_\-RIGHT}~1
+\item 
+\#define \hyperlink{motor_8h_aba73739c6cbc2684c80b799f17be8110}{MOTORS\_\-NUM}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{motor_8h_aa2a5af0fb9c1fa2047a5ca0af110f806}{motor\_\-init} (void)
+\item 
+void \hyperlink{motor_8h_a9e191c1c6aa85da61ee004ac722b8ff3}{motor\_\-command\_\-timer\_\-update} (void)
+\item 
+void \hyperlink{motor_8h_a4fa73798526ed28679baeb9f11e2d951}{motor\_\-brake} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} motor, \hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} dutyCycle)
+\item 
+void \hyperlink{motor_8h_aed5616155053d660357bb22691465193}{motor\_\-set\_\-pwm} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} motor, \hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} dutyCycle)
+\item 
+\hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} \hyperlink{motor_8h_a1478a722823494c145426d7f1172d605}{motor\_\-get\_\-velocity} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} motor)
+\item 
+void \hyperlink{motor_8h_a692433a1f507ceb39fcc589ae5ac87af}{motor\_\-set\_\-velocity} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} motor, \hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} mm\_\-per\_\-second)
+\item 
+void \hyperlink{motor_8h_a53454559d685a36bfbea2f00f276b63e}{motor\_\-set\_\-tv\_\-rv} (\hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} tv, \hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} rv)
+\item 
+void \hyperlink{motor_8h_adc61608018b6337e017e16315e0077c6}{motor\_\-get\_\-tv\_\-rv} (\hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} $\ast$tvPtr, \hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} $\ast$rvPtr)
+\item 
+void \hyperlink{motor_8h_abac65bbc27dd7dcfccb642c2e9f64cba}{motor\_\-velocity\_\-update} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{motor_8h_a0e2d750df9008232cafa398d2424b778}{
+\index{motor.h@{motor.h}!MOTOR\_\-LEFT@{MOTOR\_\-LEFT}}
+\index{MOTOR\_\-LEFT@{MOTOR\_\-LEFT}!motor.h@{motor.h}}
+\subsubsection[{MOTOR\_\-LEFT}]{\setlength{\rightskip}{0pt plus 5cm}\#define MOTOR\_\-LEFT~0}}
+\label{motor_8h_a0e2d750df9008232cafa398d2424b778}
+\hypertarget{motor_8h_a9eff471d17bc68f18b14ff75f23aa3bc}{
+\index{motor.h@{motor.h}!MOTOR\_\-RIGHT@{MOTOR\_\-RIGHT}}
+\index{MOTOR\_\-RIGHT@{MOTOR\_\-RIGHT}!motor.h@{motor.h}}
+\subsubsection[{MOTOR\_\-RIGHT}]{\setlength{\rightskip}{0pt plus 5cm}\#define MOTOR\_\-RIGHT~1}}
+\label{motor_8h_a9eff471d17bc68f18b14ff75f23aa3bc}
+\hypertarget{motor_8h_aba73739c6cbc2684c80b799f17be8110}{
+\index{motor.h@{motor.h}!MOTORS\_\-NUM@{MOTORS\_\-NUM}}
+\index{MOTORS\_\-NUM@{MOTORS\_\-NUM}!motor.h@{motor.h}}
+\subsubsection[{MOTORS\_\-NUM}]{\setlength{\rightskip}{0pt plus 5cm}\#define MOTORS\_\-NUM~2}}
+\label{motor_8h_aba73739c6cbc2684c80b799f17be8110}
+
+
+\subsection{Function Documentation}
+\hypertarget{motor_8h_a4fa73798526ed28679baeb9f11e2d951}{
+\index{motor.h@{motor.h}!motor\_\-brake@{motor\_\-brake}}
+\index{motor\_\-brake@{motor\_\-brake}!motor.h@{motor.h}}
+\subsubsection[{motor\_\-brake}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-brake (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{motor, }
+\item[{{\bf int32}}]{dutyCycle}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8h_a4fa73798526ed28679baeb9f11e2d951}
+Breaks one motor with the specified duty cycle. Breaks one motor with the specified duty cycle. 
+\begin{DoxyParams}{Parameters}
+{\em motor} & left or right motor \\
+\hline
+{\em dutyCycle} & duty cycle of PWM \\
+\hline
+\end{DoxyParams}
+\hypertarget{motor_8h_a9e191c1c6aa85da61ee004ac722b8ff3}{
+\index{motor.h@{motor.h}!motor\_\-command\_\-timer\_\-update@{motor\_\-command\_\-timer\_\-update}}
+\index{motor\_\-command\_\-timer\_\-update@{motor\_\-command\_\-timer\_\-update}!motor.h@{motor.h}}
+\subsubsection[{motor\_\-command\_\-timer\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-command\_\-timer\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8h_a9e191c1c6aa85da61ee004ac722b8ff3}
+Updates the motor command timer. Updates the motor command timer. If no motor command has been received, timeout and enables the charger. This function should be called at 10 hz. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8h_adc61608018b6337e017e16315e0077c6}{
+\index{motor.h@{motor.h}!motor\_\-get\_\-tv\_\-rv@{motor\_\-get\_\-tv\_\-rv}}
+\index{motor\_\-get\_\-tv\_\-rv@{motor\_\-get\_\-tv\_\-rv}!motor.h@{motor.h}}
+\subsubsection[{motor\_\-get\_\-tv\_\-rv}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-get\_\-tv\_\-rv (
+\begin{DoxyParamCaption}
+\item[{{\bf int32} $\ast$}]{tvPtr, }
+\item[{{\bf int32} $\ast$}]{rvPtr}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8h_adc61608018b6337e017e16315e0077c6}
+\hypertarget{motor_8h_a1478a722823494c145426d7f1172d605}{
+\index{motor.h@{motor.h}!motor\_\-get\_\-velocity@{motor\_\-get\_\-velocity}}
+\index{motor\_\-get\_\-velocity@{motor\_\-get\_\-velocity}!motor.h@{motor.h}}
+\subsubsection[{motor\_\-get\_\-velocity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int32} motor\_\-get\_\-velocity (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{motor}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8h_a1478a722823494c145426d7f1172d605}
+Gets the current velocity of the specified motor. Gets the current velocity of the specified motor. 
+\begin{DoxyParams}{Parameters}
+{\em motor} & left or right motor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the current velocity; 0 if the input parameter is not recognized 
+\end{DoxyReturn}
+\hypertarget{motor_8h_aa2a5af0fb9c1fa2047a5ca0af110f806}{
+\index{motor.h@{motor.h}!motor\_\-init@{motor\_\-init}}
+\index{motor\_\-init@{motor\_\-init}!motor.h@{motor.h}}
+\subsubsection[{motor\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8h_aa2a5af0fb9c1fa2047a5ca0af110f806}
+Initializes motor. Enables PWM and initializes the \hyperlink{structmotor_velocity_data}{motorVelocityData} struct for both left and right motor. Also sets the command timer to 0 \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8h_aed5616155053d660357bb22691465193}{
+\index{motor.h@{motor.h}!motor\_\-set\_\-pwm@{motor\_\-set\_\-pwm}}
+\index{motor\_\-set\_\-pwm@{motor\_\-set\_\-pwm}!motor.h@{motor.h}}
+\subsubsection[{motor\_\-set\_\-pwm}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-set\_\-pwm (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{motor, }
+\item[{{\bf int32}}]{dutyCycle}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8h_aed5616155053d660357bb22691465193}
+Sets PWM duty cycle for the specified motor. Sets PWM duty cycle for the specified motor (and for both reverse and forward signals). 
+\begin{DoxyParams}{Parameters}
+{\em motor} & left or right motor \\
+\hline
+{\em dutyCycle} & duty cycle of PWM \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8h_a53454559d685a36bfbea2f00f276b63e}{
+\index{motor.h@{motor.h}!motor\_\-set\_\-tv\_\-rv@{motor\_\-set\_\-tv\_\-rv}}
+\index{motor\_\-set\_\-tv\_\-rv@{motor\_\-set\_\-tv\_\-rv}!motor.h@{motor.h}}
+\subsubsection[{motor\_\-set\_\-tv\_\-rv}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-set\_\-tv\_\-rv (
+\begin{DoxyParamCaption}
+\item[{{\bf int32}}]{tv, }
+\item[{{\bf int32}}]{rv}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8h_a53454559d685a36bfbea2f00f276b63e}
+Sets the TV and RV of the motor. \hypertarget{motor_8h_a692433a1f507ceb39fcc589ae5ac87af}{
+\index{motor.h@{motor.h}!motor\_\-set\_\-velocity@{motor\_\-set\_\-velocity}}
+\index{motor\_\-set\_\-velocity@{motor\_\-set\_\-velocity}!motor.h@{motor.h}}
+\subsubsection[{motor\_\-set\_\-velocity}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-set\_\-velocity (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{motor, }
+\item[{{\bf int32}}]{velocity}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8h_a692433a1f507ceb39fcc589ae5ac87af}
+Sets the current velocity of the specified motor. Sets the current velocity of the specified motor. 
+\begin{DoxyParams}{Parameters}
+{\em motor} & left or right motor \\
+\hline
+{\em velocity} & motor velocity to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8h_abac65bbc27dd7dcfccb642c2e9f64cba}{
+\index{motor.h@{motor.h}!motor\_\-velocity\_\-update@{motor\_\-velocity\_\-update}}
+\index{motor\_\-velocity\_\-update@{motor\_\-velocity\_\-update}!motor.h@{motor.h}}
+\subsubsection[{motor\_\-velocity\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-velocity\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8h_abac65bbc27dd7dcfccb642c2e9f64cba}
+Updates the velocity data for both motors. Updates the velocity data for both motors.  void 

@@ -1,0 +1,165 @@
+\hypertarget{system_8c}{
+\section{System/system.c File Reference}
+\label{system_8c}\index{System/system.c@{System/system.c}}
+}
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$stdlib.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-ints.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/uart.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/ssi.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/interrupt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/timer.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/flash.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}FreeRTOS.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}Task.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}queue.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}semphr.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{system_8c_a4261cee66b6a4562243825d5983e5bbd}{heartbeatTask} (void $\ast$parameters)
+\begin{DoxyCompactList}\small\item\em Background tasks performed during each heartbeat. \end{DoxyCompactList}\item 
+void \hyperlink{system_8c_a4c3623f505c3ad92e544958a2b30159f}{ronePreInit} (void)
+\begin{DoxyCompactList}\small\item\em Pre-\/initializes rone by starting the core hardware. \end{DoxyCompactList}\item 
+void \hyperlink{system_8c_a55acd8b1fa83e63825831bb31545804b}{roneInit} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the rest of rone after the pre-\/initialization. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{system_8c_a9aa7e670251a69517f6e3f6b1a316426}{sysGetFilenameFromPath} (char $\ast$filepathString)
+\begin{DoxyCompactList}\small\item\em Gets the file name from path. \end{DoxyCompactList}\item 
+uint32 \hyperlink{system_8c_abde370b5f994d8ae8744def0c2a38a31}{rone\_\-get\_\-id} (void)
+\begin{DoxyCompactList}\small\item\em Gets the roneID. \end{DoxyCompactList}\item 
+void \hyperlink{system_8c_a93d7db2c64cc97dbb6b68e064e58ff6d}{blinkyUpdate} (void)
+\begin{DoxyCompactList}\small\item\em Updates the blinky. \end{DoxyCompactList}\item 
+void \hyperlink{system_8c_ad43bb5f2a6e736785123a1e1deded947}{sysPrintMemUsage} (void)
+\begin{DoxyCompactList}\small\item\em Print the heap and stack usage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Created on: Jul 26, 2010 
+
+\subsection{Function Documentation}
+\hypertarget{system_8c_a93d7db2c64cc97dbb6b68e064e58ff6d}{
+\index{system.c@{system.c}!blinkyUpdate@{blinkyUpdate}}
+\index{blinkyUpdate@{blinkyUpdate}!system.c@{system.c}}
+\subsubsection[{blinkyUpdate}]{\setlength{\rightskip}{0pt plus 5cm}void blinkyUpdate (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8c_a93d7db2c64cc97dbb6b68e064e58ff6d}
+
+
+Updates the blinky. 
+
+Updates the blinky timer and turns blinky on or off depending on the timer. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{system_8c_a4261cee66b6a4562243825d5983e5bbd}{
+\index{system.c@{system.c}!heartbeatTask@{heartbeatTask}}
+\index{heartbeatTask@{heartbeatTask}!system.c@{system.c}}
+\subsubsection[{heartbeatTask}]{\setlength{\rightskip}{0pt plus 5cm}void heartbeatTask (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{parameters}
+\end{DoxyParamCaption}
+)}}
+\label{system_8c_a4261cee66b6a4562243825d5983e5bbd}
+
+
+Background tasks performed during each heartbeat. 
+
+Each heartbeat = every 16 milliseconds. Updates blinky, IRBeacon, leds, accelerometer, motor velocity, pose, and motor command timer. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{system_8c_abde370b5f994d8ae8744def0c2a38a31}{
+\index{system.c@{system.c}!rone\_\-get\_\-id@{rone\_\-get\_\-id}}
+\index{rone\_\-get\_\-id@{rone\_\-get\_\-id}!system.c@{system.c}}
+\subsubsection[{rone\_\-get\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}uint32 rone\_\-get\_\-id (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8c_abde370b5f994d8ae8744def0c2a38a31}
+
+
+Gets the roneID. 
+
+\begin{DoxyReturn}{Returns}
+roneID 
+\end{DoxyReturn}
+\hypertarget{system_8c_a55acd8b1fa83e63825831bb31545804b}{
+\index{system.c@{system.c}!roneInit@{roneInit}}
+\index{roneInit@{roneInit}!system.c@{system.c}}
+\subsubsection[{roneInit}]{\setlength{\rightskip}{0pt plus 5cm}void roneInit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8c_a55acd8b1fa83e63825831bb31545804b}
+
+
+Initializes the rest of rone after the pre-\/initialization. 
+
+Initializes encoder, light sensor, motor, gyro, accelerometer, IR\_\-comms, radio, ad cfprintf. Prints out the date, time, and roneID after everything is initialized. Rone starts heartbeat after this initialization. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{system_8c_a4c3623f505c3ad92e544958a2b30159f}{
+\index{system.c@{system.c}!ronePreInit@{ronePreInit}}
+\index{ronePreInit@{ronePreInit}!system.c@{system.c}}
+\subsubsection[{ronePreInit}]{\setlength{\rightskip}{0pt plus 5cm}void ronePreInit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8c_a4c3623f505c3ad92e544958a2b30159f}
+
+
+Pre-\/initializes rone by starting the core hardware. 
+
+Initalizes roneID, charger, blinky, buttons, IRBeacon, SPI, LED, and serial. Rone blinks three times after the initializations are done. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{system_8c_a9aa7e670251a69517f6e3f6b1a316426}{
+\index{system.c@{system.c}!sysGetFilenameFromPath@{sysGetFilenameFromPath}}
+\index{sysGetFilenameFromPath@{sysGetFilenameFromPath}!system.c@{system.c}}
+\subsubsection[{sysGetFilenameFromPath}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ sysGetFilenameFromPath (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filepathString}
+\end{DoxyParamCaption}
+)}}
+\label{system_8c_a9aa7e670251a69517f6e3f6b1a316426}
+
+
+Gets the file name from path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filepathString} & the file path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer that points to the file name 
+\end{DoxyReturn}
+\hypertarget{system_8c_ad43bb5f2a6e736785123a1e1deded947}{
+\index{system.c@{system.c}!sysPrintMemUsage@{sysPrintMemUsage}}
+\index{sysPrintMemUsage@{sysPrintMemUsage}!system.c@{system.c}}
+\subsubsection[{sysPrintMemUsage}]{\setlength{\rightskip}{0pt plus 5cm}void sysPrintMemUsage (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8c_ad43bb5f2a6e736785123a1e1deded947}
+
+
+Print the heap and stack usage. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

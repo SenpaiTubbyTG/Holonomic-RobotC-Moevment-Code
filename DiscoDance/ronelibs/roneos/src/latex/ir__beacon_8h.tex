@@ -1,0 +1,82 @@
+\hypertarget{ir__beacon_8h}{
+\section{InputOutput/ir\_\-beacon.h File Reference}
+\label{ir__beacon_8h}\index{InputOutput/ir\_\-beacon.h@{InputOutput/ir\_\-beacon.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ir__beacon_8h_a77ebc6efc770be7ed5030e08888b8d35}{IR\_\-BEACON\_\-MAX\_\-ID}~1023
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{ir__beacon_8h_a840007913dc4b32debd94660147559b8}{ir\_\-beacon\_\-init} (void)
+\item 
+void \hyperlink{ir__beacon_8h_aa5ba6cb382c28e03534b1b0e831c461c}{ir\_\-beacon\_\-disable} (void)
+\item 
+void \hyperlink{ir__beacon_8h_a1fac487e46bf4b2981e2cf90320603e9}{ir\_\-beacon\_\-update} (void)
+\item 
+void \hyperlink{ir__beacon_8h_a370e741afc9a83e89fe23aa24e4c3e21}{ir\_\-beacon\_\-set\_\-data} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} data)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{ir__beacon_8h_a77ebc6efc770be7ed5030e08888b8d35}{
+\index{ir\_\-beacon.h@{ir\_\-beacon.h}!IR\_\-BEACON\_\-MAX\_\-ID@{IR\_\-BEACON\_\-MAX\_\-ID}}
+\index{IR\_\-BEACON\_\-MAX\_\-ID@{IR\_\-BEACON\_\-MAX\_\-ID}!ir_beacon.h@{ir\_\-beacon.h}}
+\subsubsection[{IR\_\-BEACON\_\-MAX\_\-ID}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-BEACON\_\-MAX\_\-ID~1023}}
+\label{ir__beacon_8h_a77ebc6efc770be7ed5030e08888b8d35}
+
+
+\subsection{Function Documentation}
+\hypertarget{ir__beacon_8h_aa5ba6cb382c28e03534b1b0e831c461c}{
+\index{ir\_\-beacon.h@{ir\_\-beacon.h}!ir\_\-beacon\_\-disable@{ir\_\-beacon\_\-disable}}
+\index{ir\_\-beacon\_\-disable@{ir\_\-beacon\_\-disable}!ir_beacon.h@{ir\_\-beacon.h}}
+\subsubsection[{ir\_\-beacon\_\-disable}]{\setlength{\rightskip}{0pt plus 5cm}void ir\_\-beacon\_\-disable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{ir__beacon_8h_aa5ba6cb382c28e03534b1b0e831c461c}
+Disables the IRBeacon. Disables the IRBeacon by turning of the IRBeacon LED and setting the timer to 0. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{ir__beacon_8h_a840007913dc4b32debd94660147559b8}{
+\index{ir\_\-beacon.h@{ir\_\-beacon.h}!ir\_\-beacon\_\-init@{ir\_\-beacon\_\-init}}
+\index{ir\_\-beacon\_\-init@{ir\_\-beacon\_\-init}!ir_beacon.h@{ir\_\-beacon.h}}
+\subsubsection[{ir\_\-beacon\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void ir\_\-beacon\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{ir__beacon_8h_a840007913dc4b32debd94660147559b8}
+Initializes IRBeacon. Enables the IRBeacon pin as an output. Turns IRBeacon off in the process. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{ir__beacon_8h_a370e741afc9a83e89fe23aa24e4c3e21}{
+\index{ir\_\-beacon.h@{ir\_\-beacon.h}!ir\_\-beacon\_\-set\_\-data@{ir\_\-beacon\_\-set\_\-data}}
+\index{ir\_\-beacon\_\-set\_\-data@{ir\_\-beacon\_\-set\_\-data}!ir_beacon.h@{ir\_\-beacon.h}}
+\subsubsection[{ir\_\-beacon\_\-set\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}void ir\_\-beacon\_\-set\_\-data (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{data}
+\end{DoxyParamCaption}
+)}}
+\label{ir__beacon_8h_a370e741afc9a83e89fe23aa24e4c3e21}
+Sets the data in IRBeacon Sets what the IRBeacon is going to output; also sets the timer for IRBeacon to 60 
+\begin{DoxyParams}{Parameters}
+{\em data} & the output data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{ir__beacon_8h_a1fac487e46bf4b2981e2cf90320603e9}{
+\index{ir\_\-beacon.h@{ir\_\-beacon.h}!ir\_\-beacon\_\-update@{ir\_\-beacon\_\-update}}
+\index{ir\_\-beacon\_\-update@{ir\_\-beacon\_\-update}!ir_beacon.h@{ir\_\-beacon.h}}
+\subsubsection[{ir\_\-beacon\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void ir\_\-beacon\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{ir__beacon_8h_a1fac487e46bf4b2981e2cf90320603e9}
+Updates IRBeacon. This function needs to be called at 60hz. 

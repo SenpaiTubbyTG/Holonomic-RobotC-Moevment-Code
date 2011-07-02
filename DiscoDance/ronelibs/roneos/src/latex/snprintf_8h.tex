@@ -1,0 +1,112 @@
+\hypertarget{snprintf_8h}{
+\section{SerialIO/snprintf.h File Reference}
+\label{snprintf_8h}\index{SerialIO/snprintf.h@{SerialIO/snprintf.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{snprintf_8h_ae7b63d1b04b47a62e0168225e000824c}{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR}~2
+\item 
+\#define \hyperlink{snprintf_8h_a076d04c914732567f8300676b32c3b08}{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{snprintf_8h_a357a42eb6494ea592e9c3f96c55cebe2}{snprintf} (char $\ast$, size\_\-t, const char $\ast$,...)
+\item 
+int \hyperlink{snprintf_8h_a0495b4aa0b2ea7e5dd10e976aa63e4d3}{vsnprintf} (char $\ast$, size\_\-t, const char $\ast$, va\_\-list)
+\item 
+int \hyperlink{snprintf_8h_a4415d3b9a3d58a79ec7df1500c6a6449}{asprintf} (char $\ast$$\ast$ptr, const char $\ast$fmt,...)
+\item 
+int \hyperlink{snprintf_8h_a1556f320cb3c2d5c80a0b725531ee3eb}{vasprintf} (char $\ast$$\ast$ptr, const char $\ast$fmt, va\_\-list ap)
+\item 
+int \hyperlink{snprintf_8h_aa9d25e67e52c7709b14d6d4152457ad8}{asnprintf} (char $\ast$$\ast$ptr, size\_\-t str\_\-m, const char $\ast$fmt,...)
+\item 
+int \hyperlink{snprintf_8h_acba11fd03e0a55eea5797fe80b92fa2d}{vasnprintf} (char $\ast$$\ast$ptr, size\_\-t str\_\-m, const char $\ast$fmt, va\_\-list ap)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{snprintf_8h_ae7b63d1b04b47a62e0168225e000824c}{
+\index{snprintf.h@{snprintf.h}!PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR@{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR}}
+\index{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR@{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR}!snprintf.h@{snprintf.h}}
+\subsubsection[{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR~2}}
+\label{snprintf_8h_ae7b63d1b04b47a62e0168225e000824c}
+\hypertarget{snprintf_8h_a076d04c914732567f8300676b32c3b08}{
+\index{snprintf.h@{snprintf.h}!PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR@{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR}}
+\index{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR@{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR}!snprintf.h@{snprintf.h}}
+\subsubsection[{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR~2}}
+\label{snprintf_8h_a076d04c914732567f8300676b32c3b08}
+
+
+\subsection{Function Documentation}
+\hypertarget{snprintf_8h_aa9d25e67e52c7709b14d6d4152457ad8}{
+\index{snprintf.h@{snprintf.h}!asnprintf@{asnprintf}}
+\index{asnprintf@{asnprintf}!snprintf.h@{snprintf.h}}
+\subsubsection[{asnprintf}]{\setlength{\rightskip}{0pt plus 5cm}int asnprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{ptr, }
+\item[{size\_\-t}]{str\_\-m, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8h_aa9d25e67e52c7709b14d6d4152457ad8}
+\hypertarget{snprintf_8h_a4415d3b9a3d58a79ec7df1500c6a6449}{
+\index{snprintf.h@{snprintf.h}!asprintf@{asprintf}}
+\index{asprintf@{asprintf}!snprintf.h@{snprintf.h}}
+\subsubsection[{asprintf}]{\setlength{\rightskip}{0pt plus 5cm}int asprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{ptr, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8h_a4415d3b9a3d58a79ec7df1500c6a6449}
+\hypertarget{snprintf_8h_a357a42eb6494ea592e9c3f96c55cebe2}{
+\index{snprintf.h@{snprintf.h}!snprintf@{snprintf}}
+\index{snprintf@{snprintf}!snprintf.h@{snprintf.h}}
+\subsubsection[{snprintf}]{\setlength{\rightskip}{0pt plus 5cm}int snprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{, }
+\item[{size\_\-t}]{, }
+\item[{const char $\ast$}]{, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8h_a357a42eb6494ea592e9c3f96c55cebe2}
+\hypertarget{snprintf_8h_acba11fd03e0a55eea5797fe80b92fa2d}{
+\index{snprintf.h@{snprintf.h}!vasnprintf@{vasnprintf}}
+\index{vasnprintf@{vasnprintf}!snprintf.h@{snprintf.h}}
+\subsubsection[{vasnprintf}]{\setlength{\rightskip}{0pt plus 5cm}int vasnprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{ptr, }
+\item[{size\_\-t}]{str\_\-m, }
+\item[{const char $\ast$}]{fmt, }
+\item[{va\_\-list}]{ap}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8h_acba11fd03e0a55eea5797fe80b92fa2d}
+\hypertarget{snprintf_8h_a1556f320cb3c2d5c80a0b725531ee3eb}{
+\index{snprintf.h@{snprintf.h}!vasprintf@{vasprintf}}
+\index{vasprintf@{vasprintf}!snprintf.h@{snprintf.h}}
+\subsubsection[{vasprintf}]{\setlength{\rightskip}{0pt plus 5cm}int vasprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{ptr, }
+\item[{const char $\ast$}]{fmt, }
+\item[{va\_\-list}]{ap}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8h_a1556f320cb3c2d5c80a0b725531ee3eb}
+\hypertarget{snprintf_8h_a0495b4aa0b2ea7e5dd10e976aa63e4d3}{
+\index{snprintf.h@{snprintf.h}!vsnprintf@{vsnprintf}}
+\index{vsnprintf@{vsnprintf}!snprintf.h@{snprintf.h}}
+\subsubsection[{vsnprintf}]{\setlength{\rightskip}{0pt plus 5cm}int vsnprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{, }
+\item[{size\_\-t}]{, }
+\item[{const char $\ast$}]{, }
+\item[{va\_\-list}]{}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8h_a0495b4aa0b2ea7e5dd10e976aa63e4d3}

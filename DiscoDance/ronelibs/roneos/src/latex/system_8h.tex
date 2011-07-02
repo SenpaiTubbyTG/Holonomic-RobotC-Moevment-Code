@@ -1,0 +1,190 @@
+\hypertarget{system_8h}{
+\section{System/system.h File Reference}
+\label{system_8h}\index{System/system.h@{System/system.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{system_8h_ad2b73fee835d5cea1416e410f0686e43}{BASIC\_\-TASK\_\-STACK\_\-SIZE}~( configMINIMAL\_\-STACK\_\-SIZE $\ast$ 3 )
+\item 
+\#define \hyperlink{system_8h_aaa8288af0cc342748d2a46cdc4d574be}{HEARTBEAT\_\-TASK\_\-PRIORITY}~( tskIDLE\_\-PRIORITY + 4 )
+\item 
+\#define \hyperlink{system_8h_a9348aa3213007e86c64b34869f92854d}{NEIGHBORS\_\-TASK\_\-PRIORITY}~( tskIDLE\_\-PRIORITY + 3 )
+\item 
+\#define \hyperlink{system_8h_ab7f2d0d70826f12af2f0349953663d33}{BACKGROUND\_\-TASK\_\-PRIORITY}~( tskIDLE\_\-PRIORITY )
+\item 
+\#define \hyperlink{system_8h_a9b9afbbd6fd4dc36a4c73dc82e0e337f}{sysPrintFilename}()~\_\-sysPrintFilename(\_\-\_\-FILE\_\-\_\-)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{system_8h_a55acd8b1fa83e63825831bb31545804b}{roneInit} (void)
+\item 
+void \hyperlink{system_8h_a4c3623f505c3ad92e544958a2b30159f}{ronePreInit} (void)
+\item 
+void \hyperlink{system_8h_a4261cee66b6a4562243825d5983e5bbd}{heartbeatTask} (void $\ast$parameters)
+\item 
+void \hyperlink{system_8h_ad6e8e10deea223d026d095b310fa8847}{rone\_\-shutdown} (void)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{system_8h_abde370b5f994d8ae8744def0c2a38a31}{rone\_\-get\_\-id} (void)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{system_8h_a05300982d83185fed035f60e8c92d031}{rone\_\-usb\_\-connected} (void)
+\item 
+void \hyperlink{system_8h_ac1c6211be3ec376c5aa9c6d034a4f636}{heartbeat\_\-enable} (void)
+\item 
+void \hyperlink{system_8h_a314b382e476fb893631feafe70d6218d}{heartbeat\_\-disable} (void)
+\item 
+void \hyperlink{system_8h_a171f9b8a3a652f3942ef371d3aaf0014}{\_\-sysPrintFilename} (char $\ast$fileName)
+\item 
+void \hyperlink{system_8h_ad43bb5f2a6e736785123a1e1deded947}{sysPrintMemUsage} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} \hyperlink{system_8h_a1d3d2921c7745e7ea2d4cb8805fc9941}{roneID}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{system_8h_ab7f2d0d70826f12af2f0349953663d33}{
+\index{system.h@{system.h}!BACKGROUND\_\-TASK\_\-PRIORITY@{BACKGROUND\_\-TASK\_\-PRIORITY}}
+\index{BACKGROUND\_\-TASK\_\-PRIORITY@{BACKGROUND\_\-TASK\_\-PRIORITY}!system.h@{system.h}}
+\subsubsection[{BACKGROUND\_\-TASK\_\-PRIORITY}]{\setlength{\rightskip}{0pt plus 5cm}\#define BACKGROUND\_\-TASK\_\-PRIORITY~( tskIDLE\_\-PRIORITY )}}
+\label{system_8h_ab7f2d0d70826f12af2f0349953663d33}
+\hypertarget{system_8h_ad2b73fee835d5cea1416e410f0686e43}{
+\index{system.h@{system.h}!BASIC\_\-TASK\_\-STACK\_\-SIZE@{BASIC\_\-TASK\_\-STACK\_\-SIZE}}
+\index{BASIC\_\-TASK\_\-STACK\_\-SIZE@{BASIC\_\-TASK\_\-STACK\_\-SIZE}!system.h@{system.h}}
+\subsubsection[{BASIC\_\-TASK\_\-STACK\_\-SIZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define BASIC\_\-TASK\_\-STACK\_\-SIZE~( configMINIMAL\_\-STACK\_\-SIZE $\ast$ 3 )}}
+\label{system_8h_ad2b73fee835d5cea1416e410f0686e43}
+\hypertarget{system_8h_aaa8288af0cc342748d2a46cdc4d574be}{
+\index{system.h@{system.h}!HEARTBEAT\_\-TASK\_\-PRIORITY@{HEARTBEAT\_\-TASK\_\-PRIORITY}}
+\index{HEARTBEAT\_\-TASK\_\-PRIORITY@{HEARTBEAT\_\-TASK\_\-PRIORITY}!system.h@{system.h}}
+\subsubsection[{HEARTBEAT\_\-TASK\_\-PRIORITY}]{\setlength{\rightskip}{0pt plus 5cm}\#define HEARTBEAT\_\-TASK\_\-PRIORITY~( tskIDLE\_\-PRIORITY + 4 )}}
+\label{system_8h_aaa8288af0cc342748d2a46cdc4d574be}
+\hypertarget{system_8h_a9348aa3213007e86c64b34869f92854d}{
+\index{system.h@{system.h}!NEIGHBORS\_\-TASK\_\-PRIORITY@{NEIGHBORS\_\-TASK\_\-PRIORITY}}
+\index{NEIGHBORS\_\-TASK\_\-PRIORITY@{NEIGHBORS\_\-TASK\_\-PRIORITY}!system.h@{system.h}}
+\subsubsection[{NEIGHBORS\_\-TASK\_\-PRIORITY}]{\setlength{\rightskip}{0pt plus 5cm}\#define NEIGHBORS\_\-TASK\_\-PRIORITY~( tskIDLE\_\-PRIORITY + 3 )}}
+\label{system_8h_a9348aa3213007e86c64b34869f92854d}
+\hypertarget{system_8h_a9b9afbbd6fd4dc36a4c73dc82e0e337f}{
+\index{system.h@{system.h}!sysPrintFilename@{sysPrintFilename}}
+\index{sysPrintFilename@{sysPrintFilename}!system.h@{system.h}}
+\subsubsection[{sysPrintFilename}]{\setlength{\rightskip}{0pt plus 5cm}\#define sysPrintFilename(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\_\-sysPrintFilename(\_\-\_\-FILE\_\-\_\-)}}
+\label{system_8h_a9b9afbbd6fd4dc36a4c73dc82e0e337f}
+
+
+\subsection{Function Documentation}
+\hypertarget{system_8h_a171f9b8a3a652f3942ef371d3aaf0014}{
+\index{system.h@{system.h}!\_\-sysPrintFilename@{\_\-sysPrintFilename}}
+\index{\_\-sysPrintFilename@{\_\-sysPrintFilename}!system.h@{system.h}}
+\subsubsection[{\_\-sysPrintFilename}]{\setlength{\rightskip}{0pt plus 5cm}void \_\-sysPrintFilename (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{fileName}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_a171f9b8a3a652f3942ef371d3aaf0014}
+\hypertarget{system_8h_a314b382e476fb893631feafe70d6218d}{
+\index{system.h@{system.h}!heartbeat\_\-disable@{heartbeat\_\-disable}}
+\index{heartbeat\_\-disable@{heartbeat\_\-disable}!system.h@{system.h}}
+\subsubsection[{heartbeat\_\-disable}]{\setlength{\rightskip}{0pt plus 5cm}void heartbeat\_\-disable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_a314b382e476fb893631feafe70d6218d}
+\hypertarget{system_8h_ac1c6211be3ec376c5aa9c6d034a4f636}{
+\index{system.h@{system.h}!heartbeat\_\-enable@{heartbeat\_\-enable}}
+\index{heartbeat\_\-enable@{heartbeat\_\-enable}!system.h@{system.h}}
+\subsubsection[{heartbeat\_\-enable}]{\setlength{\rightskip}{0pt plus 5cm}void heartbeat\_\-enable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_ac1c6211be3ec376c5aa9c6d034a4f636}
+\hypertarget{system_8h_a4261cee66b6a4562243825d5983e5bbd}{
+\index{system.h@{system.h}!heartbeatTask@{heartbeatTask}}
+\index{heartbeatTask@{heartbeatTask}!system.h@{system.h}}
+\subsubsection[{heartbeatTask}]{\setlength{\rightskip}{0pt plus 5cm}void heartbeatTask (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{parameters}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_a4261cee66b6a4562243825d5983e5bbd}
+\hypertarget{system_8h_abde370b5f994d8ae8744def0c2a38a31}{
+\index{system.h@{system.h}!rone\_\-get\_\-id@{rone\_\-get\_\-id}}
+\index{rone\_\-get\_\-id@{rone\_\-get\_\-id}!system.h@{system.h}}
+\subsubsection[{rone\_\-get\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} rone\_\-get\_\-id (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_abde370b5f994d8ae8744def0c2a38a31}
+Gets the roneID. Gets the roneID. \begin{DoxyReturn}{Returns}
+roneID 
+\end{DoxyReturn}
+\hypertarget{system_8h_ad6e8e10deea223d026d095b310fa8847}{
+\index{system.h@{system.h}!rone\_\-shutdown@{rone\_\-shutdown}}
+\index{rone\_\-shutdown@{rone\_\-shutdown}!system.h@{system.h}}
+\subsubsection[{rone\_\-shutdown}]{\setlength{\rightskip}{0pt plus 5cm}void rone\_\-shutdown (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_ad6e8e10deea223d026d095b310fa8847}
+\hypertarget{system_8h_a05300982d83185fed035f60e8c92d031}{
+\index{system.h@{system.h}!rone\_\-usb\_\-connected@{rone\_\-usb\_\-connected}}
+\index{rone\_\-usb\_\-connected@{rone\_\-usb\_\-connected}!system.h@{system.h}}
+\subsubsection[{rone\_\-usb\_\-connected}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} rone\_\-usb\_\-connected (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_a05300982d83185fed035f60e8c92d031}
+\hypertarget{system_8h_a55acd8b1fa83e63825831bb31545804b}{
+\index{system.h@{system.h}!roneInit@{roneInit}}
+\index{roneInit@{roneInit}!system.h@{system.h}}
+\subsubsection[{roneInit}]{\setlength{\rightskip}{0pt plus 5cm}void roneInit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_a55acd8b1fa83e63825831bb31545804b}
+Initializes the rest of rone after the pre-\/initialization. Initializes encoder, light sensor, motor, gyro, accelerometer, IR\_\-comms, radio, ad cfprintf. Prints out the date, time, and roneID after everything is initialized. Rone starts heartbeat after this initialization. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{system_8h_a4c3623f505c3ad92e544958a2b30159f}{
+\index{system.h@{system.h}!ronePreInit@{ronePreInit}}
+\index{ronePreInit@{ronePreInit}!system.h@{system.h}}
+\subsubsection[{ronePreInit}]{\setlength{\rightskip}{0pt plus 5cm}void ronePreInit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_a4c3623f505c3ad92e544958a2b30159f}
+Pre-\/initializes rone by starting the core hardware. Initalizes rone =ID, charger, blinky, buttons, IRBeacon, SPI, LED, and serial. Rone blinks three times after the initializations are done. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{system_8h_ad43bb5f2a6e736785123a1e1deded947}{
+\index{system.h@{system.h}!sysPrintMemUsage@{sysPrintMemUsage}}
+\index{sysPrintMemUsage@{sysPrintMemUsage}!system.h@{system.h}}
+\subsubsection[{sysPrintMemUsage}]{\setlength{\rightskip}{0pt plus 5cm}void sysPrintMemUsage (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{system_8h_ad43bb5f2a6e736785123a1e1deded947}
+Print the heap and stack usage. Print the heap and stack usage. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{system_8h_a1d3d2921c7745e7ea2d4cb8805fc9941}{
+\index{system.h@{system.h}!roneID@{roneID}}
+\index{roneID@{roneID}!system.h@{system.h}}
+\subsubsection[{roneID}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8} {\bf roneID}}}
+\label{system_8h_a1d3d2921c7745e7ea2d4cb8805fc9941}

@@ -1,0 +1,111 @@
+\hypertarget{serial_8c}{
+\section{SerialIO/serial.c File Reference}
+\label{serial_8c}\index{SerialIO/serial.c@{SerialIO/serial.c}}
+}
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-ints.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/uart.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/ssi.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/interrupt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{serial_8c_acd2f4de4733e39d5bb1c3d33d4ad0a0f}{sputchar} (char c)
+\begin{DoxyCompactList}\small\item\em Sends out a character. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{serial_8c_acba18fbca1792b49e471cac9e3678f69}{bitString8} (char $\ast$string, uint8 val)
+\begin{DoxyCompactList}\small\item\em Function that allows us to print binary. \end{DoxyCompactList}\item 
+void \hyperlink{serial_8c_a1721013bff2cdc840ea9272c4d9fdee9}{uart\_\-int\_\-handler} (void)
+\begin{DoxyCompactList}\small\item\em Function used to handle UART initialization. \end{DoxyCompactList}\item 
+void \hyperlink{serial_8c_a8b17b137d175d09afe7cb07684f82e5d}{serial\_\-init} ()
+\begin{DoxyCompactList}\small\item\em Initializes serial I/O. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Created on: Jul 21, 2010 Author: sjb2 
+
+\subsection{Function Documentation}
+\hypertarget{serial_8c_acba18fbca1792b49e471cac9e3678f69}{
+\index{serial.c@{serial.c}!bitString8@{bitString8}}
+\index{bitString8@{bitString8}!serial.c@{serial.c}}
+\subsubsection[{bitString8}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ bitString8 (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{string, }
+\item[{uint8}]{val}
+\end{DoxyParamCaption}
+)}}
+\label{serial_8c_acba18fbca1792b49e471cac9e3678f69}
+
+
+Function that allows us to print binary. 
+
+Creates a binary version of the input character and points the input pointer to it. 
+\begin{DoxyParams}{Parameters}
+{\em $\ast$string} & is the char pointer that will point to the binary bitstring of val \\
+\hline
+{\em val} & is the value to be converted to binary \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer to the binary string converted from val 
+\end{DoxyReturn}
+\hypertarget{serial_8c_a8b17b137d175d09afe7cb07684f82e5d}{
+\index{serial.c@{serial.c}!serial\_\-init@{serial\_\-init}}
+\index{serial\_\-init@{serial\_\-init}!serial.c@{serial.c}}
+\subsubsection[{serial\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void serial\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{serial_8c_a8b17b137d175d09afe7cb07684f82e5d}
+
+
+Initializes serial I/O. 
+
+Enable the peripherals used by this example. Enable processor interrupts. Set GPIO A0 and A1 as UART pins. Configure the UART for 115,200, 8-\/N-\/1 operation. Enable the UART interrupt. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{serial_8c_acd2f4de4733e39d5bb1c3d33d4ad0a0f}{
+\index{serial.c@{serial.c}!sputchar@{sputchar}}
+\index{sputchar@{sputchar}!serial.c@{serial.c}}
+\subsubsection[{sputchar}]{\setlength{\rightskip}{0pt plus 5cm}void sputchar (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}}
+\label{serial_8c_acd2f4de4733e39d5bb1c3d33d4ad0a0f}
+
+
+Sends out a character. 
+
+Sends the character c to the transmit FIFO for the port specified by UARTO\_\-BASE (base address). 
+\begin{DoxyParams}{Parameters}
+{\em c} & is the character to be transmitted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{serial_8c_a1721013bff2cdc840ea9272c4d9fdee9}{
+\index{serial.c@{serial.c}!uart\_\-int\_\-handler@{uart\_\-int\_\-handler}}
+\index{uart\_\-int\_\-handler@{uart\_\-int\_\-handler}!serial.c@{serial.c}}
+\subsubsection[{uart\_\-int\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}void uart\_\-int\_\-handler (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{serial_8c_a1721013bff2cdc840ea9272c4d9fdee9}
+
+
+Function used to handle UART initialization. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

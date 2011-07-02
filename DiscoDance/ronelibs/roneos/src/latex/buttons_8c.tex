@@ -1,0 +1,62 @@
+\hypertarget{buttons_8c}{
+\section{InputOutput/buttons.c File Reference}
+\label{buttons_8c}\index{InputOutput/buttons.c@{InputOutput/buttons.c}}
+}
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{buttons_8c_acef6dd444cb6560da652897ee43ab306}{buttons\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the buttons. \end{DoxyCompactList}\item 
+uint32 \hyperlink{buttons_8c_ad02cd43bc027e626dc731a28059cf523}{buttons\_\-get} (uint32 button)
+\begin{DoxyCompactList}\small\item\em Gets the state of the specified button. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Created on: Jul 21, 2010 Author: jamesm 
+
+\subsection{Function Documentation}
+\hypertarget{buttons_8c_ad02cd43bc027e626dc731a28059cf523}{
+\index{buttons.c@{buttons.c}!buttons\_\-get@{buttons\_\-get}}
+\index{buttons\_\-get@{buttons\_\-get}!buttons.c@{buttons.c}}
+\subsubsection[{buttons\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}uint32 buttons\_\-get (
+\begin{DoxyParamCaption}
+\item[{uint32}]{button}
+\end{DoxyParamCaption}
+)}}
+\label{buttons_8c_ad02cd43bc027e626dc731a28059cf523}
+
+
+Gets the state of the specified button. 
+
+Tells you whether the specified button is on or off 
+\begin{DoxyParams}{Parameters}
+{\em button} & specifies which button to check (BUTTON\_\-RED, BUTTON\_\-BLUE, or BUTTON\_\-GREEN) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{buttons_8c_acef6dd444cb6560da652897ee43ab306}{
+\index{buttons.c@{buttons.c}!buttons\_\-init@{buttons\_\-init}}
+\index{buttons\_\-init@{buttons\_\-init}!buttons.c@{buttons.c}}
+\subsubsection[{buttons\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void buttons\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{buttons_8c_acef6dd444cb6560da652897ee43ab306}
+
+
+Initializes the buttons. 
+
+Initializes the red, green, and blue buttons as input. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
