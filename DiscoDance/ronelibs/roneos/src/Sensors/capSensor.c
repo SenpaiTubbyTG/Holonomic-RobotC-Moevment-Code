@@ -16,7 +16,7 @@ void initCapSensor() {
 	MAP_GPIOPinTypeGPIOInput(CAP_SENSOR_BASE, CAP_SENSOR_PIN);
 }
 
-boolean getCapSensor(uint8 base, uint8 pin) {
+boolean getCapSensor(uint32 base, uint32 pin) {
 	boolean val;
 	if (MAP_GPIOPinRead(base, pin)) {
 		val = true;
