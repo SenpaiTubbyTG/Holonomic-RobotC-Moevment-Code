@@ -100,11 +100,7 @@ void systemPreInit(void) {
 	blinky_led_init();
 
 #ifdef PART_LM3S8962
-	buttons_init();
-	ir_beacon_init();
-	SPIInit();
 	led_init();
-	serial_init();
 #endif
 
 	srand(roneID);
@@ -135,17 +131,7 @@ void systemInit(void) {
 	unsigned long val;
 	// startup the rest of the hardware
 #ifdef PART_LM3S8962
-	encoder_init();
-	light_sensor_init();
-	motor_init();
-	gyro_init();
-	//accelerometer_init();
-	ir_comms_init();
-	radio_init();
-	cfprintfInit();
 
-	cprintf("roneos build %s %s\n", __DATE__, __TIME__);
-	cprintf("robot id: %d\n", roneID);
 #endif
 
 	osTaskCreate( /* function */systemHeartbeatTask,
@@ -226,23 +212,7 @@ void systemHeartbeatTask(void* parameters) {
 		// blink the blinky LED
 		blinkyUpdate();
 #ifdef PART_LM3S8962
-		// update the beacon LED
-		// // Commented out because the call to this method was moved to
-		// // ir_beacon.c where it is called in time with Timer2's 60hz
-		// // timer.
-		//ir_beacon_update(); //jl71 call from clocked interrupt
-
-		// update the LEDs
 		leds_update();
-
-		// read the accelerometer
-		//accelerometer_update();
-
-		// run the velocity controller
-		motor_velocity_update();
-
-		// estimate the pose
-		encoder_pose_update();
 
 		// 10 hz interrupt functions
 		heart_beat_10hz_timer--;
