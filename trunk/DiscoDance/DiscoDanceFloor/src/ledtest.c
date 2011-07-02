@@ -12,8 +12,6 @@ void behaviorTask(void* parameters);
 int main(void) {
     systemPreInit();
     systemInit();
-    msp430Init();
-    cprintf("\n starting up SPI test \n");
     //osTaskCreate(backgroundTask, "background", 256, NULL, BACKGROUND_TASK_PRIORITY);
     osTaskCreate(behaviorTask, "behavior", 4096, NULL, BEHAVIOR_TASK_PRIORITY);
 	osTaskStartScheduler(); /* Start the scheduler. */
@@ -39,20 +37,7 @@ void behaviorTask(void* parameters) {
 
 	for (;;) {
 
-		/*if(buttons_get(BUTTON_GREEN)) {
-			//leds_set(LED_GREEN, LED_PATTERN_ON, LED_BRIGHTNESS_MED,	LED_RATE_MED);
-			msp430_spi_send(message);
-			while(buttons_get(BUTTON_GREEN)) { //debounce
-			}*/
-		//leds_set(LED_RED, LED_PATTERN_CIRCLE, LED_BRIGHTNESS_MED,	LED_RATE_MED);
-		if(buttons_get(BUTTON_RED)) {
-			message = 0x55;
-		} else if(buttons_get(BUTTON_GREEN)) {
-			message = 0x22;
-		} else {
-			message = 0xAA;
-		}
-		msp430GetData(message);
+
 		osTaskDelayUntil(&lastWakeTime, BEHAVIOR_TASK_PERIOD);
     }
 }
