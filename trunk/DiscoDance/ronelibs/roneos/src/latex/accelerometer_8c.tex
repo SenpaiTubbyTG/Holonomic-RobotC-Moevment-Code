@@ -1,0 +1,131 @@
+\hypertarget{accelerometer_8c}{
+\section{Sensors/accelerometer.c File Reference}
+\label{accelerometer_8c}\index{Sensors/accelerometer.c@{Sensors/accelerometer.c}}
+}
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/uart.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/ssi.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8 \hyperlink{accelerometer_8c_aa95e117988381210a20fba94964267fe}{accelerometer\_\-read\_\-register} (uint8 addr)
+\begin{DoxyCompactList}\small\item\em Reads the accelerometer register from the specified address. \end{DoxyCompactList}\item 
+void \hyperlink{accelerometer_8c_a8c8674df90fffa1a2b3ff3b59670828a}{accelerometer\_\-write\_\-register} (uint8 addr, uint8 data)
+\begin{DoxyCompactList}\small\item\em Writes data into the specified accelerometer register. \end{DoxyCompactList}\item 
+void \hyperlink{accelerometer_8c_a4987d8d30a75237baf8a7a13c03dffe8}{accelerometer\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the accelerometer. \end{DoxyCompactList}\item 
+void \hyperlink{accelerometer_8c_a3edddabfc4b8e97f440ea97ed2a3fffa}{accelerometer\_\-update} (void)
+\begin{DoxyCompactList}\small\item\em Updates the x, y, and z axes of the accelerometer. \end{DoxyCompactList}\item 
+int32 \hyperlink{accelerometer_8c_aeb8e26f1f7a515807c13e12f3fd1c99a}{accelerometer\_\-get\_\-value} (uint32 axis)
+\begin{DoxyCompactList}\small\item\em Gets the value of the specified axis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Created on: Jul 22, 2010 Author: jamesm 
+
+\subsection{Function Documentation}
+\hypertarget{accelerometer_8c_aeb8e26f1f7a515807c13e12f3fd1c99a}{
+\index{accelerometer.c@{accelerometer.c}!accelerometer\_\-get\_\-value@{accelerometer\_\-get\_\-value}}
+\index{accelerometer\_\-get\_\-value@{accelerometer\_\-get\_\-value}!accelerometer.c@{accelerometer.c}}
+\subsubsection[{accelerometer\_\-get\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}int32 accelerometer\_\-get\_\-value (
+\begin{DoxyParamCaption}
+\item[{uint32}]{axis}
+\end{DoxyParamCaption}
+)}}
+\label{accelerometer_8c_aeb8e26f1f7a515807c13e12f3fd1c99a}
+
+
+Gets the value of the specified axis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em axis} & specifies which axis to look up \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the value of the axis; 0 if the input parameter is not recognized 
+\end{DoxyReturn}
+\hypertarget{accelerometer_8c_a4987d8d30a75237baf8a7a13c03dffe8}{
+\index{accelerometer.c@{accelerometer.c}!accelerometer\_\-init@{accelerometer\_\-init}}
+\index{accelerometer\_\-init@{accelerometer\_\-init}!accelerometer.c@{accelerometer.c}}
+\subsubsection[{accelerometer\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void accelerometer\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{accelerometer_8c_a4987d8d30a75237baf8a7a13c03dffe8}
+
+
+Initializes the accelerometer. 
+
+Enable power-\/on, X, Y, Z, channels. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{accelerometer_8c_aa95e117988381210a20fba94964267fe}{
+\index{accelerometer.c@{accelerometer.c}!accelerometer\_\-read\_\-register@{accelerometer\_\-read\_\-register}}
+\index{accelerometer\_\-read\_\-register@{accelerometer\_\-read\_\-register}!accelerometer.c@{accelerometer.c}}
+\subsubsection[{accelerometer\_\-read\_\-register}]{\setlength{\rightskip}{0pt plus 5cm}uint8 accelerometer\_\-read\_\-register (
+\begin{DoxyParamCaption}
+\item[{uint8}]{addr}
+\end{DoxyParamCaption}
+)}}
+\label{accelerometer_8c_aa95e117988381210a20fba94964267fe}
+
+
+Reads the accelerometer register from the specified address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & specifies where the register is \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the data contained in the register 
+\end{DoxyReturn}
+\hypertarget{accelerometer_8c_a3edddabfc4b8e97f440ea97ed2a3fffa}{
+\index{accelerometer.c@{accelerometer.c}!accelerometer\_\-update@{accelerometer\_\-update}}
+\index{accelerometer\_\-update@{accelerometer\_\-update}!accelerometer.c@{accelerometer.c}}
+\subsubsection[{accelerometer\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void accelerometer\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{accelerometer_8c_a3edddabfc4b8e97f440ea97ed2a3fffa}
+
+
+Updates the x, y, and z axes of the accelerometer. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{accelerometer_8c_a8c8674df90fffa1a2b3ff3b59670828a}{
+\index{accelerometer.c@{accelerometer.c}!accelerometer\_\-write\_\-register@{accelerometer\_\-write\_\-register}}
+\index{accelerometer\_\-write\_\-register@{accelerometer\_\-write\_\-register}!accelerometer.c@{accelerometer.c}}
+\subsubsection[{accelerometer\_\-write\_\-register}]{\setlength{\rightskip}{0pt plus 5cm}void accelerometer\_\-write\_\-register (
+\begin{DoxyParamCaption}
+\item[{uint8}]{addr, }
+\item[{uint8}]{data}
+\end{DoxyParamCaption}
+)}}
+\label{accelerometer_8c_a8c8674df90fffa1a2b3ff3b59670828a}
+
+
+Writes data into the specified accelerometer register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & specifies where the register is \\
+\hline
+{\em data} & to be written into the register \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

@@ -1,0 +1,472 @@
+\hypertarget{radio_8c}{
+\section{InputOutput/radio.c File Reference}
+\label{radio_8c}\index{InputOutput/radio.c@{InputOutput/radio.c}}
+}
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-ints.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-qei.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/flash.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/pwm.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/qei.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/systick.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/uart.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/ssi.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/interrupt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nRF24L01.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}hal\_\-nrf\_\-reg.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}FreeRTOS.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}queue.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}semphr.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{radio_8c_a480fa9f5fc971cbe221b5059a4a72fc8}{RADIO\_\-IRQ\_\-PORT}~GPIO\_\-PORTC\_\-BASE
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint32 \hyperlink{radio_8c_a443921ec725ab894ea94498350daf9f4}{radio\_\-read\_\-register} (uint32 reg)
+\begin{DoxyCompactList}\small\item\em Gets the SPI data in the specified register. \end{DoxyCompactList}\item 
+uint32 \hyperlink{radio_8c_ad79404e5a59589cc94eb05ec9a3806b5}{radio\_\-write\_\-register} (uint32 reg, uint32 val)
+\begin{DoxyCompactList}\small\item\em Writes something into the specified register. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a2bc6127051b4291abdc6409bfc8fa544}{radio\_\-write\_\-command} (uint32 command)
+\begin{DoxyCompactList}\small\item\em Writes a command into the radio. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a908c92f0e1a40bb0a589a74b25393782}{radio\_\-ce\_\-on} (void)
+\begin{DoxyCompactList}\small\item\em Enables the radio chip. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a3b97e714938a85c656cb2d8335f6dbd5}{radio\_\-ce\_\-off} (void)
+\begin{DoxyCompactList}\small\item\em Disables the radio chip. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a535688238e9e2f23e3d67ea991418045}{radio\_\-set\_\-tx\_\-mode} (void)
+\begin{DoxyCompactList}\small\item\em Sets the transmit mode. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a5afc2bfce68f264744c0d0941469d643}{radio\_\-set\_\-rx\_\-mode} (void)
+\begin{DoxyCompactList}\small\item\em Sets the receive mode. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a5cf7f03c065baa99fcb2e89659d8bc5f}{radio\_\-set\_\-rx\_\-addr} (char $\ast$addrPtr, uint8 size)
+\begin{DoxyCompactList}\small\item\em Sets the address to receive from. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a0e2d1a80c82fe42d31eb829ec7d6cc2a}{radio\_\-set\_\-tx\_\-addr} (char $\ast$addrPtr, uint8 size)
+\begin{DoxyCompactList}\small\item\em Sets the address to transmit to. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a89bff11ef2736fbe519c99d636b9ed80}{radio\_\-send\_\-message} (char $\ast$message\_\-ptr, uint32 size)
+\begin{DoxyCompactList}\small\item\em Sends a message through the radio. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_abaebb776209eda9e035ce2e7cec285dd}{radio\_\-set\_\-id} (uint32 rx\_\-id)
+\begin{DoxyCompactList}\small\item\em Sets which specific radio to receive from. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a16f5c28dbe4eeed23bfe6722e3c2639c}{radio\_\-int\_\-enable} (void)
+\begin{DoxyCompactList}\small\item\em Enables interrupt. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a32e62bc88e56b4ae23bd069a29f1661a}{radio\_\-int\_\-disable} (void)
+\begin{DoxyCompactList}\small\item\em Disables interrupt. \end{DoxyCompactList}\item 
+boolean \hyperlink{radio_8c_aa141278f6e2ef76fdb09beb0cd85173c}{radio\_\-get\_\-error} (void)
+\begin{DoxyCompactList}\small\item\em Gets whether there is a radio error. \end{DoxyCompactList}\item 
+boolean \hyperlink{radio_8c_a28f21644cc7c3b687277e35b01bcc48d}{radio\_\-get\_\-success} ()
+\begin{DoxyCompactList}\small\item\em Gets whether the previous packet was successfully sent. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_a25e2b59ea73e9d066280d23f1abd7ff8}{radio\_\-int\_\-handler} (void)
+\begin{DoxyCompactList}\small\item\em Handles radio interrupt. \end{DoxyCompactList}\item 
+void \hyperlink{radio_8c_acfb21351bb3f0146635745bfacfe26a8}{radio\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the radio. \end{DoxyCompactList}\item 
+boolean \hyperlink{radio_8c_ab2cf0d5fc4becda5d0c05eca29f100dd}{radio\_\-get\_\-message} (char $\ast$message, uint32 $\ast$message\_\-size\_\-ptr, uint32 $\ast$message\_\-link\_\-quality\_\-ptr)
+\begin{DoxyCompactList}\small\item\em Checks whether there is a message. \end{DoxyCompactList}\item 
+uint32 \hyperlink{radio_8c_a45764b62831ce756aa9579aa1b3f04fc}{radio\_\-get\_\-message\_\-string} (char $\ast$message, uint32 $\ast$message\_\-link\_\-quality\_\-ptr)
+\begin{DoxyCompactList}\small\item\em Null terminates the radio message. \end{DoxyCompactList}\item 
+uint32 \hyperlink{radio_8c_a68f815abaefd70553cc1270cb4cb06cd}{radio\_\-get\_\-link\_\-quality} (void)
+\begin{DoxyCompactList}\small\item\em Gets the link quality. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Created on: Jul 9, 2010 Author: sjb2 
+
+\subsection{Define Documentation}
+\hypertarget{radio_8c_a480fa9f5fc971cbe221b5059a4a72fc8}{
+\index{radio.c@{radio.c}!RADIO\_\-IRQ\_\-PORT@{RADIO\_\-IRQ\_\-PORT}}
+\index{RADIO\_\-IRQ\_\-PORT@{RADIO\_\-IRQ\_\-PORT}!radio.c@{radio.c}}
+\subsubsection[{RADIO\_\-IRQ\_\-PORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define RADIO\_\-IRQ\_\-PORT~GPIO\_\-PORTC\_\-BASE}}
+\label{radio_8c_a480fa9f5fc971cbe221b5059a4a72fc8}
+Begin Pin Definitions for the Radio SS=PA7, SLP\_\-TR=PA6 RST=PG0 IRQ=PC5 
+
+\subsection{Function Documentation}
+\hypertarget{radio_8c_a3b97e714938a85c656cb2d8335f6dbd5}{
+\index{radio.c@{radio.c}!radio\_\-ce\_\-off@{radio\_\-ce\_\-off}}
+\index{radio\_\-ce\_\-off@{radio\_\-ce\_\-off}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-ce\_\-off}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-ce\_\-off (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a3b97e714938a85c656cb2d8335f6dbd5}
+
+
+Disables the radio chip. 
+
+Sets the chip-\/enable PIN as low. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a908c92f0e1a40bb0a589a74b25393782}{
+\index{radio.c@{radio.c}!radio\_\-ce\_\-on@{radio\_\-ce\_\-on}}
+\index{radio\_\-ce\_\-on@{radio\_\-ce\_\-on}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-ce\_\-on}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-ce\_\-on (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a908c92f0e1a40bb0a589a74b25393782}
+
+
+Enables the radio chip. 
+
+Sets the chip-\/enable PIN as high. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_aa141278f6e2ef76fdb09beb0cd85173c}{
+\index{radio.c@{radio.c}!radio\_\-get\_\-error@{radio\_\-get\_\-error}}
+\index{radio\_\-get\_\-error@{radio\_\-get\_\-error}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-get\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}boolean radio\_\-get\_\-error (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_aa141278f6e2ef76fdb09beb0cd85173c}
+
+
+Gets whether there is a radio error. 
+
+\begin{DoxyReturn}{Returns}
+TRUE or FALSE depending on whether there is an error 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a68f815abaefd70553cc1270cb4cb06cd}{
+\index{radio.c@{radio.c}!radio\_\-get\_\-link\_\-quality@{radio\_\-get\_\-link\_\-quality}}
+\index{radio\_\-get\_\-link\_\-quality@{radio\_\-get\_\-link\_\-quality}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-get\_\-link\_\-quality}]{\setlength{\rightskip}{0pt plus 5cm}uint32 radio\_\-get\_\-link\_\-quality (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a68f815abaefd70553cc1270cb4cb06cd}
+
+
+Gets the link quality. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_ab2cf0d5fc4becda5d0c05eca29f100dd}{
+\index{radio.c@{radio.c}!radio\_\-get\_\-message@{radio\_\-get\_\-message}}
+\index{radio\_\-get\_\-message@{radio\_\-get\_\-message}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-get\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}boolean radio\_\-get\_\-message (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{message, }
+\item[{uint32 $\ast$}]{message\_\-size\_\-ptr, }
+\item[{uint32 $\ast$}]{message\_\-link\_\-quality\_\-ptr}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_ab2cf0d5fc4becda5d0c05eca29f100dd}
+
+
+Checks whether there is a message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & pointer to the message to be checked \\
+\hline
+{\em message\_\-size\_\-ptr} & pointer to thesize of the message \\
+\hline
+{\em message\_\-link\_\-quality\_\-ptr} & pointer to the link quality of the message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TRUE if there is a message, FALSE if not 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a45764b62831ce756aa9579aa1b3f04fc}{
+\index{radio.c@{radio.c}!radio\_\-get\_\-message\_\-string@{radio\_\-get\_\-message\_\-string}}
+\index{radio\_\-get\_\-message\_\-string@{radio\_\-get\_\-message\_\-string}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-get\_\-message\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}uint32 radio\_\-get\_\-message\_\-string (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{message, }
+\item[{uint32 $\ast$}]{message\_\-link\_\-quality\_\-ptr}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a45764b62831ce756aa9579aa1b3f04fc}
+
+
+Null terminates the radio message. 
+
+Deprecated! 
+\begin{DoxyParams}{Parameters}
+{\em message} & pointer to the message to be terminated \\
+\hline
+{\em message\_\-link\_\-quality\_\-ptr} & pointer to the link quality of the message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a28f21644cc7c3b687277e35b01bcc48d}{
+\index{radio.c@{radio.c}!radio\_\-get\_\-success@{radio\_\-get\_\-success}}
+\index{radio\_\-get\_\-success@{radio\_\-get\_\-success}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-get\_\-success}]{\setlength{\rightskip}{0pt plus 5cm}boolean radio\_\-get\_\-success (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a28f21644cc7c3b687277e35b01bcc48d}
+
+
+Gets whether the previous packet was successfully sent. 
+
+\begin{DoxyReturn}{Returns}
+TRUE or FALSE depending on the success of sending packet 
+\end{DoxyReturn}
+\hypertarget{radio_8c_acfb21351bb3f0146635745bfacfe26a8}{
+\index{radio.c@{radio.c}!radio\_\-init@{radio\_\-init}}
+\index{radio\_\-init@{radio\_\-init}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_acfb21351bb3f0146635745bfacfe26a8}
+
+
+Initializes the radio. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a32e62bc88e56b4ae23bd069a29f1661a}{
+\index{radio.c@{radio.c}!radio\_\-int\_\-disable@{radio\_\-int\_\-disable}}
+\index{radio\_\-int\_\-disable@{radio\_\-int\_\-disable}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-int\_\-disable}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-int\_\-disable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a32e62bc88e56b4ae23bd069a29f1661a}
+
+
+Disables interrupt. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a16f5c28dbe4eeed23bfe6722e3c2639c}{
+\index{radio.c@{radio.c}!radio\_\-int\_\-enable@{radio\_\-int\_\-enable}}
+\index{radio\_\-int\_\-enable@{radio\_\-int\_\-enable}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-int\_\-enable}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-int\_\-enable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a16f5c28dbe4eeed23bfe6722e3c2639c}
+
+
+Enables interrupt. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a25e2b59ea73e9d066280d23f1abd7ff8}{
+\index{radio.c@{radio.c}!radio\_\-int\_\-handler@{radio\_\-int\_\-handler}}
+\index{radio\_\-int\_\-handler@{radio\_\-int\_\-handler}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-int\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-int\_\-handler (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a25e2b59ea73e9d066280d23f1abd7ff8}
+
+
+Handles radio interrupt. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a443921ec725ab894ea94498350daf9f4}{
+\index{radio.c@{radio.c}!radio\_\-read\_\-register@{radio\_\-read\_\-register}}
+\index{radio\_\-read\_\-register@{radio\_\-read\_\-register}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-read\_\-register}]{\setlength{\rightskip}{0pt plus 5cm}uint32 radio\_\-read\_\-register (
+\begin{DoxyParamCaption}
+\item[{uint32}]{reg}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a443921ec725ab894ea94498350daf9f4}
+
+
+Gets the SPI data in the specified register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & the register (represented by 32 bits) to read data from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the 32-\/bit SPI data in the register 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a89bff11ef2736fbe519c99d636b9ed80}{
+\index{radio.c@{radio.c}!radio\_\-send\_\-message@{radio\_\-send\_\-message}}
+\index{radio\_\-send\_\-message@{radio\_\-send\_\-message}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-send\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-send\_\-message (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{message\_\-ptr, }
+\item[{uint32}]{size}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a89bff11ef2736fbe519c99d636b9ed80}
+
+
+Sends a message through the radio. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\_\-ptr} & pointer to the message to be sent \\
+\hline
+{\em size} & size of the message to be sent \\
+\hline
+\end{DoxyParams}
+\hypertarget{radio_8c_abaebb776209eda9e035ce2e7cec285dd}{
+\index{radio.c@{radio.c}!radio\_\-set\_\-id@{radio\_\-set\_\-id}}
+\index{radio\_\-set\_\-id@{radio\_\-set\_\-id}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-set\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-set\_\-id (
+\begin{DoxyParamCaption}
+\item[{uint32}]{rx\_\-id}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_abaebb776209eda9e035ce2e7cec285dd}
+
+
+Sets which specific radio to receive from. 
+
+Deprecated! 
+\begin{DoxyParams}{Parameters}
+{\em rx\_\-id} & the ID of the radio you want to receive from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a5cf7f03c065baa99fcb2e89659d8bc5f}{
+\index{radio.c@{radio.c}!radio\_\-set\_\-rx\_\-addr@{radio\_\-set\_\-rx\_\-addr}}
+\index{radio\_\-set\_\-rx\_\-addr@{radio\_\-set\_\-rx\_\-addr}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-set\_\-rx\_\-addr}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-set\_\-rx\_\-addr (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{addrPtr, }
+\item[{uint8}]{size}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a5cf7f03c065baa99fcb2e89659d8bc5f}
+
+
+Sets the address to receive from. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addrPtr} & pointer to the address from which data is received \\
+\hline
+{\em size} & size of the data to be received \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a5afc2bfce68f264744c0d0941469d643}{
+\index{radio.c@{radio.c}!radio\_\-set\_\-rx\_\-mode@{radio\_\-set\_\-rx\_\-mode}}
+\index{radio\_\-set\_\-rx\_\-mode@{radio\_\-set\_\-rx\_\-mode}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-set\_\-rx\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-set\_\-rx\_\-mode (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a5afc2bfce68f264744c0d0941469d643}
+
+
+Sets the receive mode. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a0e2d1a80c82fe42d31eb829ec7d6cc2a}{
+\index{radio.c@{radio.c}!radio\_\-set\_\-tx\_\-addr@{radio\_\-set\_\-tx\_\-addr}}
+\index{radio\_\-set\_\-tx\_\-addr@{radio\_\-set\_\-tx\_\-addr}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-set\_\-tx\_\-addr}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-set\_\-tx\_\-addr (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{addrPtr, }
+\item[{uint8}]{size}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a0e2d1a80c82fe42d31eb829ec7d6cc2a}
+
+
+Sets the address to transmit to. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addrPtr} & pointer to the address to which data is transmitted \\
+\hline
+{\em size} & of the data to be transmitted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a535688238e9e2f23e3d67ea991418045}{
+\index{radio.c@{radio.c}!radio\_\-set\_\-tx\_\-mode@{radio\_\-set\_\-tx\_\-mode}}
+\index{radio\_\-set\_\-tx\_\-mode@{radio\_\-set\_\-tx\_\-mode}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-set\_\-tx\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-set\_\-tx\_\-mode (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a535688238e9e2f23e3d67ea991418045}
+
+
+Sets the transmit mode. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_a2bc6127051b4291abdc6409bfc8fa544}{
+\index{radio.c@{radio.c}!radio\_\-write\_\-command@{radio\_\-write\_\-command}}
+\index{radio\_\-write\_\-command@{radio\_\-write\_\-command}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-write\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-write\_\-command (
+\begin{DoxyParamCaption}
+\item[{uint32}]{command}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_a2bc6127051b4291abdc6409bfc8fa544}
+
+
+Writes a command into the radio. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & command to be written into the radio \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{radio_8c_ad79404e5a59589cc94eb05ec9a3806b5}{
+\index{radio.c@{radio.c}!radio\_\-write\_\-register@{radio\_\-write\_\-register}}
+\index{radio\_\-write\_\-register@{radio\_\-write\_\-register}!radio.c@{radio.c}}
+\subsubsection[{radio\_\-write\_\-register}]{\setlength{\rightskip}{0pt plus 5cm}uint32 radio\_\-write\_\-register (
+\begin{DoxyParamCaption}
+\item[{uint32}]{reg, }
+\item[{uint32}]{val}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8c_ad79404e5a59589cc94eb05ec9a3806b5}
+
+
+Writes something into the specified register. 
+
+Writes the first 8 bits of the 32-\/bit value into the register. 
+\begin{DoxyParams}{Parameters}
+{\em reg} & the register to write into \\
+\hline
+{\em val} & 32-\/bit value to be written into the register \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the radio chip status 
+\end{DoxyReturn}

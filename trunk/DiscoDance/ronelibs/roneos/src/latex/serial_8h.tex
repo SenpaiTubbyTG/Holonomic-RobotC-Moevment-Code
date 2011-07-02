@@ -1,0 +1,80 @@
+\hypertarget{serial_8h}{
+\section{SerialIO/serial.h File Reference}
+\label{serial_8h}\index{SerialIO/serial.h@{SerialIO/serial.h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{serial_8h_ad2b461e9e9044364a28a61cfadcacdd8}{serial\_\-init} (void)
+\item 
+void \hyperlink{serial_8h_a1721013bff2cdc840ea9272c4d9fdee9}{uart\_\-int\_\-handler} (void)
+\item 
+void \hyperlink{serial_8h_acd2f4de4733e39d5bb1c3d33d4ad0a0f}{sputchar} (char c)
+\item 
+void \hyperlink{serial_8h_a5d50eafa1299d3b4cb2b30c9d42fdc5f}{serial\_\-send} (const char $\ast$buffer, \hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} size)
+\item 
+void \hyperlink{serial_8h_a744610acc85a8072a624f6da246a4450}{serial\_\-send\_\-string} (const char $\ast$string)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{serial_8h_ad2b461e9e9044364a28a61cfadcacdd8}{
+\index{serial.h@{serial.h}!serial\_\-init@{serial\_\-init}}
+\index{serial\_\-init@{serial\_\-init}!serial.h@{serial.h}}
+\subsubsection[{serial\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void serial\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{serial_8h_ad2b461e9e9044364a28a61cfadcacdd8}
+Initializes serial I/O. Enable the peripherals used by this example. Enable processor interrupts. Set GPIO A0 and A1 as UART pins. Configure the UART for 115,200, 8-\/N-\/1 operation. Enable the UART interrupt. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{serial_8h_a5d50eafa1299d3b4cb2b30c9d42fdc5f}{
+\index{serial.h@{serial.h}!serial\_\-send@{serial\_\-send}}
+\index{serial\_\-send@{serial\_\-send}!serial.h@{serial.h}}
+\subsubsection[{serial\_\-send}]{\setlength{\rightskip}{0pt plus 5cm}void serial\_\-send (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{buffer, }
+\item[{{\bf uint32}}]{size}
+\end{DoxyParamCaption}
+)}}
+\label{serial_8h_a5d50eafa1299d3b4cb2b30c9d42fdc5f}
+\hypertarget{serial_8h_a744610acc85a8072a624f6da246a4450}{
+\index{serial.h@{serial.h}!serial\_\-send\_\-string@{serial\_\-send\_\-string}}
+\index{serial\_\-send\_\-string@{serial\_\-send\_\-string}!serial.h@{serial.h}}
+\subsubsection[{serial\_\-send\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}void serial\_\-send\_\-string (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{string}
+\end{DoxyParamCaption}
+)}}
+\label{serial_8h_a744610acc85a8072a624f6da246a4450}
+\hypertarget{serial_8h_acd2f4de4733e39d5bb1c3d33d4ad0a0f}{
+\index{serial.h@{serial.h}!sputchar@{sputchar}}
+\index{sputchar@{sputchar}!serial.h@{serial.h}}
+\subsubsection[{sputchar}]{\setlength{\rightskip}{0pt plus 5cm}void sputchar (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}}
+\label{serial_8h_acd2f4de4733e39d5bb1c3d33d4ad0a0f}
+Sends out a character. Sends the character c to the transmit FIFO for the port specified by UARTO\_\-BASE (base address). 
+\begin{DoxyParams}{Parameters}
+{\em c} & is the character to be transmitted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{serial_8h_a1721013bff2cdc840ea9272c4d9fdee9}{
+\index{serial.h@{serial.h}!uart\_\-int\_\-handler@{uart\_\-int\_\-handler}}
+\index{uart\_\-int\_\-handler@{uart\_\-int\_\-handler}!serial.h@{serial.h}}
+\subsubsection[{uart\_\-int\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}void uart\_\-int\_\-handler (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{serial_8h_a1721013bff2cdc840ea9272c4d9fdee9}
+Function used to handle UART initialization. Function used to handle UART initialization. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

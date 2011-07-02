@@ -1,0 +1,377 @@
+\hypertarget{group__kernel}{
+\section{Kernel}
+\label{group__kernel}\index{Kernel@{Kernel}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint32 \hyperlink{group__kernel_gaf4aef950d3b64a0efc3cd598e9a6c17d}{sqrtInt} (uint32 val)
+\begin{DoxyCompactList}\small\item\em Compute the integer square root of a number. \end{DoxyCompactList}\item 
+uint32 \hyperlink{group__kernel_ga7aa1a4f036edc99f7edcff72aef7f31b}{decToZero} (uint32 val)
+\begin{DoxyCompactList}\small\item\em Continually decrements the input value by one until it is closest to zero. \end{DoxyCompactList}\item 
+uint8 \hyperlink{group__kernel_ga296505f686197250917aa5e4804a1af3}{countBits} (uint32 val)
+\begin{DoxyCompactList}\small\item\em Counts how many bits the value has. \end{DoxyCompactList}\item 
+int32 \hyperlink{group__kernel_gaf504b0a24c0021553b5c0fa226c1889a}{boundAbs} (int32 val, int32 bound)
+\begin{DoxyCompactList}\small\item\em Bounds the value with one specified bound as both lower and upper bound. \end{DoxyCompactList}\item 
+int32 \hyperlink{group__kernel_gabb0bf0ea240f580412056369844c3a86}{bound} (int32 val, int32 lowerBound, int32 upperBound)
+\begin{DoxyCompactList}\small\item\em Bounds the value with specified lower and upper bound. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga9b5d702c682c6b2b84408c42baba8744}{sinMilliRad} (int16 angle)
+\begin{DoxyCompactList}\small\item\em Interprets the angle as milli-\/radian of sine. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_gac1cf09ca3eee6afd3b10336ee379499b}{cosMilliRad} (int16 angle)
+\item 
+int16 \hyperlink{group__kernel_ga1f218222edc73fbd18dfcf47d9542a9b}{atan2MilliRad} (int32 y, int32 x)
+\begin{DoxyCompactList}\small\item\em Gets atan2 approximation in miiliradians. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga5231492647a7f6d3f3d3a32e6ca01443}{normalizeAngleMilliRad} (int16 angle)
+\begin{DoxyCompactList}\small\item\em Normalizes the angle. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga1e615bf4f7531815855c532d3a14aad9}{normalizeAngleMilliRad2} (int16 angle)
+\begin{DoxyCompactList}\small\item\em Normalizes the angle. \end{DoxyCompactList}\item 
+int32 \hyperlink{group__kernel_ga9e055eb22ac5e1998989df3e3d2e56df}{normalizeAngleMicroRad} (int32 angle)
+\begin{DoxyCompactList}\small\item\em Normalizes the angle. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga656f7470125f125f27498a2d73eb360d}{smallestAngleDifference} (int16 thetaGoal, int16 theta)
+\begin{DoxyCompactList}\small\item\em Calculates the smallest angle difference between the two input angles. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga22381e287b289e40aaeee3cfd24ceeb0}{averageAngles} (int16 angle1, int16 angle2)
+\begin{DoxyCompactList}\small\item\em Calculates the average of the two angles in millirad. \end{DoxyCompactList}\item 
+int32 \hyperlink{group__kernel_ga9054288f0277dbfaefbcddb2ce91cbc5}{averageAnglesMicroRad} (int32 theta1, int32 theta2)
+\begin{DoxyCompactList}\small\item\em Calculates the average of the two angles in microrad,. \end{DoxyCompactList}\item 
+int16 \hyperlink{group__kernel_ga4df4d9942bd8770a19eb7fd4acdff4b6}{averageArrayAngle} (int16 angleArray\mbox{[}$\,$\mbox{]}, int32 size)
+\begin{DoxyCompactList}\small\item\em Calculates the average of the angles in the array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{group__kernel_ga1f218222edc73fbd18dfcf47d9542a9b}{
+\index{Kernel@{Kernel}!atan2MilliRad@{atan2MilliRad}}
+\index{atan2MilliRad@{atan2MilliRad}!Kernel@{Kernel}}
+\subsubsection[{atan2MilliRad}]{\setlength{\rightskip}{0pt plus 5cm}int16 atan2MilliRad (
+\begin{DoxyParamCaption}
+\item[{int32}]{y, }
+\item[{int32}]{x}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga1f218222edc73fbd18dfcf47d9542a9b}
+
+
+Gets atan2 approximation in miiliradians. 
+
+Originally developed by John Aspinal at iRobot. It is quite good. 
+\begin{DoxyParams}{Parameters}
+{\em y} & y-\/coordinate of the point to be calculated \\
+\hline
+{\em x} & x-\/coordinate of the point to be calculated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+atan2 approximation of the input point, specified by (x,y) coordinate 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga22381e287b289e40aaeee3cfd24ceeb0}{
+\index{Kernel@{Kernel}!averageAngles@{averageAngles}}
+\index{averageAngles@{averageAngles}!Kernel@{Kernel}}
+\subsubsection[{averageAngles}]{\setlength{\rightskip}{0pt plus 5cm}int16 averageAngles (
+\begin{DoxyParamCaption}
+\item[{int16}]{angle1, }
+\item[{int16}]{angle2}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga22381e287b289e40aaeee3cfd24ceeb0}
+
+
+Calculates the average of the two angles in millirad. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em theta1} & is the first angle to be averaged \\
+\hline
+{\em theta2} & is the second angle to be averaged \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the average angle 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga9054288f0277dbfaefbcddb2ce91cbc5}{
+\index{Kernel@{Kernel}!averageAnglesMicroRad@{averageAnglesMicroRad}}
+\index{averageAnglesMicroRad@{averageAnglesMicroRad}!Kernel@{Kernel}}
+\subsubsection[{averageAnglesMicroRad}]{\setlength{\rightskip}{0pt plus 5cm}int32 averageAnglesMicroRad (
+\begin{DoxyParamCaption}
+\item[{int32}]{theta1, }
+\item[{int32}]{theta2}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga9054288f0277dbfaefbcddb2ce91cbc5}
+
+
+Calculates the average of the two angles in microrad,. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em theta1} & is the first angle to be averaged \\
+\hline
+{\em theta2} & is the second angle to be averaged \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the average angle 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga4df4d9942bd8770a19eb7fd4acdff4b6}{
+\index{Kernel@{Kernel}!averageArrayAngle@{averageArrayAngle}}
+\index{averageArrayAngle@{averageArrayAngle}!Kernel@{Kernel}}
+\subsubsection[{averageArrayAngle}]{\setlength{\rightskip}{0pt plus 5cm}int16 averageArrayAngle (
+\begin{DoxyParamCaption}
+\item[{int16}]{angleArray\mbox{[}$\,$\mbox{]}, }
+\item[{int32}]{size}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga4df4d9942bd8770a19eb7fd4acdff4b6}
+
+
+Calculates the average of the angles in the array. 
+
+Calculates the average of the first \char`\"{}size (a number)\char`\"{} of angles in angleArray. 
+\begin{DoxyParams}{Parameters}
+{\em angleArray\mbox{[}$\,$\mbox{]}} & is the array of angles to be averaged \\
+\hline
+{\em size} & specifies how many elements in the array (starting from the first) should be averaged \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the average of the angles in the array (returns 0 if given a nonpositive size) 
+\end{DoxyReturn}
+\hypertarget{group__kernel_gabb0bf0ea240f580412056369844c3a86}{
+\index{Kernel@{Kernel}!bound@{bound}}
+\index{bound@{bound}!Kernel@{Kernel}}
+\subsubsection[{bound}]{\setlength{\rightskip}{0pt plus 5cm}int32 bound (
+\begin{DoxyParamCaption}
+\item[{int32}]{val, }
+\item[{int32}]{lowerBound, }
+\item[{int32}]{upperBound}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_gabb0bf0ea240f580412056369844c3a86}
+
+
+Bounds the value with specified lower and upper bound. 
+
+Bounds the value so that it stays within the range of lowerBound $<$= value $<$= upperBound. If it exceeds the bound, set it to the lower/upper bound. 
+\begin{DoxyParams}{Parameters}
+{\em val} & is the value to be bounded \\
+\hline
+{\em lowerbound} & is the lower bound \\
+\hline
+{\em upperbound} & is the upper bound \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the bounded value 
+\end{DoxyReturn}
+\hypertarget{group__kernel_gaf504b0a24c0021553b5c0fa226c1889a}{
+\index{Kernel@{Kernel}!boundAbs@{boundAbs}}
+\index{boundAbs@{boundAbs}!Kernel@{Kernel}}
+\subsubsection[{boundAbs}]{\setlength{\rightskip}{0pt plus 5cm}int32 boundAbs (
+\begin{DoxyParamCaption}
+\item[{int32}]{val, }
+\item[{int32}]{bound}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_gaf504b0a24c0021553b5c0fa226c1889a}
+
+
+Bounds the value with one specified bound as both lower and upper bound. 
+
+Bounds the input value so that it stays within the range of -\/bound $<$= value $<$= bound. If it exceeds the bound, set it to the bound. 
+\begin{DoxyParams}{Parameters}
+{\em val} & is the value to be bounded \\
+\hline
+{\em bound} & is the lower and upper bound \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the bounded value 
+\end{DoxyReturn}
+\hypertarget{group__kernel_gac1cf09ca3eee6afd3b10336ee379499b}{
+\index{Kernel@{Kernel}!cosMilliRad@{cosMilliRad}}
+\index{cosMilliRad@{cosMilliRad}!Kernel@{Kernel}}
+\subsubsection[{cosMilliRad}]{\setlength{\rightskip}{0pt plus 5cm}int16 cosMilliRad (
+\begin{DoxyParamCaption}
+\item[{int16}]{angle}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_gac1cf09ca3eee6afd3b10336ee379499b}
+Interprets the angle as milli-\/randian of cosine.
+
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & the angle to be interpreted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+angle as milli-\/radian of cosine 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga296505f686197250917aa5e4804a1af3}{
+\index{Kernel@{Kernel}!countBits@{countBits}}
+\index{countBits@{countBits}!Kernel@{Kernel}}
+\subsubsection[{countBits}]{\setlength{\rightskip}{0pt plus 5cm}uint8 countBits (
+\begin{DoxyParamCaption}
+\item[{uint32}]{val}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga296505f686197250917aa5e4804a1af3}
+
+
+Counts how many bits the value has. 
+
+Ignores leading zeros. 
+\begin{DoxyParams}{Parameters}
+{\em val} & is the value to be counted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of bits of the input value 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga7aa1a4f036edc99f7edcff72aef7f31b}{
+\index{Kernel@{Kernel}!decToZero@{decToZero}}
+\index{decToZero@{decToZero}!Kernel@{Kernel}}
+\subsubsection[{decToZero}]{\setlength{\rightskip}{0pt plus 5cm}uint32 decToZero (
+\begin{DoxyParamCaption}
+\item[{uint32}]{val}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga7aa1a4f036edc99f7edcff72aef7f31b}
+
+
+Continually decrements the input value by one until it is closest to zero. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & the value to be decremented \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the decremented value (within the range of 0 $<$= val $<$ 1) 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga9e055eb22ac5e1998989df3e3d2e56df}{
+\index{Kernel@{Kernel}!normalizeAngleMicroRad@{normalizeAngleMicroRad}}
+\index{normalizeAngleMicroRad@{normalizeAngleMicroRad}!Kernel@{Kernel}}
+\subsubsection[{normalizeAngleMicroRad}]{\setlength{\rightskip}{0pt plus 5cm}int32 normalizeAngleMicroRad (
+\begin{DoxyParamCaption}
+\item[{int32}]{angle}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga9e055eb22ac5e1998989df3e3d2e56df}
+
+
+Normalizes the angle. 
+
+Normalizes the angle to make it stay in the range of 0 $<$= angle $<$ microrad\_\-2PI. 
+\begin{DoxyParams}{Parameters}
+{\em angle} & the angle to be normalized \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the normalized angle 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga5231492647a7f6d3f3d3a32e6ca01443}{
+\index{Kernel@{Kernel}!normalizeAngleMilliRad@{normalizeAngleMilliRad}}
+\index{normalizeAngleMilliRad@{normalizeAngleMilliRad}!Kernel@{Kernel}}
+\subsubsection[{normalizeAngleMilliRad}]{\setlength{\rightskip}{0pt plus 5cm}int16 normalizeAngleMilliRad (
+\begin{DoxyParamCaption}
+\item[{int16}]{angle}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga5231492647a7f6d3f3d3a32e6ca01443}
+
+
+Normalizes the angle. 
+
+Normalizes the angle to make it stay in the range of 0 $<$= angle $<$ millirad\_\-2PI 
+\begin{DoxyParams}{Parameters}
+{\em angle} & the angle to be normalized \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the normalized angle 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga1e615bf4f7531815855c532d3a14aad9}{
+\index{Kernel@{Kernel}!normalizeAngleMilliRad2@{normalizeAngleMilliRad2}}
+\index{normalizeAngleMilliRad2@{normalizeAngleMilliRad2}!Kernel@{Kernel}}
+\subsubsection[{normalizeAngleMilliRad2}]{\setlength{\rightskip}{0pt plus 5cm}int16 normalizeAngleMilliRad2 (
+\begin{DoxyParamCaption}
+\item[{int16}]{angle}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga1e615bf4f7531815855c532d3a14aad9}
+
+
+Normalizes the angle. 
+
+Normalizes the angle to make it stay in the range of -\/millirad\_\-PI $<$= angle $<$ millirad\_\-PI. 
+\begin{DoxyParams}{Parameters}
+{\em angle} & angle to be normalized \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the normalized angle 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga9b5d702c682c6b2b84408c42baba8744}{
+\index{Kernel@{Kernel}!sinMilliRad@{sinMilliRad}}
+\index{sinMilliRad@{sinMilliRad}!Kernel@{Kernel}}
+\subsubsection[{sinMilliRad}]{\setlength{\rightskip}{0pt plus 5cm}int16 sinMilliRad (
+\begin{DoxyParamCaption}
+\item[{int16}]{angle}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga9b5d702c682c6b2b84408c42baba8744}
+
+
+Interprets the angle as milli-\/radian of sine. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & the angle to be interpreted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+angle as milli-\/radian of sine 
+\end{DoxyReturn}
+\hypertarget{group__kernel_ga656f7470125f125f27498a2d73eb360d}{
+\index{Kernel@{Kernel}!smallestAngleDifference@{smallestAngleDifference}}
+\index{smallestAngleDifference@{smallestAngleDifference}!Kernel@{Kernel}}
+\subsubsection[{smallestAngleDifference}]{\setlength{\rightskip}{0pt plus 5cm}int16 smallestAngleDifference (
+\begin{DoxyParamCaption}
+\item[{int16}]{thetaGoal, }
+\item[{int16}]{theta}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_ga656f7470125f125f27498a2d73eb360d}
+
+
+Calculates the smallest angle difference between the two input angles. 
+
+The difference will be within the range of -\/MILLIRAD\_\-PI $<$-\/ difference $<$= MILLIRAD\_\-PI 
+\begin{DoxyParams}{Parameters}
+{\em thetalGoal} & first angle \\
+\hline
+{\em theta} & second angle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the difference between two angles 
+\end{DoxyReturn}
+\hypertarget{group__kernel_gaf4aef950d3b64a0efc3cd598e9a6c17d}{
+\index{Kernel@{Kernel}!sqrtInt@{sqrtInt}}
+\index{sqrtInt@{sqrtInt}!Kernel@{Kernel}}
+\subsubsection[{sqrtInt}]{\setlength{\rightskip}{0pt plus 5cm}uint32 sqrtInt (
+\begin{DoxyParamCaption}
+\item[{uint32}]{val}
+\end{DoxyParamCaption}
+)}}
+\label{group__kernel_gaf4aef950d3b64a0efc3cd598e9a6c17d}
+
+
+Compute the integer square root of a number. 
+
+Based on Microchip app note TB040. Can't take the root of numbers higher than MAX\_\-INT32. 
+\begin{DoxyParams}{Parameters}
+{\em val} & is the number to be computed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the computed integer square root 
+\end{DoxyReturn}

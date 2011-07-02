@@ -1,0 +1,280 @@
+\hypertarget{leds_8h}{
+\section{InputOutput/leds.h File Reference}
+\label{leds_8h}\index{InputOutput/leds.h@{InputOutput/leds.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{leds_8h_a237d6653a014aca5f9a807a009ed08d1}{LED\_\-NUM\_\-ELEMENTS}~16
+\item 
+\#define \hyperlink{leds_8h_abf1b31ef026bf1aab172e7f3e178171d}{LED\_\-NUM\_\-ELEMENTS\_\-PER\_\-COLOR}~5
+\item 
+\#define \hyperlink{leds_8h_ad70335e9607212586254f522f66abd77}{LED\_\-RED\_\-START\_\-IDX}~0
+\item 
+\#define \hyperlink{leds_8h_adffb35f90c127aaa41bb7486fa5c5a62}{LED\_\-GREEN\_\-START\_\-IDX}~5
+\item 
+\#define \hyperlink{leds_8h_a4ff3a55a826dfd3f126227bf11f30441}{LED\_\-BLUE\_\-START\_\-IDX}~10
+\item 
+\#define \hyperlink{leds_8h_aa14c089ca8c4a8b47842605a6580cf19}{LED\_\-MAX\_\-DIMMER}~0x7F
+\item 
+\#define \hyperlink{leds_8h_a31e20330f8ce94e0dd10b005a15c5898}{LED\_\-RED}~0
+\item 
+\#define \hyperlink{leds_8h_aca338dbd19d7940923334629f6e5f3b7}{LED\_\-GREEN}~1
+\item 
+\#define \hyperlink{leds_8h_ae2e40566d27689f8581d7b0f12271d45}{LED\_\-BLUE}~2
+\item 
+\#define \hyperlink{leds_8h_ab7100c807e8c6a90956cf37e07d1ffc8}{LED\_\-ALL}~3
+\item 
+\#define \hyperlink{leds_8h_ad0f226f7db4ae3e8d945a9cea5c37c87}{LED\_\-PATTERN\_\-ON}~0
+\item 
+\#define \hyperlink{leds_8h_accd3e7a6dbf1961af5aa2b9a5f518ccb}{LED\_\-PATTERN\_\-BLINK}~1
+\item 
+\#define \hyperlink{leds_8h_ad0320b2f137fb5be827f8b0b8c4ab88b}{LED\_\-PATTERN\_\-PULSE}~2
+\item 
+\#define \hyperlink{leds_8h_a31e6df567e3da409db0f25bef1095aa7}{LED\_\-PATTERN\_\-CIRCLE}~3
+\item 
+\#define \hyperlink{leds_8h_a8b89e9635e5a4e7199a4adbb874af2a1}{LED\_\-PATTERN\_\-COUNT}~4
+\item 
+\#define \hyperlink{leds_8h_a4f8fdf1c70b6f1d85340749da4cf5425}{LED\_\-PATTERN\_\-MANUAL}~5
+\item 
+\#define \hyperlink{leds_8h_aedb83d6a12a1fd3f44ebdce76c39e816}{LED\_\-BRIGHTNESS\_\-LOW}~5
+\item 
+\#define \hyperlink{leds_8h_a6c6f049e93d9fae83f2c44e070b5545a}{LED\_\-BRIGHTNESS\_\-MED}~10
+\item 
+\#define \hyperlink{leds_8h_a6647d2c0cc46a33b93cbc9d9d808d663}{LED\_\-BRIGHTNESS\_\-HIGH}~20
+\item 
+\#define \hyperlink{leds_8h_aa4c2a6ad9d389119e2f91abb931258f3}{LED\_\-RATE\_\-SLOW}~16
+\item 
+\#define \hyperlink{leds_8h_a87b1e1345e2cd70c28f7a5fa197fe0ca}{LED\_\-RATE\_\-MED}~8
+\item 
+\#define \hyperlink{leds_8h_aa5393c99e3d7739ca4e448ec4a27c811}{LED\_\-RATE\_\-FAST}~4
+\item 
+\#define \hyperlink{leds_8h_a17599a7f2128ad36a768504d998d678d}{LED\_\-RATE\_\-TURBO}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{leds_8h_a7eb4d382bdd4b42c57dbb7154d03ac66}{led\_\-init} (void)
+\item 
+void \hyperlink{leds_8h_a34d26d22f74cc32a9332531551a9d50f}{led\_\-set\_\-dimmer} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} led\_\-idx, \hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} dimmer)
+\item 
+void \hyperlink{leds_8h_a16d9a269eceb5c734aa9d0b8985f99f2}{led\_\-set\_\-dimmer\_\-color} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} led\_\-color, \hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} dimmer)
+\item 
+void \hyperlink{leds_8h_ad741addd656629560d0a005f941ca35b}{led\_\-set\_\-dimmer\_\-all} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} dimmer)
+\item 
+void \hyperlink{leds_8h_ac8399e7c46b00b12c62c88a42a416e4d}{leds\_\-update} (void)
+\item 
+void \hyperlink{leds_8h_adb8fdee43fd8b830d3006594a61d1aec}{leds\_\-set} (\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} color, \hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} pattern, \hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} brightness, \hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} rate)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{leds_8h_ab7100c807e8c6a90956cf37e07d1ffc8}{
+\index{leds.h@{leds.h}!LED\_\-ALL@{LED\_\-ALL}}
+\index{LED\_\-ALL@{LED\_\-ALL}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-ALL}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-ALL~3}}
+\label{leds_8h_ab7100c807e8c6a90956cf37e07d1ffc8}
+\hypertarget{leds_8h_ae2e40566d27689f8581d7b0f12271d45}{
+\index{leds.h@{leds.h}!LED\_\-BLUE@{LED\_\-BLUE}}
+\index{LED\_\-BLUE@{LED\_\-BLUE}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-BLUE}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-BLUE~2}}
+\label{leds_8h_ae2e40566d27689f8581d7b0f12271d45}
+\hypertarget{leds_8h_a4ff3a55a826dfd3f126227bf11f30441}{
+\index{leds.h@{leds.h}!LED\_\-BLUE\_\-START\_\-IDX@{LED\_\-BLUE\_\-START\_\-IDX}}
+\index{LED\_\-BLUE\_\-START\_\-IDX@{LED\_\-BLUE\_\-START\_\-IDX}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-BLUE\_\-START\_\-IDX}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-BLUE\_\-START\_\-IDX~10}}
+\label{leds_8h_a4ff3a55a826dfd3f126227bf11f30441}
+\hypertarget{leds_8h_a6647d2c0cc46a33b93cbc9d9d808d663}{
+\index{leds.h@{leds.h}!LED\_\-BRIGHTNESS\_\-HIGH@{LED\_\-BRIGHTNESS\_\-HIGH}}
+\index{LED\_\-BRIGHTNESS\_\-HIGH@{LED\_\-BRIGHTNESS\_\-HIGH}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-BRIGHTNESS\_\-HIGH}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-BRIGHTNESS\_\-HIGH~20}}
+\label{leds_8h_a6647d2c0cc46a33b93cbc9d9d808d663}
+\hypertarget{leds_8h_aedb83d6a12a1fd3f44ebdce76c39e816}{
+\index{leds.h@{leds.h}!LED\_\-BRIGHTNESS\_\-LOW@{LED\_\-BRIGHTNESS\_\-LOW}}
+\index{LED\_\-BRIGHTNESS\_\-LOW@{LED\_\-BRIGHTNESS\_\-LOW}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-BRIGHTNESS\_\-LOW}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-BRIGHTNESS\_\-LOW~5}}
+\label{leds_8h_aedb83d6a12a1fd3f44ebdce76c39e816}
+\hypertarget{leds_8h_a6c6f049e93d9fae83f2c44e070b5545a}{
+\index{leds.h@{leds.h}!LED\_\-BRIGHTNESS\_\-MED@{LED\_\-BRIGHTNESS\_\-MED}}
+\index{LED\_\-BRIGHTNESS\_\-MED@{LED\_\-BRIGHTNESS\_\-MED}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-BRIGHTNESS\_\-MED}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-BRIGHTNESS\_\-MED~10}}
+\label{leds_8h_a6c6f049e93d9fae83f2c44e070b5545a}
+\hypertarget{leds_8h_aca338dbd19d7940923334629f6e5f3b7}{
+\index{leds.h@{leds.h}!LED\_\-GREEN@{LED\_\-GREEN}}
+\index{LED\_\-GREEN@{LED\_\-GREEN}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-GREEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-GREEN~1}}
+\label{leds_8h_aca338dbd19d7940923334629f6e5f3b7}
+\hypertarget{leds_8h_adffb35f90c127aaa41bb7486fa5c5a62}{
+\index{leds.h@{leds.h}!LED\_\-GREEN\_\-START\_\-IDX@{LED\_\-GREEN\_\-START\_\-IDX}}
+\index{LED\_\-GREEN\_\-START\_\-IDX@{LED\_\-GREEN\_\-START\_\-IDX}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-GREEN\_\-START\_\-IDX}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-GREEN\_\-START\_\-IDX~5}}
+\label{leds_8h_adffb35f90c127aaa41bb7486fa5c5a62}
+\hypertarget{leds_8h_aa14c089ca8c4a8b47842605a6580cf19}{
+\index{leds.h@{leds.h}!LED\_\-MAX\_\-DIMMER@{LED\_\-MAX\_\-DIMMER}}
+\index{LED\_\-MAX\_\-DIMMER@{LED\_\-MAX\_\-DIMMER}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-MAX\_\-DIMMER}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-MAX\_\-DIMMER~0x7F}}
+\label{leds_8h_aa14c089ca8c4a8b47842605a6580cf19}
+\hypertarget{leds_8h_a237d6653a014aca5f9a807a009ed08d1}{
+\index{leds.h@{leds.h}!LED\_\-NUM\_\-ELEMENTS@{LED\_\-NUM\_\-ELEMENTS}}
+\index{LED\_\-NUM\_\-ELEMENTS@{LED\_\-NUM\_\-ELEMENTS}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-NUM\_\-ELEMENTS}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-NUM\_\-ELEMENTS~16}}
+\label{leds_8h_a237d6653a014aca5f9a807a009ed08d1}
+\hypertarget{leds_8h_abf1b31ef026bf1aab172e7f3e178171d}{
+\index{leds.h@{leds.h}!LED\_\-NUM\_\-ELEMENTS\_\-PER\_\-COLOR@{LED\_\-NUM\_\-ELEMENTS\_\-PER\_\-COLOR}}
+\index{LED\_\-NUM\_\-ELEMENTS\_\-PER\_\-COLOR@{LED\_\-NUM\_\-ELEMENTS\_\-PER\_\-COLOR}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-NUM\_\-ELEMENTS\_\-PER\_\-COLOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-NUM\_\-ELEMENTS\_\-PER\_\-COLOR~5}}
+\label{leds_8h_abf1b31ef026bf1aab172e7f3e178171d}
+\hypertarget{leds_8h_accd3e7a6dbf1961af5aa2b9a5f518ccb}{
+\index{leds.h@{leds.h}!LED\_\-PATTERN\_\-BLINK@{LED\_\-PATTERN\_\-BLINK}}
+\index{LED\_\-PATTERN\_\-BLINK@{LED\_\-PATTERN\_\-BLINK}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-PATTERN\_\-BLINK}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-PATTERN\_\-BLINK~1}}
+\label{leds_8h_accd3e7a6dbf1961af5aa2b9a5f518ccb}
+\hypertarget{leds_8h_a31e6df567e3da409db0f25bef1095aa7}{
+\index{leds.h@{leds.h}!LED\_\-PATTERN\_\-CIRCLE@{LED\_\-PATTERN\_\-CIRCLE}}
+\index{LED\_\-PATTERN\_\-CIRCLE@{LED\_\-PATTERN\_\-CIRCLE}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-PATTERN\_\-CIRCLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-PATTERN\_\-CIRCLE~3}}
+\label{leds_8h_a31e6df567e3da409db0f25bef1095aa7}
+\hypertarget{leds_8h_a8b89e9635e5a4e7199a4adbb874af2a1}{
+\index{leds.h@{leds.h}!LED\_\-PATTERN\_\-COUNT@{LED\_\-PATTERN\_\-COUNT}}
+\index{LED\_\-PATTERN\_\-COUNT@{LED\_\-PATTERN\_\-COUNT}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-PATTERN\_\-COUNT}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-PATTERN\_\-COUNT~4}}
+\label{leds_8h_a8b89e9635e5a4e7199a4adbb874af2a1}
+\hypertarget{leds_8h_a4f8fdf1c70b6f1d85340749da4cf5425}{
+\index{leds.h@{leds.h}!LED\_\-PATTERN\_\-MANUAL@{LED\_\-PATTERN\_\-MANUAL}}
+\index{LED\_\-PATTERN\_\-MANUAL@{LED\_\-PATTERN\_\-MANUAL}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-PATTERN\_\-MANUAL}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-PATTERN\_\-MANUAL~5}}
+\label{leds_8h_a4f8fdf1c70b6f1d85340749da4cf5425}
+\hypertarget{leds_8h_ad0f226f7db4ae3e8d945a9cea5c37c87}{
+\index{leds.h@{leds.h}!LED\_\-PATTERN\_\-ON@{LED\_\-PATTERN\_\-ON}}
+\index{LED\_\-PATTERN\_\-ON@{LED\_\-PATTERN\_\-ON}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-PATTERN\_\-ON}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-PATTERN\_\-ON~0}}
+\label{leds_8h_ad0f226f7db4ae3e8d945a9cea5c37c87}
+\hypertarget{leds_8h_ad0320b2f137fb5be827f8b0b8c4ab88b}{
+\index{leds.h@{leds.h}!LED\_\-PATTERN\_\-PULSE@{LED\_\-PATTERN\_\-PULSE}}
+\index{LED\_\-PATTERN\_\-PULSE@{LED\_\-PATTERN\_\-PULSE}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-PATTERN\_\-PULSE}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-PATTERN\_\-PULSE~2}}
+\label{leds_8h_ad0320b2f137fb5be827f8b0b8c4ab88b}
+\hypertarget{leds_8h_aa5393c99e3d7739ca4e448ec4a27c811}{
+\index{leds.h@{leds.h}!LED\_\-RATE\_\-FAST@{LED\_\-RATE\_\-FAST}}
+\index{LED\_\-RATE\_\-FAST@{LED\_\-RATE\_\-FAST}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-RATE\_\-FAST}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-RATE\_\-FAST~4}}
+\label{leds_8h_aa5393c99e3d7739ca4e448ec4a27c811}
+\hypertarget{leds_8h_a87b1e1345e2cd70c28f7a5fa197fe0ca}{
+\index{leds.h@{leds.h}!LED\_\-RATE\_\-MED@{LED\_\-RATE\_\-MED}}
+\index{LED\_\-RATE\_\-MED@{LED\_\-RATE\_\-MED}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-RATE\_\-MED}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-RATE\_\-MED~8}}
+\label{leds_8h_a87b1e1345e2cd70c28f7a5fa197fe0ca}
+\hypertarget{leds_8h_aa4c2a6ad9d389119e2f91abb931258f3}{
+\index{leds.h@{leds.h}!LED\_\-RATE\_\-SLOW@{LED\_\-RATE\_\-SLOW}}
+\index{LED\_\-RATE\_\-SLOW@{LED\_\-RATE\_\-SLOW}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-RATE\_\-SLOW}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-RATE\_\-SLOW~16}}
+\label{leds_8h_aa4c2a6ad9d389119e2f91abb931258f3}
+\hypertarget{leds_8h_a17599a7f2128ad36a768504d998d678d}{
+\index{leds.h@{leds.h}!LED\_\-RATE\_\-TURBO@{LED\_\-RATE\_\-TURBO}}
+\index{LED\_\-RATE\_\-TURBO@{LED\_\-RATE\_\-TURBO}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-RATE\_\-TURBO}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-RATE\_\-TURBO~2}}
+\label{leds_8h_a17599a7f2128ad36a768504d998d678d}
+\hypertarget{leds_8h_a31e20330f8ce94e0dd10b005a15c5898}{
+\index{leds.h@{leds.h}!LED\_\-RED@{LED\_\-RED}}
+\index{LED\_\-RED@{LED\_\-RED}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-RED}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-RED~0}}
+\label{leds_8h_a31e20330f8ce94e0dd10b005a15c5898}
+\hypertarget{leds_8h_ad70335e9607212586254f522f66abd77}{
+\index{leds.h@{leds.h}!LED\_\-RED\_\-START\_\-IDX@{LED\_\-RED\_\-START\_\-IDX}}
+\index{LED\_\-RED\_\-START\_\-IDX@{LED\_\-RED\_\-START\_\-IDX}!leds.h@{leds.h}}
+\subsubsection[{LED\_\-RED\_\-START\_\-IDX}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-RED\_\-START\_\-IDX~0}}
+\label{leds_8h_ad70335e9607212586254f522f66abd77}
+
+
+\subsection{Function Documentation}
+\hypertarget{leds_8h_a7eb4d382bdd4b42c57dbb7154d03ac66}{
+\index{leds.h@{leds.h}!led\_\-init@{led\_\-init}}
+\index{led\_\-init@{led\_\-init}!leds.h@{leds.h}}
+\subsubsection[{led\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void led\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8h_a7eb4d382bdd4b42c57dbb7154d03ac66}
+Initializes the LEDs. Configure the LED\_\-MODE pin as output, turns off all dimmer, WHATTTT? \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8h_a34d26d22f74cc32a9332531551a9d50f}{
+\index{leds.h@{leds.h}!led\_\-set\_\-dimmer@{led\_\-set\_\-dimmer}}
+\index{led\_\-set\_\-dimmer@{led\_\-set\_\-dimmer}!leds.h@{leds.h}}
+\subsubsection[{led\_\-set\_\-dimmer}]{\setlength{\rightskip}{0pt plus 5cm}void led\_\-set\_\-dimmer (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{led\_\-idx, }
+\item[{{\bf uint32}}]{val}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8h_a34d26d22f74cc32a9332531551a9d50f}
+Sets the brightness of a specified dimmer. Sets the of the dimmer specified by the index. If the index exceeds the number of elements in the LED (16), does nothing. If the value exceeds the maximum brightness(7F), uses the maximum as the value instead. 
+\begin{DoxyParams}{Parameters}
+{\em led\_\-idx} & dimmer index \\
+\hline
+{\em val} & brightness to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8h_ad741addd656629560d0a005f941ca35b}{
+\index{leds.h@{leds.h}!led\_\-set\_\-dimmer\_\-all@{led\_\-set\_\-dimmer\_\-all}}
+\index{led\_\-set\_\-dimmer\_\-all@{led\_\-set\_\-dimmer\_\-all}!leds.h@{leds.h}}
+\subsubsection[{led\_\-set\_\-dimmer\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}void led\_\-set\_\-dimmer\_\-all (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{dimmer}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8h_ad741addd656629560d0a005f941ca35b}
+Sets the brightness of all dimmers. Sets the brightness of all dimmers.  the brightness to be set \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8h_a16d9a269eceb5c734aa9d0b8985f99f2}{
+\index{leds.h@{leds.h}!led\_\-set\_\-dimmer\_\-color@{led\_\-set\_\-dimmer\_\-color}}
+\index{led\_\-set\_\-dimmer\_\-color@{led\_\-set\_\-dimmer\_\-color}!leds.h@{leds.h}}
+\subsubsection[{led\_\-set\_\-dimmer\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}void led\_\-set\_\-dimmer\_\-color (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{led\_\-color, }
+\item[{{\bf uint32}}]{dimmer}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8h_a16d9a269eceb5c734aa9d0b8985f99f2}
+Sets the brightness of all dimmers of a specified color. Sets the brightness of all dimmers of a specified color. If the specified color does not match the existing colors, does nothing. 
+\begin{DoxyParams}{Parameters}
+{\em led\_\-color} & specifies the dimmer color to be set \\
+\hline
+{\em dimmer} & brightness to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8h_adb8fdee43fd8b830d3006594a61d1aec}{
+\index{leds.h@{leds.h}!leds\_\-set@{leds\_\-set}}
+\index{leds\_\-set@{leds\_\-set}!leds.h@{leds.h}}
+\subsubsection[{leds\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}void leds\_\-set (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8}}]{color, }
+\item[{{\bf uint8}}]{pattern, }
+\item[{{\bf uint8}}]{brightness, }
+\item[{{\bf uint8}}]{rate}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8h_adb8fdee43fd8b830d3006594a61d1aec}
+Sets the properties of the LED animation. Sets the properties (color, patter, brightness, rate) of the LED animation. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8h_ac8399e7c46b00b12c62c88a42a416e4d}{
+\index{leds.h@{leds.h}!leds\_\-update@{leds\_\-update}}
+\index{leds\_\-update@{leds\_\-update}!leds.h@{leds.h}}
+\subsubsection[{leds\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void leds\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8h_ac8399e7c46b00b12c62c88a42a416e4d}
+Updates LED animation. Updates LED animation according to the properties (color, pattern, brightness, rate) previously set. Sets properties using the leds\_\-set function. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

@@ -1,0 +1,168 @@
+\hypertarget{leds_8c}{
+\section{InputOutput/leds.c File Reference}
+\label{leds_8c}\index{InputOutput/leds.c@{InputOutput/leds.c}}
+}
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/uart.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/ssi.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{leds_8c_a84e6762abf8489df7f4c0af33dccf267}{led\_\-latch} (void)
+\begin{DoxyCompactList}\small\item\em Latches the LED. \end{DoxyCompactList}\item 
+void \hyperlink{leds_8c_a7eb4d382bdd4b42c57dbb7154d03ac66}{led\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the LEDs. \end{DoxyCompactList}\item 
+void \hyperlink{leds_8c_a3dc5d38382321c77cdb46bcb00627c41}{led\_\-set\_\-dimmer} (uint32 led\_\-idx, uint32 val)
+\begin{DoxyCompactList}\small\item\em Sets the brightness of a specified dimmer. \end{DoxyCompactList}\item 
+void \hyperlink{leds_8c_a16d9a269eceb5c734aa9d0b8985f99f2}{led\_\-set\_\-dimmer\_\-color} (uint32 led\_\-color, uint32 dimmer)
+\begin{DoxyCompactList}\small\item\em Sets the brightness of all dimmers of a specified color. \end{DoxyCompactList}\item 
+void \hyperlink{leds_8c_ad741addd656629560d0a005f941ca35b}{led\_\-set\_\-dimmer\_\-all} (uint32 dimmer)
+\begin{DoxyCompactList}\small\item\em Sets the brightness of all dimmers on the robot. \end{DoxyCompactList}\item 
+void \hyperlink{leds_8c_adb8fdee43fd8b830d3006594a61d1aec}{leds\_\-set} (uint8 color, uint8 pattern, uint8 brightness, uint8 rate)
+\begin{DoxyCompactList}\small\item\em Sets the properties of the LED animation. \end{DoxyCompactList}\item 
+void \hyperlink{leds_8c_ac8399e7c46b00b12c62c88a42a416e4d}{leds\_\-update} (void)
+\begin{DoxyCompactList}\small\item\em Updates LED animation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\hypertarget{leds_8c_a7eb4d382bdd4b42c57dbb7154d03ac66}{
+\index{leds.c@{leds.c}!led\_\-init@{led\_\-init}}
+\index{led\_\-init@{led\_\-init}!leds.c@{leds.c}}
+\subsubsection[{led\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void led\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8c_a7eb4d382bdd4b42c57dbb7154d03ac66}
+
+
+Initializes the LEDs. 
+
+Configure the LED\_\-MODE pin as output, turns off all dimmer, WHATTTT? \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8c_a84e6762abf8489df7f4c0af33dccf267}{
+\index{leds.c@{leds.c}!led\_\-latch@{led\_\-latch}}
+\index{led\_\-latch@{led\_\-latch}!leds.c@{leds.c}}
+\subsubsection[{led\_\-latch}]{\setlength{\rightskip}{0pt plus 5cm}void led\_\-latch (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8c_a84e6762abf8489df7f4c0af33dccf267}
+
+
+Latches the LED. 
+
+Turns the LCD on and then off with a delay of 1. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8c_a3dc5d38382321c77cdb46bcb00627c41}{
+\index{leds.c@{leds.c}!led\_\-set\_\-dimmer@{led\_\-set\_\-dimmer}}
+\index{led\_\-set\_\-dimmer@{led\_\-set\_\-dimmer}!leds.c@{leds.c}}
+\subsubsection[{led\_\-set\_\-dimmer}]{\setlength{\rightskip}{0pt plus 5cm}void led\_\-set\_\-dimmer (
+\begin{DoxyParamCaption}
+\item[{uint32}]{led\_\-idx, }
+\item[{uint32}]{val}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8c_a3dc5d38382321c77cdb46bcb00627c41}
+
+
+Sets the brightness of a specified dimmer. 
+
+If the index exceeds the number of elements in the LED (16), does nothing. If the value exceeds the maximum brightness(7F), uses the maximum as the value instead. 
+\begin{DoxyParams}{Parameters}
+{\em led\_\-idx} & indicates which dimmer's brightness is to be set \\
+\hline
+{\em val} & brightness to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8c_ad741addd656629560d0a005f941ca35b}{
+\index{leds.c@{leds.c}!led\_\-set\_\-dimmer\_\-all@{led\_\-set\_\-dimmer\_\-all}}
+\index{led\_\-set\_\-dimmer\_\-all@{led\_\-set\_\-dimmer\_\-all}!leds.c@{leds.c}}
+\subsubsection[{led\_\-set\_\-dimmer\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}void led\_\-set\_\-dimmer\_\-all (
+\begin{DoxyParamCaption}
+\item[{uint32}]{dimmer}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8c_ad741addd656629560d0a005f941ca35b}
+
+
+Sets the brightness of all dimmers on the robot. 
+
+the brightness to be set \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8c_a16d9a269eceb5c734aa9d0b8985f99f2}{
+\index{leds.c@{leds.c}!led\_\-set\_\-dimmer\_\-color@{led\_\-set\_\-dimmer\_\-color}}
+\index{led\_\-set\_\-dimmer\_\-color@{led\_\-set\_\-dimmer\_\-color}!leds.c@{leds.c}}
+\subsubsection[{led\_\-set\_\-dimmer\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}void led\_\-set\_\-dimmer\_\-color (
+\begin{DoxyParamCaption}
+\item[{uint32}]{led\_\-color, }
+\item[{uint32}]{dimmer}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8c_a16d9a269eceb5c734aa9d0b8985f99f2}
+
+
+Sets the brightness of all dimmers of a specified color. 
+
+If the specified color does not match the existing colors, does nothing. 
+\begin{DoxyParams}{Parameters}
+{\em led\_\-color} & specifies the dimmer color to be set \\
+\hline
+{\em dimmer} & brightness to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8c_adb8fdee43fd8b830d3006594a61d1aec}{
+\index{leds.c@{leds.c}!leds\_\-set@{leds\_\-set}}
+\index{leds\_\-set@{leds\_\-set}!leds.c@{leds.c}}
+\subsubsection[{leds\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}void leds\_\-set (
+\begin{DoxyParamCaption}
+\item[{uint8}]{color, }
+\item[{uint8}]{pattern, }
+\item[{uint8}]{brightness, }
+\item[{uint8}]{rate}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8c_adb8fdee43fd8b830d3006594a61d1aec}
+
+
+Sets the properties of the LED animation. 
+
+Sets the color, patter, brightness, and rate of the LED animation. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{leds_8c_ac8399e7c46b00b12c62c88a42a416e4d}{
+\index{leds.c@{leds.c}!leds\_\-update@{leds\_\-update}}
+\index{leds\_\-update@{leds\_\-update}!leds.c@{leds.c}}
+\subsubsection[{leds\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void leds\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{leds_8c_ac8399e7c46b00b12c62c88a42a416e4d}
+
+
+Updates LED animation. 
+
+Updates LED animation according to the color, pattern, brightness, and rate previously set. Sets properties using the leds\_\-set function. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

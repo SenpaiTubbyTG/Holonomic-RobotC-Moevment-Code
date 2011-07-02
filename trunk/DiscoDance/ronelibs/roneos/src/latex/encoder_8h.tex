@@ -1,0 +1,202 @@
+\hypertarget{encoder_8h}{
+\section{Motors/encoder.h File Reference}
+\label{encoder_8h}\index{Motors/encoder.h@{Motors/encoder.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{encoder_8h_a0258703bd97feb7cc7f7a1ac35b19d2b}{ENCODER\_\-LEFT}~0
+\item 
+\#define \hyperlink{encoder_8h_a4c8263c5cd6d524cf071e559f6c2fb72}{ENCODER\_\-RIGHT}~1
+\item 
+\#define \hyperlink{encoder_8h_a6e3b237ba2a55f2dca4a5a76e9737e75}{MOTOR\_\-MICROMETERS\_\-PER\_\-ENCODER\_\-COUNT}~66
+\item 
+\#define \hyperlink{encoder_8h_a36ee6f391babdc0dd83698ad6ef15228}{MOTOR\_\-WHEEL\_\-BASE}~88
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{encoder_8h_ab885d9bad57d89e5f53eb590dc3d6011}{encoder\_\-init} (void)
+\item 
+\hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} \hyperlink{encoder_8h_a102b12c8c18bd6ea904d4242f7bd93fe}{encoder\_\-get\_\-ticks} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} enc)
+\item 
+\hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} \hyperlink{encoder_8h_a397c6cb7980a1a17c71de3f59fbc17dd}{encoder\_\-get\_\-direction} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} enc)
+\item 
+\hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} \hyperlink{encoder_8h_a0f988a414e4926b9fefe7a38c5851057}{encoder\_\-get\_\-velocity} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} enc)
+\item 
+\hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} \hyperlink{encoder_8h_aaef59aed3360a598731333fc42d84c3e}{encoder\_\-delta\_\-ticks} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} new, \hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} old)
+\item 
+void \hyperlink{encoder_8h_ad323477d4bd1274cbf43d8966cc88130}{encoder\_\-pose\_\-update} (void)
+\item 
+void \hyperlink{encoder_8h_a95912972332a5920f6e48c7012a6ca0e}{encoder\_\-pose\_\-clear} (void)
+\item 
+void \hyperlink{encoder_8h_a5911010e8d153e64f3ea0404533d3e13}{encoder\_\-get\_\-pose} (\hyperlink{struct_pose}{Pose} $\ast$posePtr)
+\item 
+void \hyperlink{encoder_8h_a83826f6388434850720c603128d5be7f}{encoder\_\-set\_\-pose} (\hyperlink{struct_pose}{Pose} $\ast$posePtr)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{encoder_8h_a0258703bd97feb7cc7f7a1ac35b19d2b}{
+\index{encoder.h@{encoder.h}!ENCODER\_\-LEFT@{ENCODER\_\-LEFT}}
+\index{ENCODER\_\-LEFT@{ENCODER\_\-LEFT}!encoder.h@{encoder.h}}
+\subsubsection[{ENCODER\_\-LEFT}]{\setlength{\rightskip}{0pt plus 5cm}\#define ENCODER\_\-LEFT~0}}
+\label{encoder_8h_a0258703bd97feb7cc7f7a1ac35b19d2b}
+\hypertarget{encoder_8h_a4c8263c5cd6d524cf071e559f6c2fb72}{
+\index{encoder.h@{encoder.h}!ENCODER\_\-RIGHT@{ENCODER\_\-RIGHT}}
+\index{ENCODER\_\-RIGHT@{ENCODER\_\-RIGHT}!encoder.h@{encoder.h}}
+\subsubsection[{ENCODER\_\-RIGHT}]{\setlength{\rightskip}{0pt plus 5cm}\#define ENCODER\_\-RIGHT~1}}
+\label{encoder_8h_a4c8263c5cd6d524cf071e559f6c2fb72}
+\hypertarget{encoder_8h_a6e3b237ba2a55f2dca4a5a76e9737e75}{
+\index{encoder.h@{encoder.h}!MOTOR\_\-MICROMETERS\_\-PER\_\-ENCODER\_\-COUNT@{MOTOR\_\-MICROMETERS\_\-PER\_\-ENCODER\_\-COUNT}}
+\index{MOTOR\_\-MICROMETERS\_\-PER\_\-ENCODER\_\-COUNT@{MOTOR\_\-MICROMETERS\_\-PER\_\-ENCODER\_\-COUNT}!encoder.h@{encoder.h}}
+\subsubsection[{MOTOR\_\-MICROMETERS\_\-PER\_\-ENCODER\_\-COUNT}]{\setlength{\rightskip}{0pt plus 5cm}\#define MOTOR\_\-MICROMETERS\_\-PER\_\-ENCODER\_\-COUNT~66}}
+\label{encoder_8h_a6e3b237ba2a55f2dca4a5a76e9737e75}
+\hypertarget{encoder_8h_a36ee6f391babdc0dd83698ad6ef15228}{
+\index{encoder.h@{encoder.h}!MOTOR\_\-WHEEL\_\-BASE@{MOTOR\_\-WHEEL\_\-BASE}}
+\index{MOTOR\_\-WHEEL\_\-BASE@{MOTOR\_\-WHEEL\_\-BASE}!encoder.h@{encoder.h}}
+\subsubsection[{MOTOR\_\-WHEEL\_\-BASE}]{\setlength{\rightskip}{0pt plus 5cm}\#define MOTOR\_\-WHEEL\_\-BASE~88}}
+\label{encoder_8h_a36ee6f391babdc0dd83698ad6ef15228}
+
+
+\subsection{Function Documentation}
+\hypertarget{encoder_8h_aaef59aed3360a598731333fc42d84c3e}{
+\index{encoder.h@{encoder.h}!encoder\_\-delta\_\-ticks@{encoder\_\-delta\_\-ticks}}
+\index{encoder\_\-delta\_\-ticks@{encoder\_\-delta\_\-ticks}!encoder.h@{encoder.h}}
+\subsubsection[{encoder\_\-delta\_\-ticks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int32} encoder\_\-delta\_\-ticks (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{new, }
+\item[{{\bf uint32}}]{old}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8h_aaef59aed3360a598731333fc42d84c3e}
+Gets the difference between old and new encoder positions. Gets the difference between old and new encoder positions. 
+\begin{DoxyParams}{Parameters}
+{\em new} & is the new encoder position \\
+\hline
+{\em old} & is the old encoder position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the difference between old and new position 
+\end{DoxyReturn}
+\hypertarget{encoder_8h_a397c6cb7980a1a17c71de3f59fbc17dd}{
+\index{encoder.h@{encoder.h}!encoder\_\-get\_\-direction@{encoder\_\-get\_\-direction}}
+\index{encoder\_\-get\_\-direction@{encoder\_\-get\_\-direction}!encoder.h@{encoder.h}}
+\subsubsection[{encoder\_\-get\_\-direction}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int32} encoder\_\-get\_\-direction (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{enc}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8h_a397c6cb7980a1a17c71de3f59fbc17dd}
+Gets the current rotating direction of the encoder. Gets the current rotating direction of the encoder. 
+\begin{DoxyParams}{Parameters}
+{\em enc} & specifies which encoder (right or left) to look up \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the current rotating direction 
+\end{DoxyReturn}
+\hypertarget{encoder_8h_a5911010e8d153e64f3ea0404533d3e13}{
+\index{encoder.h@{encoder.h}!encoder\_\-get\_\-pose@{encoder\_\-get\_\-pose}}
+\index{encoder\_\-get\_\-pose@{encoder\_\-get\_\-pose}!encoder.h@{encoder.h}}
+\subsubsection[{encoder\_\-get\_\-pose}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-get\_\-pose (
+\begin{DoxyParamCaption}
+\item[{{\bf Pose} $\ast$}]{posePtr}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8h_a5911010e8d153e64f3ea0404533d3e13}
+Gets the pose of the encoder and stores it in variables (x, y, theta) of where posePtr points to. Gets the pose of the encoder and stores it in variables (x, y, theta) of where posePtr points to. 
+\begin{DoxyParams}{Parameters}
+{\em posePtr} & points to a \hyperlink{struct_pose}{Pose} structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{encoder_8h_a102b12c8c18bd6ea904d4242f7bd93fe}{
+\index{encoder.h@{encoder.h}!encoder\_\-get\_\-ticks@{encoder\_\-get\_\-ticks}}
+\index{encoder\_\-get\_\-ticks@{encoder\_\-get\_\-ticks}!encoder.h@{encoder.h}}
+\subsubsection[{encoder\_\-get\_\-ticks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int32} encoder\_\-get\_\-ticks (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{enc}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8h_a102b12c8c18bd6ea904d4242f7bd93fe}
+Gets the current position of the specified encoder. Gets the current position of the specified encoder. 
+\begin{DoxyParams}{Parameters}
+{\em enc} & specifies which encoder's position you want \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the current position of the specified encoder; returns 0 if it's unavailable 
+\end{DoxyReturn}
+\hypertarget{encoder_8h_a0f988a414e4926b9fefe7a38c5851057}{
+\index{encoder.h@{encoder.h}!encoder\_\-get\_\-velocity@{encoder\_\-get\_\-velocity}}
+\index{encoder\_\-get\_\-velocity@{encoder\_\-get\_\-velocity}!encoder.h@{encoder.h}}
+\subsubsection[{encoder\_\-get\_\-velocity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int32} encoder\_\-get\_\-velocity (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{enc}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8h_a0f988a414e4926b9fefe7a38c5851057}
+Gets the current velocity of the specified encoder. Gets the current velocity of the specified encoder. 
+\begin{DoxyParams}{Parameters}
+{\em enc} & specifies which encoder (right or left) to look up \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the current velocity 
+\end{DoxyReturn}
+\hypertarget{encoder_8h_ab885d9bad57d89e5f53eb590dc3d6011}{
+\index{encoder.h@{encoder.h}!encoder\_\-init@{encoder\_\-init}}
+\index{encoder\_\-init@{encoder\_\-init}!encoder.h@{encoder.h}}
+\subsubsection[{encoder\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8h_ab885d9bad57d89e5f53eb590dc3d6011}
+x,y coordinates are stored in micrometers theta is represented in microradians
+
+Initializes encoder and sets the state of the odometry to 0,0,0. \hypertarget{encoder_8h_a95912972332a5920f6e48c7012a6ca0e}{
+\index{encoder.h@{encoder.h}!encoder\_\-pose\_\-clear@{encoder\_\-pose\_\-clear}}
+\index{encoder\_\-pose\_\-clear@{encoder\_\-pose\_\-clear}!encoder.h@{encoder.h}}
+\subsubsection[{encoder\_\-pose\_\-clear}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-pose\_\-clear (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8h_a95912972332a5920f6e48c7012a6ca0e}
+Clears the x, y, and theta values of the encoder. Clears the x, y, and theta values of the encoder. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{encoder_8h_ad323477d4bd1274cbf43d8966cc88130}{
+\index{encoder.h@{encoder.h}!encoder\_\-pose\_\-update@{encoder\_\-pose\_\-update}}
+\index{encoder\_\-pose\_\-update@{encoder\_\-pose\_\-update}!encoder.h@{encoder.h}}
+\subsubsection[{encoder\_\-pose\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-pose\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8h_ad323477d4bd1274cbf43d8966cc88130}
+Updates the encoder's pose. Updates the encoder's pose. There is an assumption that this function will be called on a regular basis in to ensure accuracy. Keep updating in micrometers. The encoders have a resolution of 0.0625mm. That is, each tick represents a change of 0.0625 mm. Our pose is stored in micrometers and microradians. Each tick corresponds to 62.5 micrometers. Rounding to 63. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{encoder_8h_a83826f6388434850720c603128d5be7f}{
+\index{encoder.h@{encoder.h}!encoder\_\-set\_\-pose@{encoder\_\-set\_\-pose}}
+\index{encoder\_\-set\_\-pose@{encoder\_\-set\_\-pose}!encoder.h@{encoder.h}}
+\subsubsection[{encoder\_\-set\_\-pose}]{\setlength{\rightskip}{0pt plus 5cm}void encoder\_\-set\_\-pose (
+\begin{DoxyParamCaption}
+\item[{{\bf Pose} $\ast$}]{posePtr}
+\end{DoxyParamCaption}
+)}}
+\label{encoder_8h_a83826f6388434850720c603128d5be7f}
+Sets the pose of the encoder as variables of where posePtr points to. Sets the pose of the encoder as variables of where posePtr points to. 
+\begin{DoxyParams}{Parameters}
+{\em posePtr} & points to a \hyperlink{struct_pose}{Pose} structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

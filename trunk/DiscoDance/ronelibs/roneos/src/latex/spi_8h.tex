@@ -1,0 +1,196 @@
+\hypertarget{spi_8h}{
+\section{System/spi.h File Reference}
+\label{spi_8h}\index{System/spi.h@{System/spi.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{spi_8h_a3b8a962fb897be48134908401f6dd73e}{SPI\_\-RADIO}~0
+\item 
+\#define \hyperlink{spi_8h_ac0a1a83097531a1c11c9cd3b6f89c33e}{SPI\_\-ACCELEROMETER}~1
+\item 
+\#define \hyperlink{spi_8h_a430c47a58fe94e37be75c1d507607692}{SPI\_\-LEDS}~2
+\item 
+\#define \hyperlink{spi_8h_a517d9b408e5b06fa1ca6f4909eedbb7c}{RADIO\_\-SELECT\_\-PORT}~GPIO\_\-PORTA\_\-BASE
+\item 
+\#define \hyperlink{spi_8h_a0bed8d94e46fc2c6224e3acf73ee20bc}{RADIO\_\-SELECT\_\-PERIPH}~SYSCTL\_\-PERIPH\_\-GPIOA
+\item 
+\#define \hyperlink{spi_8h_aabd86597da31570bcc789ea793905950}{RADIO\_\-SELECT\_\-PIN}~GPIO\_\-PIN\_\-7
+\item 
+\#define \hyperlink{spi_8h_a8f4c77e534264c3cac6795595bd77838}{ACCELEROMETER\_\-SELECT\_\-SYSCTL}~SYSCTL\_\-PERIPH\_\-GPIOA
+\item 
+\#define \hyperlink{spi_8h_afedcf9e90bd27b93feeedd71d4081f91}{ACCELEROMETER\_\-SELECT\_\-PORT}~GPIO\_\-PORTA\_\-BASE
+\item 
+\#define \hyperlink{spi_8h_a5a4f83887631c5cbfbbd137f19f15ec9}{ACCELEROMETER\_\-SELECT\_\-PIN}~GPIO\_\-PIN\_\-3
+\item 
+\#define \hyperlink{spi_8h_ae288c8e28e65c80ca9116e80e8440b29}{LED\_\-LE\_\-SYSCTL}~SYSCTL\_\-PERIPH\_\-GPIOA
+\item 
+\#define \hyperlink{spi_8h_a841f5e8086e4804b322c58a02c91ada6}{LED\_\-LE\_\-PORT}~GPIO\_\-PORTA\_\-BASE
+\item 
+\#define \hyperlink{spi_8h_a304fbf0e9bdf5350dc35e856639ae4fd}{LED\_\-LE\_\-PIN}~GPIO\_\-PIN\_\-6
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{spi_8h_ae909944aa85ae98323073c628be541aa}{spi\_\-init} (void)
+\item 
+void \hyperlink{spi_8h_ada86c066558d8d417af0c2ff103dffc0}{spi\_\-set\_\-word\_\-size} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} ulBase, \hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} dataWidth)
+\item 
+void \hyperlink{spi_8h_a969997cc5b9dd396a183b867ab2f0723}{spi\_\-select\_\-device} (\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} device, \hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} wordsize)
+\item 
+void \hyperlink{spi_8h_a90241571bd68cebdcdf7d1893a37132c}{spi\_\-deselect} (void)
+\item 
+void \hyperlink{spi_8h_a09673ea59974580ce2e72e9e59c842a0}{spi\_\-get\_\-mutex} (void)
+\item 
+void \hyperlink{spi_8h_afe70d4a66d8d3448504f570cb8bf4658}{spi\_\-put\_\-mutex} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{spi_8h_a5a4f83887631c5cbfbbd137f19f15ec9}{
+\index{spi.h@{spi.h}!ACCELEROMETER\_\-SELECT\_\-PIN@{ACCELEROMETER\_\-SELECT\_\-PIN}}
+\index{ACCELEROMETER\_\-SELECT\_\-PIN@{ACCELEROMETER\_\-SELECT\_\-PIN}!spi.h@{spi.h}}
+\subsubsection[{ACCELEROMETER\_\-SELECT\_\-PIN}]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCELEROMETER\_\-SELECT\_\-PIN~GPIO\_\-PIN\_\-3}}
+\label{spi_8h_a5a4f83887631c5cbfbbd137f19f15ec9}
+\hypertarget{spi_8h_afedcf9e90bd27b93feeedd71d4081f91}{
+\index{spi.h@{spi.h}!ACCELEROMETER\_\-SELECT\_\-PORT@{ACCELEROMETER\_\-SELECT\_\-PORT}}
+\index{ACCELEROMETER\_\-SELECT\_\-PORT@{ACCELEROMETER\_\-SELECT\_\-PORT}!spi.h@{spi.h}}
+\subsubsection[{ACCELEROMETER\_\-SELECT\_\-PORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCELEROMETER\_\-SELECT\_\-PORT~GPIO\_\-PORTA\_\-BASE}}
+\label{spi_8h_afedcf9e90bd27b93feeedd71d4081f91}
+\hypertarget{spi_8h_a8f4c77e534264c3cac6795595bd77838}{
+\index{spi.h@{spi.h}!ACCELEROMETER\_\-SELECT\_\-SYSCTL@{ACCELEROMETER\_\-SELECT\_\-SYSCTL}}
+\index{ACCELEROMETER\_\-SELECT\_\-SYSCTL@{ACCELEROMETER\_\-SELECT\_\-SYSCTL}!spi.h@{spi.h}}
+\subsubsection[{ACCELEROMETER\_\-SELECT\_\-SYSCTL}]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCELEROMETER\_\-SELECT\_\-SYSCTL~SYSCTL\_\-PERIPH\_\-GPIOA}}
+\label{spi_8h_a8f4c77e534264c3cac6795595bd77838}
+\hypertarget{spi_8h_a304fbf0e9bdf5350dc35e856639ae4fd}{
+\index{spi.h@{spi.h}!LED\_\-LE\_\-PIN@{LED\_\-LE\_\-PIN}}
+\index{LED\_\-LE\_\-PIN@{LED\_\-LE\_\-PIN}!spi.h@{spi.h}}
+\subsubsection[{LED\_\-LE\_\-PIN}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-LE\_\-PIN~GPIO\_\-PIN\_\-6}}
+\label{spi_8h_a304fbf0e9bdf5350dc35e856639ae4fd}
+\hypertarget{spi_8h_a841f5e8086e4804b322c58a02c91ada6}{
+\index{spi.h@{spi.h}!LED\_\-LE\_\-PORT@{LED\_\-LE\_\-PORT}}
+\index{LED\_\-LE\_\-PORT@{LED\_\-LE\_\-PORT}!spi.h@{spi.h}}
+\subsubsection[{LED\_\-LE\_\-PORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-LE\_\-PORT~GPIO\_\-PORTA\_\-BASE}}
+\label{spi_8h_a841f5e8086e4804b322c58a02c91ada6}
+\hypertarget{spi_8h_ae288c8e28e65c80ca9116e80e8440b29}{
+\index{spi.h@{spi.h}!LED\_\-LE\_\-SYSCTL@{LED\_\-LE\_\-SYSCTL}}
+\index{LED\_\-LE\_\-SYSCTL@{LED\_\-LE\_\-SYSCTL}!spi.h@{spi.h}}
+\subsubsection[{LED\_\-LE\_\-SYSCTL}]{\setlength{\rightskip}{0pt plus 5cm}\#define LED\_\-LE\_\-SYSCTL~SYSCTL\_\-PERIPH\_\-GPIOA}}
+\label{spi_8h_ae288c8e28e65c80ca9116e80e8440b29}
+\hypertarget{spi_8h_a0bed8d94e46fc2c6224e3acf73ee20bc}{
+\index{spi.h@{spi.h}!RADIO\_\-SELECT\_\-PERIPH@{RADIO\_\-SELECT\_\-PERIPH}}
+\index{RADIO\_\-SELECT\_\-PERIPH@{RADIO\_\-SELECT\_\-PERIPH}!spi.h@{spi.h}}
+\subsubsection[{RADIO\_\-SELECT\_\-PERIPH}]{\setlength{\rightskip}{0pt plus 5cm}\#define RADIO\_\-SELECT\_\-PERIPH~SYSCTL\_\-PERIPH\_\-GPIOA}}
+\label{spi_8h_a0bed8d94e46fc2c6224e3acf73ee20bc}
+\hypertarget{spi_8h_aabd86597da31570bcc789ea793905950}{
+\index{spi.h@{spi.h}!RADIO\_\-SELECT\_\-PIN@{RADIO\_\-SELECT\_\-PIN}}
+\index{RADIO\_\-SELECT\_\-PIN@{RADIO\_\-SELECT\_\-PIN}!spi.h@{spi.h}}
+\subsubsection[{RADIO\_\-SELECT\_\-PIN}]{\setlength{\rightskip}{0pt plus 5cm}\#define RADIO\_\-SELECT\_\-PIN~GPIO\_\-PIN\_\-7}}
+\label{spi_8h_aabd86597da31570bcc789ea793905950}
+\hypertarget{spi_8h_a517d9b408e5b06fa1ca6f4909eedbb7c}{
+\index{spi.h@{spi.h}!RADIO\_\-SELECT\_\-PORT@{RADIO\_\-SELECT\_\-PORT}}
+\index{RADIO\_\-SELECT\_\-PORT@{RADIO\_\-SELECT\_\-PORT}!spi.h@{spi.h}}
+\subsubsection[{RADIO\_\-SELECT\_\-PORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define RADIO\_\-SELECT\_\-PORT~GPIO\_\-PORTA\_\-BASE}}
+\label{spi_8h_a517d9b408e5b06fa1ca6f4909eedbb7c}
+\hypertarget{spi_8h_ac0a1a83097531a1c11c9cd3b6f89c33e}{
+\index{spi.h@{spi.h}!SPI\_\-ACCELEROMETER@{SPI\_\-ACCELEROMETER}}
+\index{SPI\_\-ACCELEROMETER@{SPI\_\-ACCELEROMETER}!spi.h@{spi.h}}
+\subsubsection[{SPI\_\-ACCELEROMETER}]{\setlength{\rightskip}{0pt plus 5cm}\#define SPI\_\-ACCELEROMETER~1}}
+\label{spi_8h_ac0a1a83097531a1c11c9cd3b6f89c33e}
+\hypertarget{spi_8h_a430c47a58fe94e37be75c1d507607692}{
+\index{spi.h@{spi.h}!SPI\_\-LEDS@{SPI\_\-LEDS}}
+\index{SPI\_\-LEDS@{SPI\_\-LEDS}!spi.h@{spi.h}}
+\subsubsection[{SPI\_\-LEDS}]{\setlength{\rightskip}{0pt plus 5cm}\#define SPI\_\-LEDS~2}}
+\label{spi_8h_a430c47a58fe94e37be75c1d507607692}
+\hypertarget{spi_8h_a3b8a962fb897be48134908401f6dd73e}{
+\index{spi.h@{spi.h}!SPI\_\-RADIO@{SPI\_\-RADIO}}
+\index{SPI\_\-RADIO@{SPI\_\-RADIO}!spi.h@{spi.h}}
+\subsubsection[{SPI\_\-RADIO}]{\setlength{\rightskip}{0pt plus 5cm}\#define SPI\_\-RADIO~0}}
+\label{spi_8h_a3b8a962fb897be48134908401f6dd73e}
+
+
+\subsection{Function Documentation}
+\hypertarget{spi_8h_a90241571bd68cebdcdf7d1893a37132c}{
+\index{spi.h@{spi.h}!spi\_\-deselect@{spi\_\-deselect}}
+\index{spi\_\-deselect@{spi\_\-deselect}!spi.h@{spi.h}}
+\subsubsection[{spi\_\-deselect}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-deselect (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8h_a90241571bd68cebdcdf7d1893a37132c}
+Cancels all selections. Makes all SPI devices inactive. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{spi_8h_a09673ea59974580ce2e72e9e59c842a0}{
+\index{spi.h@{spi.h}!spi\_\-get\_\-mutex@{spi\_\-get\_\-mutex}}
+\index{spi\_\-get\_\-mutex@{spi\_\-get\_\-mutex}!spi.h@{spi.h}}
+\subsubsection[{spi\_\-get\_\-mutex}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-get\_\-mutex (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8h_a09673ea59974580ce2e72e9e59c842a0}
+\hypertarget{spi_8h_ae909944aa85ae98323073c628be541aa}{
+\index{spi.h@{spi.h}!spi\_\-init@{spi\_\-init}}
+\index{spi\_\-init@{spi\_\-init}!spi.h@{spi.h}}
+\subsubsection[{spi\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8h_ae909944aa85ae98323073c628be541aa}
+
+
+Initializes SPI unit. Enables peripherals Configures GPIO Sets radio, accelerometer, and LED as output Sets word size as 0
+
+\hypertarget{spi_8h_afe70d4a66d8d3448504f570cb8bf4658}{
+\index{spi.h@{spi.h}!spi\_\-put\_\-mutex@{spi\_\-put\_\-mutex}}
+\index{spi\_\-put\_\-mutex@{spi\_\-put\_\-mutex}!spi.h@{spi.h}}
+\subsubsection[{spi\_\-put\_\-mutex}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-put\_\-mutex (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8h_afe70d4a66d8d3448504f570cb8bf4658}
+\hypertarget{spi_8h_a969997cc5b9dd396a183b867ab2f0723}{
+\index{spi.h@{spi.h}!spi\_\-select\_\-device@{spi\_\-select\_\-device}}
+\index{spi\_\-select\_\-device@{spi\_\-select\_\-device}!spi.h@{spi.h}}
+\subsubsection[{spi\_\-select\_\-device}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-select\_\-device (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8}}]{device, }
+\item[{{\bf uint8}}]{wordsize}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8h_a969997cc5b9dd396a183b867ab2f0723}
+Selects a SPI device and sets its wordsize. Selects a SPI device and sets its wordsize. Does not select anything if the input parameter is not recognized. 
+\begin{DoxyParams}{Parameters}
+{\em device} & to be selected \\
+\hline
+{\em wordsize} & of the device to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{spi_8h_ada86c066558d8d417af0c2ff103dffc0}{
+\index{spi.h@{spi.h}!spi\_\-set\_\-word\_\-size@{spi\_\-set\_\-word\_\-size}}
+\index{spi\_\-set\_\-word\_\-size@{spi\_\-set\_\-word\_\-size}!spi.h@{spi.h}}
+\subsubsection[{spi\_\-set\_\-word\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-set\_\-word\_\-size (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{ulBase, }
+\item[{{\bf uint32}}]{dataWidth}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8h_ada86c066558d8d417af0c2ff103dffc0}
+
+
+Sets the SPI word size
+
+
+\begin{DoxyParams}{Parameters}
+{\em ulBase} & is the SSI port  is the new word size to be set\\
+\hline
+\end{DoxyParams}
+
+

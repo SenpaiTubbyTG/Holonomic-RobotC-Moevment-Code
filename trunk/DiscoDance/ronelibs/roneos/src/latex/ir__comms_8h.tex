@@ -1,0 +1,285 @@
+\hypertarget{ir__comms_8h}{
+\section{IRComms/ir\_\-comms.h File Reference}
+\label{ir__comms_8h}\index{IRComms/ir\_\-comms.h@{IRComms/ir\_\-comms.h}}
+}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structir__comms__message}{ir\_\-comms\_\-message}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ir__comms_8h_ac948d5bd7eeb6b49933fb0706f3b914c}{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-MAX}~5
+\item 
+\#define \hyperlink{ir__comms_8h_a74467ad6de5bb2606a439f63a6d54a8a}{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-DEFAULT}~4
+\item 
+\#define \hyperlink{ir__comms_8h_a231ba0aa5057bdb9c4c1cfdce0e67c17}{IR\_\-COMMS\_\-NUM\_\-OF\_\-RECEIVERS}~8
+\item 
+\#define \hyperlink{ir__comms_8h_a3a7e559ebf7a1185c64ed42cce24e3c6}{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT}~0
+\item 
+\#define \hyperlink{ir__comms_8h_abaf2a5e42741c32edffd149574bdbf76}{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT}~1
+\item 
+\#define \hyperlink{ir__comms_8h_af5aa7d407c3c3639234af6157c798c6c}{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR}~2
+\item 
+\#define \hyperlink{ir__comms_8h_a9fffa16b7ebfdd1b63a8582e49c31c11}{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT}~3
+\item 
+\#define \hyperlink{ir__comms_8h_af8baa7e5a8d50d8ed20b37813fd1ae81}{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT}~4
+\item 
+\#define \hyperlink{ir__comms_8h_acacec4d9fecf82c4b0e764fd635289e2}{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR}~5
+\item 
+\#define \hyperlink{ir__comms_8h_a7269a5b997d97e8786cbb8051c97f068}{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT}~6
+\item 
+\#define \hyperlink{ir__comms_8h_a2d10d4bc8d7ba54b6b7407938211b9a4}{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT}~7
+\item 
+\#define \hyperlink{ir__comms_8h_a2679c960107a860c92087bb169d60218}{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT\_\-BIT}~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT)
+\item 
+\#define \hyperlink{ir__comms_8h_a3d6c79403dce9452a22c64aa2bcf39fe}{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT\_\-BIT}~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT)
+\item 
+\#define \hyperlink{ir__comms_8h_a5ace1861ccfe639ba0c993c90ca5c4d9}{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR\_\-BIT}~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR)
+\item 
+\#define \hyperlink{ir__comms_8h_ad389a9913ccebd29454bdbb71070b708}{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT\_\-BIT}~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT)
+\item 
+\#define \hyperlink{ir__comms_8h_afe7c83a7cfe80014d5b1b1deb84cf22c}{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT\_\-BIT}~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT)
+\item 
+\#define \hyperlink{ir__comms_8h_a253aa6c0af5032c441ba6afe55de70d7}{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR\_\-BIT}~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR)
+\item 
+\#define \hyperlink{ir__comms_8h_a97f9f0fd48757518c52b86a1e00dfb61}{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT\_\-BIT}~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT)
+\item 
+\#define \hyperlink{ir__comms_8h_a4345c1da0fbc944daddf6e56dad9250b}{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT\_\-BIT}~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT)
+\item 
+\#define \hyperlink{ir__comms_8h_a58b9d960d906a178ce32396205781095}{IR\_\-COMMS\_\-RECEIVER\_\-0\_\-ANGLE}~0.3927
+\item 
+\#define \hyperlink{ir__comms_8h_ac64fc07d2d423aaa1a3e3e6d19438869}{IR\_\-COMMS\_\-RECEIVER\_\-1\_\-ANGLE}~1.1781
+\item 
+\#define \hyperlink{ir__comms_8h_a4566f24528f198d81991f96307b89bc6}{IR\_\-COMMS\_\-RECEIVER\_\-2\_\-ANGLE}~1.9635
+\item 
+\#define \hyperlink{ir__comms_8h_a457a6e64eed34e14decfa676f986ce58}{IR\_\-COMMS\_\-RECEIVER\_\-3\_\-ANGLE}~2.7489
+\item 
+\#define \hyperlink{ir__comms_8h_a8d56afb837955bc1e5a897f6d281322f}{IR\_\-COMMS\_\-RECEIVER\_\-4\_\-ANGLE}~3.5343
+\item 
+\#define \hyperlink{ir__comms_8h_a607e8cc144eb5c279b3508a9cda81a56}{IR\_\-COMMS\_\-RECEIVER\_\-5\_\-ANGLE}~4.3197
+\item 
+\#define \hyperlink{ir__comms_8h_a46cec1ad5ba15bf58e83668c3aa55c8b}{IR\_\-COMMS\_\-RECEIVER\_\-6\_\-ANGLE}~5.1051
+\item 
+\#define \hyperlink{ir__comms_8h_ad9ffdc66311a23ec8e88ee49241f5dad}{IR\_\-COMMS\_\-RECEIVER\_\-7\_\-ANGLE}~5.8905
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structir__comms__message}{ir\_\-comms\_\-message} \hyperlink{ir__comms_8h_a89d1555a35f0d7834a41a1bba1e4c5a8}{ir\_\-comms\_\-message}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{typedefs_8h_a7670a4e8a07d9ebb00411948b0bbf86d}{boolean} \hyperlink{ir__comms_8h_a1572d2afc9148e6c5666168abc9a294d}{ir\_\-comms\_\-send\_\-message} (\hyperlink{structir__comms__message}{ir\_\-comms\_\-message} $\ast$irMessagePtr)
+\item 
+\hyperlink{typedefs_8h_a7670a4e8a07d9ebb00411948b0bbf86d}{boolean} \hyperlink{ir__comms_8h_a2976a4c4b587a3e266306ee31cc93bbd}{ir\_\-comms\_\-get\_\-message} (\hyperlink{structir__comms__message}{ir\_\-comms\_\-message} $\ast$irMessagePtr)
+\item 
+void \hyperlink{ir__comms_8h_ac195678b0da5cbace8a512cee7e286e0}{ir\_\-comms\_\-set\_\-message\_\-length} (\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} msg\_\-length)
+\item 
+void \hyperlink{ir__comms_8h_aebdb1ef3f1a41e5db195f69ccce7ab42}{ir\_\-comms\_\-init} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{ir__comms_8h_a74467ad6de5bb2606a439f63a6d54a8a}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-DEFAULT@{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-DEFAULT}}
+\index{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-DEFAULT@{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-DEFAULT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-DEFAULT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-DEFAULT~4}}
+\label{ir__comms_8h_a74467ad6de5bb2606a439f63a6d54a8a}
+\hypertarget{ir__comms_8h_ac948d5bd7eeb6b49933fb0706f3b914c}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-MAX@{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-MAX}}
+\index{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-MAX@{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-MAX}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-MAX}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-MESSAGE\_\-LENGTH\_\-MAX~5}}
+\label{ir__comms_8h_ac948d5bd7eeb6b49933fb0706f3b914c}
+\hypertarget{ir__comms_8h_a231ba0aa5057bdb9c4c1cfdce0e67c17}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-NUM\_\-OF\_\-RECEIVERS@{IR\_\-COMMS\_\-NUM\_\-OF\_\-RECEIVERS}}
+\index{IR\_\-COMMS\_\-NUM\_\-OF\_\-RECEIVERS@{IR\_\-COMMS\_\-NUM\_\-OF\_\-RECEIVERS}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-NUM\_\-OF\_\-RECEIVERS}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-NUM\_\-OF\_\-RECEIVERS~8}}
+\label{ir__comms_8h_a231ba0aa5057bdb9c4c1cfdce0e67c17}
+\hypertarget{ir__comms_8h_a58b9d960d906a178ce32396205781095}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-0\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-0\_\-ANGLE}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-0\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-0\_\-ANGLE}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-0\_\-ANGLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-0\_\-ANGLE~0.3927}}
+\label{ir__comms_8h_a58b9d960d906a178ce32396205781095}
+\hypertarget{ir__comms_8h_ac64fc07d2d423aaa1a3e3e6d19438869}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-1\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-1\_\-ANGLE}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-1\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-1\_\-ANGLE}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-1\_\-ANGLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-1\_\-ANGLE~1.1781}}
+\label{ir__comms_8h_ac64fc07d2d423aaa1a3e3e6d19438869}
+\hypertarget{ir__comms_8h_a4566f24528f198d81991f96307b89bc6}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-2\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-2\_\-ANGLE}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-2\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-2\_\-ANGLE}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-2\_\-ANGLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-2\_\-ANGLE~1.9635}}
+\label{ir__comms_8h_a4566f24528f198d81991f96307b89bc6}
+\hypertarget{ir__comms_8h_a457a6e64eed34e14decfa676f986ce58}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-3\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-3\_\-ANGLE}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-3\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-3\_\-ANGLE}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-3\_\-ANGLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-3\_\-ANGLE~2.7489}}
+\label{ir__comms_8h_a457a6e64eed34e14decfa676f986ce58}
+\hypertarget{ir__comms_8h_a8d56afb837955bc1e5a897f6d281322f}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-4\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-4\_\-ANGLE}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-4\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-4\_\-ANGLE}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-4\_\-ANGLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-4\_\-ANGLE~3.5343}}
+\label{ir__comms_8h_a8d56afb837955bc1e5a897f6d281322f}
+\hypertarget{ir__comms_8h_a607e8cc144eb5c279b3508a9cda81a56}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-5\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-5\_\-ANGLE}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-5\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-5\_\-ANGLE}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-5\_\-ANGLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-5\_\-ANGLE~4.3197}}
+\label{ir__comms_8h_a607e8cc144eb5c279b3508a9cda81a56}
+\hypertarget{ir__comms_8h_a46cec1ad5ba15bf58e83668c3aa55c8b}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-6\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-6\_\-ANGLE}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-6\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-6\_\-ANGLE}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-6\_\-ANGLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-6\_\-ANGLE~5.1051}}
+\label{ir__comms_8h_a46cec1ad5ba15bf58e83668c3aa55c8b}
+\hypertarget{ir__comms_8h_ad9ffdc66311a23ec8e88ee49241f5dad}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-7\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-7\_\-ANGLE}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-7\_\-ANGLE@{IR\_\-COMMS\_\-RECEIVER\_\-7\_\-ANGLE}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-7\_\-ANGLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-7\_\-ANGLE~5.8905}}
+\label{ir__comms_8h_ad9ffdc66311a23ec8e88ee49241f5dad}
+\hypertarget{ir__comms_8h_a3a7e559ebf7a1185c64ed42cce24e3c6}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT@{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT@{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT~0}}
+\label{ir__comms_8h_a3a7e559ebf7a1185c64ed42cce24e3c6}
+\hypertarget{ir__comms_8h_a2679c960107a860c92087bb169d60218}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT\_\-BIT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT\_\-BIT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT\_\-BIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT\_\-BIT~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-LEFT)}}
+\label{ir__comms_8h_a2679c960107a860c92087bb169d60218}
+\hypertarget{ir__comms_8h_a2d10d4bc8d7ba54b6b7407938211b9a4}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT@{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT@{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT~7}}
+\label{ir__comms_8h_a2d10d4bc8d7ba54b6b7407938211b9a4}
+\hypertarget{ir__comms_8h_a4345c1da0fbc944daddf6e56dad9250b}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT\_\-BIT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT\_\-BIT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT\_\-BIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT\_\-BIT~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-FRONT\_\-RIGHT)}}
+\label{ir__comms_8h_a4345c1da0fbc944daddf6e56dad9250b}
+\hypertarget{ir__comms_8h_abaf2a5e42741c32edffd149574bdbf76}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT@{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT@{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT~1}}
+\label{ir__comms_8h_abaf2a5e42741c32edffd149574bdbf76}
+\hypertarget{ir__comms_8h_a3d6c79403dce9452a22c64aa2bcf39fe}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT\_\-BIT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT\_\-BIT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT\_\-BIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT\_\-BIT~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-FRONT)}}
+\label{ir__comms_8h_a3d6c79403dce9452a22c64aa2bcf39fe}
+\hypertarget{ir__comms_8h_af5aa7d407c3c3639234af6157c798c6c}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR@{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR@{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR~2}}
+\label{ir__comms_8h_af5aa7d407c3c3639234af6157c798c6c}
+\hypertarget{ir__comms_8h_a5ace1861ccfe639ba0c993c90ca5c4d9}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR\_\-BIT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR\_\-BIT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR\_\-BIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR\_\-BIT~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-LEFT\_\-REAR)}}
+\label{ir__comms_8h_a5ace1861ccfe639ba0c993c90ca5c4d9}
+\hypertarget{ir__comms_8h_a9fffa16b7ebfdd1b63a8582e49c31c11}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT@{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT@{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT~3}}
+\label{ir__comms_8h_a9fffa16b7ebfdd1b63a8582e49c31c11}
+\hypertarget{ir__comms_8h_ad389a9913ccebd29454bdbb71070b708}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT\_\-BIT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT\_\-BIT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT\_\-BIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT\_\-BIT~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-LEFT)}}
+\label{ir__comms_8h_ad389a9913ccebd29454bdbb71070b708}
+\hypertarget{ir__comms_8h_af8baa7e5a8d50d8ed20b37813fd1ae81}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT@{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT@{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT~4}}
+\label{ir__comms_8h_af8baa7e5a8d50d8ed20b37813fd1ae81}
+\hypertarget{ir__comms_8h_afe7c83a7cfe80014d5b1b1deb84cf22c}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT\_\-BIT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT\_\-BIT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT\_\-BIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT\_\-BIT~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-REAR\_\-RIGHT)}}
+\label{ir__comms_8h_afe7c83a7cfe80014d5b1b1deb84cf22c}
+\hypertarget{ir__comms_8h_a7269a5b997d97e8786cbb8051c97f068}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT@{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT@{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT~6}}
+\label{ir__comms_8h_a7269a5b997d97e8786cbb8051c97f068}
+\hypertarget{ir__comms_8h_a97f9f0fd48757518c52b86a1e00dfb61}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT\_\-BIT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT\_\-BIT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT\_\-BIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT\_\-BIT~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-FRONT)}}
+\label{ir__comms_8h_a97f9f0fd48757518c52b86a1e00dfb61}
+\hypertarget{ir__comms_8h_acacec4d9fecf82c4b0e764fd635289e2}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR@{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR@{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR~5}}
+\label{ir__comms_8h_acacec4d9fecf82c4b0e764fd635289e2}
+\hypertarget{ir__comms_8h_a253aa6c0af5032c441ba6afe55de70d7}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR\_\-BIT}}
+\index{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR\_\-BIT@{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR\_\-BIT}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR\_\-BIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR\_\-BIT~(1 $<$$<$ IR\_\-COMMS\_\-RECEIVER\_\-RIGHT\_\-REAR)}}
+\label{ir__comms_8h_a253aa6c0af5032c441ba6afe55de70d7}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{ir__comms_8h_a89d1555a35f0d7834a41a1bba1e4c5a8}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!ir\_\-comms\_\-message@{ir\_\-comms\_\-message}}
+\index{ir\_\-comms\_\-message@{ir\_\-comms\_\-message}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{ir\_\-comms\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf ir\_\-comms\_\-message}  {\bf ir\_\-comms\_\-message}}}
+\label{ir__comms_8h_a89d1555a35f0d7834a41a1bba1e4c5a8}
+
+
+\subsection{Function Documentation}
+\hypertarget{ir__comms_8h_a2976a4c4b587a3e266306ee31cc93bbd}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!ir\_\-comms\_\-get\_\-message@{ir\_\-comms\_\-get\_\-message}}
+\index{ir\_\-comms\_\-get\_\-message@{ir\_\-comms\_\-get\_\-message}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{ir\_\-comms\_\-get\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} ir\_\-comms\_\-get\_\-message (
+\begin{DoxyParamCaption}
+\item[{{\bf ir\_\-comms\_\-message} $\ast$}]{irMessagePtr}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8h_a2976a4c4b587a3e266306ee31cc93bbd}
+\hypertarget{ir__comms_8h_aebdb1ef3f1a41e5db195f69ccce7ab42}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!ir\_\-comms\_\-init@{ir\_\-comms\_\-init}}
+\index{ir\_\-comms\_\-init@{ir\_\-comms\_\-init}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{ir\_\-comms\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void ir\_\-comms\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8h_aebdb1ef3f1a41e5db195f69ccce7ab42}
+\hypertarget{ir__comms_8h_a1572d2afc9148e6c5666168abc9a294d}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!ir\_\-comms\_\-send\_\-message@{ir\_\-comms\_\-send\_\-message}}
+\index{ir\_\-comms\_\-send\_\-message@{ir\_\-comms\_\-send\_\-message}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{ir\_\-comms\_\-send\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} ir\_\-comms\_\-send\_\-message (
+\begin{DoxyParamCaption}
+\item[{{\bf ir\_\-comms\_\-message} $\ast$}]{irMessagePtr}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8h_a1572d2afc9148e6c5666168abc9a294d}
+
+
+Sends a message to the computer
+
+
+\begin{DoxyParams}{Parameters}
+{\em irMessagePtr} & is the message to be sent\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the message is sent (TRUE/FALSE)
+\end{DoxyReturn}
+
+
+\hypertarget{ir__comms_8h_ac195678b0da5cbace8a512cee7e286e0}{
+\index{ir\_\-comms.h@{ir\_\-comms.h}!ir\_\-comms\_\-set\_\-message\_\-length@{ir\_\-comms\_\-set\_\-message\_\-length}}
+\index{ir\_\-comms\_\-set\_\-message\_\-length@{ir\_\-comms\_\-set\_\-message\_\-length}!ir_comms.h@{ir\_\-comms.h}}
+\subsubsection[{ir\_\-comms\_\-set\_\-message\_\-length}]{\setlength{\rightskip}{0pt plus 5cm}void ir\_\-comms\_\-set\_\-message\_\-length (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8}}]{msg\_\-length}
+\end{DoxyParamCaption}
+)}}
+\label{ir__comms_8h_ac195678b0da5cbace8a512cee7e286e0}
+
+
+Sets the length of the message
+

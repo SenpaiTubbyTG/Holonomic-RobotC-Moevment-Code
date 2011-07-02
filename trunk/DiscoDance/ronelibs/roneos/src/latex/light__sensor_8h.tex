@@ -1,0 +1,74 @@
+\hypertarget{light__sensor_8h}{
+\section{Sensors/light\_\-sensor.h File Reference}
+\label{light__sensor_8h}\index{Sensors/light\_\-sensor.h@{Sensors/light\_\-sensor.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{light__sensor_8h_a7f847830a4df2453ac1690b2379a4127}{LIGHT\_\-SENSOR\_\-FRONT\_\-RIGHT}~0
+\item 
+\#define \hyperlink{light__sensor_8h_ab16eebb11f463eeda877f044a612f827}{LIGHT\_\-SENSOR\_\-FRONT\_\-LEFT}~1
+\item 
+\#define \hyperlink{light__sensor_8h_af3067736d2689085dad2f87ee3db744f}{LIGHT\_\-SENSOR\_\-REAR}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{light__sensor_8h_aeec179d7880421687dba7262d404e7d8}{light\_\-sensor\_\-init} (void)
+\item 
+\hyperlink{typedefs_8h_a4ca2d97e571b049be6f4cdcfaa1ab946}{int32} \hyperlink{light__sensor_8h_a3a1277922019b7c3605abbbf55710b4e}{light\_\-sensor\_\-get\_\-value} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} light\_\-sensor)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{light__sensor_8h_ab16eebb11f463eeda877f044a612f827}{
+\index{light\_\-sensor.h@{light\_\-sensor.h}!LIGHT\_\-SENSOR\_\-FRONT\_\-LEFT@{LIGHT\_\-SENSOR\_\-FRONT\_\-LEFT}}
+\index{LIGHT\_\-SENSOR\_\-FRONT\_\-LEFT@{LIGHT\_\-SENSOR\_\-FRONT\_\-LEFT}!light_sensor.h@{light\_\-sensor.h}}
+\subsubsection[{LIGHT\_\-SENSOR\_\-FRONT\_\-LEFT}]{\setlength{\rightskip}{0pt plus 5cm}\#define LIGHT\_\-SENSOR\_\-FRONT\_\-LEFT~1}}
+\label{light__sensor_8h_ab16eebb11f463eeda877f044a612f827}
+\hypertarget{light__sensor_8h_a7f847830a4df2453ac1690b2379a4127}{
+\index{light\_\-sensor.h@{light\_\-sensor.h}!LIGHT\_\-SENSOR\_\-FRONT\_\-RIGHT@{LIGHT\_\-SENSOR\_\-FRONT\_\-RIGHT}}
+\index{LIGHT\_\-SENSOR\_\-FRONT\_\-RIGHT@{LIGHT\_\-SENSOR\_\-FRONT\_\-RIGHT}!light_sensor.h@{light\_\-sensor.h}}
+\subsubsection[{LIGHT\_\-SENSOR\_\-FRONT\_\-RIGHT}]{\setlength{\rightskip}{0pt plus 5cm}\#define LIGHT\_\-SENSOR\_\-FRONT\_\-RIGHT~0}}
+\label{light__sensor_8h_a7f847830a4df2453ac1690b2379a4127}
+\hypertarget{light__sensor_8h_af3067736d2689085dad2f87ee3db744f}{
+\index{light\_\-sensor.h@{light\_\-sensor.h}!LIGHT\_\-SENSOR\_\-REAR@{LIGHT\_\-SENSOR\_\-REAR}}
+\index{LIGHT\_\-SENSOR\_\-REAR@{LIGHT\_\-SENSOR\_\-REAR}!light_sensor.h@{light\_\-sensor.h}}
+\subsubsection[{LIGHT\_\-SENSOR\_\-REAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define LIGHT\_\-SENSOR\_\-REAR~2}}
+\label{light__sensor_8h_af3067736d2689085dad2f87ee3db744f}
+
+
+\subsection{Function Documentation}
+\hypertarget{light__sensor_8h_a3a1277922019b7c3605abbbf55710b4e}{
+\index{light\_\-sensor.h@{light\_\-sensor.h}!light\_\-sensor\_\-get\_\-value@{light\_\-sensor\_\-get\_\-value}}
+\index{light\_\-sensor\_\-get\_\-value@{light\_\-sensor\_\-get\_\-value}!light_sensor.h@{light\_\-sensor.h}}
+\subsubsection[{light\_\-sensor\_\-get\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int32} light\_\-sensor\_\-get\_\-value (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{light\_\-sensor}
+\end{DoxyParamCaption}
+)}}
+\label{light__sensor_8h_a3a1277922019b7c3605abbbf55710b4e}
+
+
+Gets the ADC value of the specified light sensor. Gets the ADC value of the specified light sensor. 
+\begin{DoxyParams}{Parameters}
+{\em light\_\-sensor} & specifies which light sensor you want to check (only 0, 1, 2 are allowed) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the ADC value; 0 if the input parameter is not recognized
+\end{DoxyReturn}
+
+
+\hypertarget{light__sensor_8h_aeec179d7880421687dba7262d404e7d8}{
+\index{light\_\-sensor.h@{light\_\-sensor.h}!light\_\-sensor\_\-init@{light\_\-sensor\_\-init}}
+\index{light\_\-sensor\_\-init@{light\_\-sensor\_\-init}!light_sensor.h@{light\_\-sensor.h}}
+\subsubsection[{light\_\-sensor\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void light\_\-sensor\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{light__sensor_8h_aeec179d7880421687dba7262d404e7d8}
+Initializes light sensor. Sets sampling speed and configures and enables the light sensor. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

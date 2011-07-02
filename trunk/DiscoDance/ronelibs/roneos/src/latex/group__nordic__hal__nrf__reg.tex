@@ -1,0 +1,869 @@
+\hypertarget{group__nordic__hal__nrf__reg}{
+\section{nRF24L01 Register definitions}
+\label{group__nordic__hal__nrf__reg}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gae28c4601af8b2f85827386fe9a27f9fa}{ENAA\_\-P5}~5
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga3b5bebd442d3a0351e85100a69244810}{ENAA\_\-P4}~4
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaade4fe5e884e4f5868daf2c706d72f5e}{ENAA\_\-P3}~3
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga8b3d7771adbc5bc2bd8846f00aa39a5a}{ENAA\_\-P2}~2
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gadfa71d5ebb7107d673674bb10279d9c6}{ENAA\_\-P1}~1
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga2cb97a8f9d05bb511d45d7212174769d}{ENAA\_\-P0}~0
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga8907dbd1fe9dfedbaf8824dbfcfd4f65}{DPL\_\-P5}~5
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga7fc41c509a5885a7199535d72f8223bf}{DPL\_\-P4}~4
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gad855ab4dab05150b03716fea1fc8ddb6}{DPL\_\-P3}~3
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga444b8f6d5091149c983f6fca29775a44}{DPL\_\-P2}~2
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaae58d2c6834305858a405abaffd95049}{DPL\_\-P1}~1
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gacf457ec76fbdc9fe3a5d3eb3e9c5dca5}{DPL\_\-P0}~0
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga1b46f8336bda068b0759f70cceec3b65}{EN\_\-DPL}~2
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga1a275ad559fa85d8278f06052baab004}{EN\_\-ACK\_\-PAY}~1
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga2c72793d172b16436d7e0c0d9491bdae}{EN\_\-DYN\_\-ACK}~0
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_gaa2d537ba7b4d86ca3ab52a0aca1cc9a1}{hal\_\-nrf\_\-irq\_\-source\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_ggaa2d537ba7b4d86ca3ab52a0aca1cc9a1aa6896fafeb605b56283f2261636cc340}{HAL\_\-NRF\_\-MAX\_\-RT} =  4, 
+\hyperlink{group__nordic__hal__nrf__reg_ggaa2d537ba7b4d86ca3ab52a0aca1cc9a1a3dc14a23b4cddfc53419a37def01671f}{HAL\_\-NRF\_\-TX\_\-DS}, 
+\hyperlink{group__nordic__hal__nrf__reg_ggaa2d537ba7b4d86ca3ab52a0aca1cc9a1a4b83e3395cc7a414e2df17d71a19826b}{HAL\_\-NRF\_\-RX\_\-DR}
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_gaac8ec16de20f3ffe4d563f889cb0f202}{hal\_\-nrf\_\-operation\_\-mode\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_ggaac8ec16de20f3ffe4d563f889cb0f202a782379d779ef55b3a3146b87ac17106a}{HAL\_\-NRF\_\-PTX}, 
+\hyperlink{group__nordic__hal__nrf__reg_ggaac8ec16de20f3ffe4d563f889cb0f202aed997ff3cc0ecf51b0c37ea120342193}{HAL\_\-NRF\_\-PRX}
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_ga9079099c752b5121d41a251cc4c5600a}{hal\_\-nrf\_\-pwr\_\-mode\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_gga9079099c752b5121d41a251cc4c5600aafabe3f70b6c1ecc823da192d4a940cdc}{HAL\_\-NRF\_\-PWR\_\-DOWN}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga9079099c752b5121d41a251cc4c5600aaea1c2cc48369f448229c92bf43d3efa2}{HAL\_\-NRF\_\-PWR\_\-UP}
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_ga2000e3a3aa7de8d98d4820639b39d6e7}{hal\_\-nrf\_\-output\_\-power\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7aa1b6441d027a0c910b5b4fee6b8db16f}{HAL\_\-NRF\_\-18DBM}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7abc24658f8129bc32921a41f9e9b26377}{HAL\_\-NRF\_\-12DBM}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7a9d6cf75aa07b33b44778cf939473a137}{HAL\_\-NRF\_\-6DBM}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7a3916db0403303498491b424eb63b8626}{HAL\_\-NRF\_\-0DBM}
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_ga9539d7b988ef5ca3c6da9b89aca8b990}{hal\_\-nrf\_\-datarate\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_gga9539d7b988ef5ca3c6da9b89aca8b990ad277f1911cc257a3bf4899d31c94ded5}{HAL\_\-NRF\_\-1MBPS}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga9539d7b988ef5ca3c6da9b89aca8b990a33d1afa4a93294924050247a78a2b88b}{HAL\_\-NRF\_\-2MBPS}
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_ga8f0d40d735adcf593591c9aaefa3158a}{hal\_\-nrf\_\-pll\_\-mode\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_gga8f0d40d735adcf593591c9aaefa3158aab6917877c23b8eb5fb0bc4abef22a4d7}{HAL\_\-NRF\_\-PLL\_\-UNLOCK}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga8f0d40d735adcf593591c9aaefa3158aa55ccef5e16d165e8531c895fa9471335}{HAL\_\-NRF\_\-PLL\_\-LOCK}
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_gad1044c81af859b8c271bc274a5618161}{hal\_\-nrf\_\-lna\_\-mode\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_ggad1044c81af859b8c271bc274a5618161a7f021d77caa1dcbf306b0933e3a8936d}{HAL\_\-NRF\_\-LNA\_\-LCURR}, 
+\hyperlink{group__nordic__hal__nrf__reg_ggad1044c81af859b8c271bc274a5618161a22b96b249f68ad52df212557b6830066}{HAL\_\-NRF\_\-LNA\_\-HCURR}
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_gacd3a5ef5248a2c075567e7f5d3d3a8e4}{hal\_\-nrf\_\-crc\_\-mode\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_ggacd3a5ef5248a2c075567e7f5d3d3a8e4aa19a031caf125dd05c0ed7346429df12}{HAL\_\-NRF\_\-CRC\_\-OFF}, 
+\hyperlink{group__nordic__hal__nrf__reg_ggacd3a5ef5248a2c075567e7f5d3d3a8e4a0b5ae051046cd14767f46a7917e756dc}{HAL\_\-NRF\_\-CRC\_\-8BIT} =  2, 
+\hyperlink{group__nordic__hal__nrf__reg_ggacd3a5ef5248a2c075567e7f5d3d3a8e4a08f615321c73062499512d418ef90722}{HAL\_\-NRF\_\-CRC\_\-16BIT}
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_gade11658f933ebe5fec8c9ce7bcace064}{hal\_\-nrf\_\-pload\_\-command\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_ggade11658f933ebe5fec8c9ce7bcace064aa06e5716a0ab9e2309dffe2a812726cd}{HAL\_\-NRF\_\-TX\_\-PLOAD} =  7, 
+\hyperlink{group__nordic__hal__nrf__reg_ggade11658f933ebe5fec8c9ce7bcace064aa65f1cb5b2a4f90764b534fc95afbfb8}{HAL\_\-NRF\_\-RX\_\-PLOAD}
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_ga321d8cfbce9e410a49afac1f04cc2457}{hal\_\-nrf\_\-address\_\-t} \{ \par
+\hyperlink{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457aff2c3b92b44bbde577fd29a618fe9ffa}{HAL\_\-NRF\_\-PIPE0}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a40354d0d5e9b2c8e9dc8c6817f838f5d}{HAL\_\-NRF\_\-PIPE1}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457ae484cef9b5604e89ccb885e3ad85b2c7}{HAL\_\-NRF\_\-PIPE2}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a14f59c552adf1f7a91db52bb8d19bfab}{HAL\_\-NRF\_\-PIPE3}, 
+\par
+\hyperlink{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a2beff936c19285d52e99ea13b1e1fd00}{HAL\_\-NRF\_\-PIPE4}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a8d5b68ebf5dd5ee73e6904b482721810}{HAL\_\-NRF\_\-PIPE5}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457ad80231cd7604958d83ebd1ffd9d38d0c}{HAL\_\-NRF\_\-TX}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457adb4ce66b5609fc0df7e3b53d3b55fd8e}{HAL\_\-NRF\_\-ALL} =  0xFF
+ \}
+\item 
+enum \hyperlink{group__nordic__hal__nrf__reg_ga9f42a9a295b0802dd10d7f23c3526832}{hal\_\-nrf\_\-address\_\-width\_\-t} \{ \hyperlink{group__nordic__hal__nrf__reg_gga9f42a9a295b0802dd10d7f23c3526832a7d7a5af6b099215e0143a79b22c784c3}{HAL\_\-NRF\_\-AW\_\-3BYTES} =  3, 
+\hyperlink{group__nordic__hal__nrf__reg_gga9f42a9a295b0802dd10d7f23c3526832ace672bf3d671125616b31526a22da284}{HAL\_\-NRF\_\-AW\_\-4BYTES}, 
+\hyperlink{group__nordic__hal__nrf__reg_gga9f42a9a295b0802dd10d7f23c3526832ae3c0a8956cfc5fb3b5a435c3961c8dad}{HAL\_\-NRF\_\-AW\_\-5BYTES}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{-\/ Instruction Set -\/}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gab4589895853859c8ae1e26287efa3c1d}{WRITE\_\-REG}~0x20
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga68bca2b1429420aa46d2da0b2830e1b1}{RD\_\-RX\_\-PLOAD\_\-W}~0x60
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga34e32f32935efe2d958ca16d48831009}{RD\_\-RX\_\-PLOAD}~0x61
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga97a60093aef6135e38bd0bd91cd40428}{WR\_\-TX\_\-PLOAD}~0xA0
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga07b82f8a30b55b02b77c87d6d4953f6d}{WR\_\-ACK\_\-PLOAD}~0xA8
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga475a03dfa6b8358e02ac25c1bc8a5de7}{WR\_\-NAC\_\-TX\_\-PLOAD}~0xB0
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gabce47e8066832b6ac4e18162a79859b4}{FLUSH\_\-TX}~0xE1
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gab2418a6171d7f1eefd458927fdfe7057}{FLUSH\_\-RX}~0xE2
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga2f1d9bb858232e8b1494b60aa9a7d25a}{REUSE\_\-TX\_\-PL}~0xE3
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaa74c0e2b8dd2aa10ae94ccb3ae228e0f}{LOCK\_\-UNLOCK}~0x50
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga700f88377bf36711b711f69b06c52f5d}{NOP}~0xFF
+\end{DoxyCompactItemize}
+\subsection*{-\/ Register Memory Map -\/}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga76ea3cf49247a07c54b3db005a3c7f57}{CONFIG}~0x00
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaa84a282351a2c9b83dd653df6ac59216}{EN\_\-AA}~0x01
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gab6b2378ce9cab6ccafb6d30c774c5307}{EN\_\-RXADDR}~0x02
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaf5ef355ba3eca336db1285cab353ddc2}{SETUP\_\-AW}~0x03
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga2188309b3eceeae158dd64109cd919aa}{SETUP\_\-RETR}~0x04
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga5c4da84e4a01531aa9f5c3e617848d66}{RF\_\-CH}~0x05
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gad95edb7665f39454d7d7fd436301712b}{RF\_\-SETUP}~0x06
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga59279bee44f34d08b3cbf3a89fb0d8d9}{STATUS}~0x07
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga491468eaa7f2db84c152709b0b5fb1aa}{OBSERVE\_\-TX}~0x08
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga1050140a3d78b059f809a424e0d9e1c7}{CD}~0x09
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gadc82a1b0dee303d8b783b9b9a89ae5aa}{RX\_\-ADDR\_\-P0}~0x0A
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gad4b44f18e4b27b07af84783d8f11726d}{RX\_\-ADDR\_\-P1}~0x0B
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gac10ad4b1d3ace06cc269098d1863f411}{RX\_\-ADDR\_\-P2}~0x0C
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga01228e7b997954bc9d715c8289731181}{RX\_\-ADDR\_\-P3}~0x0D
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gafc579afe21136cd3f72b3ac805086726}{RX\_\-ADDR\_\-P4}~0x0E
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga49dfc07335896551e8c7797594658b07}{RX\_\-ADDR\_\-P5}~0x0F
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaa734c6e08b9f794436eacbabe466a6c4}{TX\_\-ADDR}~0x10
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga060e61d8f6e7ad28984540faa85cdecf}{RX\_\-PW\_\-P0}~0x11
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaa260ec97512905cec17f8ade82bc550d}{RX\_\-PW\_\-P1}~0x12
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga38a4904a52517c8d339c689230a6567d}{RX\_\-PW\_\-P2}~0x13
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga44bdf6946c1ae047ea2a2c981244d4d8}{RX\_\-PW\_\-P3}~0x14
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga5cdda00ab52df1537b6b5d61ef88ba8f}{RX\_\-PW\_\-P4}~0x15
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga9ce52902779e18d4fed3685b0f8be582}{RX\_\-PW\_\-P5}~0x16
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga9e5c9878194f462bf7a46ca8a7b8f9d2}{FIFO\_\-STATUS}~0x17
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gae79cde384e0b6a5549efb001589a79ec}{DYNPD}~0x1C
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gadf81f7b30b6c08465ce704956b446a2d}{FEATURE}~0x1D
+\end{DoxyCompactItemize}
+\subsection*{CONFIG register bit definitions}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga5f30d66a7a448dc83fd695dbd3efbe31}{MASK\_\-RX\_\-DR}~6
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gad5f819a0030605463504bd2599579b4c}{MASK\_\-TX\_\-DS}~5
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga13e9f541027a36c23211d6c8f3b33a92}{MASK\_\-MAX\_\-RT}~4
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaece57618cf42f6b1b520341ef19a66f8}{EN\_\-CRC}~3
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga253dd73b17f0ea7f71e55f52e796836a}{CRCO}~2
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaf0dbd9e4c17ba0db357fcb2cedd4aa6d}{PWR\_\-UP}~1
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga0b4d92f3ecccb150d4cb1cb5d0f9d4e6}{PRIM\_\-RX}~0
+\end{DoxyCompactItemize}
+\subsection*{RF\_\-SETUP register bit definitions}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaf76cfc0d6ed71259b4a237cbd8e30624}{PLL\_\-LOCK}~4
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga1447bd35f38d6cc6d6841ca29c514675}{RF\_\-DR}~3
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga9ef8b6a9d788c905195674100af554f6}{RF\_\-PWR1}~2
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga79a624eaa04efc1df9e05fb77142e269}{RF\_\-PWR0}~1
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gad031c713aa7c96ca88a9710f25229495}{LNA\_\-HCURR}~0
+\end{DoxyCompactItemize}
+\subsection*{STATUS register bit definitions}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga312d1f2745a86149b27cff7d61e715df}{RX\_\-DR}~6
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gab5f5243908a39ffd514fe701e9749bdc}{TX\_\-DS}~5
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gab4482ead4f3b452a032f63ac03ee1870}{MAX\_\-RT}~4
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gaf3b1baf3a7a57b7471443d1ff002c778}{TX\_\-FULL}~0
+\end{DoxyCompactItemize}
+\subsection*{FIFO\_\-STATUS register bit definitions}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga506a58de7b75af27e3745db3e1e9733c}{TX\_\-REUSE}~6
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga22d7127287df037834795bbf984d7796}{TX\_\-FIFO\_\-FULL}~5
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_gae4034d6a21b6646c8710d09e43bd9383}{TX\_\-EMPTY}~4
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga70c7df60fd47492ea236dc14c1f9e216}{RX\_\-FULL}~1
+\item 
+\#define \hyperlink{group__nordic__hal__nrf__reg_ga8e43dfdec50b513f49b623e9da3def46}{RX\_\-EMPTY}~0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header file defining register mapping with bit definitions. This file is radio-\/chip dependent, and are included with the hal\_\-nrf.h 
+
+\subsection{Define Documentation}
+\hypertarget{group__nordic__hal__nrf__reg_ga1050140a3d78b059f809a424e0d9e1c7}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!CD@{CD}}
+\index{CD@{CD}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{CD}]{\setlength{\rightskip}{0pt plus 5cm}\#define CD~0x09}}
+\label{group__nordic__hal__nrf__reg_ga1050140a3d78b059f809a424e0d9e1c7}
+nRF24L01 carrier detect register \hypertarget{group__nordic__hal__nrf__reg_ga76ea3cf49247a07c54b3db005a3c7f57}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!CONFIG@{CONFIG}}
+\index{CONFIG@{CONFIG}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{CONFIG}]{\setlength{\rightskip}{0pt plus 5cm}\#define CONFIG~0x00}}
+\label{group__nordic__hal__nrf__reg_ga76ea3cf49247a07c54b3db005a3c7f57}
+nRF24L01 config register \hypertarget{group__nordic__hal__nrf__reg_ga253dd73b17f0ea7f71e55f52e796836a}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!CRCO@{CRCO}}
+\index{CRCO@{CRCO}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{CRCO}]{\setlength{\rightskip}{0pt plus 5cm}\#define CRCO~2}}
+\label{group__nordic__hal__nrf__reg_ga253dd73b17f0ea7f71e55f52e796836a}
+CONFIG register bit 2 \hypertarget{group__nordic__hal__nrf__reg_gacf457ec76fbdc9fe3a5d3eb3e9c5dca5}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!DPL\_\-P0@{DPL\_\-P0}}
+\index{DPL\_\-P0@{DPL\_\-P0}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{DPL\_\-P0}]{\setlength{\rightskip}{0pt plus 5cm}\#define DPL\_\-P0~0}}
+\label{group__nordic__hal__nrf__reg_gacf457ec76fbdc9fe3a5d3eb3e9c5dca5}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_gaae58d2c6834305858a405abaffd95049}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!DPL\_\-P1@{DPL\_\-P1}}
+\index{DPL\_\-P1@{DPL\_\-P1}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{DPL\_\-P1}]{\setlength{\rightskip}{0pt plus 5cm}\#define DPL\_\-P1~1}}
+\label{group__nordic__hal__nrf__reg_gaae58d2c6834305858a405abaffd95049}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_ga444b8f6d5091149c983f6fca29775a44}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!DPL\_\-P2@{DPL\_\-P2}}
+\index{DPL\_\-P2@{DPL\_\-P2}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{DPL\_\-P2}]{\setlength{\rightskip}{0pt plus 5cm}\#define DPL\_\-P2~2}}
+\label{group__nordic__hal__nrf__reg_ga444b8f6d5091149c983f6fca29775a44}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_gad855ab4dab05150b03716fea1fc8ddb6}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!DPL\_\-P3@{DPL\_\-P3}}
+\index{DPL\_\-P3@{DPL\_\-P3}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{DPL\_\-P3}]{\setlength{\rightskip}{0pt plus 5cm}\#define DPL\_\-P3~3}}
+\label{group__nordic__hal__nrf__reg_gad855ab4dab05150b03716fea1fc8ddb6}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_ga7fc41c509a5885a7199535d72f8223bf}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!DPL\_\-P4@{DPL\_\-P4}}
+\index{DPL\_\-P4@{DPL\_\-P4}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{DPL\_\-P4}]{\setlength{\rightskip}{0pt plus 5cm}\#define DPL\_\-P4~4}}
+\label{group__nordic__hal__nrf__reg_ga7fc41c509a5885a7199535d72f8223bf}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_ga8907dbd1fe9dfedbaf8824dbfcfd4f65}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!DPL\_\-P5@{DPL\_\-P5}}
+\index{DPL\_\-P5@{DPL\_\-P5}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{DPL\_\-P5}]{\setlength{\rightskip}{0pt plus 5cm}\#define DPL\_\-P5~5}}
+\label{group__nordic__hal__nrf__reg_ga8907dbd1fe9dfedbaf8824dbfcfd4f65}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_gae79cde384e0b6a5549efb001589a79ec}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!DYNPD@{DYNPD}}
+\index{DYNPD@{DYNPD}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{DYNPD}]{\setlength{\rightskip}{0pt plus 5cm}\#define DYNPD~0x1C}}
+\label{group__nordic__hal__nrf__reg_gae79cde384e0b6a5549efb001589a79ec}
+nRF24L01 Dynamic payload setup \hypertarget{group__nordic__hal__nrf__reg_gaa84a282351a2c9b83dd653df6ac59216}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!EN\_\-AA@{EN\_\-AA}}
+\index{EN\_\-AA@{EN\_\-AA}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{EN\_\-AA}]{\setlength{\rightskip}{0pt plus 5cm}\#define EN\_\-AA~0x01}}
+\label{group__nordic__hal__nrf__reg_gaa84a282351a2c9b83dd653df6ac59216}
+nRF24L01 enable Auto-\/Acknowledge register \hypertarget{group__nordic__hal__nrf__reg_ga1a275ad559fa85d8278f06052baab004}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!EN\_\-ACK\_\-PAY@{EN\_\-ACK\_\-PAY}}
+\index{EN\_\-ACK\_\-PAY@{EN\_\-ACK\_\-PAY}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{EN\_\-ACK\_\-PAY}]{\setlength{\rightskip}{0pt plus 5cm}\#define EN\_\-ACK\_\-PAY~1}}
+\label{group__nordic__hal__nrf__reg_ga1a275ad559fa85d8278f06052baab004}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_gaece57618cf42f6b1b520341ef19a66f8}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!EN\_\-CRC@{EN\_\-CRC}}
+\index{EN\_\-CRC@{EN\_\-CRC}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{EN\_\-CRC}]{\setlength{\rightskip}{0pt plus 5cm}\#define EN\_\-CRC~3}}
+\label{group__nordic__hal__nrf__reg_gaece57618cf42f6b1b520341ef19a66f8}
+CONFIG register bit 3 \hypertarget{group__nordic__hal__nrf__reg_ga1b46f8336bda068b0759f70cceec3b65}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!EN\_\-DPL@{EN\_\-DPL}}
+\index{EN\_\-DPL@{EN\_\-DPL}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{EN\_\-DPL}]{\setlength{\rightskip}{0pt plus 5cm}\#define EN\_\-DPL~2}}
+\label{group__nordic__hal__nrf__reg_ga1b46f8336bda068b0759f70cceec3b65}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_ga2c72793d172b16436d7e0c0d9491bdae}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!EN\_\-DYN\_\-ACK@{EN\_\-DYN\_\-ACK}}
+\index{EN\_\-DYN\_\-ACK@{EN\_\-DYN\_\-ACK}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{EN\_\-DYN\_\-ACK}]{\setlength{\rightskip}{0pt plus 5cm}\#define EN\_\-DYN\_\-ACK~0}}
+\label{group__nordic__hal__nrf__reg_ga2c72793d172b16436d7e0c0d9491bdae}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_gab6b2378ce9cab6ccafb6d30c774c5307}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!EN\_\-RXADDR@{EN\_\-RXADDR}}
+\index{EN\_\-RXADDR@{EN\_\-RXADDR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{EN\_\-RXADDR}]{\setlength{\rightskip}{0pt plus 5cm}\#define EN\_\-RXADDR~0x02}}
+\label{group__nordic__hal__nrf__reg_gab6b2378ce9cab6ccafb6d30c774c5307}
+nRF24L01 enable RX addresses register \hypertarget{group__nordic__hal__nrf__reg_ga2cb97a8f9d05bb511d45d7212174769d}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!ENAA\_\-P0@{ENAA\_\-P0}}
+\index{ENAA\_\-P0@{ENAA\_\-P0}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{ENAA\_\-P0}]{\setlength{\rightskip}{0pt plus 5cm}\#define ENAA\_\-P0~0}}
+\label{group__nordic__hal__nrf__reg_ga2cb97a8f9d05bb511d45d7212174769d}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_gadfa71d5ebb7107d673674bb10279d9c6}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!ENAA\_\-P1@{ENAA\_\-P1}}
+\index{ENAA\_\-P1@{ENAA\_\-P1}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{ENAA\_\-P1}]{\setlength{\rightskip}{0pt plus 5cm}\#define ENAA\_\-P1~1}}
+\label{group__nordic__hal__nrf__reg_gadfa71d5ebb7107d673674bb10279d9c6}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_ga8b3d7771adbc5bc2bd8846f00aa39a5a}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!ENAA\_\-P2@{ENAA\_\-P2}}
+\index{ENAA\_\-P2@{ENAA\_\-P2}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{ENAA\_\-P2}]{\setlength{\rightskip}{0pt plus 5cm}\#define ENAA\_\-P2~2}}
+\label{group__nordic__hal__nrf__reg_ga8b3d7771adbc5bc2bd8846f00aa39a5a}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_gaade4fe5e884e4f5868daf2c706d72f5e}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!ENAA\_\-P3@{ENAA\_\-P3}}
+\index{ENAA\_\-P3@{ENAA\_\-P3}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{ENAA\_\-P3}]{\setlength{\rightskip}{0pt plus 5cm}\#define ENAA\_\-P3~3}}
+\label{group__nordic__hal__nrf__reg_gaade4fe5e884e4f5868daf2c706d72f5e}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_ga3b5bebd442d3a0351e85100a69244810}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!ENAA\_\-P4@{ENAA\_\-P4}}
+\index{ENAA\_\-P4@{ENAA\_\-P4}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{ENAA\_\-P4}]{\setlength{\rightskip}{0pt plus 5cm}\#define ENAA\_\-P4~4}}
+\label{group__nordic__hal__nrf__reg_ga3b5bebd442d3a0351e85100a69244810}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_gae28c4601af8b2f85827386fe9a27f9fa}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!ENAA\_\-P5@{ENAA\_\-P5}}
+\index{ENAA\_\-P5@{ENAA\_\-P5}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{ENAA\_\-P5}]{\setlength{\rightskip}{0pt plus 5cm}\#define ENAA\_\-P5~5}}
+\label{group__nordic__hal__nrf__reg_gae28c4601af8b2f85827386fe9a27f9fa}
+dynamic payload enable \hypertarget{group__nordic__hal__nrf__reg_gadf81f7b30b6c08465ce704956b446a2d}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!FEATURE@{FEATURE}}
+\index{FEATURE@{FEATURE}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{FEATURE}]{\setlength{\rightskip}{0pt plus 5cm}\#define FEATURE~0x1D}}
+\label{group__nordic__hal__nrf__reg_gadf81f7b30b6c08465ce704956b446a2d}
+nRF24L01 Exclusive feature setup \hypertarget{group__nordic__hal__nrf__reg_ga9e5c9878194f462bf7a46ca8a7b8f9d2}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!FIFO\_\-STATUS@{FIFO\_\-STATUS}}
+\index{FIFO\_\-STATUS@{FIFO\_\-STATUS}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{FIFO\_\-STATUS}]{\setlength{\rightskip}{0pt plus 5cm}\#define FIFO\_\-STATUS~0x17}}
+\label{group__nordic__hal__nrf__reg_ga9e5c9878194f462bf7a46ca8a7b8f9d2}
+nRF24L01 FIFO status register \hypertarget{group__nordic__hal__nrf__reg_gab2418a6171d7f1eefd458927fdfe7057}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!FLUSH\_\-RX@{FLUSH\_\-RX}}
+\index{FLUSH\_\-RX@{FLUSH\_\-RX}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{FLUSH\_\-RX}]{\setlength{\rightskip}{0pt plus 5cm}\#define FLUSH\_\-RX~0xE2}}
+\label{group__nordic__hal__nrf__reg_gab2418a6171d7f1eefd458927fdfe7057}
+Flush RX register command \hypertarget{group__nordic__hal__nrf__reg_gabce47e8066832b6ac4e18162a79859b4}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!FLUSH\_\-TX@{FLUSH\_\-TX}}
+\index{FLUSH\_\-TX@{FLUSH\_\-TX}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{FLUSH\_\-TX}]{\setlength{\rightskip}{0pt plus 5cm}\#define FLUSH\_\-TX~0xE1}}
+\label{group__nordic__hal__nrf__reg_gabce47e8066832b6ac4e18162a79859b4}
+Flush TX register command \hypertarget{group__nordic__hal__nrf__reg_gad031c713aa7c96ca88a9710f25229495}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!LNA\_\-HCURR@{LNA\_\-HCURR}}
+\index{LNA\_\-HCURR@{LNA\_\-HCURR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{LNA\_\-HCURR}]{\setlength{\rightskip}{0pt plus 5cm}\#define LNA\_\-HCURR~0}}
+\label{group__nordic__hal__nrf__reg_gad031c713aa7c96ca88a9710f25229495}
+RF\_\-SETUP register bit 0 \hypertarget{group__nordic__hal__nrf__reg_gaa74c0e2b8dd2aa10ae94ccb3ae228e0f}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!LOCK\_\-UNLOCK@{LOCK\_\-UNLOCK}}
+\index{LOCK\_\-UNLOCK@{LOCK\_\-UNLOCK}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{LOCK\_\-UNLOCK}]{\setlength{\rightskip}{0pt plus 5cm}\#define LOCK\_\-UNLOCK~0x50}}
+\label{group__nordic__hal__nrf__reg_gaa74c0e2b8dd2aa10ae94ccb3ae228e0f}
+Lock/unlcok exclusive features \hypertarget{group__nordic__hal__nrf__reg_ga13e9f541027a36c23211d6c8f3b33a92}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!MASK\_\-MAX\_\-RT@{MASK\_\-MAX\_\-RT}}
+\index{MASK\_\-MAX\_\-RT@{MASK\_\-MAX\_\-RT}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{MASK\_\-MAX\_\-RT}]{\setlength{\rightskip}{0pt plus 5cm}\#define MASK\_\-MAX\_\-RT~4}}
+\label{group__nordic__hal__nrf__reg_ga13e9f541027a36c23211d6c8f3b33a92}
+CONFIG register bit 4 \hypertarget{group__nordic__hal__nrf__reg_ga5f30d66a7a448dc83fd695dbd3efbe31}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!MASK\_\-RX\_\-DR@{MASK\_\-RX\_\-DR}}
+\index{MASK\_\-RX\_\-DR@{MASK\_\-RX\_\-DR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{MASK\_\-RX\_\-DR}]{\setlength{\rightskip}{0pt plus 5cm}\#define MASK\_\-RX\_\-DR~6}}
+\label{group__nordic__hal__nrf__reg_ga5f30d66a7a448dc83fd695dbd3efbe31}
+CONFIG register bit 6 \hypertarget{group__nordic__hal__nrf__reg_gad5f819a0030605463504bd2599579b4c}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!MASK\_\-TX\_\-DS@{MASK\_\-TX\_\-DS}}
+\index{MASK\_\-TX\_\-DS@{MASK\_\-TX\_\-DS}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{MASK\_\-TX\_\-DS}]{\setlength{\rightskip}{0pt plus 5cm}\#define MASK\_\-TX\_\-DS~5}}
+\label{group__nordic__hal__nrf__reg_gad5f819a0030605463504bd2599579b4c}
+CONFIG register bit 5 \hypertarget{group__nordic__hal__nrf__reg_gab4482ead4f3b452a032f63ac03ee1870}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!MAX\_\-RT@{MAX\_\-RT}}
+\index{MAX\_\-RT@{MAX\_\-RT}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{MAX\_\-RT}]{\setlength{\rightskip}{0pt plus 5cm}\#define MAX\_\-RT~4}}
+\label{group__nordic__hal__nrf__reg_gab4482ead4f3b452a032f63ac03ee1870}
+STATUS register bit 4 \hypertarget{group__nordic__hal__nrf__reg_ga700f88377bf36711b711f69b06c52f5d}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!NOP@{NOP}}
+\index{NOP@{NOP}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{NOP}]{\setlength{\rightskip}{0pt plus 5cm}\#define NOP~0xFF}}
+\label{group__nordic__hal__nrf__reg_ga700f88377bf36711b711f69b06c52f5d}
+No Operation command, used for reading status register \hypertarget{group__nordic__hal__nrf__reg_ga491468eaa7f2db84c152709b0b5fb1aa}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!OBSERVE\_\-TX@{OBSERVE\_\-TX}}
+\index{OBSERVE\_\-TX@{OBSERVE\_\-TX}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{OBSERVE\_\-TX}]{\setlength{\rightskip}{0pt plus 5cm}\#define OBSERVE\_\-TX~0x08}}
+\label{group__nordic__hal__nrf__reg_ga491468eaa7f2db84c152709b0b5fb1aa}
+nRF24L01 transmit observe register \hypertarget{group__nordic__hal__nrf__reg_gaf76cfc0d6ed71259b4a237cbd8e30624}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!PLL\_\-LOCK@{PLL\_\-LOCK}}
+\index{PLL\_\-LOCK@{PLL\_\-LOCK}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{PLL\_\-LOCK}]{\setlength{\rightskip}{0pt plus 5cm}\#define PLL\_\-LOCK~4}}
+\label{group__nordic__hal__nrf__reg_gaf76cfc0d6ed71259b4a237cbd8e30624}
+RF\_\-SETUP register bit 4 \hypertarget{group__nordic__hal__nrf__reg_ga0b4d92f3ecccb150d4cb1cb5d0f9d4e6}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!PRIM\_\-RX@{PRIM\_\-RX}}
+\index{PRIM\_\-RX@{PRIM\_\-RX}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{PRIM\_\-RX}]{\setlength{\rightskip}{0pt plus 5cm}\#define PRIM\_\-RX~0}}
+\label{group__nordic__hal__nrf__reg_ga0b4d92f3ecccb150d4cb1cb5d0f9d4e6}
+CONFIG register bit 0 \hypertarget{group__nordic__hal__nrf__reg_gaf0dbd9e4c17ba0db357fcb2cedd4aa6d}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!PWR\_\-UP@{PWR\_\-UP}}
+\index{PWR\_\-UP@{PWR\_\-UP}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{PWR\_\-UP}]{\setlength{\rightskip}{0pt plus 5cm}\#define PWR\_\-UP~1}}
+\label{group__nordic__hal__nrf__reg_gaf0dbd9e4c17ba0db357fcb2cedd4aa6d}
+CONFIG register bit 1 \hypertarget{group__nordic__hal__nrf__reg_ga34e32f32935efe2d958ca16d48831009}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RD\_\-RX\_\-PLOAD@{RD\_\-RX\_\-PLOAD}}
+\index{RD\_\-RX\_\-PLOAD@{RD\_\-RX\_\-PLOAD}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RD\_\-RX\_\-PLOAD}]{\setlength{\rightskip}{0pt plus 5cm}\#define RD\_\-RX\_\-PLOAD~0x61}}
+\label{group__nordic__hal__nrf__reg_ga34e32f32935efe2d958ca16d48831009}
+Read RX payload command \hypertarget{group__nordic__hal__nrf__reg_ga68bca2b1429420aa46d2da0b2830e1b1}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RD\_\-RX\_\-PLOAD\_\-W@{RD\_\-RX\_\-PLOAD\_\-W}}
+\index{RD\_\-RX\_\-PLOAD\_\-W@{RD\_\-RX\_\-PLOAD\_\-W}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RD\_\-RX\_\-PLOAD\_\-W}]{\setlength{\rightskip}{0pt plus 5cm}\#define RD\_\-RX\_\-PLOAD\_\-W~0x60}}
+\label{group__nordic__hal__nrf__reg_ga68bca2b1429420aa46d2da0b2830e1b1}
+Read RX payload command \hypertarget{group__nordic__hal__nrf__reg_ga2f1d9bb858232e8b1494b60aa9a7d25a}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!REUSE\_\-TX\_\-PL@{REUSE\_\-TX\_\-PL}}
+\index{REUSE\_\-TX\_\-PL@{REUSE\_\-TX\_\-PL}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{REUSE\_\-TX\_\-PL}]{\setlength{\rightskip}{0pt plus 5cm}\#define REUSE\_\-TX\_\-PL~0xE3}}
+\label{group__nordic__hal__nrf__reg_ga2f1d9bb858232e8b1494b60aa9a7d25a}
+Reuse TX payload command \hypertarget{group__nordic__hal__nrf__reg_ga5c4da84e4a01531aa9f5c3e617848d66}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RF\_\-CH@{RF\_\-CH}}
+\index{RF\_\-CH@{RF\_\-CH}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RF\_\-CH}]{\setlength{\rightskip}{0pt plus 5cm}\#define RF\_\-CH~0x05}}
+\label{group__nordic__hal__nrf__reg_ga5c4da84e4a01531aa9f5c3e617848d66}
+nRF24L01 RF channel register \hypertarget{group__nordic__hal__nrf__reg_ga1447bd35f38d6cc6d6841ca29c514675}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RF\_\-DR@{RF\_\-DR}}
+\index{RF\_\-DR@{RF\_\-DR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RF\_\-DR}]{\setlength{\rightskip}{0pt plus 5cm}\#define RF\_\-DR~3}}
+\label{group__nordic__hal__nrf__reg_ga1447bd35f38d6cc6d6841ca29c514675}
+RF\_\-SETUP register bit 3 \hypertarget{group__nordic__hal__nrf__reg_ga79a624eaa04efc1df9e05fb77142e269}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RF\_\-PWR0@{RF\_\-PWR0}}
+\index{RF\_\-PWR0@{RF\_\-PWR0}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RF\_\-PWR0}]{\setlength{\rightskip}{0pt plus 5cm}\#define RF\_\-PWR0~1}}
+\label{group__nordic__hal__nrf__reg_ga79a624eaa04efc1df9e05fb77142e269}
+RF\_\-SETUP register bit 1 \hypertarget{group__nordic__hal__nrf__reg_ga9ef8b6a9d788c905195674100af554f6}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RF\_\-PWR1@{RF\_\-PWR1}}
+\index{RF\_\-PWR1@{RF\_\-PWR1}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RF\_\-PWR1}]{\setlength{\rightskip}{0pt plus 5cm}\#define RF\_\-PWR1~2}}
+\label{group__nordic__hal__nrf__reg_ga9ef8b6a9d788c905195674100af554f6}
+RF\_\-SETUP register bit 2 \hypertarget{group__nordic__hal__nrf__reg_gad95edb7665f39454d7d7fd436301712b}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RF\_\-SETUP@{RF\_\-SETUP}}
+\index{RF\_\-SETUP@{RF\_\-SETUP}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RF\_\-SETUP}]{\setlength{\rightskip}{0pt plus 5cm}\#define RF\_\-SETUP~0x06}}
+\label{group__nordic__hal__nrf__reg_gad95edb7665f39454d7d7fd436301712b}
+nRF24L01 RF setup register \hypertarget{group__nordic__hal__nrf__reg_gadc82a1b0dee303d8b783b9b9a89ae5aa}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-ADDR\_\-P0@{RX\_\-ADDR\_\-P0}}
+\index{RX\_\-ADDR\_\-P0@{RX\_\-ADDR\_\-P0}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-ADDR\_\-P0}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-ADDR\_\-P0~0x0A}}
+\label{group__nordic__hal__nrf__reg_gadc82a1b0dee303d8b783b9b9a89ae5aa}
+nRF24L01 receive address data pipe0 \hypertarget{group__nordic__hal__nrf__reg_gad4b44f18e4b27b07af84783d8f11726d}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-ADDR\_\-P1@{RX\_\-ADDR\_\-P1}}
+\index{RX\_\-ADDR\_\-P1@{RX\_\-ADDR\_\-P1}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-ADDR\_\-P1}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-ADDR\_\-P1~0x0B}}
+\label{group__nordic__hal__nrf__reg_gad4b44f18e4b27b07af84783d8f11726d}
+nRF24L01 receive address data pipe1 \hypertarget{group__nordic__hal__nrf__reg_gac10ad4b1d3ace06cc269098d1863f411}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-ADDR\_\-P2@{RX\_\-ADDR\_\-P2}}
+\index{RX\_\-ADDR\_\-P2@{RX\_\-ADDR\_\-P2}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-ADDR\_\-P2}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-ADDR\_\-P2~0x0C}}
+\label{group__nordic__hal__nrf__reg_gac10ad4b1d3ace06cc269098d1863f411}
+nRF24L01 receive address data pipe2 \hypertarget{group__nordic__hal__nrf__reg_ga01228e7b997954bc9d715c8289731181}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-ADDR\_\-P3@{RX\_\-ADDR\_\-P3}}
+\index{RX\_\-ADDR\_\-P3@{RX\_\-ADDR\_\-P3}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-ADDR\_\-P3}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-ADDR\_\-P3~0x0D}}
+\label{group__nordic__hal__nrf__reg_ga01228e7b997954bc9d715c8289731181}
+nRF24L01 receive address data pipe3 \hypertarget{group__nordic__hal__nrf__reg_gafc579afe21136cd3f72b3ac805086726}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-ADDR\_\-P4@{RX\_\-ADDR\_\-P4}}
+\index{RX\_\-ADDR\_\-P4@{RX\_\-ADDR\_\-P4}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-ADDR\_\-P4}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-ADDR\_\-P4~0x0E}}
+\label{group__nordic__hal__nrf__reg_gafc579afe21136cd3f72b3ac805086726}
+nRF24L01 receive address data pipe4 \hypertarget{group__nordic__hal__nrf__reg_ga49dfc07335896551e8c7797594658b07}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-ADDR\_\-P5@{RX\_\-ADDR\_\-P5}}
+\index{RX\_\-ADDR\_\-P5@{RX\_\-ADDR\_\-P5}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-ADDR\_\-P5}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-ADDR\_\-P5~0x0F}}
+\label{group__nordic__hal__nrf__reg_ga49dfc07335896551e8c7797594658b07}
+nRF24L01 receive address data pipe5 \hypertarget{group__nordic__hal__nrf__reg_ga312d1f2745a86149b27cff7d61e715df}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-DR@{RX\_\-DR}}
+\index{RX\_\-DR@{RX\_\-DR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-DR}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-DR~6}}
+\label{group__nordic__hal__nrf__reg_ga312d1f2745a86149b27cff7d61e715df}
+STATUS register bit 6 \hypertarget{group__nordic__hal__nrf__reg_ga8e43dfdec50b513f49b623e9da3def46}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-EMPTY@{RX\_\-EMPTY}}
+\index{RX\_\-EMPTY@{RX\_\-EMPTY}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-EMPTY}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-EMPTY~0}}
+\label{group__nordic__hal__nrf__reg_ga8e43dfdec50b513f49b623e9da3def46}
+FIFO\_\-STATUS register bit 0 \hypertarget{group__nordic__hal__nrf__reg_ga70c7df60fd47492ea236dc14c1f9e216}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-FULL@{RX\_\-FULL}}
+\index{RX\_\-FULL@{RX\_\-FULL}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-FULL}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-FULL~1}}
+\label{group__nordic__hal__nrf__reg_ga70c7df60fd47492ea236dc14c1f9e216}
+FIFO\_\-STATUS register bit 1 \hypertarget{group__nordic__hal__nrf__reg_ga060e61d8f6e7ad28984540faa85cdecf}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-PW\_\-P0@{RX\_\-PW\_\-P0}}
+\index{RX\_\-PW\_\-P0@{RX\_\-PW\_\-P0}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-PW\_\-P0}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-PW\_\-P0~0x11}}
+\label{group__nordic__hal__nrf__reg_ga060e61d8f6e7ad28984540faa85cdecf}
+nRF24L01 \# of bytes in rx payload for pipe0 \hypertarget{group__nordic__hal__nrf__reg_gaa260ec97512905cec17f8ade82bc550d}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-PW\_\-P1@{RX\_\-PW\_\-P1}}
+\index{RX\_\-PW\_\-P1@{RX\_\-PW\_\-P1}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-PW\_\-P1}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-PW\_\-P1~0x12}}
+\label{group__nordic__hal__nrf__reg_gaa260ec97512905cec17f8ade82bc550d}
+nRF24L01 \# of bytes in rx payload for pipe1 \hypertarget{group__nordic__hal__nrf__reg_ga38a4904a52517c8d339c689230a6567d}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-PW\_\-P2@{RX\_\-PW\_\-P2}}
+\index{RX\_\-PW\_\-P2@{RX\_\-PW\_\-P2}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-PW\_\-P2}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-PW\_\-P2~0x13}}
+\label{group__nordic__hal__nrf__reg_ga38a4904a52517c8d339c689230a6567d}
+nRF24L01 \# of bytes in rx payload for pipe2 \hypertarget{group__nordic__hal__nrf__reg_ga44bdf6946c1ae047ea2a2c981244d4d8}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-PW\_\-P3@{RX\_\-PW\_\-P3}}
+\index{RX\_\-PW\_\-P3@{RX\_\-PW\_\-P3}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-PW\_\-P3}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-PW\_\-P3~0x14}}
+\label{group__nordic__hal__nrf__reg_ga44bdf6946c1ae047ea2a2c981244d4d8}
+nRF24L01 \# of bytes in rx payload for pipe3 \hypertarget{group__nordic__hal__nrf__reg_ga5cdda00ab52df1537b6b5d61ef88ba8f}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-PW\_\-P4@{RX\_\-PW\_\-P4}}
+\index{RX\_\-PW\_\-P4@{RX\_\-PW\_\-P4}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-PW\_\-P4}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-PW\_\-P4~0x15}}
+\label{group__nordic__hal__nrf__reg_ga5cdda00ab52df1537b6b5d61ef88ba8f}
+nRF24L01 \# of bytes in rx payload for pipe4 \hypertarget{group__nordic__hal__nrf__reg_ga9ce52902779e18d4fed3685b0f8be582}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!RX\_\-PW\_\-P5@{RX\_\-PW\_\-P5}}
+\index{RX\_\-PW\_\-P5@{RX\_\-PW\_\-P5}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{RX\_\-PW\_\-P5}]{\setlength{\rightskip}{0pt plus 5cm}\#define RX\_\-PW\_\-P5~0x16}}
+\label{group__nordic__hal__nrf__reg_ga9ce52902779e18d4fed3685b0f8be582}
+nRF24L01 \# of bytes in rx payload for pipe5 \hypertarget{group__nordic__hal__nrf__reg_gaf5ef355ba3eca336db1285cab353ddc2}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!SETUP\_\-AW@{SETUP\_\-AW}}
+\index{SETUP\_\-AW@{SETUP\_\-AW}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{SETUP\_\-AW}]{\setlength{\rightskip}{0pt plus 5cm}\#define SETUP\_\-AW~0x03}}
+\label{group__nordic__hal__nrf__reg_gaf5ef355ba3eca336db1285cab353ddc2}
+nRF24L01 setup of address width register \hypertarget{group__nordic__hal__nrf__reg_ga2188309b3eceeae158dd64109cd919aa}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!SETUP\_\-RETR@{SETUP\_\-RETR}}
+\index{SETUP\_\-RETR@{SETUP\_\-RETR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{SETUP\_\-RETR}]{\setlength{\rightskip}{0pt plus 5cm}\#define SETUP\_\-RETR~0x04}}
+\label{group__nordic__hal__nrf__reg_ga2188309b3eceeae158dd64109cd919aa}
+nRF24L01 setup of automatic retransmission register \hypertarget{group__nordic__hal__nrf__reg_ga59279bee44f34d08b3cbf3a89fb0d8d9}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!STATUS@{STATUS}}
+\index{STATUS@{STATUS}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{STATUS}]{\setlength{\rightskip}{0pt plus 5cm}\#define STATUS~0x07}}
+\label{group__nordic__hal__nrf__reg_ga59279bee44f34d08b3cbf3a89fb0d8d9}
+nRF24L01 status register \hypertarget{group__nordic__hal__nrf__reg_gaa734c6e08b9f794436eacbabe466a6c4}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!TX\_\-ADDR@{TX\_\-ADDR}}
+\index{TX\_\-ADDR@{TX\_\-ADDR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{TX\_\-ADDR}]{\setlength{\rightskip}{0pt plus 5cm}\#define TX\_\-ADDR~0x10}}
+\label{group__nordic__hal__nrf__reg_gaa734c6e08b9f794436eacbabe466a6c4}
+nRF24L01 transmit address \hypertarget{group__nordic__hal__nrf__reg_gab5f5243908a39ffd514fe701e9749bdc}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!TX\_\-DS@{TX\_\-DS}}
+\index{TX\_\-DS@{TX\_\-DS}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{TX\_\-DS}]{\setlength{\rightskip}{0pt plus 5cm}\#define TX\_\-DS~5}}
+\label{group__nordic__hal__nrf__reg_gab5f5243908a39ffd514fe701e9749bdc}
+STATUS register bit 5 \hypertarget{group__nordic__hal__nrf__reg_gae4034d6a21b6646c8710d09e43bd9383}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!TX\_\-EMPTY@{TX\_\-EMPTY}}
+\index{TX\_\-EMPTY@{TX\_\-EMPTY}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{TX\_\-EMPTY}]{\setlength{\rightskip}{0pt plus 5cm}\#define TX\_\-EMPTY~4}}
+\label{group__nordic__hal__nrf__reg_gae4034d6a21b6646c8710d09e43bd9383}
+FIFO\_\-STATUS register bit 4 \hypertarget{group__nordic__hal__nrf__reg_ga22d7127287df037834795bbf984d7796}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!TX\_\-FIFO\_\-FULL@{TX\_\-FIFO\_\-FULL}}
+\index{TX\_\-FIFO\_\-FULL@{TX\_\-FIFO\_\-FULL}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{TX\_\-FIFO\_\-FULL}]{\setlength{\rightskip}{0pt plus 5cm}\#define TX\_\-FIFO\_\-FULL~5}}
+\label{group__nordic__hal__nrf__reg_ga22d7127287df037834795bbf984d7796}
+FIFO\_\-STATUS register bit 5 \hypertarget{group__nordic__hal__nrf__reg_gaf3b1baf3a7a57b7471443d1ff002c778}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!TX\_\-FULL@{TX\_\-FULL}}
+\index{TX\_\-FULL@{TX\_\-FULL}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{TX\_\-FULL}]{\setlength{\rightskip}{0pt plus 5cm}\#define TX\_\-FULL~0}}
+\label{group__nordic__hal__nrf__reg_gaf3b1baf3a7a57b7471443d1ff002c778}
+STATUS register bit 0 \hypertarget{group__nordic__hal__nrf__reg_ga506a58de7b75af27e3745db3e1e9733c}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!TX\_\-REUSE@{TX\_\-REUSE}}
+\index{TX\_\-REUSE@{TX\_\-REUSE}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{TX\_\-REUSE}]{\setlength{\rightskip}{0pt plus 5cm}\#define TX\_\-REUSE~6}}
+\label{group__nordic__hal__nrf__reg_ga506a58de7b75af27e3745db3e1e9733c}
+FIFO\_\-STATUS register bit 6 \hypertarget{group__nordic__hal__nrf__reg_ga07b82f8a30b55b02b77c87d6d4953f6d}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!WR\_\-ACK\_\-PLOAD@{WR\_\-ACK\_\-PLOAD}}
+\index{WR\_\-ACK\_\-PLOAD@{WR\_\-ACK\_\-PLOAD}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{WR\_\-ACK\_\-PLOAD}]{\setlength{\rightskip}{0pt plus 5cm}\#define WR\_\-ACK\_\-PLOAD~0xA8}}
+\label{group__nordic__hal__nrf__reg_ga07b82f8a30b55b02b77c87d6d4953f6d}
+Write ACK payload command \hypertarget{group__nordic__hal__nrf__reg_ga475a03dfa6b8358e02ac25c1bc8a5de7}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!WR\_\-NAC\_\-TX\_\-PLOAD@{WR\_\-NAC\_\-TX\_\-PLOAD}}
+\index{WR\_\-NAC\_\-TX\_\-PLOAD@{WR\_\-NAC\_\-TX\_\-PLOAD}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{WR\_\-NAC\_\-TX\_\-PLOAD}]{\setlength{\rightskip}{0pt plus 5cm}\#define WR\_\-NAC\_\-TX\_\-PLOAD~0xB0}}
+\label{group__nordic__hal__nrf__reg_ga475a03dfa6b8358e02ac25c1bc8a5de7}
+Write ACK payload command \hypertarget{group__nordic__hal__nrf__reg_ga97a60093aef6135e38bd0bd91cd40428}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!WR\_\-TX\_\-PLOAD@{WR\_\-TX\_\-PLOAD}}
+\index{WR\_\-TX\_\-PLOAD@{WR\_\-TX\_\-PLOAD}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{WR\_\-TX\_\-PLOAD}]{\setlength{\rightskip}{0pt plus 5cm}\#define WR\_\-TX\_\-PLOAD~0xA0}}
+\label{group__nordic__hal__nrf__reg_ga97a60093aef6135e38bd0bd91cd40428}
+Write TX payload command \hypertarget{group__nordic__hal__nrf__reg_gab4589895853859c8ae1e26287efa3c1d}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!WRITE\_\-REG@{WRITE\_\-REG}}
+\index{WRITE\_\-REG@{WRITE\_\-REG}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{WRITE\_\-REG}]{\setlength{\rightskip}{0pt plus 5cm}\#define WRITE\_\-REG~0x20}}
+\label{group__nordic__hal__nrf__reg_gab4589895853859c8ae1e26287efa3c1d}
+Register write command 
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{group__nordic__hal__nrf__reg_ga321d8cfbce9e410a49afac1f04cc2457}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-address\_\-t@{hal\_\-nrf\_\-address\_\-t}}
+\index{hal\_\-nrf\_\-address\_\-t@{hal\_\-nrf\_\-address\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-address\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-address\_\-t}}}
+\label{group__nordic__hal__nrf__reg_ga321d8cfbce9e410a49afac1f04cc2457}
+Structure containing the radio's address map. Pipe0 contains 5 unique address bytes, while pipe\mbox{[}1..5\mbox{]} share the 4 MSB bytes, set in pipe1. 
+
+{\bfseries  -\/ Remember that the LSB byte for all pipes have to be unique! -\/} An enum describing the nRF24L01 pipe addresses and TX address. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-PIPE0@{HAL\_\-NRF\_\-PIPE0}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PIPE0@{HAL\_\-NRF\_\-PIPE0}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457aff2c3b92b44bbde577fd29a618fe9ffa}{
+HAL\_\-NRF\_\-PIPE0}
+\label{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457aff2c3b92b44bbde577fd29a618fe9ffa}
+}]Select pipe0 \index{HAL\_\-NRF\_\-PIPE1@{HAL\_\-NRF\_\-PIPE1}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PIPE1@{HAL\_\-NRF\_\-PIPE1}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a40354d0d5e9b2c8e9dc8c6817f838f5d}{
+HAL\_\-NRF\_\-PIPE1}
+\label{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a40354d0d5e9b2c8e9dc8c6817f838f5d}
+}]Select pipe1 \index{HAL\_\-NRF\_\-PIPE2@{HAL\_\-NRF\_\-PIPE2}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PIPE2@{HAL\_\-NRF\_\-PIPE2}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457ae484cef9b5604e89ccb885e3ad85b2c7}{
+HAL\_\-NRF\_\-PIPE2}
+\label{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457ae484cef9b5604e89ccb885e3ad85b2c7}
+}]Select pipe2 \index{HAL\_\-NRF\_\-PIPE3@{HAL\_\-NRF\_\-PIPE3}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PIPE3@{HAL\_\-NRF\_\-PIPE3}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a14f59c552adf1f7a91db52bb8d19bfab}{
+HAL\_\-NRF\_\-PIPE3}
+\label{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a14f59c552adf1f7a91db52bb8d19bfab}
+}]Select pipe3 \index{HAL\_\-NRF\_\-PIPE4@{HAL\_\-NRF\_\-PIPE4}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PIPE4@{HAL\_\-NRF\_\-PIPE4}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a2beff936c19285d52e99ea13b1e1fd00}{
+HAL\_\-NRF\_\-PIPE4}
+\label{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a2beff936c19285d52e99ea13b1e1fd00}
+}]Select pipe4 \index{HAL\_\-NRF\_\-PIPE5@{HAL\_\-NRF\_\-PIPE5}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PIPE5@{HAL\_\-NRF\_\-PIPE5}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a8d5b68ebf5dd5ee73e6904b482721810}{
+HAL\_\-NRF\_\-PIPE5}
+\label{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457a8d5b68ebf5dd5ee73e6904b482721810}
+}]Select pipe5 \index{HAL\_\-NRF\_\-TX@{HAL\_\-NRF\_\-TX}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-TX@{HAL\_\-NRF\_\-TX}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457ad80231cd7604958d83ebd1ffd9d38d0c}{
+HAL\_\-NRF\_\-TX}
+\label{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457ad80231cd7604958d83ebd1ffd9d38d0c}
+}]Refer to TX address \index{HAL\_\-NRF\_\-ALL@{HAL\_\-NRF\_\-ALL}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-ALL@{HAL\_\-NRF\_\-ALL}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457adb4ce66b5609fc0df7e3b53d3b55fd8e}{
+HAL\_\-NRF\_\-ALL}
+\label{group__nordic__hal__nrf__reg_gga321d8cfbce9e410a49afac1f04cc2457adb4ce66b5609fc0df7e3b53d3b55fd8e}
+}]Close or open all pipes \begin{DoxySeeAlso}{See also}
+hal\_\-nrf\_\-set\_\-address 
+
+hal\_\-nrf\_\-get\_\-address 
+
+hal\_\-nrf\_\-open\_\-pipe 
+
+hal\_\-nrf\_\-close\_\-pipe 
+\end{DoxySeeAlso}
+\end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_ga9f42a9a295b0802dd10d7f23c3526832}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-address\_\-width\_\-t@{hal\_\-nrf\_\-address\_\-width\_\-t}}
+\index{hal\_\-nrf\_\-address\_\-width\_\-t@{hal\_\-nrf\_\-address\_\-width\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-address\_\-width\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-address\_\-width\_\-t}}}
+\label{group__nordic__hal__nrf__reg_ga9f42a9a295b0802dd10d7f23c3526832}
+An enum describing the radio's address width. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-AW\_\-3BYTES@{HAL\_\-NRF\_\-AW\_\-3BYTES}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-AW\_\-3BYTES@{HAL\_\-NRF\_\-AW\_\-3BYTES}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga9f42a9a295b0802dd10d7f23c3526832a7d7a5af6b099215e0143a79b22c784c3}{
+HAL\_\-NRF\_\-AW\_\-3BYTES}
+\label{group__nordic__hal__nrf__reg_gga9f42a9a295b0802dd10d7f23c3526832a7d7a5af6b099215e0143a79b22c784c3}
+}]Set address width to 3 bytes \index{HAL\_\-NRF\_\-AW\_\-4BYTES@{HAL\_\-NRF\_\-AW\_\-4BYTES}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-AW\_\-4BYTES@{HAL\_\-NRF\_\-AW\_\-4BYTES}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga9f42a9a295b0802dd10d7f23c3526832ace672bf3d671125616b31526a22da284}{
+HAL\_\-NRF\_\-AW\_\-4BYTES}
+\label{group__nordic__hal__nrf__reg_gga9f42a9a295b0802dd10d7f23c3526832ace672bf3d671125616b31526a22da284}
+}]Set address width to 4 bytes \index{HAL\_\-NRF\_\-AW\_\-5BYTES@{HAL\_\-NRF\_\-AW\_\-5BYTES}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-AW\_\-5BYTES@{HAL\_\-NRF\_\-AW\_\-5BYTES}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga9f42a9a295b0802dd10d7f23c3526832ae3c0a8956cfc5fb3b5a435c3961c8dad}{
+HAL\_\-NRF\_\-AW\_\-5BYTES}
+\label{group__nordic__hal__nrf__reg_gga9f42a9a295b0802dd10d7f23c3526832ae3c0a8956cfc5fb3b5a435c3961c8dad}
+}]Set address width to 5 bytes \end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_gacd3a5ef5248a2c075567e7f5d3d3a8e4}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-crc\_\-mode\_\-t@{hal\_\-nrf\_\-crc\_\-mode\_\-t}}
+\index{hal\_\-nrf\_\-crc\_\-mode\_\-t@{hal\_\-nrf\_\-crc\_\-mode\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-crc\_\-mode\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-crc\_\-mode\_\-t}}}
+\label{group__nordic__hal__nrf__reg_gacd3a5ef5248a2c075567e7f5d3d3a8e4}
+An enum describing the radio's CRC mode. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-CRC\_\-OFF@{HAL\_\-NRF\_\-CRC\_\-OFF}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-CRC\_\-OFF@{HAL\_\-NRF\_\-CRC\_\-OFF}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggacd3a5ef5248a2c075567e7f5d3d3a8e4aa19a031caf125dd05c0ed7346429df12}{
+HAL\_\-NRF\_\-CRC\_\-OFF}
+\label{group__nordic__hal__nrf__reg_ggacd3a5ef5248a2c075567e7f5d3d3a8e4aa19a031caf125dd05c0ed7346429df12}
+}]CRC check disabled \index{HAL\_\-NRF\_\-CRC\_\-8BIT@{HAL\_\-NRF\_\-CRC\_\-8BIT}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-CRC\_\-8BIT@{HAL\_\-NRF\_\-CRC\_\-8BIT}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggacd3a5ef5248a2c075567e7f5d3d3a8e4a0b5ae051046cd14767f46a7917e756dc}{
+HAL\_\-NRF\_\-CRC\_\-8BIT}
+\label{group__nordic__hal__nrf__reg_ggacd3a5ef5248a2c075567e7f5d3d3a8e4a0b5ae051046cd14767f46a7917e756dc}
+}]CRC check set to 8-\/bit \index{HAL\_\-NRF\_\-CRC\_\-16BIT@{HAL\_\-NRF\_\-CRC\_\-16BIT}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-CRC\_\-16BIT@{HAL\_\-NRF\_\-CRC\_\-16BIT}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggacd3a5ef5248a2c075567e7f5d3d3a8e4a08f615321c73062499512d418ef90722}{
+HAL\_\-NRF\_\-CRC\_\-16BIT}
+\label{group__nordic__hal__nrf__reg_ggacd3a5ef5248a2c075567e7f5d3d3a8e4a08f615321c73062499512d418ef90722}
+}]CRC check set to 16-\/bit \end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_ga9539d7b988ef5ca3c6da9b89aca8b990}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-datarate\_\-t@{hal\_\-nrf\_\-datarate\_\-t}}
+\index{hal\_\-nrf\_\-datarate\_\-t@{hal\_\-nrf\_\-datarate\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-datarate\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-datarate\_\-t}}}
+\label{group__nordic__hal__nrf__reg_ga9539d7b988ef5ca3c6da9b89aca8b990}
+An enum describing the radio's on-\/air datarate. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-1MBPS@{HAL\_\-NRF\_\-1MBPS}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-1MBPS@{HAL\_\-NRF\_\-1MBPS}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga9539d7b988ef5ca3c6da9b89aca8b990ad277f1911cc257a3bf4899d31c94ded5}{
+HAL\_\-NRF\_\-1MBPS}
+\label{group__nordic__hal__nrf__reg_gga9539d7b988ef5ca3c6da9b89aca8b990ad277f1911cc257a3bf4899d31c94ded5}
+}]Datarate set to 1 Mbps \index{HAL\_\-NRF\_\-2MBPS@{HAL\_\-NRF\_\-2MBPS}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-2MBPS@{HAL\_\-NRF\_\-2MBPS}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga9539d7b988ef5ca3c6da9b89aca8b990a33d1afa4a93294924050247a78a2b88b}{
+HAL\_\-NRF\_\-2MBPS}
+\label{group__nordic__hal__nrf__reg_gga9539d7b988ef5ca3c6da9b89aca8b990a33d1afa4a93294924050247a78a2b88b}
+}]Datarate set to 2 Mbps \end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_gaa2d537ba7b4d86ca3ab52a0aca1cc9a1}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-irq\_\-source\_\-t@{hal\_\-nrf\_\-irq\_\-source\_\-t}}
+\index{hal\_\-nrf\_\-irq\_\-source\_\-t@{hal\_\-nrf\_\-irq\_\-source\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-irq\_\-source\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-irq\_\-source\_\-t}}}
+\label{group__nordic__hal__nrf__reg_gaa2d537ba7b4d86ca3ab52a0aca1cc9a1}
+An enum describing the radio's irq sources. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-MAX\_\-RT@{HAL\_\-NRF\_\-MAX\_\-RT}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-MAX\_\-RT@{HAL\_\-NRF\_\-MAX\_\-RT}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggaa2d537ba7b4d86ca3ab52a0aca1cc9a1aa6896fafeb605b56283f2261636cc340}{
+HAL\_\-NRF\_\-MAX\_\-RT}
+\label{group__nordic__hal__nrf__reg_ggaa2d537ba7b4d86ca3ab52a0aca1cc9a1aa6896fafeb605b56283f2261636cc340}
+}]Max retries interrupt \index{HAL\_\-NRF\_\-TX\_\-DS@{HAL\_\-NRF\_\-TX\_\-DS}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-TX\_\-DS@{HAL\_\-NRF\_\-TX\_\-DS}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggaa2d537ba7b4d86ca3ab52a0aca1cc9a1a3dc14a23b4cddfc53419a37def01671f}{
+HAL\_\-NRF\_\-TX\_\-DS}
+\label{group__nordic__hal__nrf__reg_ggaa2d537ba7b4d86ca3ab52a0aca1cc9a1a3dc14a23b4cddfc53419a37def01671f}
+}]TX data sent interrupt \index{HAL\_\-NRF\_\-RX\_\-DR@{HAL\_\-NRF\_\-RX\_\-DR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-RX\_\-DR@{HAL\_\-NRF\_\-RX\_\-DR}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggaa2d537ba7b4d86ca3ab52a0aca1cc9a1a4b83e3395cc7a414e2df17d71a19826b}{
+HAL\_\-NRF\_\-RX\_\-DR}
+\label{group__nordic__hal__nrf__reg_ggaa2d537ba7b4d86ca3ab52a0aca1cc9a1a4b83e3395cc7a414e2df17d71a19826b}
+}]RX data received interrupt \end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_gad1044c81af859b8c271bc274a5618161}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-lna\_\-mode\_\-t@{hal\_\-nrf\_\-lna\_\-mode\_\-t}}
+\index{hal\_\-nrf\_\-lna\_\-mode\_\-t@{hal\_\-nrf\_\-lna\_\-mode\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-lna\_\-mode\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-lna\_\-mode\_\-t}}}
+\label{group__nordic__hal__nrf__reg_gad1044c81af859b8c271bc274a5618161}
+An enum describing the radio's LNA mode. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-LNA\_\-LCURR@{HAL\_\-NRF\_\-LNA\_\-LCURR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-LNA\_\-LCURR@{HAL\_\-NRF\_\-LNA\_\-LCURR}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggad1044c81af859b8c271bc274a5618161a7f021d77caa1dcbf306b0933e3a8936d}{
+HAL\_\-NRF\_\-LNA\_\-LCURR}
+\label{group__nordic__hal__nrf__reg_ggad1044c81af859b8c271bc274a5618161a7f021d77caa1dcbf306b0933e3a8936d}
+}]LNA set to low current mode \index{HAL\_\-NRF\_\-LNA\_\-HCURR@{HAL\_\-NRF\_\-LNA\_\-HCURR}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-LNA\_\-HCURR@{HAL\_\-NRF\_\-LNA\_\-HCURR}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggad1044c81af859b8c271bc274a5618161a22b96b249f68ad52df212557b6830066}{
+HAL\_\-NRF\_\-LNA\_\-HCURR}
+\label{group__nordic__hal__nrf__reg_ggad1044c81af859b8c271bc274a5618161a22b96b249f68ad52df212557b6830066}
+}]LNA set to high current mode \end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_gaac8ec16de20f3ffe4d563f889cb0f202}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-operation\_\-mode\_\-t@{hal\_\-nrf\_\-operation\_\-mode\_\-t}}
+\index{hal\_\-nrf\_\-operation\_\-mode\_\-t@{hal\_\-nrf\_\-operation\_\-mode\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-operation\_\-mode\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-operation\_\-mode\_\-t}}}
+\label{group__nordic__hal__nrf__reg_gaac8ec16de20f3ffe4d563f889cb0f202}
+An enum describing the radio's power mode. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-PTX@{HAL\_\-NRF\_\-PTX}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PTX@{HAL\_\-NRF\_\-PTX}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggaac8ec16de20f3ffe4d563f889cb0f202a782379d779ef55b3a3146b87ac17106a}{
+HAL\_\-NRF\_\-PTX}
+\label{group__nordic__hal__nrf__reg_ggaac8ec16de20f3ffe4d563f889cb0f202a782379d779ef55b3a3146b87ac17106a}
+}]Primary TX operation \index{HAL\_\-NRF\_\-PRX@{HAL\_\-NRF\_\-PRX}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PRX@{HAL\_\-NRF\_\-PRX}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggaac8ec16de20f3ffe4d563f889cb0f202aed997ff3cc0ecf51b0c37ea120342193}{
+HAL\_\-NRF\_\-PRX}
+\label{group__nordic__hal__nrf__reg_ggaac8ec16de20f3ffe4d563f889cb0f202aed997ff3cc0ecf51b0c37ea120342193}
+}]Primary RX operation \end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_ga2000e3a3aa7de8d98d4820639b39d6e7}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-output\_\-power\_\-t@{hal\_\-nrf\_\-output\_\-power\_\-t}}
+\index{hal\_\-nrf\_\-output\_\-power\_\-t@{hal\_\-nrf\_\-output\_\-power\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-output\_\-power\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-output\_\-power\_\-t}}}
+\label{group__nordic__hal__nrf__reg_ga2000e3a3aa7de8d98d4820639b39d6e7}
+An enum describing the radio's output power mode's. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-18DBM@{HAL\_\-NRF\_\-18DBM}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-18DBM@{HAL\_\-NRF\_\-18DBM}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7aa1b6441d027a0c910b5b4fee6b8db16f}{
+HAL\_\-NRF\_\-18DBM}
+\label{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7aa1b6441d027a0c910b5b4fee6b8db16f}
+}]Output power set to -\/18dBm \index{HAL\_\-NRF\_\-12DBM@{HAL\_\-NRF\_\-12DBM}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-12DBM@{HAL\_\-NRF\_\-12DBM}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7abc24658f8129bc32921a41f9e9b26377}{
+HAL\_\-NRF\_\-12DBM}
+\label{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7abc24658f8129bc32921a41f9e9b26377}
+}]Output power set to -\/12dBm \index{HAL\_\-NRF\_\-6DBM@{HAL\_\-NRF\_\-6DBM}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-6DBM@{HAL\_\-NRF\_\-6DBM}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7a9d6cf75aa07b33b44778cf939473a137}{
+HAL\_\-NRF\_\-6DBM}
+\label{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7a9d6cf75aa07b33b44778cf939473a137}
+}]Output power set to -\/6dBm \index{HAL\_\-NRF\_\-0DBM@{HAL\_\-NRF\_\-0DBM}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-0DBM@{HAL\_\-NRF\_\-0DBM}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7a3916db0403303498491b424eb63b8626}{
+HAL\_\-NRF\_\-0DBM}
+\label{group__nordic__hal__nrf__reg_gga2000e3a3aa7de8d98d4820639b39d6e7a3916db0403303498491b424eb63b8626}
+}]Output power set to 0dBm \end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_ga8f0d40d735adcf593591c9aaefa3158a}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-pll\_\-mode\_\-t@{hal\_\-nrf\_\-pll\_\-mode\_\-t}}
+\index{hal\_\-nrf\_\-pll\_\-mode\_\-t@{hal\_\-nrf\_\-pll\_\-mode\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-pll\_\-mode\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-pll\_\-mode\_\-t}}}
+\label{group__nordic__hal__nrf__reg_ga8f0d40d735adcf593591c9aaefa3158a}
+An enum describing the radio's PLL mode. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-PLL\_\-UNLOCK@{HAL\_\-NRF\_\-PLL\_\-UNLOCK}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PLL\_\-UNLOCK@{HAL\_\-NRF\_\-PLL\_\-UNLOCK}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga8f0d40d735adcf593591c9aaefa3158aab6917877c23b8eb5fb0bc4abef22a4d7}{
+HAL\_\-NRF\_\-PLL\_\-UNLOCK}
+\label{group__nordic__hal__nrf__reg_gga8f0d40d735adcf593591c9aaefa3158aab6917877c23b8eb5fb0bc4abef22a4d7}
+}]PLL unlocked, normal operation \index{HAL\_\-NRF\_\-PLL\_\-LOCK@{HAL\_\-NRF\_\-PLL\_\-LOCK}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PLL\_\-LOCK@{HAL\_\-NRF\_\-PLL\_\-LOCK}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga8f0d40d735adcf593591c9aaefa3158aa55ccef5e16d165e8531c895fa9471335}{
+HAL\_\-NRF\_\-PLL\_\-LOCK}
+\label{group__nordic__hal__nrf__reg_gga8f0d40d735adcf593591c9aaefa3158aa55ccef5e16d165e8531c895fa9471335}
+}]PLL locked, test mode \end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_gade11658f933ebe5fec8c9ce7bcace064}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-pload\_\-command\_\-t@{hal\_\-nrf\_\-pload\_\-command\_\-t}}
+\index{hal\_\-nrf\_\-pload\_\-command\_\-t@{hal\_\-nrf\_\-pload\_\-command\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-pload\_\-command\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-pload\_\-command\_\-t}}}
+\label{group__nordic__hal__nrf__reg_gade11658f933ebe5fec8c9ce7bcace064}
+An enum describing the read/write payload command. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-TX\_\-PLOAD@{HAL\_\-NRF\_\-TX\_\-PLOAD}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-TX\_\-PLOAD@{HAL\_\-NRF\_\-TX\_\-PLOAD}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggade11658f933ebe5fec8c9ce7bcace064aa06e5716a0ab9e2309dffe2a812726cd}{
+HAL\_\-NRF\_\-TX\_\-PLOAD}
+\label{group__nordic__hal__nrf__reg_ggade11658f933ebe5fec8c9ce7bcace064aa06e5716a0ab9e2309dffe2a812726cd}
+}]TX payload definition \index{HAL\_\-NRF\_\-RX\_\-PLOAD@{HAL\_\-NRF\_\-RX\_\-PLOAD}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-RX\_\-PLOAD@{HAL\_\-NRF\_\-RX\_\-PLOAD}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_ggade11658f933ebe5fec8c9ce7bcace064aa65f1cb5b2a4f90764b534fc95afbfb8}{
+HAL\_\-NRF\_\-RX\_\-PLOAD}
+\label{group__nordic__hal__nrf__reg_ggade11658f933ebe5fec8c9ce7bcace064aa65f1cb5b2a4f90764b534fc95afbfb8}
+}]RX payload definition \end{description}
+\end{Desc}
+
+\hypertarget{group__nordic__hal__nrf__reg_ga9079099c752b5121d41a251cc4c5600a}{
+\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!hal\_\-nrf\_\-pwr\_\-mode\_\-t@{hal\_\-nrf\_\-pwr\_\-mode\_\-t}}
+\index{hal\_\-nrf\_\-pwr\_\-mode\_\-t@{hal\_\-nrf\_\-pwr\_\-mode\_\-t}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}
+\subsubsection[{hal\_\-nrf\_\-pwr\_\-mode\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hal\_\-nrf\_\-pwr\_\-mode\_\-t}}}
+\label{group__nordic__hal__nrf__reg_ga9079099c752b5121d41a251cc4c5600a}
+An enum describing the radio's power mode. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{HAL\_\-NRF\_\-PWR\_\-DOWN@{HAL\_\-NRF\_\-PWR\_\-DOWN}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PWR\_\-DOWN@{HAL\_\-NRF\_\-PWR\_\-DOWN}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga9079099c752b5121d41a251cc4c5600aafabe3f70b6c1ecc823da192d4a940cdc}{
+HAL\_\-NRF\_\-PWR\_\-DOWN}
+\label{group__nordic__hal__nrf__reg_gga9079099c752b5121d41a251cc4c5600aafabe3f70b6c1ecc823da192d4a940cdc}
+}]Device power-\/down \index{HAL\_\-NRF\_\-PWR\_\-UP@{HAL\_\-NRF\_\-PWR\_\-UP}!nRF24L01 Register definitions@{nRF24L01 Register definitions}}\index{nRF24L01 Register definitions@{nRF24L01 Register definitions}!HAL\_\-NRF\_\-PWR\_\-UP@{HAL\_\-NRF\_\-PWR\_\-UP}}\item[{\em 
+\hypertarget{group__nordic__hal__nrf__reg_gga9079099c752b5121d41a251cc4c5600aaea1c2cc48369f448229c92bf43d3efa2}{
+HAL\_\-NRF\_\-PWR\_\-UP}
+\label{group__nordic__hal__nrf__reg_gga9079099c752b5121d41a251cc4c5600aaea1c2cc48369f448229c92bf43d3efa2}
+}]Device power-\/up \end{description}
+\end{Desc}
+

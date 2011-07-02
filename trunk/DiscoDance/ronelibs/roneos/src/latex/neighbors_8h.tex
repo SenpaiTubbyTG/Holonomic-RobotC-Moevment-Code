@@ -1,0 +1,434 @@
+\hypertarget{neighbors_8h}{
+\section{IRComms/neighbors.h File Reference}
+\label{neighbors_8h}\index{IRComms/neighbors.h@{IRComms/neighbors.h}}
+}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structnbrnbr}{nbrnbr}
+\item 
+struct \hyperlink{structnbr}{nbr}
+\item 
+struct \hyperlink{structnbr_data}{nbrData}
+\item 
+struct \hyperlink{structnbr_list}{nbrList}
+\item 
+struct \hyperlink{structnbr_nbr_list}{nbrNbrList}
+\item 
+struct \hyperlink{structir_range_data}{irRangeData}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{neighbors_8h_ab9383568d12067b8182e461e7e559a6e}{NEIGHBOR\_\-PERIOD\_\-DEFAULT}~330
+\item 
+\#define \hyperlink{neighbors_8h_a23eeee343b1ddc74353534710a737506}{NEIGHBOR\_\-TIMEOUT\_\-ROUNDS}~3
+\item 
+\#define \hyperlink{neighbors_8h_aad7a617b46537b4f46567146c220c321}{NEIGHBOR\_\-XMIT\_\-MIN\_\-DELAY}~30
+\item 
+\#define \hyperlink{neighbors_8h_aeb739762e76167edc8c73818cdc49bd3}{NEIGHBOR\_\-MAX}~8
+\item 
+\#define \hyperlink{neighbors_8h_ab400066c52936223e84cb6e33f0fd04f}{NEIGHBOR\_\-MESSAGE\_\-LENGTH\_\-WITH\_\-ID}~3
+\item 
+\#define \hyperlink{neighbors_8h_a046211ded532af2845a2c8b4fe94a861}{NEIGHBOR\_\-MESSAGE\_\-LENGTH}~(NEIGHBOR\_\-MESSAGE\_\-LENGTH\_\-WITH\_\-ID -\/ 1)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structnbrnbr}{nbrnbr} \hyperlink{neighbors_8h_a871995960db53e6fb5776228776c2d14}{nbrnbr}
+\item 
+typedef struct \hyperlink{structnbr}{nbr} \hyperlink{neighbors_8h_a4c907f8594779a0dad35ba079b8176df}{Nbr}
+\item 
+typedef struct \hyperlink{structnbr_data}{nbrData} \hyperlink{neighbors_8h_a1c6bbf12f5f3e4c789fc4dae2b445cf9}{nbrData}
+\item 
+typedef struct \hyperlink{structnbr_list}{nbrList} \hyperlink{neighbors_8h_a3530027edd9f1c9abeef663710208768}{NbrList}
+\item 
+typedef struct \hyperlink{structnbr_nbr_list}{nbrNbrList} \hyperlink{neighbors_8h_ae162bca0f7caee9c53dad640639c306f}{nbrNbrList}
+\item 
+typedef struct \hyperlink{structir_range_data}{irRangeData} \hyperlink{neighbors_8h_af576d4ad34b249586686a908feb75f29}{irRangeData}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{neighbors_8h_a5b5cee2fc808bb1a4e1d7238b67d384b}{neighborsInit} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{neighbors_8c_affb270469eaa2d34f0b5d32e6cb488a6}{neighbor\_\-period}, \hyperlink{typedefs_8h_a7670a4e8a07d9ebb00411948b0bbf86d}{boolean} orientation\_\-enable)
+\item 
+void \hyperlink{neighbors_8h_a0007b91f6e37b1b79a8259f29f18b0fa}{obstaclePrint} (\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} bits)
+\item 
+char $\ast$ \hyperlink{neighbors_8h_acba18fbca1792b49e471cac9e3678f69}{bitString8} (char $\ast$string, \hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} val)
+\item 
+\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} \hyperlink{neighbors_8h_a509980678f9101d531f220ce28be98f3}{irRangeGetBits} (void)
+\item 
+void \hyperlink{neighbors_8h_a30932b0d66c394f31c4f0ef9feedd8e7}{neighborsSetMessage} (char $\ast$message)
+\item 
+void \hyperlink{neighbors_8h_adc267d5828c0fc98d23ce19243404227}{neighborsSetPeriod} (\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} neighbor\_\-period\_\-arg)
+\item 
+void \hyperlink{neighbors_8h_a4bf29080c034a809f2c1e2b5a73dcb75}{neighborsGetMutex} (void)
+\item 
+void \hyperlink{neighbors_8h_a1e12833b1ea86c1efbf16e2938b81ea1}{neighborsPutMutex} (void)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{neighbors_8h_a7542174cf55962a84dca522748dc55af}{neighborsGetRound} (void)
+\item 
+void \hyperlink{neighbors_8h_a3ed9c7c1134042dac4cfffaeacedb9f8}{neighborsXmitEnable} (\hyperlink{typedefs_8h_a7670a4e8a07d9ebb00411948b0bbf86d}{boolean} neighbor\_\-xmit\_\-enable\_\-arg)
+\item 
+\hyperlink{structnbr}{Nbr} $\ast$ \hyperlink{neighbors_8h_a7da335e1d0491f2970d9c7d4945cf35c}{nbrsGetWithID} (\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} nbrID)
+\item 
+void \hyperlink{neighbors_8h_ac20aaa9952fe3cb549396836d66bf4f1}{nbrListCreate} (\hyperlink{structnbr_list}{NbrList} $\ast$nbrListPtr)
+\item 
+void \hyperlink{neighbors_8h_a9e6d052f94eeed53d5da93c9a5b3119e}{nbrListClear} (\hyperlink{structnbr_list}{NbrList} $\ast$nbrListPtr)
+\item 
+\hyperlink{structnbr}{Nbr} $\ast$ \hyperlink{neighbors_8h_a14954a497ffbd76b0b42ee7d74376970}{nbrListGetFirst} (\hyperlink{structnbr_list}{NbrList} $\ast$nbrListPtr)
+\item 
+\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} \hyperlink{neighbors_8h_a8353fcf86991015704c6ceefc2ec6300}{nbrGetID} (\hyperlink{structnbr}{Nbr} $\ast$nbrPtr)
+\item 
+void \hyperlink{neighbors_8h_aa8065802462cffde3ba81cad44716f27}{nbrGetMessage} (\hyperlink{structnbr}{Nbr} $\ast$nbrPtr, char $\ast$messagePtr)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{neighbors_8h_a1d105cfbf59cb1684d3d60e8110e20e4}{nbrGetBearing} (\hyperlink{structnbr}{Nbr} $\ast$nbrPtr)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{neighbors_8h_a70d1350228a25dc79c31c4b127c07a27}{nbrGetOrientation} (\hyperlink{structnbr}{Nbr} $\ast$nbrPtr)
+\item 
+\hyperlink{typedefs_8h_a7670a4e8a07d9ebb00411948b0bbf86d}{boolean} \hyperlink{neighbors_8h_afbf52599c508f1147e2497a7b53e6cb6}{nbrGetOrientationValid} (\hyperlink{structnbr}{Nbr} $\ast$nbrPtr)
+\item 
+\hyperlink{typedefs_8h_a7670a4e8a07d9ebb00411948b0bbf86d}{boolean} \hyperlink{neighbors_8h_aee5d5d69ce6a31980216bd5ed0813ca7}{nbrGetCloseRange} (\hyperlink{structnbr}{Nbr} $\ast$nbrPtr)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{neighbors_8h_a511b4b4906be79fdeaa1edeeecb57454}{nbrGetUpdateTime} (\hyperlink{structnbr}{Nbr} $\ast$nbrPtr)
+\item 
+void \hyperlink{neighbors_8h_a3f2fe0d03abe8100d8874ba9d5d5abbe}{nbrPrint} (\hyperlink{structnbr}{Nbr} $\ast$\hyperlink{structnbr}{nbr})
+\item 
+void \hyperlink{neighbors_8h_a26cb48144588887d90bb8a96039b5d60}{nbrPrintData} (\hyperlink{structnbr}{Nbr} $\ast$\hyperlink{structnbr}{nbr}, \hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} round)
+\item 
+\hyperlink{structnbrnbr}{nbrnbr} $\ast$ \hyperlink{neighbors_8h_a4377c42660c8a3cff2131ce4c8f82a75}{nbrGetNbrNbrWithID} (\hyperlink{structnbr}{Nbr} $\ast$nbrPtr, \hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} nbrNbrID)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{neighbors_8h_a26f8effc120b0a1f7cace5ac0276c3c0}{nbrNbrGetBearing} (\hyperlink{structnbr}{Nbr} $\ast$nbrNbrPtr)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{neighbors_8h_add6fdc10b1dd85e7bb8e1e3a0540c4ee}{nbrNbrGetUpdateTime} (\hyperlink{structnbr}{Nbr} $\ast$nbrNbrPtr)
+\item 
+void \hyperlink{neighbors_8h_a0136071f3a3bd407db45d0cfe03c5033}{nbrGetNbrNbrList} (\hyperlink{structnbr}{Nbr} $\ast$nbrPtr, \hyperlink{structnbr_nbr_list}{nbrNbrList} $\ast$\hyperlink{structnbr_nbr_list}{nbrNbrList})
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{neighbors_8h_aeb739762e76167edc8c73818cdc49bd3}{
+\index{neighbors.h@{neighbors.h}!NEIGHBOR\_\-MAX@{NEIGHBOR\_\-MAX}}
+\index{NEIGHBOR\_\-MAX@{NEIGHBOR\_\-MAX}!neighbors.h@{neighbors.h}}
+\subsubsection[{NEIGHBOR\_\-MAX}]{\setlength{\rightskip}{0pt plus 5cm}\#define NEIGHBOR\_\-MAX~8}}
+\label{neighbors_8h_aeb739762e76167edc8c73818cdc49bd3}
+\hypertarget{neighbors_8h_a046211ded532af2845a2c8b4fe94a861}{
+\index{neighbors.h@{neighbors.h}!NEIGHBOR\_\-MESSAGE\_\-LENGTH@{NEIGHBOR\_\-MESSAGE\_\-LENGTH}}
+\index{NEIGHBOR\_\-MESSAGE\_\-LENGTH@{NEIGHBOR\_\-MESSAGE\_\-LENGTH}!neighbors.h@{neighbors.h}}
+\subsubsection[{NEIGHBOR\_\-MESSAGE\_\-LENGTH}]{\setlength{\rightskip}{0pt plus 5cm}\#define NEIGHBOR\_\-MESSAGE\_\-LENGTH~(NEIGHBOR\_\-MESSAGE\_\-LENGTH\_\-WITH\_\-ID -\/ 1)}}
+\label{neighbors_8h_a046211ded532af2845a2c8b4fe94a861}
+\hypertarget{neighbors_8h_ab400066c52936223e84cb6e33f0fd04f}{
+\index{neighbors.h@{neighbors.h}!NEIGHBOR\_\-MESSAGE\_\-LENGTH\_\-WITH\_\-ID@{NEIGHBOR\_\-MESSAGE\_\-LENGTH\_\-WITH\_\-ID}}
+\index{NEIGHBOR\_\-MESSAGE\_\-LENGTH\_\-WITH\_\-ID@{NEIGHBOR\_\-MESSAGE\_\-LENGTH\_\-WITH\_\-ID}!neighbors.h@{neighbors.h}}
+\subsubsection[{NEIGHBOR\_\-MESSAGE\_\-LENGTH\_\-WITH\_\-ID}]{\setlength{\rightskip}{0pt plus 5cm}\#define NEIGHBOR\_\-MESSAGE\_\-LENGTH\_\-WITH\_\-ID~3}}
+\label{neighbors_8h_ab400066c52936223e84cb6e33f0fd04f}
+\hypertarget{neighbors_8h_ab9383568d12067b8182e461e7e559a6e}{
+\index{neighbors.h@{neighbors.h}!NEIGHBOR\_\-PERIOD\_\-DEFAULT@{NEIGHBOR\_\-PERIOD\_\-DEFAULT}}
+\index{NEIGHBOR\_\-PERIOD\_\-DEFAULT@{NEIGHBOR\_\-PERIOD\_\-DEFAULT}!neighbors.h@{neighbors.h}}
+\subsubsection[{NEIGHBOR\_\-PERIOD\_\-DEFAULT}]{\setlength{\rightskip}{0pt plus 5cm}\#define NEIGHBOR\_\-PERIOD\_\-DEFAULT~330}}
+\label{neighbors_8h_ab9383568d12067b8182e461e7e559a6e}
+\hypertarget{neighbors_8h_a23eeee343b1ddc74353534710a737506}{
+\index{neighbors.h@{neighbors.h}!NEIGHBOR\_\-TIMEOUT\_\-ROUNDS@{NEIGHBOR\_\-TIMEOUT\_\-ROUNDS}}
+\index{NEIGHBOR\_\-TIMEOUT\_\-ROUNDS@{NEIGHBOR\_\-TIMEOUT\_\-ROUNDS}!neighbors.h@{neighbors.h}}
+\subsubsection[{NEIGHBOR\_\-TIMEOUT\_\-ROUNDS}]{\setlength{\rightskip}{0pt plus 5cm}\#define NEIGHBOR\_\-TIMEOUT\_\-ROUNDS~3}}
+\label{neighbors_8h_a23eeee343b1ddc74353534710a737506}
+\hypertarget{neighbors_8h_aad7a617b46537b4f46567146c220c321}{
+\index{neighbors.h@{neighbors.h}!NEIGHBOR\_\-XMIT\_\-MIN\_\-DELAY@{NEIGHBOR\_\-XMIT\_\-MIN\_\-DELAY}}
+\index{NEIGHBOR\_\-XMIT\_\-MIN\_\-DELAY@{NEIGHBOR\_\-XMIT\_\-MIN\_\-DELAY}!neighbors.h@{neighbors.h}}
+\subsubsection[{NEIGHBOR\_\-XMIT\_\-MIN\_\-DELAY}]{\setlength{\rightskip}{0pt plus 5cm}\#define NEIGHBOR\_\-XMIT\_\-MIN\_\-DELAY~30}}
+\label{neighbors_8h_aad7a617b46537b4f46567146c220c321}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{neighbors_8h_af576d4ad34b249586686a908feb75f29}{
+\index{neighbors.h@{neighbors.h}!irRangeData@{irRangeData}}
+\index{irRangeData@{irRangeData}!neighbors.h@{neighbors.h}}
+\subsubsection[{irRangeData}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf irRangeData}  {\bf irRangeData}}}
+\label{neighbors_8h_af576d4ad34b249586686a908feb75f29}
+\hypertarget{neighbors_8h_a4c907f8594779a0dad35ba079b8176df}{
+\index{neighbors.h@{neighbors.h}!Nbr@{Nbr}}
+\index{Nbr@{Nbr}!neighbors.h@{neighbors.h}}
+\subsubsection[{Nbr}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf nbr}  {\bf Nbr}}}
+\label{neighbors_8h_a4c907f8594779a0dad35ba079b8176df}
+\hypertarget{neighbors_8h_a1c6bbf12f5f3e4c789fc4dae2b445cf9}{
+\index{neighbors.h@{neighbors.h}!nbrData@{nbrData}}
+\index{nbrData@{nbrData}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrData}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf nbrData}  {\bf nbrData}}}
+\label{neighbors_8h_a1c6bbf12f5f3e4c789fc4dae2b445cf9}
+\hypertarget{neighbors_8h_a3530027edd9f1c9abeef663710208768}{
+\index{neighbors.h@{neighbors.h}!NbrList@{NbrList}}
+\index{NbrList@{NbrList}!neighbors.h@{neighbors.h}}
+\subsubsection[{NbrList}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf nbrList}  {\bf NbrList}}}
+\label{neighbors_8h_a3530027edd9f1c9abeef663710208768}
+\hypertarget{neighbors_8h_a871995960db53e6fb5776228776c2d14}{
+\index{neighbors.h@{neighbors.h}!nbrnbr@{nbrnbr}}
+\index{nbrnbr@{nbrnbr}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrnbr}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf nbrnbr}  {\bf nbrnbr}}}
+\label{neighbors_8h_a871995960db53e6fb5776228776c2d14}
+\hypertarget{neighbors_8h_ae162bca0f7caee9c53dad640639c306f}{
+\index{neighbors.h@{neighbors.h}!nbrNbrList@{nbrNbrList}}
+\index{nbrNbrList@{nbrNbrList}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrNbrList}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf nbrNbrList}  {\bf nbrNbrList}}}
+\label{neighbors_8h_ae162bca0f7caee9c53dad640639c306f}
+
+
+\subsection{Function Documentation}
+\hypertarget{neighbors_8h_acba18fbca1792b49e471cac9e3678f69}{
+\index{neighbors.h@{neighbors.h}!bitString8@{bitString8}}
+\index{bitString8@{bitString8}!neighbors.h@{neighbors.h}}
+\subsubsection[{bitString8}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ bitString8 (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{string, }
+\item[{{\bf uint8}}]{val}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_acba18fbca1792b49e471cac9e3678f69}
+Function that allows us to print binary. Creates a binary version of the input character and points the input pointer to it. 
+\begin{DoxyParams}{Parameters}
+{\em $\ast$string} & is the char pointer that will point to the binary bitstring of val \\
+\hline
+{\em val} & is the value to be converted to binary \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer to the binary string converted from val 
+\end{DoxyReturn}
+\hypertarget{neighbors_8h_a509980678f9101d531f220ce28be98f3}{
+\index{neighbors.h@{neighbors.h}!irRangeGetBits@{irRangeGetBits}}
+\index{irRangeGetBits@{irRangeGetBits}!neighbors.h@{neighbors.h}}
+\subsubsection[{irRangeGetBits}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8} irRangeGetBits (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a509980678f9101d531f220ce28be98f3}
+\hypertarget{neighbors_8h_a1d105cfbf59cb1684d3d60e8110e20e4}{
+\index{neighbors.h@{neighbors.h}!nbrGetBearing@{nbrGetBearing}}
+\index{nbrGetBearing@{nbrGetBearing}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrGetBearing}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} nbrGetBearing (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a1d105cfbf59cb1684d3d60e8110e20e4}
+\hypertarget{neighbors_8h_aee5d5d69ce6a31980216bd5ed0813ca7}{
+\index{neighbors.h@{neighbors.h}!nbrGetCloseRange@{nbrGetCloseRange}}
+\index{nbrGetCloseRange@{nbrGetCloseRange}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrGetCloseRange}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} nbrGetCloseRange (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_aee5d5d69ce6a31980216bd5ed0813ca7}
+\hypertarget{neighbors_8h_a8353fcf86991015704c6ceefc2ec6300}{
+\index{neighbors.h@{neighbors.h}!nbrGetID@{nbrGetID}}
+\index{nbrGetID@{nbrGetID}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrGetID}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8} nbrGetID (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a8353fcf86991015704c6ceefc2ec6300}
+\hypertarget{neighbors_8h_aa8065802462cffde3ba81cad44716f27}{
+\index{neighbors.h@{neighbors.h}!nbrGetMessage@{nbrGetMessage}}
+\index{nbrGetMessage@{nbrGetMessage}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrGetMessage}]{\setlength{\rightskip}{0pt plus 5cm}void nbrGetMessage (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrPtr, }
+\item[{char $\ast$}]{messagePtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_aa8065802462cffde3ba81cad44716f27}
+\hypertarget{neighbors_8h_a0136071f3a3bd407db45d0cfe03c5033}{
+\index{neighbors.h@{neighbors.h}!nbrGetNbrNbrList@{nbrGetNbrNbrList}}
+\index{nbrGetNbrNbrList@{nbrGetNbrNbrList}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrGetNbrNbrList}]{\setlength{\rightskip}{0pt plus 5cm}void nbrGetNbrNbrList (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrPtr, }
+\item[{{\bf nbrNbrList} $\ast$}]{nbrNbrList}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a0136071f3a3bd407db45d0cfe03c5033}
+\hypertarget{neighbors_8h_a4377c42660c8a3cff2131ce4c8f82a75}{
+\index{neighbors.h@{neighbors.h}!nbrGetNbrNbrWithID@{nbrGetNbrNbrWithID}}
+\index{nbrGetNbrNbrWithID@{nbrGetNbrNbrWithID}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrGetNbrNbrWithID}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nbrnbr}$\ast$ nbrGetNbrNbrWithID (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrPtr, }
+\item[{{\bf uint8}}]{nbrNbrID}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a4377c42660c8a3cff2131ce4c8f82a75}
+\hypertarget{neighbors_8h_a70d1350228a25dc79c31c4b127c07a27}{
+\index{neighbors.h@{neighbors.h}!nbrGetOrientation@{nbrGetOrientation}}
+\index{nbrGetOrientation@{nbrGetOrientation}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrGetOrientation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} nbrGetOrientation (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a70d1350228a25dc79c31c4b127c07a27}
+\hypertarget{neighbors_8h_afbf52599c508f1147e2497a7b53e6cb6}{
+\index{neighbors.h@{neighbors.h}!nbrGetOrientationValid@{nbrGetOrientationValid}}
+\index{nbrGetOrientationValid@{nbrGetOrientationValid}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrGetOrientationValid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} nbrGetOrientationValid (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_afbf52599c508f1147e2497a7b53e6cb6}
+\hypertarget{neighbors_8h_a511b4b4906be79fdeaa1edeeecb57454}{
+\index{neighbors.h@{neighbors.h}!nbrGetUpdateTime@{nbrGetUpdateTime}}
+\index{nbrGetUpdateTime@{nbrGetUpdateTime}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrGetUpdateTime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} nbrGetUpdateTime (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a511b4b4906be79fdeaa1edeeecb57454}
+\hypertarget{neighbors_8h_a9e6d052f94eeed53d5da93c9a5b3119e}{
+\index{neighbors.h@{neighbors.h}!nbrListClear@{nbrListClear}}
+\index{nbrListClear@{nbrListClear}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrListClear}]{\setlength{\rightskip}{0pt plus 5cm}void nbrListClear (
+\begin{DoxyParamCaption}
+\item[{{\bf NbrList} $\ast$}]{nbrListPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a9e6d052f94eeed53d5da93c9a5b3119e}
+\hypertarget{neighbors_8h_ac20aaa9952fe3cb549396836d66bf4f1}{
+\index{neighbors.h@{neighbors.h}!nbrListCreate@{nbrListCreate}}
+\index{nbrListCreate@{nbrListCreate}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrListCreate}]{\setlength{\rightskip}{0pt plus 5cm}void nbrListCreate (
+\begin{DoxyParamCaption}
+\item[{{\bf NbrList} $\ast$}]{nbrListPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_ac20aaa9952fe3cb549396836d66bf4f1}
+\hypertarget{neighbors_8h_a14954a497ffbd76b0b42ee7d74376970}{
+\index{neighbors.h@{neighbors.h}!nbrListGetFirst@{nbrListGetFirst}}
+\index{nbrListGetFirst@{nbrListGetFirst}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrListGetFirst}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Nbr}$\ast$ nbrListGetFirst (
+\begin{DoxyParamCaption}
+\item[{{\bf NbrList} $\ast$}]{nbrListPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a14954a497ffbd76b0b42ee7d74376970}
+\hypertarget{neighbors_8h_a26f8effc120b0a1f7cace5ac0276c3c0}{
+\index{neighbors.h@{neighbors.h}!nbrNbrGetBearing@{nbrNbrGetBearing}}
+\index{nbrNbrGetBearing@{nbrNbrGetBearing}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrNbrGetBearing}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} nbrNbrGetBearing (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrNbrPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a26f8effc120b0a1f7cace5ac0276c3c0}
+\hypertarget{neighbors_8h_add6fdc10b1dd85e7bb8e1e3a0540c4ee}{
+\index{neighbors.h@{neighbors.h}!nbrNbrGetUpdateTime@{nbrNbrGetUpdateTime}}
+\index{nbrNbrGetUpdateTime@{nbrNbrGetUpdateTime}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrNbrGetUpdateTime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} nbrNbrGetUpdateTime (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbrNbrPtr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_add6fdc10b1dd85e7bb8e1e3a0540c4ee}
+\hypertarget{neighbors_8h_a3f2fe0d03abe8100d8874ba9d5d5abbe}{
+\index{neighbors.h@{neighbors.h}!nbrPrint@{nbrPrint}}
+\index{nbrPrint@{nbrPrint}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrPrint}]{\setlength{\rightskip}{0pt plus 5cm}void nbrPrint (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbr}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a3f2fe0d03abe8100d8874ba9d5d5abbe}
+\hypertarget{neighbors_8h_a26cb48144588887d90bb8a96039b5d60}{
+\index{neighbors.h@{neighbors.h}!nbrPrintData@{nbrPrintData}}
+\index{nbrPrintData@{nbrPrintData}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrPrintData}]{\setlength{\rightskip}{0pt plus 5cm}void nbrPrintData (
+\begin{DoxyParamCaption}
+\item[{{\bf Nbr} $\ast$}]{nbr, }
+\item[{{\bf uint32}}]{round}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a26cb48144588887d90bb8a96039b5d60}
+\hypertarget{neighbors_8h_a7da335e1d0491f2970d9c7d4945cf35c}{
+\index{neighbors.h@{neighbors.h}!nbrsGetWithID@{nbrsGetWithID}}
+\index{nbrsGetWithID@{nbrsGetWithID}!neighbors.h@{neighbors.h}}
+\subsubsection[{nbrsGetWithID}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Nbr}$\ast$ nbrsGetWithID (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8}}]{nbrID}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a7da335e1d0491f2970d9c7d4945cf35c}
+\hypertarget{neighbors_8h_a4bf29080c034a809f2c1e2b5a73dcb75}{
+\index{neighbors.h@{neighbors.h}!neighborsGetMutex@{neighborsGetMutex}}
+\index{neighborsGetMutex@{neighborsGetMutex}!neighbors.h@{neighbors.h}}
+\subsubsection[{neighborsGetMutex}]{\setlength{\rightskip}{0pt plus 5cm}void neighborsGetMutex (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a4bf29080c034a809f2c1e2b5a73dcb75}
+\hypertarget{neighbors_8h_a7542174cf55962a84dca522748dc55af}{
+\index{neighbors.h@{neighbors.h}!neighborsGetRound@{neighborsGetRound}}
+\index{neighborsGetRound@{neighborsGetRound}!neighbors.h@{neighbors.h}}
+\subsubsection[{neighborsGetRound}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} neighborsGetRound (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a7542174cf55962a84dca522748dc55af}
+\hypertarget{neighbors_8h_a5b5cee2fc808bb1a4e1d7238b67d384b}{
+\index{neighbors.h@{neighbors.h}!neighborsInit@{neighborsInit}}
+\index{neighborsInit@{neighborsInit}!neighbors.h@{neighbors.h}}
+\subsubsection[{neighborsInit}]{\setlength{\rightskip}{0pt plus 5cm}void neighborsInit (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{neighbor\_\-period, }
+\item[{{\bf boolean}}]{orientation\_\-enable}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a5b5cee2fc808bb1a4e1d7238b67d384b}
+\hypertarget{neighbors_8h_a1e12833b1ea86c1efbf16e2938b81ea1}{
+\index{neighbors.h@{neighbors.h}!neighborsPutMutex@{neighborsPutMutex}}
+\index{neighborsPutMutex@{neighborsPutMutex}!neighbors.h@{neighbors.h}}
+\subsubsection[{neighborsPutMutex}]{\setlength{\rightskip}{0pt plus 5cm}void neighborsPutMutex (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a1e12833b1ea86c1efbf16e2938b81ea1}
+\hypertarget{neighbors_8h_a30932b0d66c394f31c4f0ef9feedd8e7}{
+\index{neighbors.h@{neighbors.h}!neighborsSetMessage@{neighborsSetMessage}}
+\index{neighborsSetMessage@{neighborsSetMessage}!neighbors.h@{neighbors.h}}
+\subsubsection[{neighborsSetMessage}]{\setlength{\rightskip}{0pt plus 5cm}void neighborsSetMessage (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{message}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a30932b0d66c394f31c4f0ef9feedd8e7}
+\hypertarget{neighbors_8h_adc267d5828c0fc98d23ce19243404227}{
+\index{neighbors.h@{neighbors.h}!neighborsSetPeriod@{neighborsSetPeriod}}
+\index{neighborsSetPeriod@{neighborsSetPeriod}!neighbors.h@{neighbors.h}}
+\subsubsection[{neighborsSetPeriod}]{\setlength{\rightskip}{0pt plus 5cm}void neighborsSetPeriod (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{neighbor\_\-period\_\-arg}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_adc267d5828c0fc98d23ce19243404227}
+\hypertarget{neighbors_8h_a3ed9c7c1134042dac4cfffaeacedb9f8}{
+\index{neighbors.h@{neighbors.h}!neighborsXmitEnable@{neighborsXmitEnable}}
+\index{neighborsXmitEnable@{neighborsXmitEnable}!neighbors.h@{neighbors.h}}
+\subsubsection[{neighborsXmitEnable}]{\setlength{\rightskip}{0pt plus 5cm}void neighborsXmitEnable (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{neighbor\_\-xmit\_\-enable\_\-arg}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a3ed9c7c1134042dac4cfffaeacedb9f8}
+\hypertarget{neighbors_8h_a0007b91f6e37b1b79a8259f29f18b0fa}{
+\index{neighbors.h@{neighbors.h}!obstaclePrint@{obstaclePrint}}
+\index{obstaclePrint@{obstaclePrint}!neighbors.h@{neighbors.h}}
+\subsubsection[{obstaclePrint}]{\setlength{\rightskip}{0pt plus 5cm}void obstaclePrint (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8}}]{bits}
+\end{DoxyParamCaption}
+)}}
+\label{neighbors_8h_a0007b91f6e37b1b79a8259f29f18b0fa}

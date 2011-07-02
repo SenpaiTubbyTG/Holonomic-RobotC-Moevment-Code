@@ -1,0 +1,138 @@
+\hypertarget{snprintf_8c}{
+\section{SerialIO/snprintf.c File Reference}
+\label{snprintf_8c}\index{SerialIO/snprintf.c@{SerialIO/snprintf.c}}
+}
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$stdlib.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$stdarg.h$>$}\par
+{\ttfamily \#include $<$assert.h$>$}\par
+{\ttfamily \#include $<$errno.h$>$}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{snprintf_8c_ae7b63d1b04b47a62e0168225e000824c}{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR}~2
+\item 
+\#define \hyperlink{snprintf_8c_a076d04c914732567f8300676b32c3b08}{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR}~2
+\item 
+\#define \hyperlink{snprintf_8c_a80e33e966a7ec3facaf0b2b4afaf5be5}{isdigit}(c)~((c) $>$= '0' \&\& (c) $<$= '9')
+\item 
+\#define \hyperlink{snprintf_8c_a92682423eb7bc3233c440b67a429b870}{breakeven\_\-point}~6
+\item 
+\#define \hyperlink{snprintf_8c_abdd8c3490d94c83fb3866e0e9139db38}{fast\_\-memcpy}(d, s, n)
+\item 
+\#define \hyperlink{snprintf_8c_ad448207baaebdf239f9a6eefc806201e}{fast\_\-memset}(d, c, n)
+\item 
+\#define \hyperlink{snprintf_8c_a93ff4ec8efd9a3f9abfcf127fa408a0a}{portable\_\-snprintf}~snprintf
+\item 
+\#define \hyperlink{snprintf_8c_ac87f4bcc17a27a39813acfbc8d2e6f05}{portable\_\-vsnprintf}~vsnprintf
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{snprintf_8c_ae5dc736201ed48de501c7491e23719e5}{portable\_\-snprintf} (char $\ast$str, size\_\-t str\_\-m, const char $\ast$fmt,...)
+\item 
+int \hyperlink{snprintf_8c_aa73a3dcaf1ccfeaecc146df5ebeb8b0a}{portable\_\-vsnprintf} (char $\ast$str, size\_\-t str\_\-m, const char $\ast$fmt, va\_\-list ap)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{snprintf_8c_a92682423eb7bc3233c440b67a429b870}{
+\index{snprintf.c@{snprintf.c}!breakeven\_\-point@{breakeven\_\-point}}
+\index{breakeven\_\-point@{breakeven\_\-point}!snprintf.c@{snprintf.c}}
+\subsubsection[{breakeven\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}\#define breakeven\_\-point~6}}
+\label{snprintf_8c_a92682423eb7bc3233c440b67a429b870}
+\hypertarget{snprintf_8c_abdd8c3490d94c83fb3866e0e9139db38}{
+\index{snprintf.c@{snprintf.c}!fast\_\-memcpy@{fast\_\-memcpy}}
+\index{fast\_\-memcpy@{fast\_\-memcpy}!snprintf.c@{snprintf.c}}
+\subsubsection[{fast\_\-memcpy}]{\setlength{\rightskip}{0pt plus 5cm}\#define fast\_\-memcpy(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{s, }
+\item[{}]{n}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8c_abdd8c3490d94c83fb3866e0e9139db38}
+{\bfseries Value:}
+\begin{DoxyCode}
+{ register size_t nn = (size_t)(n); \
+    if (nn >= breakeven_point) memcpy((d), (s), nn); \
+    else if (nn > 0) { /* proc call overhead is worth only for large strings*/\
+      register char *dd; register const char *ss; \
+      for (ss=(s), dd=(d); nn>0; nn--) *dd++ = *ss++; } }
+\end{DoxyCode}
+\hypertarget{snprintf_8c_ad448207baaebdf239f9a6eefc806201e}{
+\index{snprintf.c@{snprintf.c}!fast\_\-memset@{fast\_\-memset}}
+\index{fast\_\-memset@{fast\_\-memset}!snprintf.c@{snprintf.c}}
+\subsubsection[{fast\_\-memset}]{\setlength{\rightskip}{0pt plus 5cm}\#define fast\_\-memset(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{c, }
+\item[{}]{n}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8c_ad448207baaebdf239f9a6eefc806201e}
+{\bfseries Value:}
+\begin{DoxyCode}
+{ register size_t nn = (size_t)(n); \
+    if (nn >= breakeven_point) memset((d), (int)(c), nn); \
+    else if (nn > 0) { /* proc call overhead is worth only for large strings*/\
+      register char *dd; register const int cc=(int)(c); \
+      for (dd=(d); nn>0; nn--) *dd++ = cc; } }
+\end{DoxyCode}
+\hypertarget{snprintf_8c_a80e33e966a7ec3facaf0b2b4afaf5be5}{
+\index{snprintf.c@{snprintf.c}!isdigit@{isdigit}}
+\index{isdigit@{isdigit}!snprintf.c@{snprintf.c}}
+\subsubsection[{isdigit}]{\setlength{\rightskip}{0pt plus 5cm}\#define isdigit(
+\begin{DoxyParamCaption}
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~((c) $>$= '0' \&\& (c) $<$= '9')}}
+\label{snprintf_8c_a80e33e966a7ec3facaf0b2b4afaf5be5}
+\hypertarget{snprintf_8c_a93ff4ec8efd9a3f9abfcf127fa408a0a}{
+\index{snprintf.c@{snprintf.c}!portable\_\-snprintf@{portable\_\-snprintf}}
+\index{portable\_\-snprintf@{portable\_\-snprintf}!snprintf.c@{snprintf.c}}
+\subsubsection[{portable\_\-snprintf}]{\setlength{\rightskip}{0pt plus 5cm}\#define portable\_\-snprintf~snprintf}}
+\label{snprintf_8c_a93ff4ec8efd9a3f9abfcf127fa408a0a}
+\hypertarget{snprintf_8c_ae7b63d1b04b47a62e0168225e000824c}{
+\index{snprintf.c@{snprintf.c}!PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR@{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR}}
+\index{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR@{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR}!snprintf.c@{snprintf.c}}
+\subsubsection[{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MAJOR~2}}
+\label{snprintf_8c_ae7b63d1b04b47a62e0168225e000824c}
+\hypertarget{snprintf_8c_a076d04c914732567f8300676b32c3b08}{
+\index{snprintf.c@{snprintf.c}!PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR@{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR}}
+\index{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR@{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR}!snprintf.c@{snprintf.c}}
+\subsubsection[{PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define PORTABLE\_\-SNPRINTF\_\-VERSION\_\-MINOR~2}}
+\label{snprintf_8c_a076d04c914732567f8300676b32c3b08}
+\hypertarget{snprintf_8c_ac87f4bcc17a27a39813acfbc8d2e6f05}{
+\index{snprintf.c@{snprintf.c}!portable\_\-vsnprintf@{portable\_\-vsnprintf}}
+\index{portable\_\-vsnprintf@{portable\_\-vsnprintf}!snprintf.c@{snprintf.c}}
+\subsubsection[{portable\_\-vsnprintf}]{\setlength{\rightskip}{0pt plus 5cm}\#define portable\_\-vsnprintf~vsnprintf}}
+\label{snprintf_8c_ac87f4bcc17a27a39813acfbc8d2e6f05}
+
+
+\subsection{Function Documentation}
+\hypertarget{snprintf_8c_ae5dc736201ed48de501c7491e23719e5}{
+\index{snprintf.c@{snprintf.c}!portable\_\-snprintf@{portable\_\-snprintf}}
+\index{portable\_\-snprintf@{portable\_\-snprintf}!snprintf.c@{snprintf.c}}
+\subsubsection[{portable\_\-snprintf}]{\setlength{\rightskip}{0pt plus 5cm}int portable\_\-snprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{size\_\-t}]{str\_\-m, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8c_ae5dc736201ed48de501c7491e23719e5}
+\hypertarget{snprintf_8c_aa73a3dcaf1ccfeaecc146df5ebeb8b0a}{
+\index{snprintf.c@{snprintf.c}!portable\_\-vsnprintf@{portable\_\-vsnprintf}}
+\index{portable\_\-vsnprintf@{portable\_\-vsnprintf}!snprintf.c@{snprintf.c}}
+\subsubsection[{portable\_\-vsnprintf}]{\setlength{\rightskip}{0pt plus 5cm}int portable\_\-vsnprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{size\_\-t}]{str\_\-m, }
+\item[{const char $\ast$}]{fmt, }
+\item[{va\_\-list}]{ap}
+\end{DoxyParamCaption}
+)}}
+\label{snprintf_8c_aa73a3dcaf1ccfeaecc146df5ebeb8b0a}

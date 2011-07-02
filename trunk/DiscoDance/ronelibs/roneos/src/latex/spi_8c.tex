@@ -1,0 +1,112 @@
+\hypertarget{spi_8c}{
+\section{System/spi.c File Reference}
+\label{spi_8c}\index{System/spi.c@{System/spi.c}}
+}
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-ints.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/debug.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/ssi.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{spi_8c_ae909944aa85ae98323073c628be541aa}{spi\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Initializes SPI unit. \end{DoxyCompactList}\item 
+void \hyperlink{spi_8c_ada86c066558d8d417af0c2ff103dffc0}{spi\_\-set\_\-word\_\-size} (uint32 ulBase, uint32 dataWidth)
+\begin{DoxyCompactList}\small\item\em Sets the SPI word size. \end{DoxyCompactList}\item 
+void \hyperlink{spi_8c_a969997cc5b9dd396a183b867ab2f0723}{spi\_\-select\_\-device} (uint8 device, uint8 wordsize)
+\begin{DoxyCompactList}\small\item\em Selects a SPI device and sets its wordsize. \end{DoxyCompactList}\item 
+void \hyperlink{spi_8c_a52e153b05ce6990e8e8e630382e1edc5}{spi\_\-deselect} ()
+\begin{DoxyCompactList}\small\item\em Cancels all selections. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\hypertarget{spi_8c_a52e153b05ce6990e8e8e630382e1edc5}{
+\index{spi.c@{spi.c}!spi\_\-deselect@{spi\_\-deselect}}
+\index{spi\_\-deselect@{spi\_\-deselect}!spi.c@{spi.c}}
+\subsubsection[{spi\_\-deselect}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-deselect (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8c_a52e153b05ce6990e8e8e630382e1edc5}
+
+
+Cancels all selections. 
+
+Makes all SPI devices inactive. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{spi_8c_ae909944aa85ae98323073c628be541aa}{
+\index{spi.c@{spi.c}!spi\_\-init@{spi\_\-init}}
+\index{spi\_\-init@{spi\_\-init}!spi.c@{spi.c}}
+\subsubsection[{spi\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8c_ae909944aa85ae98323073c628be541aa}
+
+
+Initializes SPI unit. 
+
+Enables peripherals Configures GPIO Sets radio, accelerometer, and LED as output Sets word size as 0 \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{spi_8c_a969997cc5b9dd396a183b867ab2f0723}{
+\index{spi.c@{spi.c}!spi\_\-select\_\-device@{spi\_\-select\_\-device}}
+\index{spi\_\-select\_\-device@{spi\_\-select\_\-device}!spi.c@{spi.c}}
+\subsubsection[{spi\_\-select\_\-device}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-select\_\-device (
+\begin{DoxyParamCaption}
+\item[{uint8}]{device, }
+\item[{uint8}]{wordsize}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8c_a969997cc5b9dd396a183b867ab2f0723}
+
+
+Selects a SPI device and sets its wordsize. 
+
+Does not select anything if the input parameter is not recognized. 
+\begin{DoxyParams}{Parameters}
+{\em device} & to be selected \\
+\hline
+{\em wordsize} & of the device to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{spi_8c_ada86c066558d8d417af0c2ff103dffc0}{
+\index{spi.c@{spi.c}!spi\_\-set\_\-word\_\-size@{spi\_\-set\_\-word\_\-size}}
+\index{spi\_\-set\_\-word\_\-size@{spi\_\-set\_\-word\_\-size}!spi.c@{spi.c}}
+\subsubsection[{spi\_\-set\_\-word\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}void spi\_\-set\_\-word\_\-size (
+\begin{DoxyParamCaption}
+\item[{uint32}]{ulBase, }
+\item[{uint32}]{dataWidth}
+\end{DoxyParamCaption}
+)}}
+\label{spi_8c_ada86c066558d8d417af0c2ff103dffc0}
+
+
+Sets the SPI word size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ulBase} & is the SSI port \\
+\hline
+{\em dataWidth} & is the new word size to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

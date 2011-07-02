@@ -1,0 +1,354 @@
+\hypertarget{motor_8c}{
+\section{Motors/motor.c File Reference}
+\label{motor_8c}\index{Motors/motor.c@{Motors/motor.c}}
+}
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-qei.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/pwm.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/qei.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}FreeRTOS.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}Task.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}queue.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}semphr.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{motor_8c_a768f52a5009155da0fb45f00842c2fcf}{motorVelocityDataInit} (motorVelocityData $\ast$velPtr, uint8 motor)
+\begin{DoxyCompactList}\small\item\em Initializes variables of the motorVelocityData struct. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_a61dc23aefa7e9c7f8ca101a682d3924e}{motor\_\-enable\_\-pwm} (int16 motor)
+\begin{DoxyCompactList}\small\item\em Enables PWM according to the specified motor. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_a151cccf0120a24d251b5ce5d878abb67}{motor\_\-init} ()
+\begin{DoxyCompactList}\small\item\em Initializes motor. \end{DoxyCompactList}\item 
+int \hyperlink{motor_8c_a64524c07dc7f73328f5929b35b7626ae}{motor\_\-set\_\-pwm\_\-internal} (int motor, int signal, int dutyCycle)
+\begin{DoxyCompactList}\small\item\em Sets PWM duty cycle for the specified motor and signal. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_a6956b06dec73290ed3ddddaf284f0935}{motor\_\-command\_\-timer\_\-reset} (void)
+\begin{DoxyCompactList}\small\item\em Resets motor timer. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_aed5616155053d660357bb22691465193}{motor\_\-set\_\-pwm} (uint32 motor, int32 dutyCycle)
+\begin{DoxyCompactList}\small\item\em Sets PWM duty cycle for the specified motor. \end{DoxyCompactList}\item 
+int32 \hyperlink{motor_8c_a1cf32f2a2c39e3f95e25030da2031e98}{vel\_\-to\_\-pwm} (int32 goalvelocity)
+\begin{DoxyCompactList}\small\item\em Converts velocity to pwm. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_a54029cc3b4666ed2228df5fd65fac2ab}{motor\_\-velocity\_\-update\_\-one} (motorVelocityData $\ast$velPtr)
+\begin{DoxyCompactList}\small\item\em Updates the velocity data for one motor. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_abac65bbc27dd7dcfccb642c2e9f64cba}{motor\_\-velocity\_\-update} (void)
+\begin{DoxyCompactList}\small\item\em Updates the velocity data for both motors. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_a4fa73798526ed28679baeb9f11e2d951}{motor\_\-brake} (uint32 motor, int32 dutyCycle)
+\begin{DoxyCompactList}\small\item\em Breaks one motor with the specified duty cycle. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_a9e191c1c6aa85da61ee004ac722b8ff3}{motor\_\-command\_\-timer\_\-update} (void)
+\begin{DoxyCompactList}\small\item\em Updates the motor command timer. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_a7789dc837077b06ce6e65bd6ea4ab617}{motor\_\-set\_\-velocity} (uint32 motor, int32 velocity)
+\begin{DoxyCompactList}\small\item\em Sets the current velocity of the specified motor. \end{DoxyCompactList}\item 
+int32 \hyperlink{motor_8c_a1478a722823494c145426d7f1172d605}{motor\_\-get\_\-velocity} (uint32 motor)
+\begin{DoxyCompactList}\small\item\em Gets the current velocity of the specified motor. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_a53454559d685a36bfbea2f00f276b63e}{motor\_\-set\_\-tv\_\-rv} (int32 tv, int32 rv)
+\begin{DoxyCompactList}\small\item\em Sets the translational and radial velocity of the motor. \end{DoxyCompactList}\item 
+void \hyperlink{motor_8c_adc61608018b6337e017e16315e0077c6}{motor\_\-get\_\-tv\_\-rv} (int32 $\ast$tvPtr, int32 $\ast$rvPtr)
+\begin{DoxyCompactList}\small\item\em Gets the translational and radial velocity of the motor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\hypertarget{motor_8c_a4fa73798526ed28679baeb9f11e2d951}{
+\index{motor.c@{motor.c}!motor\_\-brake@{motor\_\-brake}}
+\index{motor\_\-brake@{motor\_\-brake}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-brake}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-brake (
+\begin{DoxyParamCaption}
+\item[{uint32}]{motor, }
+\item[{int32}]{dutyCycle}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a4fa73798526ed28679baeb9f11e2d951}
+
+
+Breaks one motor with the specified duty cycle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & (left or right) \\
+\hline
+{\em dutyCycle} & duty cycle of PWM \\
+\hline
+\end{DoxyParams}
+\hypertarget{motor_8c_a6956b06dec73290ed3ddddaf284f0935}{
+\index{motor.c@{motor.c}!motor\_\-command\_\-timer\_\-reset@{motor\_\-command\_\-timer\_\-reset}}
+\index{motor\_\-command\_\-timer\_\-reset@{motor\_\-command\_\-timer\_\-reset}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-command\_\-timer\_\-reset}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-command\_\-timer\_\-reset (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a6956b06dec73290ed3ddddaf284f0935}
+
+
+Resets motor timer. 
+
+Resets the motor timer to 20 and disables the charger. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_a9e191c1c6aa85da61ee004ac722b8ff3}{
+\index{motor.c@{motor.c}!motor\_\-command\_\-timer\_\-update@{motor\_\-command\_\-timer\_\-update}}
+\index{motor\_\-command\_\-timer\_\-update@{motor\_\-command\_\-timer\_\-update}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-command\_\-timer\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-command\_\-timer\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a9e191c1c6aa85da61ee004ac722b8ff3}
+
+
+Updates the motor command timer. 
+
+If no motor command has been received, timeout and enables the charger. This function should be called at 10 hz. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_a61dc23aefa7e9c7f8ca101a682d3924e}{
+\index{motor.c@{motor.c}!motor\_\-enable\_\-pwm@{motor\_\-enable\_\-pwm}}
+\index{motor\_\-enable\_\-pwm@{motor\_\-enable\_\-pwm}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-enable\_\-pwm}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-enable\_\-pwm (
+\begin{DoxyParamCaption}
+\item[{int16}]{motor}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a61dc23aefa7e9c7f8ca101a682d3924e}
+
+
+Enables PWM according to the specified motor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & specifies left or right motor (MOTOR\_\-RIGHT/MOTOR\_\-LEFT) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_adc61608018b6337e017e16315e0077c6}{
+\index{motor.c@{motor.c}!motor\_\-get\_\-tv\_\-rv@{motor\_\-get\_\-tv\_\-rv}}
+\index{motor\_\-get\_\-tv\_\-rv@{motor\_\-get\_\-tv\_\-rv}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-get\_\-tv\_\-rv}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-get\_\-tv\_\-rv (
+\begin{DoxyParamCaption}
+\item[{int32 $\ast$}]{tvPtr, }
+\item[{int32 $\ast$}]{rvPtr}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_adc61608018b6337e017e16315e0077c6}
+
+
+Gets the translational and radial velocity of the motor. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_a1478a722823494c145426d7f1172d605}{
+\index{motor.c@{motor.c}!motor\_\-get\_\-velocity@{motor\_\-get\_\-velocity}}
+\index{motor\_\-get\_\-velocity@{motor\_\-get\_\-velocity}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-get\_\-velocity}]{\setlength{\rightskip}{0pt plus 5cm}int32 motor\_\-get\_\-velocity (
+\begin{DoxyParamCaption}
+\item[{uint32}]{motor}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a1478a722823494c145426d7f1172d605}
+
+
+Gets the current velocity of the specified motor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & left or right motor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the current velocity; 0 if the input parameter is not recognized 
+\end{DoxyReturn}
+\hypertarget{motor_8c_a151cccf0120a24d251b5ce5d878abb67}{
+\index{motor.c@{motor.c}!motor\_\-init@{motor\_\-init}}
+\index{motor\_\-init@{motor\_\-init}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a151cccf0120a24d251b5ce5d878abb67}
+
+
+Initializes motor. 
+
+Enables PWM and initializes the motorVelocityData struct for both left and right motor. Also sets the command timer to 0 \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_aed5616155053d660357bb22691465193}{
+\index{motor.c@{motor.c}!motor\_\-set\_\-pwm@{motor\_\-set\_\-pwm}}
+\index{motor\_\-set\_\-pwm@{motor\_\-set\_\-pwm}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-set\_\-pwm}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-set\_\-pwm (
+\begin{DoxyParamCaption}
+\item[{uint32}]{motor, }
+\item[{int32}]{dutyCycle}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_aed5616155053d660357bb22691465193}
+
+
+Sets PWM duty cycle for the specified motor. 
+
+Sets PWM duty cycle for the specified motor for both reverse and forward signals. 
+\begin{DoxyParams}{Parameters}
+{\em motor} & left or right motor \\
+\hline
+{\em dutyCycle} & duty cycle of PWM \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_a64524c07dc7f73328f5929b35b7626ae}{
+\index{motor.c@{motor.c}!motor\_\-set\_\-pwm\_\-internal@{motor\_\-set\_\-pwm\_\-internal}}
+\index{motor\_\-set\_\-pwm\_\-internal@{motor\_\-set\_\-pwm\_\-internal}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-set\_\-pwm\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}int motor\_\-set\_\-pwm\_\-internal (
+\begin{DoxyParamCaption}
+\item[{int}]{motor, }
+\item[{int}]{signal, }
+\item[{int}]{dutyCycle}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a64524c07dc7f73328f5929b35b7626ae}
+
+
+Sets PWM duty cycle for the specified motor and signal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & left or right motor \\
+\hline
+{\em signal} & forward or backward \\
+\hline
+{\em dutyCycle} & duty cycle of PWM \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if the properties are successfully set; -\/1 if any of the input parameter is not recognized 
+\end{DoxyReturn}
+\hypertarget{motor_8c_a53454559d685a36bfbea2f00f276b63e}{
+\index{motor.c@{motor.c}!motor\_\-set\_\-tv\_\-rv@{motor\_\-set\_\-tv\_\-rv}}
+\index{motor\_\-set\_\-tv\_\-rv@{motor\_\-set\_\-tv\_\-rv}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-set\_\-tv\_\-rv}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-set\_\-tv\_\-rv (
+\begin{DoxyParamCaption}
+\item[{int32}]{tv, }
+\item[{int32}]{rv}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a53454559d685a36bfbea2f00f276b63e}
+
+
+Sets the translational and radial velocity of the motor. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_a7789dc837077b06ce6e65bd6ea4ab617}{
+\index{motor.c@{motor.c}!motor\_\-set\_\-velocity@{motor\_\-set\_\-velocity}}
+\index{motor\_\-set\_\-velocity@{motor\_\-set\_\-velocity}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-set\_\-velocity}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-set\_\-velocity (
+\begin{DoxyParamCaption}
+\item[{uint32}]{motor, }
+\item[{int32}]{velocity}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a7789dc837077b06ce6e65bd6ea4ab617}
+
+
+Sets the current velocity of the specified motor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & left or right motor \\
+\hline
+{\em velocity} & motor velocity to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_abac65bbc27dd7dcfccb642c2e9f64cba}{
+\index{motor.c@{motor.c}!motor\_\-velocity\_\-update@{motor\_\-velocity\_\-update}}
+\index{motor\_\-velocity\_\-update@{motor\_\-velocity\_\-update}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-velocity\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-velocity\_\-update (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_abac65bbc27dd7dcfccb642c2e9f64cba}
+
+
+Updates the velocity data for both motors. 
+
+void \hypertarget{motor_8c_a54029cc3b4666ed2228df5fd65fac2ab}{
+\index{motor.c@{motor.c}!motor\_\-velocity\_\-update\_\-one@{motor\_\-velocity\_\-update\_\-one}}
+\index{motor\_\-velocity\_\-update\_\-one@{motor\_\-velocity\_\-update\_\-one}!motor.c@{motor.c}}
+\subsubsection[{motor\_\-velocity\_\-update\_\-one}]{\setlength{\rightskip}{0pt plus 5cm}void motor\_\-velocity\_\-update\_\-one (
+\begin{DoxyParamCaption}
+\item[{motorVelocityData $\ast$}]{velPtr}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a54029cc3b4666ed2228df5fd65fac2ab}
+
+
+Updates the velocity data for one motor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velPtr} & pointer to motorVelocityData \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_a768f52a5009155da0fb45f00842c2fcf}{
+\index{motor.c@{motor.c}!motorVelocityDataInit@{motorVelocityDataInit}}
+\index{motorVelocityDataInit@{motorVelocityDataInit}!motor.c@{motor.c}}
+\subsubsection[{motorVelocityDataInit}]{\setlength{\rightskip}{0pt plus 5cm}void motorVelocityDataInit (
+\begin{DoxyParamCaption}
+\item[{motorVelocityData $\ast$}]{velPtr, }
+\item[{uint8}]{motor}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a768f52a5009155da0fb45f00842c2fcf}
+
+
+Initializes variables of the motorVelocityData struct. 
+
+Initializations include motor, ticks, velGoal, iTerm, and error. Sets motor and ticks according to the input parameter. Sets the others to zero.  a pointer that points to the motorVelocityData struct 
+\begin{DoxyParams}{Parameters}
+{\em motor} & specifies which motor you want \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{motor_8c_a1cf32f2a2c39e3f95e25030da2031e98}{
+\index{motor.c@{motor.c}!vel\_\-to\_\-pwm@{vel\_\-to\_\-pwm}}
+\index{vel\_\-to\_\-pwm@{vel\_\-to\_\-pwm}!motor.c@{motor.c}}
+\subsubsection[{vel\_\-to\_\-pwm}]{\setlength{\rightskip}{0pt plus 5cm}int32 vel\_\-to\_\-pwm (
+\begin{DoxyParamCaption}
+\item[{int32}]{goalvelocity}
+\end{DoxyParamCaption}
+)}}
+\label{motor_8c_a1cf32f2a2c39e3f95e25030da2031e98}
+
+
+Converts velocity to pwm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velocity} & to be converted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+converted pwm 
+\end{DoxyReturn}

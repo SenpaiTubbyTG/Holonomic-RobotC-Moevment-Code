@@ -1,0 +1,125 @@
+\hypertarget{radio_8h}{
+\section{InputOutput/radio.h File Reference}
+\label{radio_8h}\index{InputOutput/radio.h@{InputOutput/radio.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{radio_8h_ae894690f8300e6f68f522c9ceb9e49c9}{RADIO\_\-MESSAGE\_\-LENGTH}~32
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{radio_8h_acfb21351bb3f0146635745bfacfe26a8}{radio\_\-init} (void)
+\item 
+void \hyperlink{radio_8h_a25e2b59ea73e9d066280d23f1abd7ff8}{radio\_\-int\_\-handler} (void)
+\item 
+void \hyperlink{radio_8h_a16f5c28dbe4eeed23bfe6722e3c2639c}{radio\_\-int\_\-enable} (void)
+\item 
+void \hyperlink{radio_8h_a32e62bc88e56b4ae23bd069a29f1661a}{radio\_\-int\_\-disable} (void)
+\item 
+void \hyperlink{radio_8h_a2fe3cf49de9515e2d7296cd2dc4bc1b5}{radio\_\-set\_\-rx\_\-remote} (void)
+\item 
+void \hyperlink{radio_8h_a843dc9a27adecbbd568757f37be15e3e}{radio\_\-send\_\-message} (char $\ast$message, \hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} size)
+\item 
+\hyperlink{typedefs_8h_a7670a4e8a07d9ebb00411948b0bbf86d}{boolean} \hyperlink{radio_8h_ab2cf0d5fc4becda5d0c05eca29f100dd}{radio\_\-get\_\-message} (char $\ast$message, \hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} $\ast$message\_\-size\_\-ptr, \hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} $\ast$message\_\-link\_\-quality\_\-ptr)
+\item 
+\hyperlink{typedefs_8h_a4b435a49c74bb91f284f075e63416cb6}{uint32} \hyperlink{radio_8h_a68f815abaefd70553cc1270cb4cb06cd}{radio\_\-get\_\-link\_\-quality} (void)
+\item 
+\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} \hyperlink{radio_8h_a3a77cff282e448d982a9738e73f1c7a7}{radio\_\-get\_\-success} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{radio_8h_ae894690f8300e6f68f522c9ceb9e49c9}{
+\index{radio.h@{radio.h}!RADIO\_\-MESSAGE\_\-LENGTH@{RADIO\_\-MESSAGE\_\-LENGTH}}
+\index{RADIO\_\-MESSAGE\_\-LENGTH@{RADIO\_\-MESSAGE\_\-LENGTH}!radio.h@{radio.h}}
+\subsubsection[{RADIO\_\-MESSAGE\_\-LENGTH}]{\setlength{\rightskip}{0pt plus 5cm}\#define RADIO\_\-MESSAGE\_\-LENGTH~32}}
+\label{radio_8h_ae894690f8300e6f68f522c9ceb9e49c9}
+
+
+\subsection{Function Documentation}
+\hypertarget{radio_8h_a68f815abaefd70553cc1270cb4cb06cd}{
+\index{radio.h@{radio.h}!radio\_\-get\_\-link\_\-quality@{radio\_\-get\_\-link\_\-quality}}
+\index{radio\_\-get\_\-link\_\-quality@{radio\_\-get\_\-link\_\-quality}!radio.h@{radio.h}}
+\subsubsection[{radio\_\-get\_\-link\_\-quality}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} radio\_\-get\_\-link\_\-quality (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8h_a68f815abaefd70553cc1270cb4cb06cd}
+\hypertarget{radio_8h_ab2cf0d5fc4becda5d0c05eca29f100dd}{
+\index{radio.h@{radio.h}!radio\_\-get\_\-message@{radio\_\-get\_\-message}}
+\index{radio\_\-get\_\-message@{radio\_\-get\_\-message}!radio.h@{radio.h}}
+\subsubsection[{radio\_\-get\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} radio\_\-get\_\-message (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{message, }
+\item[{{\bf uint32} $\ast$}]{message\_\-size\_\-ptr, }
+\item[{{\bf uint32} $\ast$}]{message\_\-link\_\-quality\_\-ptr}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8h_ab2cf0d5fc4becda5d0c05eca29f100dd}
+Returns true if there is a message \hypertarget{radio_8h_a3a77cff282e448d982a9738e73f1c7a7}{
+\index{radio.h@{radio.h}!radio\_\-get\_\-success@{radio\_\-get\_\-success}}
+\index{radio\_\-get\_\-success@{radio\_\-get\_\-success}!radio.h@{radio.h}}
+\subsubsection[{radio\_\-get\_\-success}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8} radio\_\-get\_\-success (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8h_a3a77cff282e448d982a9738e73f1c7a7}
+\hypertarget{radio_8h_acfb21351bb3f0146635745bfacfe26a8}{
+\index{radio.h@{radio.h}!radio\_\-init@{radio\_\-init}}
+\index{radio\_\-init@{radio\_\-init}!radio.h@{radio.h}}
+\subsubsection[{radio\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8h_acfb21351bb3f0146635745bfacfe26a8}
+\hypertarget{radio_8h_a32e62bc88e56b4ae23bd069a29f1661a}{
+\index{radio.h@{radio.h}!radio\_\-int\_\-disable@{radio\_\-int\_\-disable}}
+\index{radio\_\-int\_\-disable@{radio\_\-int\_\-disable}!radio.h@{radio.h}}
+\subsubsection[{radio\_\-int\_\-disable}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-int\_\-disable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8h_a32e62bc88e56b4ae23bd069a29f1661a}
+\hypertarget{radio_8h_a16f5c28dbe4eeed23bfe6722e3c2639c}{
+\index{radio.h@{radio.h}!radio\_\-int\_\-enable@{radio\_\-int\_\-enable}}
+\index{radio\_\-int\_\-enable@{radio\_\-int\_\-enable}!radio.h@{radio.h}}
+\subsubsection[{radio\_\-int\_\-enable}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-int\_\-enable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8h_a16f5c28dbe4eeed23bfe6722e3c2639c}
+\hypertarget{radio_8h_a25e2b59ea73e9d066280d23f1abd7ff8}{
+\index{radio.h@{radio.h}!radio\_\-int\_\-handler@{radio\_\-int\_\-handler}}
+\index{radio\_\-int\_\-handler@{radio\_\-int\_\-handler}!radio.h@{radio.h}}
+\subsubsection[{radio\_\-int\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-int\_\-handler (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8h_a25e2b59ea73e9d066280d23f1abd7ff8}
+\hypertarget{radio_8h_a843dc9a27adecbbd568757f37be15e3e}{
+\index{radio.h@{radio.h}!radio\_\-send\_\-message@{radio\_\-send\_\-message}}
+\index{radio\_\-send\_\-message@{radio\_\-send\_\-message}!radio.h@{radio.h}}
+\subsubsection[{radio\_\-send\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-send\_\-message (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{message, }
+\item[{{\bf uint32}}]{size}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8h_a843dc9a27adecbbd568757f37be15e3e}
+\hypertarget{radio_8h_a2fe3cf49de9515e2d7296cd2dc4bc1b5}{
+\index{radio.h@{radio.h}!radio\_\-set\_\-rx\_\-remote@{radio\_\-set\_\-rx\_\-remote}}
+\index{radio\_\-set\_\-rx\_\-remote@{radio\_\-set\_\-rx\_\-remote}!radio.h@{radio.h}}
+\subsubsection[{radio\_\-set\_\-rx\_\-remote}]{\setlength{\rightskip}{0pt plus 5cm}void radio\_\-set\_\-rx\_\-remote (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{radio_8h_a2fe3cf49de9515e2d7296cd2dc4bc1b5}

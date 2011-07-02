@@ -1,0 +1,90 @@
+\hypertarget{charger_8c}{
+\section{System/charger.c File Reference}
+\label{charger_8c}\index{System/charger.c@{System/charger.c}}
+}
+{\ttfamily \#include \char`\"{}inc/lm3s8962.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-memmap.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}inc/hw\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/gpio.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/rom\_\-map.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}driverlib/sysctl.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{charger_8c_a3612b6bd740e2b58f32b40bd72e822d8}{charger\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Initializes charger. \end{DoxyCompactList}\item 
+void \hyperlink{charger_8c_a836a56710a7b62e0f6762db9ce2b3736}{charger\_\-enable} (void)
+\item 
+void \hyperlink{charger_8c_a26cbbccd5a2f0f474f711722695ff177}{charger\_\-disable} (void)
+\begin{DoxyCompactList}\small\item\em Disables the charger. \end{DoxyCompactList}\item 
+uint32 \hyperlink{charger_8c_a17d8804da64d88a65075092aae437c2e}{charger\_\-get\_\-status} (void)
+\begin{DoxyCompactList}\small\item\em Gets the status of the charger. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\hypertarget{charger_8c_a26cbbccd5a2f0f474f711722695ff177}{
+\index{charger.c@{charger.c}!charger\_\-disable@{charger\_\-disable}}
+\index{charger\_\-disable@{charger\_\-disable}!charger.c@{charger.c}}
+\subsubsection[{charger\_\-disable}]{\setlength{\rightskip}{0pt plus 5cm}void charger\_\-disable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{charger_8c_a26cbbccd5a2f0f474f711722695ff177}
+
+
+Disables the charger. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{charger_8c_a836a56710a7b62e0f6762db9ce2b3736}{
+\index{charger.c@{charger.c}!charger\_\-enable@{charger\_\-enable}}
+\index{charger\_\-enable@{charger\_\-enable}!charger.c@{charger.c}}
+\subsubsection[{charger\_\-enable}]{\setlength{\rightskip}{0pt plus 5cm}void charger\_\-enable (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{charger_8c_a836a56710a7b62e0f6762db9ce2b3736}
+
+
+Enables the charger
+
+\hypertarget{charger_8c_a17d8804da64d88a65075092aae437c2e}{
+\index{charger.c@{charger.c}!charger\_\-get\_\-status@{charger\_\-get\_\-status}}
+\index{charger\_\-get\_\-status@{charger\_\-get\_\-status}!charger.c@{charger.c}}
+\subsubsection[{charger\_\-get\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}uint32 charger\_\-get\_\-status (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{charger_8c_a17d8804da64d88a65075092aae437c2e}
+
+
+Gets the status of the charger. 
+
+\begin{DoxyReturn}{Returns}
+true if the charger is enabled, false otherwise 
+\end{DoxyReturn}
+\hypertarget{charger_8c_a3612b6bd740e2b58f32b40bd72e822d8}{
+\index{charger.c@{charger.c}!charger\_\-init@{charger\_\-init}}
+\index{charger\_\-init@{charger\_\-init}!charger.c@{charger.c}}
+\subsubsection[{charger\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void charger\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{charger_8c_a3612b6bd740e2b58f32b40bd72e822d8}
+
+
+Initializes charger. 
+
+Enables peripheral and sets the charger pin as output. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

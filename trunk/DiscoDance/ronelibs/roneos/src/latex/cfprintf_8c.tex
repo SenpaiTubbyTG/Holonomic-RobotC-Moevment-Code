@@ -1,0 +1,165 @@
+\hypertarget{cfprintf_8c}{
+\section{SerialIO/cfprintf.c File Reference}
+\label{cfprintf_8c}\index{SerialIO/cfprintf.c@{SerialIO/cfprintf.c}}
+}
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$ctype.h$>$}\par
+{\ttfamily \#include $<$stdarg.h$>$}\par
+{\ttfamily \#include \char`\"{}FreeRTOS.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}Task.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}queue.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}semphr.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}roneos.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{cfprintf_8c_a05b853dcc460fe4d8873a96cb5fe609c}{cfprintf\_\-TEXT\_\-STRING\_\-SIZE}~256
+\item 
+\#define \hyperlink{cfprintf_8c_aa3f4c8a572a191e9f88ec86eeae91e51}{CFPRINTF\_\-MESSAGE\_\-SIZE}~3
+\item 
+\#define \hyperlink{cfprintf_8c_a560d3f1ae0f9c689639f9b499b5b7cdf}{CFPRINTF\_\-MESSAGE\_\-DISPLAY\_\-IDX}~0
+\item 
+\#define \hyperlink{cfprintf_8c_ab413ec672945254f50a5daefc5575849}{CFPRINTF\_\-MESSAGE\_\-FORMAT\_\-IDX}~1
+\item 
+\#define \hyperlink{cfprintf_8c_aca5ce42691460f079f5e2f344e6722ec}{CFPRINTF\_\-MESSAGE\_\-ARGS\_\-IDX}~2
+\item 
+\#define \hyperlink{cfprintf_8c_a65f0b0c249b88eb1208ddc615d2822e2}{CFPRINTF\_\-CRLF\_\-LF}~0
+\item 
+\#define \hyperlink{cfprintf_8c_a1159714efe54df898236e4e33242065b}{CFPRINTF\_\-CRLF\_\-CR}~1
+\item 
+\#define \hyperlink{cfprintf_8c_ab2298ea9c22502750dcaa8e1324d7b48}{CFPRINTF\_\-CRLF\_\-CRLF}~2
+\item 
+\#define \hyperlink{cfprintf_8c_a46721eabd9ccc3b573953b37175bb46b}{CFPRINTF\_\-CRLF\_\-LFCR}~3
+\item 
+\#define \hyperlink{cfprintf_8c_af5fa9b701932ec1d3dea60bbf7cd77ce}{CFPRINTF\_\-STDOUT}~0
+\item 
+\#define \hyperlink{cfprintf_8c_a36afc29fdda2536c753dfc02531382b8}{CFPRINTF\_\-STDERR}~1
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{cfprintf_8c_a74f77943ecbb601872c1b373d5b37443}{cprintf} (char $\ast$format,...)
+\item 
+void \hyperlink{cfprintf_8c_ac867d1ccbdfd19d70084c6b40fd9a0ab}{cfprintfInit} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static osSemaphoreHandle \hyperlink{cfprintf_8c_a1b2b61ae73471949106538a5f46feb1a}{cfprintfMutex}
+\item 
+\hyperlink{typedefs_8h_a7670a4e8a07d9ebb00411948b0bbf86d}{boolean} \hyperlink{cfprintf_8c_ac03a54fd6ad3c65806c4e802dff04255}{cfPrintfThreadRunning} = FALSE
+\item 
+\hyperlink{typedefs_8h_adde6aaee8457bee49c2a92621fe22b79}{uint8} \hyperlink{cfprintf_8c_ab7c9da1e73ea959d419c0dfa2565f210}{CRLFMode} = CFPRINTF\_\-CRLF\_\-LF
+\item 
+char \hyperlink{cfprintf_8c_a760eb85419edc1df47551fb911d994c2}{cfprintfRaw\_\-outString} \mbox{[}cfprintf\_\-TEXT\_\-STRING\_\-SIZE\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{cfprintf_8c_a1159714efe54df898236e4e33242065b}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-CRLF\_\-CR@{CFPRINTF\_\-CRLF\_\-CR}}
+\index{CFPRINTF\_\-CRLF\_\-CR@{CFPRINTF\_\-CRLF\_\-CR}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-CRLF\_\-CR}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-CRLF\_\-CR~1}}
+\label{cfprintf_8c_a1159714efe54df898236e4e33242065b}
+\hypertarget{cfprintf_8c_ab2298ea9c22502750dcaa8e1324d7b48}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-CRLF\_\-CRLF@{CFPRINTF\_\-CRLF\_\-CRLF}}
+\index{CFPRINTF\_\-CRLF\_\-CRLF@{CFPRINTF\_\-CRLF\_\-CRLF}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-CRLF\_\-CRLF}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-CRLF\_\-CRLF~2}}
+\label{cfprintf_8c_ab2298ea9c22502750dcaa8e1324d7b48}
+\hypertarget{cfprintf_8c_a65f0b0c249b88eb1208ddc615d2822e2}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-CRLF\_\-LF@{CFPRINTF\_\-CRLF\_\-LF}}
+\index{CFPRINTF\_\-CRLF\_\-LF@{CFPRINTF\_\-CRLF\_\-LF}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-CRLF\_\-LF}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-CRLF\_\-LF~0}}
+\label{cfprintf_8c_a65f0b0c249b88eb1208ddc615d2822e2}
+\hypertarget{cfprintf_8c_a46721eabd9ccc3b573953b37175bb46b}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-CRLF\_\-LFCR@{CFPRINTF\_\-CRLF\_\-LFCR}}
+\index{CFPRINTF\_\-CRLF\_\-LFCR@{CFPRINTF\_\-CRLF\_\-LFCR}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-CRLF\_\-LFCR}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-CRLF\_\-LFCR~3}}
+\label{cfprintf_8c_a46721eabd9ccc3b573953b37175bb46b}
+\hypertarget{cfprintf_8c_aca5ce42691460f079f5e2f344e6722ec}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-MESSAGE\_\-ARGS\_\-IDX@{CFPRINTF\_\-MESSAGE\_\-ARGS\_\-IDX}}
+\index{CFPRINTF\_\-MESSAGE\_\-ARGS\_\-IDX@{CFPRINTF\_\-MESSAGE\_\-ARGS\_\-IDX}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-MESSAGE\_\-ARGS\_\-IDX}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-MESSAGE\_\-ARGS\_\-IDX~2}}
+\label{cfprintf_8c_aca5ce42691460f079f5e2f344e6722ec}
+\hypertarget{cfprintf_8c_a560d3f1ae0f9c689639f9b499b5b7cdf}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-MESSAGE\_\-DISPLAY\_\-IDX@{CFPRINTF\_\-MESSAGE\_\-DISPLAY\_\-IDX}}
+\index{CFPRINTF\_\-MESSAGE\_\-DISPLAY\_\-IDX@{CFPRINTF\_\-MESSAGE\_\-DISPLAY\_\-IDX}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-MESSAGE\_\-DISPLAY\_\-IDX}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-MESSAGE\_\-DISPLAY\_\-IDX~0}}
+\label{cfprintf_8c_a560d3f1ae0f9c689639f9b499b5b7cdf}
+\hypertarget{cfprintf_8c_ab413ec672945254f50a5daefc5575849}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-MESSAGE\_\-FORMAT\_\-IDX@{CFPRINTF\_\-MESSAGE\_\-FORMAT\_\-IDX}}
+\index{CFPRINTF\_\-MESSAGE\_\-FORMAT\_\-IDX@{CFPRINTF\_\-MESSAGE\_\-FORMAT\_\-IDX}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-MESSAGE\_\-FORMAT\_\-IDX}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-MESSAGE\_\-FORMAT\_\-IDX~1}}
+\label{cfprintf_8c_ab413ec672945254f50a5daefc5575849}
+\hypertarget{cfprintf_8c_aa3f4c8a572a191e9f88ec86eeae91e51}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-MESSAGE\_\-SIZE@{CFPRINTF\_\-MESSAGE\_\-SIZE}}
+\index{CFPRINTF\_\-MESSAGE\_\-SIZE@{CFPRINTF\_\-MESSAGE\_\-SIZE}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-MESSAGE\_\-SIZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-MESSAGE\_\-SIZE~3}}
+\label{cfprintf_8c_aa3f4c8a572a191e9f88ec86eeae91e51}
+\hypertarget{cfprintf_8c_a36afc29fdda2536c753dfc02531382b8}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-STDERR@{CFPRINTF\_\-STDERR}}
+\index{CFPRINTF\_\-STDERR@{CFPRINTF\_\-STDERR}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-STDERR}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-STDERR~1}}
+\label{cfprintf_8c_a36afc29fdda2536c753dfc02531382b8}
+\hypertarget{cfprintf_8c_af5fa9b701932ec1d3dea60bbf7cd77ce}{
+\index{cfprintf.c@{cfprintf.c}!CFPRINTF\_\-STDOUT@{CFPRINTF\_\-STDOUT}}
+\index{CFPRINTF\_\-STDOUT@{CFPRINTF\_\-STDOUT}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CFPRINTF\_\-STDOUT}]{\setlength{\rightskip}{0pt plus 5cm}\#define CFPRINTF\_\-STDOUT~0}}
+\label{cfprintf_8c_af5fa9b701932ec1d3dea60bbf7cd77ce}
+\hypertarget{cfprintf_8c_a05b853dcc460fe4d8873a96cb5fe609c}{
+\index{cfprintf.c@{cfprintf.c}!cfprintf\_\-TEXT\_\-STRING\_\-SIZE@{cfprintf\_\-TEXT\_\-STRING\_\-SIZE}}
+\index{cfprintf\_\-TEXT\_\-STRING\_\-SIZE@{cfprintf\_\-TEXT\_\-STRING\_\-SIZE}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{cfprintf\_\-TEXT\_\-STRING\_\-SIZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define cfprintf\_\-TEXT\_\-STRING\_\-SIZE~256}}
+\label{cfprintf_8c_a05b853dcc460fe4d8873a96cb5fe609c}
+
+
+\subsection{Function Documentation}
+\hypertarget{cfprintf_8c_ac867d1ccbdfd19d70084c6b40fd9a0ab}{
+\index{cfprintf.c@{cfprintf.c}!cfprintfInit@{cfprintfInit}}
+\index{cfprintfInit@{cfprintfInit}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{cfprintfInit}]{\setlength{\rightskip}{0pt plus 5cm}void cfprintfInit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{cfprintf_8c_ac867d1ccbdfd19d70084c6b40fd9a0ab}
+Initializes cfprintf. Initializes cfprintf. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{cfprintf_8c_a74f77943ecbb601872c1b373d5b37443}{
+\index{cfprintf.c@{cfprintf.c}!cprintf@{cprintf}}
+\index{cprintf@{cprintf}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{cprintf}]{\setlength{\rightskip}{0pt plus 5cm}void cprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}
+\label{cfprintf_8c_a74f77943ecbb601872c1b373d5b37443}
+Serves the same purpose as fprintf (formatted output string) for the robot. Serves the same purpose as fprintf (formatted output string) for the robot. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{cfprintf_8c_a1b2b61ae73471949106538a5f46feb1a}{
+\index{cfprintf.c@{cfprintf.c}!cfprintfMutex@{cfprintfMutex}}
+\index{cfprintfMutex@{cfprintfMutex}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{cfprintfMutex}]{\setlength{\rightskip}{0pt plus 5cm}osSemaphoreHandle {\bf cfprintfMutex}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{cfprintf_8c_a1b2b61ae73471949106538a5f46feb1a}
+\hypertarget{cfprintf_8c_a760eb85419edc1df47551fb911d994c2}{
+\index{cfprintf.c@{cfprintf.c}!cfprintfRaw\_\-outString@{cfprintfRaw\_\-outString}}
+\index{cfprintfRaw\_\-outString@{cfprintfRaw\_\-outString}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{cfprintfRaw\_\-outString}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf cfprintfRaw\_\-outString}\mbox{[}cfprintf\_\-TEXT\_\-STRING\_\-SIZE\mbox{]}}}
+\label{cfprintf_8c_a760eb85419edc1df47551fb911d994c2}
+\hypertarget{cfprintf_8c_ac03a54fd6ad3c65806c4e802dff04255}{
+\index{cfprintf.c@{cfprintf.c}!cfPrintfThreadRunning@{cfPrintfThreadRunning}}
+\index{cfPrintfThreadRunning@{cfPrintfThreadRunning}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{cfPrintfThreadRunning}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} {\bf cfPrintfThreadRunning} = FALSE}}
+\label{cfprintf_8c_ac03a54fd6ad3c65806c4e802dff04255}
+\hypertarget{cfprintf_8c_ab7c9da1e73ea959d419c0dfa2565f210}{
+\index{cfprintf.c@{cfprintf.c}!CRLFMode@{CRLFMode}}
+\index{CRLFMode@{CRLFMode}!cfprintf.c@{cfprintf.c}}
+\subsubsection[{CRLFMode}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8} {\bf CRLFMode} = CFPRINTF\_\-CRLF\_\-LF}}
+\label{cfprintf_8c_ab7c9da1e73ea959d419c0dfa2565f210}
