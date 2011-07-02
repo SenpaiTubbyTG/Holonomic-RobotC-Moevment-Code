@@ -12,6 +12,9 @@ void behaviorTask(void* parameters);
 int main(void) {
     systemPreInit();
     systemInit();
+
+    initCapSensor();
+
     //osTaskCreate(backgroundTask, "background", 256, NULL, BACKGROUND_TASK_PRIORITY);
     osTaskCreate(behaviorTask, "behavior", 4096, NULL, BEHAVIOR_TASK_PRIORITY);
 	osTaskStartScheduler(); /* Start the scheduler. */
@@ -36,7 +39,9 @@ void behaviorTask(void* parameters) {
 	uint8 message = 0xAA;
 
 	for (;;) {
+		if(getCapSensor(CAP_SENSOR_BASE, CAP_SENSOR_PIN)) {
 
+		}
 
 		osTaskDelayUntil(&lastWakeTime, BEHAVIOR_TASK_PERIOD);
     }
