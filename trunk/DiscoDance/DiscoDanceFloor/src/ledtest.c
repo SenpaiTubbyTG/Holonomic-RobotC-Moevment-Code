@@ -10,15 +10,15 @@ void behaviorTask(void* parameters);
 /******** user code ********/
 
 int main(void) {
-    systemPreInit();
-    systemInit();
+	systemPreInit();
+	systemInit();
 
-    initCapSensor();
+	initButtonSensor();
 
-    //osTaskCreate(backgroundTask, "background", 256, NULL, BACKGROUND_TASK_PRIORITY);
-    osTaskCreate(behaviorTask, "behavior", 4096, NULL, BEHAVIOR_TASK_PRIORITY);
+	//osTaskCreate(backgroundTask, "background", 256, NULL, BACKGROUND_TASK_PRIORITY);
+	osTaskCreate(behaviorTask, "behavior", 4096, NULL, BEHAVIOR_TASK_PRIORITY);
 	osTaskStartScheduler(); /* Start the scheduler. */
-    return 0;/* memory problem if os gets here.*/
+	return 0;/* memory problem if os gets here.*/
 }
 
 // the background task runs all the time.  Put slow stuff here, like compute intensive functions
@@ -27,7 +27,7 @@ void backgroundTask(void* parameters) {
 	for (;;) {
 		// delay to let other tasks run at same priority
 		osTaskDelay(100);
-    }
+	}
 }
 
 // behaviors run every 50ms.  They should be designed to be short, and terminate quickly.
@@ -39,10 +39,10 @@ void behaviorTask(void* parameters) {
 	uint8 message = 0xAA;
 
 	for (;;) {
-		if(getCapSensor(CAP_SENSOR_BASE, CAP_SENSOR_PIN)) {
+		if (getButtonSensor(BUTTON_SENSOR_BASE, BUTTON_SENSOR_PIN)) {
 
 		}
-
+		leds_set(LED_BLUE, LED_PATTERN_PULSE, LED_BRIGHTNESS_MED, LED_RATE_MED);
 		osTaskDelayUntil(&lastWakeTime, BEHAVIOR_TASK_PERIOD);
-    }
+	}
 }

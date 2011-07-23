@@ -21,6 +21,6 @@
 #include "../src/System/spi.h"
 
 #include "../src/led/leds.h"
-#include "../src/Sensors/capSensor.h"
+#include "../src/Sensors/buttonSensor.h"
 
 #endif /* RONE_H_ */
