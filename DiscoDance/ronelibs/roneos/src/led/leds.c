@@ -2,8 +2,6 @@
  * @file leds.c
  */
 
-
-
 #include "inc/lm3s8962.h"
 #include "inc/hw_memmap.h"
 #include "inc/hw_types.h"
@@ -17,16 +15,18 @@
 
 #include "roneos.h"
 
-
-#define LED_MODE_SYSCTL			SYSCTL_PERIPH_GPIOF
+#define LED_MODE_SYSCTL		SYSCTL_PERIPH_GPIOF
 #define LED_MODE_PORT			GPIO_PORTF_BASE
 #define LED_MODE_PIN 			GPIO_PIN_3
+
+//#define LED_MODE_SYSCTL		SYSCTL_PERIPH_GPIOD
+//#define LED_MODE_PORT			GPIO_PORTD_BASE
+//#define LED_MODE_PIN 			GPIO_PIN_5
 
 #define LED_DEMO_BLINK_DELAY  	80000
 #define LED_DEMO_BLINK_COUNT  	2
 
-#define LED_ONOFF_ALL_MASK 0xFFFF
-
+#define LED_ONOFF_ALL_MASK 	0xFFFF
 
 void led_latch(void);
 void led_latch_onoff_data(uint32 code);
@@ -59,7 +59,9 @@ void led_latch_onoff_data(uint32 code) {
 	// Enable on/off writes
 	MAP_GPIOPinWrite(LED_MODE_PORT, LED_MODE_PIN, 0);
 	MAP_SSIDataPut(SSI0_BASE, code);
-	while (MAP_SSIBusy(SSI0_BASE)) {q++;}
+	while (MAP_SSIBusy(SSI0_BASE)) {
+		q++;
+	}
 	led_latch();
 	SPIDeselect();
 }
@@ -74,7 +76,7 @@ void led_latch_onoff_data(uint32 code) {
 void led_latch_dimmer_data(void) {
 	uint8 i, q;
 	uint8 led_dimmers_shifted[LED_NUM_ELEMENTS];
-	static uint8 led_dimmers_old[LED_NUM_ELEMENTS] = {0xFF};
+	static uint8 led_dimmers_old[LED_NUM_ELEMENTS] = { 0xFF };
 	boolean update_data = false;
 
 	for (i = 0; i < LED_NUM_ELEMENTS; i++) {
@@ -84,7 +86,7 @@ void led_latch_dimmer_data(void) {
 		}
 	}
 
-	if(update_data) {
+	if (update_data) {
 		i = 0;
 		led_dimmers_shifted[i++] = led_dimmers[15];
 		led_dimmers_shifted[i++] = led_dimmers[LED_RED_START_IDX + 4];
@@ -110,7 +112,9 @@ void led_latch_dimmer_data(void) {
 		MAP_GPIOPinWrite(LED_MODE_PORT, LED_MODE_PIN, LED_MODE_PIN);
 		for (i = 0; i < LED_NUM_ELEMENTS; i++) {
 			MAP_SSIDataPut(SSI0_BASE, led_dimmers_shifted[i]);
-			while (MAP_SSIBusy(SSI0_BASE)) {q++;}
+			while (MAP_SSIBusy(SSI0_BASE)) {
+				q++;
+			}
 		}
 		led_latch();
 		SPIDeselect();
@@ -187,7 +191,7 @@ void led_set_dimmer_color(uint32 led_color, uint32 dimmer) {
 	for (i = startIdx; i < (startIdx + LED_NUM_ELEMENTS_PER_COLOR); i++) {
 		//instead of setting the dimmers directly, use the previously defined function in order
 		//to detect errors!!
-		led_set_dimmer(i,(uint8)dimmer);
+		led_set_dimmer(i, (uint8) dimmer);
 		//led_dimmers[i] = (uint8)dimmer;
 	}
 }
@@ -202,7 +206,7 @@ void led_set_dimmer_all(uint32 dimmer) {
 
 	int i;
 	for (i = 0; i < LED_NUM_ELEMENTS; i++) {
-		led_dimmers[i] = (uint8)dimmer;
+		led_dimmers[i] = (uint8) dimmer;
 	}
 }
 
@@ -217,18 +221,16 @@ uint32 led_animation_counter = 0;
 #define LED_PATTERN_LENGH	10
 
 //										   00,01,02,03,04,05,06,07,08,09
-uint8 circle_pattern[LED_PATTERN_LENGH] = { 8,16,12, 7, 5, 3, 1, 0, 0, 0};
-uint8 circle_counters[LED_NUM_ELEMENTS_PER_COLOR] = {0,2,4,6,8};
-uint8 circle_state[LED_NUM_ELEMENTS_PER_COLOR] = {0};
+uint8 circle_pattern[LED_PATTERN_LENGH] = { 8, 16, 12, 7, 5, 3, 1, 0, 0, 0 };
+uint8 circle_counters[LED_NUM_ELEMENTS_PER_COLOR] = { 0, 2, 4, 6, 8 };
+uint8 circle_state[LED_NUM_ELEMENTS_PER_COLOR] = { 0 };
 
 uint8 pattern_counter = 0;
 //										  00,01,02,03,04,05,06,07,08,09
-uint8 pulse_pattern[LED_PATTERN_LENGH] = { 1, 3, 8,12,16,12, 8, 3, 1, 0};
+uint8 pulse_pattern[LED_PATTERN_LENGH] = { 1, 3, 8, 12, 16, 12, 8, 3, 1, 0 };
 
 //										  00,01,02,03,04,05,06,07,08,09
-uint8 blink_pattern[LED_PATTERN_LENGH] = { 0, 0,16,16,16,16,16, 0, 0, 0};
-
-
+uint8 blink_pattern[LED_PATTERN_LENGH] = { 0, 0, 16, 16, 16, 16, 16, 0, 0, 0 };
 
 /**
  * @brief Sets the properties of the LED animation.
@@ -291,13 +293,16 @@ void leds_update(void) {
 
 			for (c = colorStartIdx; c <= colorEndIdx; c++) {
 				if (led_animation_pattern == LED_PATTERN_BLINK) {
-					led_set_dimmer_color(c, (blink_pattern[pattern_counter] * led_animation_brightness) >> LED_PATTERN_SHIFTS);
+					led_set_dimmer_color(c, (blink_pattern[pattern_counter]
+							* led_animation_brightness) >> LED_PATTERN_SHIFTS);
 				} else {
 					uint16 v0 = pulse_pattern[pattern_counter];
 					uint16 v1 = pulse_pattern[pattern_counter_next];
-					uint16 val = (v1 - v0) * led_animation_counter / led_animation_rate + v0;
+					uint16 val = (v1 - v0) * led_animation_counter
+							/ led_animation_rate + v0;
 					//led_set_dimmer_color(c, (pulse_pattern[pattern_counter] * led_animation_brightness) >> LED_PATTERN_SHIFTS);
-					led_set_dimmer_color(c, (val * led_animation_brightness) >> LED_PATTERN_SHIFTS);
+					led_set_dimmer_color(c, (val * led_animation_brightness)
+							>> LED_PATTERN_SHIFTS);
 				}
 			}
 			break;
@@ -322,7 +327,9 @@ void leds_update(void) {
 			for (c = colorStartIdx; c <= colorEndIdx; c++) {
 				idx = c * LED_NUM_ELEMENTS_PER_COLOR;
 				for (i = 0; i < LED_NUM_ELEMENTS_PER_COLOR; ++i) {
-					led_set_dimmer(idx++, ((uint32)circle_state[i] * (uint32)led_animation_brightness) >> LED_PATTERN_SHIFTS);
+					led_set_dimmer(idx++, ((uint32) circle_state[i]
+							* (uint32) led_animation_brightness)
+							>> LED_PATTERN_SHIFTS);
 				}
 			}
 			break;
@@ -340,10 +347,11 @@ void leds_update(void) {
 				}
 			}
 
-			if(led_animation_rate > LED_NUM_ELEMENTS_PER_COLOR) {
+			if (led_animation_rate > LED_NUM_ELEMENTS_PER_COLOR) {
 				led_animation_rate = LED_NUM_ELEMENTS_PER_COLOR;
 			}
-			val = ((8 + (pulse_pattern[pattern_counter] >> 1)) * led_animation_brightness)  >> LED_PATTERN_SHIFTS;
+			val = ((8 + (pulse_pattern[pattern_counter] >> 1))
+					* led_animation_brightness) >> LED_PATTERN_SHIFTS;
 			for (i = 0; i < led_animation_rate; i++) {
 				led_set_dimmer(idx++, val);
 			}
