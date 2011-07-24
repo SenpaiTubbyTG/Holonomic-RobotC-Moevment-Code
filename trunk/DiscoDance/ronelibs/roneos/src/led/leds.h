@@ -9,31 +9,31 @@
 #define LEDS_H_
 
 
-#define LED_NUM_ELEMENTS                    16
-#define LED_NUM_ELEMENTS_PER_COLOR          5
+#define LED_NUM_ELEMENTS				6
+#define LED_NUM_ELEMENTS_PER_COLOR     5
 
-#define LED_RED_START_IDX                   0
-#define LED_GREEN_START_IDX                 5
-#define LED_BLUE_START_IDX                  10
+#define LED_RED_START_IDX              0
+#define LED_GREEN_START_IDX            5
+#define LED_BLUE_START_IDX             10
 
-#define LED_MAX_DIMMER                      0x7F
+#define LED_MAX_DIMMER                 0x7F
 
 
-#define LED_RED                             0
-#define LED_GREEN                           1
-#define LED_BLUE                            2
-#define LED_ALL                            	3
+#define LED_RED                        0
+#define LED_GREEN                      1
+#define LED_BLUE                       2
+#define LED_ALL                        3
 
-#define LED_PATTERN_ON						0
-#define LED_PATTERN_BLINK					1
-#define LED_PATTERN_PULSE					2
-#define LED_PATTERN_CIRCLE					3
-#define LED_PATTERN_COUNT					4
-#define LED_PATTERN_MANUAL					5
+#define LED_PATTERN_ON					0
+#define LED_PATTERN_BLINK				1
+#define LED_PATTERN_PULSE				2
+#define LED_PATTERN_CIRCLE				3
+#define LED_PATTERN_COUNT				4
+#define LED_PATTERN_MANUAL				5
 
-#define LED_BRIGHTNESS_LOW					5
-#define LED_BRIGHTNESS_MED					10
-#define LED_BRIGHTNESS_HIGH					20
+#define LED_BRIGHTNESS_LOW				5
+#define LED_BRIGHTNESS_MED				10
+#define LED_BRIGHTNESS_HIGH			20
 
 #define LED_RATE_SLOW					16
 #define LED_RATE_MED					8
