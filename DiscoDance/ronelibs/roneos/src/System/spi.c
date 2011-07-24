@@ -108,6 +108,8 @@ void SPIDeselect() {
 void SPIDeselectISR() {
 	// wait until the last transfer is finished
 	volatile uint8 q;
+
+	//DEBUG // Figure out why getting stuck HERE ~Andy
 	while (MAP_SSIBusy(SSI0_BASE)) {q++;}
 
 	//Assert all select/latch pins inactive
@@ -125,7 +127,7 @@ void SPIDeselectISR() {
  */
 void SPISelectDevice(uint8 device) {
 	// disable the radio IRQ, get the mutex
-	osSemaphoreTake(spiMutex, portMAX_DELAY);
+	//osSemaphoreTake(spiMutex, portMAX_DELAY);
 
 	// Do the work
 	SPISelectDeviceISR(device);

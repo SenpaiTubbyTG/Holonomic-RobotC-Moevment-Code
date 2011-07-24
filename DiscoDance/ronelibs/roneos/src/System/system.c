@@ -97,7 +97,20 @@ void systemPreInit(void) {
 
 #endif
 
-	//blinky_led_init();
+	blinky_led_init();
+
+	// triple flash
+	for (i = 0; i < 3; i++) {
+		uint32 j;
+		blinkyLedSet(1);
+		for (j = 0; j < 150000;) {
+			j++;
+		}
+		blinkyLedSet(0);
+		for (j = 0; j < 250000;) {
+			j++;
+		}
+	}
 
 #ifdef PART_LM3S8962
 	led_init();
@@ -105,18 +118,7 @@ void systemPreInit(void) {
 
 	srand(roneID);
 
-	// triple flash
-	for (i = 0; i < 3; i++) {
-		uint32 j;
-		//blinkyLedSet(1);
-		for (j = 0; j < 150000;) {
-			j++;
-		}
-		//blinkyLedSet(0);
-		for (j = 0; j < 250000;) {
-			j++;
-		}
-	}
+
 }
 
 /**
@@ -133,12 +135,7 @@ void systemInit(void) {
 #ifdef PART_LM3S8962
 
 #endif
-
-	osTaskCreate( /* function */systemHeartbeatTask,
-						/* name */"heartbeat",
-				  /* stack size */512,
-			 /* *char parameter */NULL,
-	/* priority */HEARTBEAT_TASK_PRIORITY);
+	//osTaskCreate( systemHeartbeatTask,"heartbeat", 512, NULL, HEARTBEAT_TASK_PRIORITY);
 
 }
 
@@ -150,8 +147,6 @@ uint32 systemUSBConnected(void) {
 	//TODO put actual code here
 	return false;
 }
-
-
 
 
 /**
@@ -196,7 +191,7 @@ void systemHeartbeatTask(void* parameters) {
 		//MAP_IntMasterEnable();
 
 		// blink the blinky LED
-		//blinkyUpdate();
+		blinkyUpdate();
 #ifdef PART_LM3S8962
 		leds_update();
 
