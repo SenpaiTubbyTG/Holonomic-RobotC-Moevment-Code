@@ -17,10 +17,12 @@
 // system includes
 #include "../src/System/typedefs.h"
 #include "../src/System/intMath.h"
+#include "../src/System/blinky_led.h"
 #include "../src/System/system.h"
 #include "../src/System/spi.h"
 
 #include "../src/led/leds.h"
-#include "../src/Sensors/buttonSensor.h"
+
+//#include "../src/Sensors/buttonSensor.h"
 
 #endif /* RONE_H_ */

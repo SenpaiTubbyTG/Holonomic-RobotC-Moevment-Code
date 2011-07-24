@@ -13,7 +13,7 @@ int main(void) {
 	systemPreInit();
 	systemInit();
 
-	initButtonSensor();
+	//initButtonSensor();
 
 	//osTaskCreate(backgroundTask, "background", 256, NULL, BACKGROUND_TASK_PRIORITY);
 	osTaskCreate(behaviorTask, "behavior", 4096, NULL, BEHAVIOR_TASK_PRIORITY);
@@ -35,15 +35,18 @@ void backgroundTask(void* parameters) {
 // to appear.
 void behaviorTask(void* parameters) {
 	uint32 lastWakeTime = osTaskGetTickCount();
-	//	uint8 message = 'A';
-	uint8 message = 0xAA;
 
 	for (;;) {
-		if (getButtonSensor(BUTTON_SENSOR_BASE, BUTTON_SENSOR_PIN)) {
+		//if (getButtonSensor(BUTTON_SENSOR_BASE, BUTTON_SENSOR_PIN)) {}
 
-		}
-		leds_set(LED_BLUE, LED_PATTERN_PULSE, LED_BRIGHTNESS_MED, LED_RATE_MED);
+		//leds_set(LED_BLUE, LED_PATTERN_PULSE, LED_BRIGHTNESS_MED, LED_RATE_MED);
+		blinkyLedSet(1);
+		osTaskDelayUntil(&lastWakeTime, 400); //500 mili seconds
+		blinkyLedSet(0);
+		osTaskDelayUntil(&lastWakeTime, 400);
+
 
 		osTaskDelayUntil(&lastWakeTime, BEHAVIOR_TASK_PERIOD);
+
 	}
 }

@@ -136,6 +136,8 @@ void led_init(void) {
 	MAP_GPIOPinTypeGPIOOutput(LED_MODE_PORT, LED_MODE_PIN);
 	MAP_GPIOPinWrite(LED_MODE_PORT, LED_MODE_PIN, 0);
 	led_set_dimmer_all(0);
+
+	//DEBUG removed these lines
 	led_latch_dimmer_data();
 	led_latch_onoff_data(LED_ONOFF_ALL_MASK);
 
