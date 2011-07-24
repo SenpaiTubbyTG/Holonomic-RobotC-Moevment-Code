@@ -43,6 +43,7 @@ void behaviorTask(void* parameters) {
 
 		}
 		leds_set(LED_BLUE, LED_PATTERN_PULSE, LED_BRIGHTNESS_MED, LED_RATE_MED);
+
 		osTaskDelayUntil(&lastWakeTime, BEHAVIOR_TASK_PERIOD);
 	}
 }
