@@ -45,8 +45,8 @@
 
 #include "roneos.h"
 
-uint8 roneID;
 
+void initTiles(void);
 /*
  * The idle hook is used to run a test of the scheduler context switch
  * mechanism.
@@ -72,6 +72,7 @@ void systemHeartbeatTask(void* parameters);
  * Rone blinks three times after the initializations are done.
  * @returns void
  */
+
 void systemPreInit(void) {
 	int i;
 //	unsigned long val;
@@ -91,34 +92,9 @@ void systemPreInit(void) {
 	MAP_SysCtlPWMClockSet(SYSCTL_PWMDIV_1);
 
 	//startup core hardware
-	roneID = systemGetId();
 
-#ifdef PART_LM3S8962
-
-#endif
-
-	blinky_led_init();
-
-	// triple flash
-	for (i = 0; i < 3; i++) {
-		uint32 j;
-		blinkyLedSet(1);
-		for (j = 0; j < 150000;) {
-			j++;
-		}
-		blinkyLedSet(0);
-		for (j = 0; j < 250000;) {
-			j++;
-		}
-	}
-
-#ifdef PART_LM3S8962
+	initTiles();
 	led_init();
-#endif
-
-	srand(roneID);
-
-
 }
 
 /**
@@ -132,10 +108,12 @@ void systemPreInit(void) {
 void systemInit(void) {
 	unsigned long val;
 	// startup the rest of the hardware
-#ifdef PART_LM3S8962
 
-#endif
-	//osTaskCreate( systemHeartbeatTask,"heartbeat", 512, NULL, HEARTBEAT_TASK_PRIORITY);
+	osTaskCreate( /* function */systemHeartbeatTask,
+						/* name */"heartbeat",
+				  /* stack size */512,
+			 /* *char parameter */NULL,
+	/* priority */HEARTBEAT_TASK_PRIORITY);
 
 }
 
@@ -147,28 +125,6 @@ uint32 systemUSBConnected(void) {
 	//TODO put actual code here
 	return false;
 }
-
-
-/**
- * @brief Gets the robotID.
- *
- * @returns robotID
- */
-uint32 systemGetId(void) {
-	uint32 ureg0;
-	uint32 ureg1;
-	uint32 id = 0;
-	int i;
-
-	MAP_FlashUserGet(&ureg0, &ureg1);
-	for (i = 0; i < 2; i++) {
-		id = id << 8;
-		ureg1 = ureg1 >> 8;
-		id |= (ureg1 & 0xFF);
-	}
-	return id;
-}
-
 
 
 //60hz interrupt.  Actually called every 16ms, or 62.5 hertz
@@ -189,22 +145,11 @@ void systemHeartbeatTask(void* parameters) {
 
 	for (;;) {
 		//MAP_IntMasterEnable();
+		for(tileLoopCtr = 0; tileLoopCtr < NUM_TILES; tileLoopCtr++) {
+				leds_update(tiles[tileLoopCtr]);
+			}
 
-		// blink the blinky LED
-		blinkyUpdate();
-#ifdef PART_LM3S8962
-		leds_update();
-
-		// 10 hz interrupt functions
-		heart_beat_10hz_timer--;
-		if (heart_beat_10hz_timer == 0) {
-			heart_beat_10hz_timer = HEARTBEAT_10HZ_COUNTER;
-
-			// enable charge mode if the motors have not been driven in a while
-		}
 		//MAP_IntMasterDisable();
-		//radio_int_enable();
-#endif
 		osTaskDelayUntil(&lastWakeTime, HEARTBEAT_PERIOD);
 	}
 }
@@ -228,3 +173,26 @@ void systemBootloader(void) {
 	(*((void(*)(void)) (*(unsigned long *) 0x2c)))();
 }
 
+void initTile(Tile tile, int32 sysctlperiph, int32 port, int32 pin) {
+	tile.LED_SEL_SYSCTL = sysctlperiph;
+	tile.LED_SEL_PORT = port;
+	tile.LED_SEL_PIN = pin;
+}
+
+void initTiles(void) {
+	initTile(tiles[0], SYSCTL_PERIPH_GPIOA, GPIO_PORTA_BASE, GPIO_PIN_3);
+	initTile(tiles[1], SYSCTL_PERIPH_GPIOC, GPIO_PORTC_BASE, GPIO_PIN_4);
+	initTile(tiles[2], SYSCTL_PERIPH_GPIOC, GPIO_PORTC_BASE, GPIO_PIN_6);
+	initTile(tiles[3], SYSCTL_PERIPH_GPIOE, GPIO_PORTE_BASE, GPIO_PIN_0);
+	initTile(tiles[4], SYSCTL_PERIPH_GPIOE, GPIO_PORTE_BASE, GPIO_PIN_2);
+	initTile(tiles[5], SYSCTL_PERIPH_GPIOG, GPIO_PORTG_BASE, GPIO_PIN_0);
+	initTile(tiles[6], SYSCTL_PERIPH_GPIOB, GPIO_PORTB_BASE, GPIO_PIN_0);
+	initTile(tiles[7], SYSCTL_PERIPH_GPIOB, GPIO_PORTB_BASE, GPIO_PIN_2);
+	initTile(tiles[8], SYSCTL_PERIPH_GPIOB, GPIO_PORTB_BASE, GPIO_PIN_4);
+	initTile(tiles[9], SYSCTL_PERIPH_GPIOD, GPIO_PORTD_BASE, GPIO_PIN_0);
+	initTile(tiles[10], SYSCTL_PERIPH_GPIOD, GPIO_PORTD_BASE, GPIO_PIN_1);
+	initTile(tiles[11], SYSCTL_PERIPH_GPIOD, GPIO_PORTD_BASE, GPIO_PIN_4);
+	initTile(tiles[12], SYSCTL_PERIPH_GPIOC, GPIO_PORTC_BASE, GPIO_PIN_5);
+	initTile(tiles[13], SYSCTL_PERIPH_GPIOC, GPIO_PORTC_BASE, GPIO_PIN_7);
+	initTile(tiles[14], SYSCTL_PERIPH_GPIOE, GPIO_PORTE_BASE, GPIO_PIN_1);
+}
