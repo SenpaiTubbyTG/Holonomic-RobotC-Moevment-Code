@@ -20,6 +20,6 @@
 #include "../src/System/spi.h"
 
 #include "../src/Tile/leds.h"
-#include "../src/Tile/capSensor.h"
+#include "../src/Tile/buttonSensor.h"
 
 #endif /* RONE_H_ */

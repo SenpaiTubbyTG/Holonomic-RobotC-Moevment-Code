@@ -21,17 +21,6 @@
 	#define BLINKY_LED_PIN 			GPIO_PIN_6	
 #endif
 
-/**
- *	@brief Initializes blinky.
- *
- * 	Initializes blinky with port B, pin 4 as output. Blinky is turned off with initialization.
- * 	@returns void
- */
-void blinky_led_init(void) {
-	MAP_SysCtlPeripheralEnable(BLINKY_LED_PERIPH);
-	MAP_GPIOPinTypeGPIOOutput(BLINKY_LED_BASE, BLINKY_LED_PIN);
-	blinkyLedSet(false);
-}
 
 
 /**
@@ -47,6 +36,18 @@ void blinkyLedSet(uint32 state) {
 	} else {
 		MAP_GPIOPinWrite(BLINKY_LED_BASE, BLINKY_LED_PIN, 0);
 	}
+}
+
+/**
+ *	@brief Initializes blinky.
+ *
+ * 	Initializes blinky with port B, pin 4 as output. Blinky is turned off with initialization.
+ * 	@returns void
+ */
+void blinky_led_init(void) {
+	MAP_SysCtlPeripheralEnable(BLINKY_LED_PERIPH);
+	MAP_GPIOPinTypeGPIOOutput(BLINKY_LED_BASE, BLINKY_LED_PIN);
+	blinkyLedSet(FALSE);
 }
 
 /**
