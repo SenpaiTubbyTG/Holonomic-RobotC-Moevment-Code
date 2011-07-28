@@ -24,7 +24,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="cs-rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1389072392" name="bin-8962" parent="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug">
+				<configuration artifactExtension="a" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="cs-rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1389072392" name="bin-8962" parent="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug">
 					<folderInfo id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1389072392." name="/" resourcePath="">
 						<toolChain id="com.codesourcery.arm_none_eabi.cdt.managedbuild.toolchain.gnu.lib.debug.2122716744" name="Sourcery G++ for ARM EABI" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.toolchain.gnu.lib.debug">
 							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.board.685943064" name="Board" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.board" value="com.codesourcery.arm_none_eabi.lib.debug.general.board.lm3s8962" valueType="enumerated"/>
@@ -70,7 +70,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/InputOutput/sd_card.c|src/InputOutput/microSD.c|src/System/intMathTrigLookup.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/System/intMath.h|src/System/intMath.c|src/System/intMathTrigLookup.c|src/InputOutput/microSD.c|src/InputOutput/sd_card.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -615,7 +615,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="cs-rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1389072392.611234327" name="bin-9b92" parent="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug">
+				<configuration artifactExtension="a" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="cs-rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1389072392.611234327" name="bin-9b92" parent="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug">
 					<folderInfo id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1389072392.611234327." name="/" resourcePath="">
 						<toolChain id="com.codesourcery.arm_none_eabi.cdt.managedbuild.toolchain.gnu.lib.debug.565772550" name="Sourcery G++ for ARM EABI" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.toolchain.gnu.lib.debug">
 							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.board.130397259" name="Board" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.board" value="com.codesourcery.arm_none_eabi.lib.debug.general.board.lm3s9b92" valueType="enumerated"/>
@@ -660,7 +660,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/System/intMathTrigLookup.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/System/intMath.h|src/System/intMath.c|src/System/intMathTrigLookup.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

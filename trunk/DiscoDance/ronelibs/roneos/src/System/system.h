@@ -18,7 +18,11 @@
 #define BACKGROUND_TASK_PRIORITY			( tskIDLE_PRIORITY )
 
 #define sysPrintFilename() _sysPrintFilename(__FILE__)
-extern uint8 roneID;
+
+#define NUM_TILES		16
+
+static uint8 tileLoopCtr;
+static Tile tiles[16];
 
 void systemPreInit(void);
 void systemInit(void);

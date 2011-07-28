@@ -48,17 +48,14 @@ void SPIInit(void) {
     MAP_GPIOPadConfigSet(GPIO_PORTA_BASE, GPIO_PA4_SSI0RX, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD_WPD);
     MAP_GPIOPadConfigSet(GPIO_PORTA_BASE, GPIO_PA5_SSI0TX, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD_WPD);
 
-	// enable all peripherals for the SPI Radio Control
-	MAP_SysCtlPeripheralEnable(LED_LE_SYSCTL);
 
-	// drive select pins to correct values while they are still in input mode
-	SPIDeselectISR();
+    for(tileLoopCtr = 0; tileLoopCtr < NUM_TILES; tileLoopCtr++) {
+    	MAP_SysCtlPeripheralEnable(tiles[tileLoopCtr].LED_SEL_SYSCTL);
+    	SPIDeselectISR();
+    	MAP_GPIOPinTypeGPIOOutput(tiles[tileLoopCtr].LED_SEL_PORT, tiles[tileLoopCtr].LED_SEL_PIN);
+    }
 
-	// enable the select pins for output
-	MAP_GPIOPinTypeGPIOOutput(LED_LE_PORT, LED_LE_PIN);
-
-	// force the port to be enabled by the first call to SPIConfigure()
-	SPIWordSize = 0;
+    SPIWordSize = 0;
 
 	spiMutex = osSemaphoreCreateMutex();
 }
@@ -108,12 +105,12 @@ void SPIDeselect() {
 void SPIDeselectISR() {
 	// wait until the last transfer is finished
 	volatile uint8 q;
-
-	//DEBUG // Figure out why getting stuck HERE ~Andy
 	while (MAP_SSIBusy(SSI0_BASE)) {q++;}
 
 	//Assert all select/latch pins inactive
-	MAP_GPIOPinWrite(LED_LE_PORT, LED_LE_PIN, 0);
+	for(tileLoopCtr = 0; tileLoopCtr < NUM_TILES; tileLoopCtr++) {
+		MAP_GPIOPinWrite(tiles[tileLoopCtr].LED_SEL_PORT, tiles[tileLoopCtr].LED_SEL_PIN, 0);
+	}
 }
 
 
@@ -127,7 +124,7 @@ void SPIDeselectISR() {
  */
 void SPISelectDevice(uint8 device) {
 	// disable the radio IRQ, get the mutex
-	//osSemaphoreTake(spiMutex, portMAX_DELAY);
+	osSemaphoreTake(spiMutex, portMAX_DELAY);
 
 	// Do the work
 	SPISelectDeviceISR(device);

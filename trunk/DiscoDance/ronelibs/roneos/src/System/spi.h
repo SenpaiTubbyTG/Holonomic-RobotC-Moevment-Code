@@ -15,9 +15,9 @@
 #define SPI_LEDS_ONOFF_WORDSIZE                 16
 #define SPI_LEDS_DIMMER_WORDSIZE                7
 
-#define LED_LE_SYSCTL                           SYSCTL_PERIPH_GPIOD
-#define LED_LE_PORT                             GPIO_PORTD_BASE
-#define LED_LE_PIN                              GPIO_PIN_2
+#define LED_LE_SYSCTL                           SYSCTL_PERIPH_GPIOA
+#define LED_LE_PORT                             GPIO_PORTA_BASE
+#define LED_LE_PIN                              GPIO_PIN_6
 
 void SPIInit(void);
 void SPISelectDevice(uint8 device);
