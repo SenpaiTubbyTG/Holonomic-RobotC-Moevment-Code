@@ -11,8 +11,9 @@
 
 #pragma platform(VEX)
 
+
 //Competition Control and Duration Settings
-#pragma competitionControl(Competition)
+#pragma competitionControl(Competition)`
 #pragma autonomousDuration(20)
 #pragma userControlDuration(120)
 
@@ -46,34 +47,46 @@ task autonomous()
 {
     wait10Msec(30);
 
-    motor[ArmLL] = 100;
-    motor[ArmRL] = 100;
-    motor[ArmLU] = 100;
-    motor[ArmRU] = 100;
-    wait10Msec(30);
+    motor[ArmLL] = 50; //Raise Arm
+    motor[ArmRL] = 50;
+    motor[ArmLU] = 50;
+    motor[ArmRU] = 50;
+    wait10Msec(120);
 
-    motor[ArmLL] = 0;
+    motor[ArmLL] = 0; //Stop arm
     motor[ArmRL] = 0;
     motor[ArmLU] = 0;
     motor[ArmRU] = 0;
-    motor[DriveLF]= 100;
-    motor[DriveLB]= 100;
-    motor[DriveRB]= 100;
-    motor[DriveRB]= 100;
-    wait10Msec(30);
+
+    motor[DriveLF]= 50; //drive forward
+    motor[DriveLB]= 50;
+    motor[DriveRB]= 50;
+    motor[DriveRB]= 50;
+    wait10Msec(90);
+
+    motor[DriveLF]= 0; //stop driving
+    motor[DriveLB]= 0;
+    motor[DriveRB]= 0;
+    motor[DriveRB]= 0;
+
+    motor[collector1] = -100; //expell objects
+    motor[collector2] = -100;
+    wait10Msec(300);
+
+    motor[collector1] = 0; //stop collector
+    motor[collector2] = 0;
+
+    motor[DriveLF]= -50; //drive backwards
+    motor[DriveLB]= -50;
+    motor[DriveRB]= -50;
+    motor[DriveRB]= -50;
+    wait10Msec(90);
 
     motor[DriveLF]= 0;
     motor[DriveLB]= 0;
     motor[DriveRB]= 0;
     motor[DriveRB]= 0;
-    motor[collector1] = 100;
-    motor[collector2] = 100;
-    wait10Msec(500);
-
-    motor[collector1] = 100;
-    motor[collector2] = 100;
-    }
-
+}
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 //                                 User Control Task
@@ -89,7 +102,7 @@ task usercontrol()
 
 	while (true)
 	{
- motor[DriveLF] = vexRT[Ch3];
+   motor[DriveLF] = vexRT[Ch3];
    motor[DriveLB] = vexRT[Ch3];
    motor[DriveRF] = vexRT[Ch2];
    motor[DriveRB] = vexRT[Ch2];
