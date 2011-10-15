@@ -17,22 +17,46 @@
 #pragma autonomousDuration(20)
 #pragma userControlDuration(120)
 
-#include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
+/*INCLUDES*///////////////
+#include "Vex_Competition_Includes.c"
 
+/*DEFINITIONS*////////////
 #define FULL 127
+
+////////////////////////////////////////////////////////////////////////////
+/*FUNCTION LIBRARY*/////////////////////////////////////////////////////////
+
+/*General Funtions*/////
+
+/*Set Drive Left Speed*/
+void setDriveLSpeed(int speed) {
+  motor[backLTop] = motor[backLBottom] = motor[frontL] = motor[frontLTop] = speed;
+}
 
 /*Set Drive Right Speed*/
 void setDriveRSpeed(int speed) {
   motor[backRTop] = motor[backRBottom] = motor[frontR] = motor[frontRTop] = speed;
 }
 
-void setDriveLSpeed(int speed) {
-  motor[backLTop] = motor[backLBottom] = motor[frontL] = motor[frontLTop] = speed;
+/*Set Suck Speed*/
+void setSuckSpeed(int speed) {
+  motor[suckL] = speed;
+  motor[suckR] = speed;
 }
 
-void setSuckSpeed(int speed) {
-  motor[suckR] = speed;
+/*Set Left Suck Speed*/
+void setSuckLSpeed(int speed) {
   motor[suckL] = speed;
+}
+
+/*Set Right Suck Speed*/
+void setSuckRSpeed(int speed) {
+  motor[suckR] = speed;
+}
+
+/*Kill Suck Motors*/
+void killSuck() {
+  setSuckSpeed(0);
 }
 
 /*Kill Drive Train Motors*/
@@ -41,41 +65,44 @@ void killdrive() {
   setDriveRSpeed(0);
 }
 
+/*AUTON FUNCTIONS*////////////////////////////////
 void drive_forward_msec(int speed, int duration) {
   setDriveLSpeed(speed);
+  setDriveRSpeed(speed);
   wait1Msec(duration);
   killdrive();
 }
+/*END FUNCTION LIBRARY*////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
-/*Kill Arm Motors*/
-void killSuck() {
-  setSuckSpeed(0);
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+/*PRE AUTONOMOUS*//////////////////////////////////////////////////////////////
+void pre_auton() {
 }
-void pre_auton()
-{
-}
 
-task autonomous()
-{
-
+/*AUTONOMOUS*//////////////////////////////////////////////////////////////////
+task autonomous() {
 drive_forward_msec(127, 3000);
-
 }
 
-task usercontrol()
-{
+/*TELE OP*/////////////////////////////////////////////////////////////////////
+task usercontrol() {
+  while (true) {
 
-  while (true)
-  {
-//
-//    motor[frontR] = motor[backRTop] = motor[backRBottom] = motor[frontRTop] = vexRT[Ch2];
-//    motor[frontL] = motor[backLTop] = motor[backLBottom] = motor[frontLTop] = vexRT[Ch3];
-//
-    setDriveRSpeed(vexRT[Ch2]);//
-    setDriveLSpeed(vexRT[Ch3]);//
-//
+  // drive
+    setDriveLSpeed(vexRT[Ch3]);
+    setDriveRSpeed(vexRT[Ch2]);
+
+  //  suck
+    setSuckLSpeed((vexRT[Btn5U] - vexRT[Btn5D])*FULL);
     setSuckRSpeed((vexRT[Btn6U] - vexRT[Btn6D])*FULL);
-    setSuckLSpeed((vexRT[Btn6U] - vexRT[Btn6D])*FULL);
-
-    }
-}
+  }//WHILE
+}//TELEOP
+//END//////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
