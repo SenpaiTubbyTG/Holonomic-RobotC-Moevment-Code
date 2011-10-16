@@ -55,7 +55,7 @@ void setSuckRSpeed(int speed) {
 }
 
 /*Kill Suck Motors*/
-void killSuck() {
+void killsuck() {
   setSuckSpeed(0);
 }
 
@@ -72,12 +72,46 @@ void drive_forward_msec(int speed, int duration) {
   wait1Msec(duration);
   killdrive();
 }
+
+/*AUTON FUNCTIONS*////////////////////////////////
+void drive_left_msec(int speed, int duration) {
+  setDriveLSpeed(speed);
+  wait1Msec(duration);
+  killdrive();
+}
+
+/*AUTON FUNCTIONS*////////////////////////////////
+void drive_right_msec(int speed, int duration) {
+  setDriveRSpeed(speed);
+  wait1Msec(duration);
+  killdrive();
+}
+
+/*AUTON FUNCTIONS*////////////////////////////////
+void turn_right_msec(int speed, int duration) {
+setDriveLSpeed(speed);
+setDriveRSpeed(-speed);
+  wait1Msec(duration);
+  killdrive();
+}
+
+/*AUTON FUNCTIONS*////////////////////////////////
+void turn_left_msec(int speed, int duration) {
+setDriveLSpeed(-speed);
+setDriveRSpeed(speed);
+  wait1Msec(duration);
+  killdrive();
+}
+
+void suck_msec(int speed, int duration) {
+setSuckLSpeed(speed);
+setSuckRSpeed(speed);
+wait1Msec(duration);
+killsuck();
+}
+
 /*END FUNCTION LIBRARY*////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
 
 
@@ -88,7 +122,22 @@ void pre_auton() {
 
 /*AUTONOMOUS*//////////////////////////////////////////////////////////////////
 task autonomous() {
-drive_forward_msec(FULL, 3000);
+drive_forward_msec(50, 300);
+suck_msec(-127, 1000);
+drive_forward_msec(-127, 310);
+//auton skills
+//turn_right_msec(127, 200);
+wait1Msec(3000);
+drive_forward_msec(-127, 500);
+drive_forward_msec(127, 300);
+wait1Msec(3000);
+drive_forward_msec(-127, 500);
+drive_forward_msec(127, 300);
+
+//turn_right_msec(127, 500);
+//drive_forward_msec(-127, 400);
+//suck_msec(127,4000);
+
 }
 
 /*TELE OP*/////////////////////////////////////////////////////////////////////

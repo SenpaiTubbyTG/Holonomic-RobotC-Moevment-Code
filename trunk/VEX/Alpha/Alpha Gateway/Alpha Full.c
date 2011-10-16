@@ -46,6 +46,24 @@ void pre_auton()
 
 task autonomous()
 {
+   /* wait10Msec(200);
+    motor[DriveLF]= 100;
+    motor[DriveLB]= 100;
+    motor[DriveRB]= 100;
+    motor[DriveRB]= 100;
+    wait10Msec(75);
+    motor[DriveLF]= -100;
+    motor[DriveLB]= -100;
+    motor[DriveRB]= -100;
+    motor[DriveRB]= -100;
+    wait10Msec(75);
+    motor[DriveLF]= 0;
+    motor[DriveLB]= 0;
+    motor[DriveRB]= 0;
+    motor[DriveRB]= 0;
+    wait10Msec(350);
+    */
+
     wait10Msec(30);
 
     motor[ArmLL] = 100;
@@ -79,7 +97,13 @@ task autonomous()
     motor[DriveLB]= -100;
     motor[DriveRB]= -100;
     motor[DriveRB]= -100;
-    wait10Msec(35);
+    wait10Msec(75);
+
+    motor[DriveLF]= 0;
+    motor[DriveLB]= 0;
+    motor[DriveRB]= 0;
+    motor[DriveRB]= 0;
+
 
     /*wait10Msec(30);
 
@@ -126,7 +150,7 @@ task usercontrol()
 
 	while (true)
 	{
- motor[DriveLF] = vexRT[Ch3];
+    motor[DriveLF] = vexRT[Ch3];
    motor[DriveLB] = vexRT[Ch3];
    motor[DriveRF] = vexRT[Ch2];
    motor[DriveRB] = vexRT[Ch2];
