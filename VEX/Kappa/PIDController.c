@@ -27,7 +27,7 @@ void init(controller PID)
   PID.Kp = 0;
   PID.Ki = 0;
   PID.Kd = 0;
-  PID.enabled = false;
+  PID.enabled = 0;
   PID.maxOut = 127;
   PID.minOut = -127;
   PID.maxIn = 0;
@@ -100,7 +100,7 @@ void setSetpoint(controller PID, int newSetpoint)
 {
   PID.selectedValue = newSetpoint;
 }
-void setPIDS(controller PID, int kp, int ki, int kd)
+void setPIDs(controller PID, int kp, int ki, int kd)
 {
   PID.Kp = kp;
   PID.Ki = ki;
