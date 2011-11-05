@@ -1,6 +1,12 @@
 #pragma config(Sensor, dgtl1,  suckSensor,          sensorTouch)
 #pragma config(Sensor, dgtl2,  liftUpSensor,        sensorTouch)
-#pragma config(Sensor, dgtl3,  liftDownSensor,        sensorTouch)
+#pragma config(Sensor, dgtl3,  btnLiftDown,         sensorTouch)
+#pragma config(Sensor, dgtl4,  btnBackL,            sensorTouch)
+#pragma config(Sensor, dgtl5,  btnBackR,            sensorTouch)
+#pragma config(Sensor, dgtl6,  btnFrontL,           sensorTouch)
+#pragma config(Sensor, dgtl7,  btnFrontR,           sensorTouch)
+#pragma config(Sensor, dgtl8,  encL,                sensorQuadEncoder)
+#pragma config(Sensor, dgtl10, encR,                sensorQuadEncoder)
 #pragma config(Motor,  port1,           rightF,        tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port2,           rightUp,       tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port3,           rightLow,      tmotorNormal, openLoop, reversed)
@@ -28,22 +34,31 @@
 #define FULL 127
 
 /*PRE AUTONOMOUS*//////////////////////////////////////////////////////////////
-void pre_auton() {
-}
+void pre_auton() {}
 
 /*AUTONOMOUS*//////////////////////////////////////////////////////////////////
 task autonomous() {
-  drive_forward_msec(50, 300);
-  suck_msec(-127, 1000);
-  drive_forward_msec(-127, 310);
-  wait1Msec(3000);
-  drive_forward_msec(-127, 500);
-  drive_forward_msec(127, 300);
-  wait1Msec(3000);
-  drive_forward_msec(-127, 500);
-  drive_forward_msec(127, 300);
+  //drive to low goal
+  drive_btn(FULL, -1);
+  //score preload
+  suck_msec(-FULL,900);
+  //return home
+  drive_forward_msec(FULL, 600);
 
-}
+  /////////Insert button control here///////////
+  ///User loads 4 and lines up with middle tower///
+
+  //drive to tower
+  drive_btn(FULL, -1);
+  //raise lift
+  lift_up(FULL);
+  //spit out/score
+  suck_msec(-FULL,900);
+  //lower lift
+  lift_down(FULL);
+  //Drive home
+  drive_forward_msec(FULL, 2000);
+}//Auton
 
 /*TELE OP*/////////////////////////////////////////////////////////////////////
 task usercontrol() {
@@ -90,7 +105,6 @@ task usercontrol() {
         killLift();
       }
     }
-
 
   }//WHILE
 }//TELEOP

@@ -28,7 +28,59 @@ void drive_forward_msec(int speed, int duration) {
   killdrive();
 }
 
-/*Right Drive msec*/
+/*Drive FWD buttons*/ //1 = forward, -1 = backwards//
+void drive_btn(int speed, int direction) {
+  if (direction == 1) {//forwards
+    if (SensorValue(FrontL) == 0) {
+      setDriveLSpeed(speed*direction);
+    }
+    else
+    {
+      killdrive();
+    }
+    if (SensorValue(FrontR) == 0) {
+      setDriveRSpeed(speed*direction);
+    }
+    else
+    {
+      killdrive();
+    }
+  }
+  else if (direction == -1) {//backwards
+    if (SensorValue(BackL) == 0) {
+      setDriveLSpeed(speed*direction);
+    }
+    else {
+      killdrive();
+    }
+    if (SensorValue(BackR) == 0) {
+      setDriveRSpeed(speed*direction);
+    }
+    else {
+      killdrive();
+    }
+  }//
+}//end function
+
+/*Drive msec (Encoder)*/
+void drive_l_msec(int speed, int duration) {
+
+  if ((SensorValue(encL) == (SensorValue(EncR)) {
+    setDriveLSpeed(speed);
+    setDriveRSpeed(speed);
+  }
+  else if ((SensorValue(encL) > (SensorValue(encR)){
+    setDriveLSpeed(speed);
+    setDriveRSpeed(speed);
+  }
+  else if ((SensorValue(encL) < (SensorValue(encR)) {
+    setDriveLSpeed(speed);
+    setDriveRSpeed(speed);
+  }
+}
+
+
+/*Left Drive msec*/
 void drive_left_msec(int speed, int duration) {
   setDriveLSpeed(speed);
   wait1Msec(duration);
@@ -44,16 +96,16 @@ void drive_right_msec(int speed, int duration) {
 
 /*turn left*/
 void turn_left_msec(int speed, int duration) {
-setDriveLSpeed(-speed);
-setDriveRSpeed(speed);
+  setDriveLSpeed(-speed);
+  setDriveRSpeed(speed);
   wait1Msec(duration);
   killdrive();
 }
 
 /*turn right*/
 void turn_right_msec(int speed, int duration) {
-setDriveLSpeed(speed);
-setDriveRSpeed(-speed);
+  setDriveLSpeed(speed);
+  setDriveRSpeed(-speed);
   wait1Msec(duration);
   killdrive();
 }
@@ -64,7 +116,7 @@ setDriveRSpeed(-speed);
 
 /*Set Lift Speed*/
 void setLiftSpeed(int speed) {
-motor[liftL] = motor[liftR] = speed;
+  motor[liftL] = motor[liftR] = speed;
 }
 
 /*Kill lift*/
@@ -73,10 +125,31 @@ void killLift() {
 }
 
 /*Lift msec*/
-void lift_msec(int speed, int duration) {
-setLiftSpeed(speed);
-wait1Msec(duration);
-killLift();
+void lift_msec_raw(int speed, int duration) {
+  setLiftSpeed(speed);
+  wait1Msec(duration);
+  killLift();
+}
+
+/*Lift High Goal*/
+void lift_up(int speed) {
+  if(SensorValue(liftUpSensor == 0)) {
+    setLiftSpeed(speed);
+  }
+  else
+  {
+    killLift();
+  }
+}
+
+/*Lift Down*/
+void lift_down(int speed) {
+  if(SensorValue(liftDownSensor == 0)) {
+    setLiftSpeed(-speed);
+  }
+  else{
+    killLift();
+  }
 }
 
 //////////////////////////////////*Suck*/////////////////////////////////
@@ -106,10 +179,10 @@ void killSuck() {
 
 /*suck msec*/
 void suck_msec(int speed, int duration) {
-setSuckLSpeed(speed);
-setSuckRSpeed(speed);
-wait1Msec(duration);
-killSuck();
+  setSuckLSpeed(speed);
+  setSuckRSpeed(speed);
+  wait1Msec(duration);
+  killSuck();
 }
 
 //-                                                                   -//
