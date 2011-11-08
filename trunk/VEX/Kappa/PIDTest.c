@@ -24,9 +24,9 @@ controller PID;
 
 //set Values;
 int armGround = SensorValue[potArm];
-int lowScore = armGround;
-int medScore = armGround;
-int highScore = armGround;
+int lowScore = armGround// + value still to be tested;
+int medScore = armGround// + value still to be tested;
+int highScore = armGround// + value still to be tested;
 
 void pre_auton()
 {
@@ -40,7 +40,7 @@ void setArmSpeed(int speed){
   motor[rightArm] = speed;
 }
 
-int lockArm(int finalPos){
+/*int lockArm(int finalPos){
   int currentPos = sensorValue(PotArm);
   int direction;
   int diff = abs(currentPos - finalPos);
@@ -58,7 +58,7 @@ int lockArm(int finalPos){
   else {
     setArmSpeed(0);
     return 1;
-    }
+    }*/
   }
 
 /////////////////////////////////////////////////////////////////////////////////////////
