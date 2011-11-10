@@ -33,10 +33,6 @@
 #include "Vex_Competition_Includes.c"
 #include "zeta_lib 2.c"
 
-/*DEFINITIONS*/
-#define FULL 127
-
-
 /*PRE AUTONOMOUS*//////////////////////////////////////////////////////////////
 void pre_auton() {}
 
@@ -45,7 +41,7 @@ task autonomous() {
   //drive backwards to low goal
   drive_msec(-FULL, 900);
   //score preload
-  suck_msec(-FULL,4500);
+  suck_msec(-FULL, 4500);
   //return home
   /*drive_forward_msec(FULL, 600);
 
@@ -78,47 +74,17 @@ task usercontrol() {
 
     // drive
     //tank
-    setDriveLSpeed(vexRT[Ch3]);
-    setDriveRSpeed(vexRT[Ch2]);
+tankDrive();
+//arcadeDrive();
 
-    //arcade
-    /*
-    joy_x = vexRT[Ch1];   // This is the RIGHT analog stick.  For LEFT, change 'Ch1' to 'Ch4'.
-    joy_y = vexRT[Ch2];   // This is the RIGHT analog stick.  For LEFT, change 'Ch2' to 'Ch3'.
 
-    // Forward, and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is POSITIVE)
-    if((abs(joy_x) > threshold) && (abs(joy_y) > threshold) && (joy_y > 0))
-    {
-    motor[leftMotor]  = (joy_y + joy_x)/2;
-    motor[rightMotor] = (joy_y - joy_x)/2;
-    }
-    // Backwards and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is NEGATIVE)
-    else if((abs(joy_x) > threshold) && (abs(joy_y) > threshold) && (joy_y < 0))
-    {
-    motor[leftMotor]  = (joy_y - joy_x)/2;
-    motor[rightMotor] = (joy_y + joy_x)/2;
-    }
-    // Turning in place: (abs(X) is above the threshold, abs(Y) is below the threshold)
-    else if((abs(joy_x) > threshold) && (abs(joy_y) < threshold))
-    {
-    motor[leftMotor]  = joy_x;
-    motor[rightMotor] = (-1 * joy_x);
-    }
-    // Standing still: (both abs(X) and abs(Y) are below the threshold)
-    else
-    {
-    motor[leftMotor]  = 0;
-    motor[rightMotor] = 0;
-    }
-    */
-
-    //  suck
-    setSuckLSpeed((vexRT[Btn5U] - vexRT[Btn5D])*FULL);
-    setSuckRSpeed((vexRT[Btn6U] - vexRT[Btn6D])*FULL);
+    //suck
+    suck();
+    //setRotateSpeed((vexRT[Btn8L] - vexRT[Btn8R])*FULL);
+    //setSuckSpeed((vexRT[Btn6U] - vexRT[Btn6D])*FULL);
 
     //raise lift
-    setLiftSpeed((vexRT[Btn7U] - vexRT[Btn7D])*FULL);
-
+    lift();
 
     /////Auto Controls
 
@@ -134,7 +100,7 @@ task usercontrol() {
 
 
       //auto raise lift
-      if ((vexRT[Btn7L]) == 1) {
+      if ((vexRT[Btn7U]) == 1) {
         lift_btn(FULL, 1);
       }
       /*if ((vexRT[Btn7L]) == 1) {
@@ -148,7 +114,7 @@ task usercontrol() {
       */
 
       //auto lower lift
-      if ((vexRT[Btn7R]) == 1) {
+      if ((vexRT[Btn7D]) == 1) {
         lift_btn(FULL, -1);
       }
       /*if ((vexRT[Btn7R]) == 1) {
