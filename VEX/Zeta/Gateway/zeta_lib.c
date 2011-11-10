@@ -6,7 +6,7 @@
 
 /*Set Drive Left Speed*/
 void setDriveLSpeed(int speed) {
-  motor[leftF] = motor[leftUp] = motor[leftLow] = speed;
+  motor[leftFront] = motor[leftUp] = motor[leftLow] = speed;
 }
 
 /*Set Drive Right Speed*/
