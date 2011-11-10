@@ -23,7 +23,7 @@ void killDrive() {
 }
 
 /*Drive msec*/
-void drive_forward_msec(int speed, int duration) {
+void drive_msec(int speed, int duration) {
   setDriveLSpeed(speed);
   setDriveRSpeed(speed);
   wait1Msec(duration);
