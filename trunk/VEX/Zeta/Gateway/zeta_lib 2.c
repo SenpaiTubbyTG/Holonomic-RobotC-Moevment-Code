@@ -3,6 +3,8 @@
 //-
 //-
 /////////////////////////////////*Drive*/////////////////////////////////
+/*DEFINITIONS*/
+#define FULL 127
 #define gyroError 10
 #define gyroCenter 0
 
@@ -311,6 +313,12 @@ void setSuckSpeed(int speed) {
   motor[suckR] = speed;
 }
 
+/*Set Suck Speed*/
+void setRotateSpeed(int speed) {
+  motor[suckL] = speed;
+  motor[suckR] = -speed;
+}
+
 /*Set Left Suck Speed*/
 void setSuckLSpeed(int speed) {
   motor[suckL] = speed;
@@ -338,3 +346,65 @@ void suck_msec(int speed, int duration) {
 //-                                                                   -//
 /*END FUNCTION LIBRARY*/////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+//TELE OP
+void suck() {
+  if (vexRT[Btn5U] == 1) {
+    setSuckSpeed(FULL);
+  }
+  else if (vexRT[Btn5D] == 1) {
+    setSuckSpeed(-FULL);
+  }
+  else if (vexRT[Btn8L] == 1) {
+    setSuckLSpeed(-FULL);
+    setSuckRSpeed(FULL);
+  }
+  else if (vexRT[Btn8R] == 1) {
+    setSuckLSpeed(FULL);
+    setSuckRSpeed(-FULL);
+  }
+  else {
+    killSuck();
+  }
+}
+
+void lift() {
+  setLiftSpeed((vexRT[Btn5U] - vexRT[Btn5D])*FULL);
+}
+
+void tankDrive() {
+  setDriveLSpeed(vexRT[Ch3]);
+  setDriveRSpeed(vexRT[Ch2]);
+
+}
+
+void arcadeDrive() {
+  joy_x = vexRT[Ch1];   // This is the RIGHT analog stick.  For LEFT, change 'Ch1' to 'Ch4'.
+  joy_y = vexRT[Ch2];   // This is the RIGHT analog stick.  For LEFT, change 'Ch2' to 'Ch3'.
+
+  // Forward, and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is POSITIVE)
+  if((abs(joy_x) > threshold) && (abs(joy_y) > threshold) && (joy_y > 0))
+  {
+    motor[leftMotor]  = (joy_y + joy_x)/2;
+    motor[rightMotor] = (joy_y - joy_x)/2;
+  }
+  // Backwards and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is NEGATIVE)
+  else if((abs(joy_x) > threshold) && (abs(joy_y) > threshold) && (joy_y < 0))
+  {
+    motor[leftMotor]  = (joy_y - joy_x)/2;
+    motor[rightMotor] = (joy_y + joy_x)/2;
+  }
+  // Turning in place: (abs(X) is above the threshold, abs(Y) is below the threshold)
+  else if((abs(joy_x) > threshold) && (abs(joy_y) < threshold))
+  {
+    motor[leftMotor]  = joy_x;
+    motor[rightMotor] = (-1 * joy_x);
+  }
+  // Standing still: (both abs(X) and abs(Y) are below the threshold)
+  else
+  {
+    motor[leftMotor]  = 0;
+    motor[rightMotor] = 0;
+  }
+
+}
