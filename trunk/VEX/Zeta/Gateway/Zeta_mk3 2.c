@@ -33,6 +33,8 @@
 #include "Vex_Competition_Includes.c"
 #include "zeta_lib 2.c"
 #include "zeta_auton_modes.c"
+#include "zeta_teleop_modes.c"
+
 
 /*PRE AUTONOMOUS*//////////////////////////////////////////////////////////////
 void pre_auton() {
@@ -40,7 +42,7 @@ void pre_auton() {
 
 /*AUTONOMOUS*//////////////////////////////////////////////////////////////////
 task autonomous() {
-
+//choose an auton mode from "zeta_auton_modes.c", and reference it here:
 autonHoustonOne();
 
 }//Auton
