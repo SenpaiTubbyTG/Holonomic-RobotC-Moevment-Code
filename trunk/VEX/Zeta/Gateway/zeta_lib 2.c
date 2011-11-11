@@ -348,6 +348,8 @@ void suck_msec(int speed, int duration) {
 /////////////////////////////////////////////////////////////////////////
 
 //TELE OP
+
+//SUCK
 void suck() {
   if (vexRT[Btn5U] == 1) {
     setSuckSpeed(FULL);
@@ -368,16 +370,27 @@ void suck() {
   }
 }
 
+//LIFT
 void lift() {
   setLiftSpeed((vexRT[Btn5U] - vexRT[Btn5D])*FULL);
 }
 
+
+//TANK
 void tankDrive() {
   setDriveLSpeed(vexRT[Ch3]);
   setDriveRSpeed(vexRT[Ch2]);
 
 }
 
+ 
+ 
+//ARCADE 
+ //Arcade functions: Enable this when enabling arcade
+  int joy_x;            // will hold the X value of the analog stick (choices below)
+  int joy_y;            // will hold the Y value of the analog stick (choices below)
+  int threshold = 10;   // helps to eliminate 'noise' from a joystick that isn't perfectly at (0,0) 
+ 
 void arcadeDrive() {
   joy_x = vexRT[Ch1];   // This is the RIGHT analog stick.  For LEFT, change 'Ch1' to 'Ch4'.
   joy_y = vexRT[Ch2];   // This is the RIGHT analog stick.  For LEFT, change 'Ch2' to 'Ch3'.
