@@ -426,23 +426,24 @@ void arcadeDrive() {
 
 
     //auto raise suck
-    if ((vexRT[Btn8U]) == 1) {
+void autoRaiseSuck() {
+if ((vexRT[Btn8U]) == 1) {
       if (SensorValue[detectBall] < 200) {
         setSuckSpeed(FULL);
       }
       else {
         killSuck();
       }
-
+      }
+//auto raise lift
 void autoRaiseLift() {
-      //auto raise lift
-      if ((vexRT[Btn7U]) == 1) {
+            if ((vexRT[Btn7U]) == 1) {
         lift_btn(FULL, 1);
       }
       }
       
 //auto lower lift
-   void autoLowerLift(){  
+   void autoLowerLift() {  
     if ((vexRT[Btn7D]) == 1) {
         lift_btn(FULL, -1);
       }
