@@ -24,7 +24,7 @@
 
 #pragma platform(VEX)
 
-//Competition Control and Duration Settings
+/*Competition Control and Duration Settings*/
 #pragma competitionControl(Competition)
 #pragma autonomousDuration(20)
 #pragma userControlDuration(120)
@@ -35,21 +35,17 @@
 #include "zeta_auton_modes.c"
 #include "zeta_teleop_modes.c"
 
-
-/*PRE AUTONOMOUS*//////////////////////////////////////////////////////////////
+/*PRE AUTONOMOUS*/
 void pre_auton() {
 }
 
-/*AUTONOMOUS*//////////////////////////////////////////////////////////////////
-task autonomous() {
-//choose an auton mode from "zeta_auton_modes.c", and reference it here:
-autonHoustonOne();
-
+/*AUTONOMOUS*/
+task autonomous() {//choose an auton mode from "zeta_auton_modes.c", and reference it here:
+  autonHoustonOne();
 }//Auton
 
-/*TELE OP*//////////////////////////////////////////////////////////////////////
+/*TELE OP*/
 task usercontrol() {
-
   while (1==1) {
     tankDrive(); //Enable one  of these
     //arcadeDrive();

@@ -1,8 +1,12 @@
 /////////////////////////////////////////////////////////////////////////
-/*ZETA FUNCTION LIBRARY*/////////////////////////////////////////////////
-//-
-//-
+//ZETA FUNCTION LIBRARY//////////////////////////////////////////////////
+//-                                                                   -//
+//-                                                                   -//
+
 /////////////////////////////////*Drive*/////////////////////////////////
+//-                                                                   -//
+//-                                                                   -//
+
 /*DEFINITIONS*/
 #define FULL 127
 #define gyroError 10
@@ -34,12 +38,6 @@ void drive_msec(int speed, int duration) {
 
 /*Drive With Gyro for msec*/
 // gyroError and gyro Center (at what gyro value is the robot maintaining a straight line?) are defined in main code using #define
-
-//////////////////////
-//THIS WONT COMPILE!
-//////////////////////
-
-
 void drive_gyro_msec(int speed, int duration, int direction) {
   ClearTimer(T1);
   while (time1[T1] < duration) {
@@ -75,7 +73,6 @@ void drive_gyro_msec(int speed, int duration, int direction) {
   killDrive();
 }
 
-
 /* drive_enc
 * @purpose: autonomously drive robot forward for provided distance in inches
 * precondition: 4 inch wheels used; if other wheels, change the 4 in the while loop
@@ -104,7 +101,8 @@ void drive_enc(int speed, float distance) {
   killDrive();
 }
 
-/*drive_to_tower*/ /*robot drive till it hits button
+/*drive_to_tower*/
+/*robot drive till it hits button
 then continues to drive for a fraction of a second to align itself
 1 = fwd, -1 = backwards
 */
@@ -132,16 +130,6 @@ void drive_to_tower(int speed, int direction) {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 /////nnnneeeeeddd improvment//////////
 /*Drive FWD buttons*/ //1 = forward, -1 = backwards//
@@ -181,7 +169,6 @@ void drive_btn(int speed, int direction) {
     }
   }//
 }//end function
-
 
 /*Left Drive msec*/
 void drive_left_msec(int speed, int duration) {
@@ -344,5 +331,5 @@ void suck_msec(int speed, int duration) {
 
 //-                                                                   -//
 //-                                                                   -//
-/*END FUNCTION LIBRARY*/////////////////////////////////////////////////////
+//END FUNCTION LIBRARY///////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////

@@ -4,17 +4,17 @@
 
 //Dual mirrored remotes; 6u = up, 6d = down, 8l = rotate left, 8r = rotate right
 void suck() {
-  if ((vexRT[Btn6U] == 1) || (vexRT[Btn6UXmtr2] == 1)) {
+  if ((vexRT[Btn6U] == 1) /*|| (vexRT[Btn6UXmtr2] == 1)*/) {
     setSuckSpeed(FULL);
   }
-  else if ((vexRT[Btn6D] == 1) || (vexRT[Btn6DXmtr2] == 1)) {
+  else if ((vexRT[Btn6D] == 1) /*|| (vexRT[Btn6DXmtr2] == 1)*/) {
     setSuckSpeed(-FULL);
   }
-  else if ((vexRT[Btn8L] == 1) || (vexRT[Btn8LXmtr2] == 1)) {
+  else if ((vexRT[Btn8L] == 1) /*|| (vexRT[Btn8LXmtr2] == 1)*/) {
     setSuckLSpeed(-FULL);
     setSuckRSpeed(FULL);
   }
-  else if ((vexRT[Btn8R] == 1) || (vexRT[Btn8RXmtr2] == 1)) {
+  else if ((vexRT[Btn8R] == 1) /*|| (vexRT[Btn8RXmtr2] == 1)*/) {
     setSuckLSpeed(FULL);
     setSuckRSpeed(-FULL);
   }
@@ -31,22 +31,22 @@ void suck() {
 
 //Dual mirrored remotes; 5u = up, 6d = down, 7u/7l = left up/up, 7r/7d = right up/down
 void lift() {
-  if ((vexRT[Btn5U] == 1) || (vexRT[Btn5UXmtr2] == 1)) {
+  if ((vexRT[Btn5U] == 1) /*|| (vexRT[Btn5UXmtr2] == 1)*/) {
     setLiftSpeed(FULL);
   }
-  else if ((vexRT[Btn5D] == 1) || (vexRT[Btn5DXmtr2] == 1)) {
+  else if ((vexRT[Btn5D] == 1) /*|| (vexRT[Btn5DXmtr2] == 1)*/) {
     setLiftSpeed(-FULL);
   }
-  else if ((vexRT[Btn7U] == 1) || (vexRT[Btn7UXmtr2] == 1)) {
+  else if ((vexRT[Btn7U] == 1) /*|| (vexRT[Btn7UXmtr2] == 1)*/) {
     setLiftLSpeed(FULL);
   }
-  else if ((vexRT[Btn7L] == 1) || (vexRT[Btn7LXmtr2] == 1)) {
+  else if ((vexRT[Btn7L] == 1) /*|| (vexRT[Btn7LXmtr2] == 1)*/) {
     setLiftLSpeed(-FULL);
   }
-  else if ((vexRT[Btn7R] == 1) || (vexRT[Btn7RXmtr2] == 1)) {
+  else if ((vexRT[Btn7R] == 1) /*|| (vexRT[Btn7RXmtr2] == 1)*/ ) {
     setLiftRSpeed(FULL);
   }
-  else if ((vexRT[Btn7D] == 1) || (vexRT[Btn7DXmtr2] == 1)) {
+  else if ((vexRT[Btn7D] == 1) /*|| (vexRT[Btn7DXmtr2] == 1)*/) {
     setLiftRSpeed(-FULL);
   }
   else {
@@ -57,8 +57,8 @@ void lift() {
 //TANK
 //Dual mirrored remotes
 void tankDrive() {
-  setDriveLSpeed(vexRT[Ch3] || vexRT[Ch3Xmtr2]);
-  setDriveRSpeed(vexRT[Ch2] || vexRT[Ch2Xmtr2]);
+  setDriveLSpeed(vexRT[Ch3] /*|| vexRT[Ch3Xmtr2]*/);
+  setDriveRSpeed(vexRT[Ch2] /*|| vexRT[Ch2Xmtr2]*/);
 }
 
 //ARCADE
