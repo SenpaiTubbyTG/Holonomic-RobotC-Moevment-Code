@@ -1,7 +1,11 @@
+float g_driveAngle=0;
+float g_driveMagnitude=0;
+float g_turnAngle=0;
+float g_turnMagnitude=0;
 
 float getDriveAngle(){
 
-  float driveAngle;
+  float driveAngle=0;
 
   // Determine the correct driving angle
   if(vexRT[Ch1] < 0){
@@ -29,7 +33,7 @@ float getDriveMagnitude(){
 
 float getTurnAngle(){
 
-  float turnAngle;
+  float turnAngle=0;
 
   // Determine the correct driving angle
   if(vexRT[Ch4] < 0){
@@ -69,7 +73,7 @@ float maximum(float a, float b, float c, float d){
   return max;
 }
 
-void mecanumDrive(){
+void mechanumDrive(){
   /* This method is used to apply motor inputs to control a mechanum drive system
 
      assuming
@@ -87,17 +91,12 @@ void mecanumDrive(){
   float driveMagnitude = getDriveMagnitude();
   float turnAngle = getTurnAngle();
   float turnMagnitude = getTurnMagnitude();
+  g_driveAngle = driveAngle;
+  g_driveMagnitude = driveMagnitude;
+  g_turnAngle = turnAngle;
+  g_turnMagnitude = turnMagnitude;
 
-  // this variable is for driving without gyro
-
-  float direction;  //-1 is clockwise, 1 = counter-clockwise
-  if(turnAngle<PI/2.0 || turnAngle>=(3*PI)/2.0){
-    direction = -1;
-  } else if(turnAngle >= PI/2.0 && turnAngle<(3*PI)/2.0){
-    direction = 1;
-  }
-
-  float turnInput = direction*50;  // 10 can be changed
+  float turnInput = vexRT[Ch4];  // 10 can be changed
 
   // (PI/2.0) is subtracted to shift the axes
   float flOutput = driveMagnitude*sin(driveAngle-(PI/2.0)) - turnInput;
@@ -105,15 +104,17 @@ void mecanumDrive(){
   float blOutput = driveMagnitude*cos(driveAngle-(PI/2.0)) - turnInput;
   float brOutput = driveMagnitude*sin(driveAngle-(PI/2.0)) + turnInput;
 
-  float max = maximum(flOutput, frOutput, blOutput, brOutput);
+  float max = maximum(abs(flOutput), abs(frOutput), abs(blOutput), abs(brOutput));
 
   flOutput = flOutput*(driveMagnitude/max);
   frOutput = frOutput*(driveMagnitude/max);
   blOutput = blOutput*(driveMagnitude/max);
   brOutput = brOutput*(driveMagnitude/max);
 
-  motor[FrontLeft1]= motor[FrontLeft2] = flOutput;
-  motor[FrontRight1] = motor[FrontRight2] = frOutput;
+  motor[FrontLeft1]= flOutput;
+  motor[FrontLeft2]= flOutput;
+  motor[FrontRight1] = frOutput;
+  motor[FrontRight2] = frOutput;
   motor[BackLeft] = blOutput;
   motor[BackRight] = brOutput;
 }
