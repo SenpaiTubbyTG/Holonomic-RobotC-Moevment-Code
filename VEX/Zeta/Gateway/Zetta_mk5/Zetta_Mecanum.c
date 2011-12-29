@@ -1,7 +1,3 @@
-float g_driveAngle=0;
-float g_driveMagnitude=0;
-float g_turnAngle=0;
-float g_turnMagnitude=0;
 
 float getDriveAngle(){
 
@@ -73,7 +69,7 @@ float maximum(float a, float b, float c, float d){
   return max;
 }
 
-void mechanumDrive(){
+void mecanumDrive(){
   /* This method is used to apply motor inputs to control a mechanum drive system
 
      assuming
@@ -89,27 +85,19 @@ void mechanumDrive(){
 
   float driveAngle = getDriveAngle();
   float driveMagnitude = getDriveMagnitude();
-  float turnAngle = getTurnAngle();
-  float turnMagnitude = getTurnMagnitude();
-  g_driveAngle = driveAngle;
-  g_driveMagnitude = driveMagnitude;
-  g_turnAngle = turnAngle;
-  g_turnMagnitude = turnMagnitude;
-
-  float turnInput = vexRT[Ch4];  // 10 can be changed
 
   // (PI/2.0) is subtracted to shift the axes
-  float flOutput = driveMagnitude*sin(driveAngle-(PI/2.0)) - turnInput;
-  float frOutput = driveMagnitude*cos(driveAngle-(PI/2.0)) + turnInput;
-  float blOutput = driveMagnitude*cos(driveAngle-(PI/2.0)) - turnInput;
-  float brOutput = driveMagnitude*sin(driveAngle-(PI/2.0)) + turnInput;
+  float flOutput = driveMagnitude*sin(driveAngle-(PI/2.0));
+  float frOutput = driveMagnitude*cos(driveAngle-(PI/2.0));
+  float blOutput = driveMagnitude*cos(driveAngle-(PI/2.0));
+  float brOutput = driveMagnitude*sin(driveAngle-(PI/2.0));
 
-  float max = maximum(abs(flOutput), abs(frOutput), abs(blOutput), abs(brOutput));
+  /*float max = maximum(abs(flOutput), abs(frOutput), abs(blOutput), abs(brOutput));
 
   flOutput = flOutput*(driveMagnitude/max);
   frOutput = frOutput*(driveMagnitude/max);
   blOutput = blOutput*(driveMagnitude/max);
-  brOutput = brOutput*(driveMagnitude/max);
+  brOutput = brOutput*(driveMagnitude/max);*/
 
   motor[FrontLeft1]= flOutput;
   motor[FrontLeft2]= flOutput;
