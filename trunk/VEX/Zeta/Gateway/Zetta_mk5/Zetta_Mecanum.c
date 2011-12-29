@@ -83,26 +83,47 @@ void mecanumDrive(){
       ALL ANGLES ARE IN RADIANS
   */
 
-  float driveAngle = getDriveAngle();
-  float driveMagnitude = getDriveMagnitude();
+  float driveAngle,
+        driveMagnitude,
+        flOutput,
+        frOutput,
+        blOutput,
+        brOutput,
+        turnComponent,
+        maxOutput;
 
-  // (PI/2.0) is subtracted to shift the axes
-  float flOutput = driveMagnitude*sin(driveAngle-(PI/2.0));
-  float frOutput = driveMagnitude*cos(driveAngle-(PI/2.0));
-  float blOutput = driveMagnitude*cos(driveAngle-(PI/2.0));
-  float brOutput = driveMagnitude*sin(driveAngle-(PI/2.0));
+  driveAngle = getDriveAngle();
+  driveMagnitude = getDriveMagnitude();
 
-  /*float max = maximum(abs(flOutput), abs(frOutput), abs(blOutput), abs(brOutput));
+  // this line determined the input to be for turning.
+  turnComponent = vexRT[Ch4]/5.0;
 
-  flOutput = flOutput*(driveMagnitude/max);
-  frOutput = frOutput*(driveMagnitude/max);
-  blOutput = blOutput*(driveMagnitude/max);
-  brOutput = brOutput*(driveMagnitude/max);*/
+  /*This line of code is used to scale the driveMagnitude if adding the
+    turning component will exceed the max pwn value of 127 */
+  if(driveMagnitude+turnComponent > 127){
+    driveMagnitude = 127 - turnComponent;
+  }
 
-  motor[FrontLeft1]= flOutput;
-  motor[FrontLeft2]= flOutput;
-  motor[FrontRight1] = frOutput;
-  motor[FrontRight2] = frOutput;
+  /* (PI/4.0) is subtracted to shift the axes. These 4 lines assign motor values according
+     angle and driveMagnitude only. Turning components are not considered here.         */
+  flOutput = driveMagnitude*sin(driveAngle-(PI/4.0));
+  frOutput = driveMagnitude*cos(driveAngle-(PI/4.0));
+  blOutput = driveMagnitude*cos(driveAngle-(PI/4.0));
+  brOutput = driveMagnitude*sin(driveAngle-(PI/4.0));
+
+  /*This variable determines the output with greatest magnitude. The values will then be
+    scaled so that the greatest output is equal to the driveMagnitude*/
+  maxOutput = maximum(abs(flOutput), abs(frOutput), abs(blOutput), abs(brOutput));
+
+  /* these 4 lines update the output variables so that they 1. have correctly scaled values,
+     and 2. so that they incorporate the turning component*/
+  flOutput = flOutput*(driveMagnitude/maxOutput) + turnComponent;
+  frOutput = frOutput*(driveMagnitude/maxOutput) - turnComponent;
+  blOutput = blOutput*(driveMagnitude/maxOutput) + turnComponent;
+  brOutput = brOutput*(driveMagnitude/maxOutput) - turnComponent;
+
+  motor[FrontLeft1]= motor[FrontLeft2]= flOutput;
+  motor[FrontRight1] = motor[FrontRight2] = frOutput;
   motor[BackLeft] = blOutput;
   motor[BackRight] = brOutput;
 }
