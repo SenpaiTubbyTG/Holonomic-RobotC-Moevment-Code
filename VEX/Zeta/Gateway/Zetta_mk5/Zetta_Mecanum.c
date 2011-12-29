@@ -1,6 +1,4 @@
 
-float driveAngle = 0;
-
 float getDriveAngle(){
 
   float driveAngle;
@@ -18,6 +16,9 @@ float getDriveAngle(){
       } else {
         driveAngle = 0;
       }
+  }
+  if(driveAngle < 0){
+    driveAngle = driveAngle + 2*PI;
   }
   return driveAngle;
 }
@@ -44,6 +45,10 @@ float getTurnAngle(){
         turnAngle = 0;
       }
   }
+  if(turnAngle < 0){
+    turnAngle = turnAngle + 2*PI;
+  }
+
   return turnAngle;
 }
 
@@ -78,7 +83,7 @@ void mecanumDrive(){
       ALL ANGLES ARE IN RADIANS
   */
 
-  driveAngle = getDriveAngle();
+  float driveAngle = getDriveAngle();
   float driveMagnitude = getDriveMagnitude();
   float turnAngle = getTurnAngle();
   float turnMagnitude = getTurnMagnitude();
@@ -92,7 +97,7 @@ void mecanumDrive(){
     direction = 1;
   }
 
-  float turnInput = direction*10;  // 10 can be changed
+  float turnInput = direction*50;  // 10 can be changed
 
   // (PI/2.0) is subtracted to shift the axes
   float flOutput = driveMagnitude*sin(driveAngle-(PI/2.0)) - turnInput;
