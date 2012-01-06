@@ -42,7 +42,7 @@ public class HolonomicDrive {
         // turn greater than 180 degrees
         if(turnOffset >Math.PI){
             turnOffset -= 2*Math.PI;
-        } else if(turnOffset<-2*Math.PI){
+        } else if(turnOffset<-Math.PI){
             turnOffset += 2*Math.PI;
         }
         
@@ -51,11 +51,29 @@ public class HolonomicDrive {
         double turnOutput = (turnConstant*turnOffset*turnMagnitude)/(2*Math.PI);
         
         if(driveMagnitude + turnOffset > 1.0){
-            
+            driveMagnitud = 1.0-turnOffset;
         }
         
+        double flOutput = Math.cos(driveAngle - Math.PI/4.0);
+        double frOutput = -Math.sin(driveAngle - Math.PI/4.0);
+        double blOutput = Math.sin(driveAngle-Math.PI/4.0);
+        double brOutput = -Math.cos(driveAngle-Math.PI/4.0);
+        double[] outputs = {flOutput, frOutput, blOutput, brOutput};
+
+        /// get maximum value of the above
+        double max = flOutput;
+        for(int i=0; i<4; i++){
+            if(max<outputs[i]){
+                max = outputs[i];
+            }
+        } for(int i=0; i<4; i++){
+            output[i] = output[i]*(driveMagnitude/max);
+        }
         
+        m_frontLeft.set(flOutput-turnOutput);
+        m_frontRight.set(frOutput+turnOutput);
+        m_backLeft.set(blOutput-turnOutput);
+        m_backRight.set(brOutput+turnOutput);
     }
 }
-
 
