@@ -19,6 +19,8 @@ task autonomous(){
 
 task usercontrol(){
   while(true){
-    mecanumDrive();
+    //mecanumDrive();
+    //tankDrive();
+    simpleMechanumDrive();
   }
 }
