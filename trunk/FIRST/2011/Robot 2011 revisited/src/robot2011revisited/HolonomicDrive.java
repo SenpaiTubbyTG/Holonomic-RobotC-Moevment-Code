@@ -1,4 +1,4 @@
-package edu.wpi.first.wpilibj.templates;
+package robot2011revisited;
 /*\
  * This class is used to control a holonomic drive train
  */
@@ -51,7 +51,7 @@ public class HolonomicDrive {
         double turnOutput = (turnConstant*turnOffset*turnMagnitude)/(2*Math.PI);
         
         if(driveMagnitude + turnOffset > 1.0){
-            driveMagnitud = 1.0-turnOffset;
+            driveMagnitude = 1.0-turnOffset;
         }
         
         double flOutput = Math.cos(driveAngle - Math.PI/4.0);
@@ -67,7 +67,7 @@ public class HolonomicDrive {
                 max = outputs[i];
             }
         } for(int i=0; i<4; i++){
-            output[i] = output[i]*(driveMagnitude/max);
+            outputs[i] = outputs[i]*(driveMagnitude/max);
         }
         
         m_frontLeft.set(flOutput-turnOutput);
@@ -76,4 +76,3 @@ public class HolonomicDrive {
         m_backRight.set(brOutput+turnOutput);
     }
 }
-
