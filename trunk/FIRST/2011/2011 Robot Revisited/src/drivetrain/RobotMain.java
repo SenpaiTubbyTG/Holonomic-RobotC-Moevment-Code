@@ -1,24 +1,11 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) FIRST 2008. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
 package drivetrain;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Gyro;
+import utilities.RobotUtil;
 
-
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the SimpleRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class RobotMain extends SimpleRobot {
 
     Jaguar m_frontLeft, m_frontRight, m_backLeft, m_backRight; // motors
@@ -41,20 +28,35 @@ public class RobotMain extends SimpleRobot {
                                               m_backLeft, m_backRight,
                                               m_leftStick, m_rightStick,
                                               m_gyro);
-
-
-        getWatchdog().kill();
     }
 
     // This function is called once each time the robot enters autonomous mode.
+    /*
+     * The autonomous will perform a square without turning
+     */
     public void autonomous() {
-        
+        getWatchdog().setEnabled(false);
+        RobotUtil.setTaskDuration(2000);
+        while(!RobotUtil.taskDurationElapsed())
+            m_holonomicDrive.holonomicDrive(Math.PI/2.0, 1.0, 0, 0);
+        RobotUtil.setTaskDuration(2000);
+        while(!RobotUtil.taskDurationElapsed())
+            m_holonomicDrive.holonomicDrive(Math.PI, 1.0, 0, 0);
+        RobotUtil.setTaskDuration(2000);
+        while(!RobotUtil.taskDurationElapsed())
+            m_holonomicDrive.holonomicDrive(3.0*Math.PI/2.0, 1.0, 0, 0);
+        RobotUtil.setTaskDuration(2000);
+        while(!RobotUtil.taskDurationElapsed())
+            m_holonomicDrive.holonomicDrive(0, 1.0, 0, 0);
+        m_holonomicDrive.holonomicDrive(0,0,0,0);
+        getWatchdog().setEnabled(true);
     }
 
     // This function is called when robot enters autonomous
     public void operatorControl() {
         while(isOperatorControl() && isEnabled()){
-            m_holonomicDrive.drive();
+            m_holonomicDrive.operatorDrive();
+            getWatchdog().feed();
         }
     }
 }

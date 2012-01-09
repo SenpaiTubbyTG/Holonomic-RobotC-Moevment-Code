@@ -30,13 +30,30 @@ public class HolonomicDrive {
         turnConstant = 1.0;
     }
 
-    public void drive(){
-        double stickAngle = m_directionStick.getDirectionRadians();
+    /*
+     * this method converts inputs from the joystick into magnitudes and sends
+     * them to a more general holonomicDrive method
+     */
+    public void operatorDrive(){
+        double fieldDriveAngle = m_directionStick.getDirectionRadians();
         double driveMagnitude = m_directionStick.getMagnitude();
-        double driveAngle = stickAngle - Math.toRadians(m_gyro.getAngle());
-        double turnAngle = m_rotationStick.getDirectionRadians();
+        double fieldTurnAngle = m_rotationStick.getDirectionRadians();
         double turnMagnitude = m_rotationStick.getMagnitude();
-        double turnOffset = Math.toRadians(m_gyro.getAngle()) - turnAngle;
+        holonomicDrive(fieldDriveAngle, driveMagnitude, fieldTurnAngle, turnMagnitude);
+    }
+    
+    /*
+     * this method is used for controlling the holonomic drive system. The robot
+     * will move at fieldDriveAngle (radians) with respect to the field and at a speed 
+     * proportional to driveMagnitude (0, 1). The robot will turn to 
+     * fieldTurnAngle (radians) and remain at this heading with a speed proportional
+     * to turnMagnitude (0, 1). THIS METHOD SHOULD BE CALLED REPEATEDLY WITH
+     * DESIRED INPUT TO WORK CORRECTLY
+     */
+    public void holonomicDrive(double fieldDriveAngle, double driveMagnitude, 
+                               double fieldTurnAngle, double turnMagnitude){
+        double driveAngle = fieldDriveAngle - Math.toRadians(m_gyro.getAngle());
+        double turnOffset = fieldTurnAngle  - Math.toRadians(m_gyro.getAngle());
         
         // this section clarifies offset so that the robot does not attempt a
         // turn greater than 180 degrees
@@ -50,8 +67,8 @@ public class HolonomicDrive {
         //// arbitrary turn constant divided by 2PI, the # of radians in a circle
         double turnOutput = (turnConstant*turnOffset*turnMagnitude)/(2*Math.PI);
         
-        if(driveMagnitude + turnOffset > 1.0){
-            driveMagnitude = 1.0-turnOffset;
+        if(driveMagnitude + turnOutput > 1.0){
+            driveMagnitude = 1.0-turnOutput;
         }
         
         double flOutput = Math.cos(driveAngle - Math.PI/4.0);
@@ -63,8 +80,8 @@ public class HolonomicDrive {
         /// get maximum value of the above
         double max = flOutput;
         for(int i=0; i<4; i++){
-            if(max<outputs[i]){
-                max = outputs[i];
+            if(max<Math.abs(outputs[i])){
+                max = Math.abs(outputs[i]);
             }
         } for(int i=0; i<4; i++){
             outputs[i] = outputs[i]*(driveMagnitude/max);
