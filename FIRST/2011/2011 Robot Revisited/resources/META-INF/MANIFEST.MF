@@ -1,6 +1,6 @@
-MIDlet-Name: Robot 2011 revisited
+MIDlet-Name: 2011 Robot Revisited
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: FIRST
-MIDlet-1: RobotMain, , robot2011revisited.RobotMain
+MIDlet-1: RobotMain, , drivetrain.RobotMain
 MicroEdition-Profile: IMP-1.0
 MicroEdition-Configuration: CLDC-1.1

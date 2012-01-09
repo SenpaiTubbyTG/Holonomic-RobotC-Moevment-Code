@@ -1,4 +1,4 @@
-package robot2011revisited;
+package drivetrain;
 /*\
  * This class is used to control a holonomic drive train
  */
