@@ -71,10 +71,10 @@ public class HolonomicDrive {
             driveMagnitude = 1.0-turnOutput;
         }
         
-        double flOutput = Math.cos(driveAngle - Math.PI/4.0);
-        double frOutput = -Math.sin(driveAngle - Math.PI/4.0);
-        double blOutput = Math.sin(driveAngle-Math.PI/4.0);
-        double brOutput = -Math.cos(driveAngle-Math.PI/4.0);
+        double flOutput = Math.cos(driveAngle  + Math.PI/4.0);
+        double frOutput = -Math.sin(driveAngle + Math.PI/4.0);
+        double blOutput = Math.sin(driveAngle  +Math.PI/4.0);
+        double brOutput = -Math.cos(driveAngle +Math.PI/4.0);
         double[] outputs = {flOutput, frOutput, blOutput, brOutput};
 
         /// get maximum value of the above
@@ -87,9 +87,9 @@ public class HolonomicDrive {
             outputs[i] = outputs[i]*(driveMagnitude/max);
         }
         
-        m_frontLeft.set(flOutput-turnOutput);
-        m_frontRight.set(frOutput+turnOutput);
-        m_backLeft.set(blOutput-turnOutput);
-        m_backRight.set(brOutput+turnOutput);
+        m_frontLeft.set(outputs[0]-turnOutput);
+        m_frontRight.set(outputs[1]+turnOutput);
+        m_backLeft.set(outputs[2]-turnOutput);
+        m_backRight.set(outputs[3]+turnOutput);
     }
 }
