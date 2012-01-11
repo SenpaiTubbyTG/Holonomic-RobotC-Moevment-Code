@@ -24,8 +24,13 @@ public class Hardware {
    public static DiscoFeverDrive m_drive;
    
    //collector 
-   private static DiscoFeverCollector m_collector;
-   private static DiscoFeverLauncher m_launcher;
+   public static DiscoFeverCollector m_collector;
+   
+   //launcher
+   public static DiscoFeverLauncher m_launcher;
+   
+   //camera
+   public static AxisCamera camera = AxisCamera.getInstance();
    
 }
 
