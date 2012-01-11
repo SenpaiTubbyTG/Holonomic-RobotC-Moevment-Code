@@ -3,34 +3,32 @@ package discoFever;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class DiscoFeverMain extends IterativeRobot {
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+    private static Hardware m_hw;
+    private static TargetTracker m_tracker;
+    
     public void robotInit() {
-
+        m_hw = new Hardware();
+        m_drive = new DiscoFeverDrive();
+        m_tracker = new TargetTracker();
     }
 
     /**
      * This function is called periodically during autonomous
      */
-    public void autonomousPeriodic() {
-
+    
+    public void autonomousContinuous(){
+        
     }
 
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
+    public void teleopContinuos() {
         
     }
-    
 }
