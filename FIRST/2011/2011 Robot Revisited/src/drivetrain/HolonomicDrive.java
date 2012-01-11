@@ -87,6 +87,11 @@ public class HolonomicDrive {
             outputs[i] = outputs[i]*(driveMagnitude/max);
         }
         
+        System.out.println(outputs[0]-turnOutput + " ");
+        System.out.println(outputs[1]+turnOutput + " ");
+        System.out.println(outputs[2]-turnOutput + " ");
+        System.out.println(outputs[3]+turnOutput + " ");
+        
         m_frontLeft.set(outputs[0]-turnOutput);
         m_frontRight.set(outputs[1]+turnOutput);
         m_backLeft.set(outputs[2]-turnOutput);
