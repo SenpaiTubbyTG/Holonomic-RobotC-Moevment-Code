@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package discoFever;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
@@ -10,7 +6,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 
-public class HardWare {
+public class Hardware{
    
    //DriveTrain Hardware  
    private static Encoder m_flEncoder;
@@ -22,7 +18,8 @@ public class HardWare {
    private static Jaguar m_blJaguar;
    private static Jaguar m_brJaguar;
    //// more motors for banebaots and fisherprice
-   public static DiscoFeverDrive m_drive;
+   public static DiscoFeverDrive m_drive = new DiscoFeverDrive(m_flJaguar, m_frJaguar,
+                                                               m_blJaguar, m_blJaguar);
    
    public static Joystick m_leftStick = new Joystick(1);
    public static Joystick m_rightStick = new Joystick(2); 
@@ -44,5 +41,3 @@ public class HardWare {
    }
    
 }
-
-

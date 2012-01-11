@@ -11,8 +11,8 @@ public class DiscoFeverMain extends IterativeRobot {
     private static TargetTracker m_tracker;
     
     public void robotInit() {
-        m_tracker = new TargetTracker(HardWare.m_camera);
-        HardWare.cameraToDriversStation();
+        m_tracker = new TargetTracker(Hardware.m_camera);
+        Hardware.cameraToDriversStation();
     }
 
     /**
