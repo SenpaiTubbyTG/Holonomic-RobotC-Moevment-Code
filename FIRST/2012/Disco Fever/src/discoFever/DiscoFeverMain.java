@@ -13,8 +13,7 @@ public class DiscoFeverMain extends IterativeRobot {
     
     public void robotInit() {
         m_hw = new Hardware();
-        m_drive = new DiscoFeverDrive();
-        m_tracker = new TargetTracker();
+        m_tracker = new TargetTracker(Hardware.camera);
     }
 
     /**
