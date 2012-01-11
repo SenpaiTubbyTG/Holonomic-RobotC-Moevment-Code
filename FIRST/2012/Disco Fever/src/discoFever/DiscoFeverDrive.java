@@ -5,7 +5,7 @@
 package discoFever;
 
 import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 
 /**
  *
@@ -13,16 +13,21 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class DiscoFeverDrive {
     
-    public static RobotDrive m_front;
-    public static RobotDrive m_back;
+    private Jaguar m_frontLeft, m_frontRight, m_backLeft, m_backRight;
     
-    public DiscoFeverDrive(int flChannel, int frChannel, int blChannel, int brChannel){
-        m_front = new RobotDrive(flChannel, frChannel);
-        m_back  = new RobotDrive(blChannel, brChannel);
+    public DiscoFeverDrive(Jaguar fr, Jaguar fl, Jaguar bl, Jaguar br){
+        m_frontLeft = fl;
+        m_frontLeft = fr;
+        m_backLeft = bl;
+        m_backRight = br;
     }
     
     public void tankDrive(){
-        m_front.tankDrive(HardWare.m_leftStick, HardWare.m_rightStick);
+        m_frontLeft.set(Hardware.m_leftStick.getY());
+        m_backLeft.set(Hardware.m_leftStick.getY());
+        
+        m_frontRight.set(Hardware.m_rightStick.getY());
+        m_backRight.set(Hardware.m_rightStick.getY());
     }
 }
 
