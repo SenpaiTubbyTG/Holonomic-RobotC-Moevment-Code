@@ -4,12 +4,13 @@
  */
 package discoFever;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 
-public class Hardware {
+public class HardWare {
    
    //DriveTrain Hardware  
    private static Encoder m_flEncoder;
@@ -23,6 +24,9 @@ public class Hardware {
    //// more motors for banebaots and fisherprice
    public static DiscoFeverDrive m_drive;
    
+   public static Joystick m_leftStick = new Joystick(1);
+   public static Joystick m_rightStick = new Joystick(2); 
+   
    //collector 
    public static DiscoFeverCollector m_collector;
    
@@ -30,7 +34,14 @@ public class Hardware {
    public static DiscoFeverLauncher m_launcher;
    
    //camera
-   public static AxisCamera camera = AxisCamera.getInstance();
+   public static AxisCamera m_camera = AxisCamera.getInstance();
+   
+   
+   public static void cameraToDriversStation(){
+       m_camera.writeResolution(AxisCamera.ResolutionT.k320x240);
+       m_camera.writeBrightness(0);
+       DriverStationLCD.getInstance().updateLCD();
+   }
    
 }
 
