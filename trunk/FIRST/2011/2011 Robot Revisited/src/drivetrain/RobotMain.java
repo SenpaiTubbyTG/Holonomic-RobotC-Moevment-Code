@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Gyro;
 import utilities.RobotUtil;
+import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 public class RobotMain extends SimpleRobot {
 
@@ -12,6 +13,7 @@ public class RobotMain extends SimpleRobot {
     Joystick m_leftStick, m_rightStick, m_armStick;
     HolonomicDrive m_holonomicDrive;
     Gyro m_gyro;
+    AxisCamera m_camera;
 
     public RobotMain(){
         super();
@@ -23,6 +25,7 @@ public class RobotMain extends SimpleRobot {
         m_rightStick = new Joystick(2);
         m_armStick = new Joystick(3);
         m_gyro = new Gyro(1);
+        m_camera = AxisCamera.getInstance();
         
         m_holonomicDrive = new HolonomicDrive(m_frontLeft, m_frontRight,
                                               m_backLeft, m_backRight,
