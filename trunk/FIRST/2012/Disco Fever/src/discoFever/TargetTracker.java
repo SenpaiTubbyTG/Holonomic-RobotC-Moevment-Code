@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 /**
  *
- * @author mdouglass101
+ * @author mnikoltche100
  */
 public class TargetTracker {
     
