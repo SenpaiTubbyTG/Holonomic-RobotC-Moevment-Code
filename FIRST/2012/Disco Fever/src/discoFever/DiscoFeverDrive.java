@@ -29,5 +29,12 @@ public class DiscoFeverDrive {
         m_frontRight.set(Hardware.m_rightStick.getY());
         m_backRight.set(Hardware.m_rightStick.getY());
     }
+    
+    public void drive(int speed){
+        m_frontLeft.set(speed);
+        m_backLeft.set(speed);
+        m_frontRight.set(speed);
+        m_backRight.set(speed);
+    }
 }
 
