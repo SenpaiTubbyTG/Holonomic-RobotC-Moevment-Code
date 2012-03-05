@@ -1,3 +1,7 @@
+#pragma config(Sensor, dgtl1,  EncFL,               sensorQuadEncoder)
+#pragma config(Sensor, dgtl3,  EncBL,               sensorQuadEncoder)
+#pragma config(Sensor, dgtl5,  EncBR,               sensorQuadEncoder)
+#pragma config(Sensor, dgtl7,  EncFR,               sensorQuadEncoder)
 #pragma config(Motor,  port2,           FrontLeft1,    tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port3,           FrontLeft2,    tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  port4,           BackLeft,      tmotorNormal, openLoop, reversed)
