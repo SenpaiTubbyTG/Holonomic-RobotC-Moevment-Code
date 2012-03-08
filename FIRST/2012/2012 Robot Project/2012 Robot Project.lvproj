@@ -16,7 +16,7 @@
 	</Item>
 	<Item Name="RT CompactRIO Target" Type="RT CompactRIO">
 		<Property Name="alias.name" Type="Str">RT CompactRIO Target</Property>
-		<Property Name="alias.value" Type="Str">10.25.86.2</Property>
+		<Property Name="alias.value" Type="Str">10.25.87.2</Property>
 		<Property Name="CCSymbols" Type="Str">TARGET_TYPE,RT;OS,VxWorks;CPU,PowerPC;</Property>
 		<Property Name="crio.family" Type="Str">901x</Property>
 		<Property Name="host.ResponsivenessCheckEnabled" Type="Bool">true</Property>
@@ -29,7 +29,6 @@
 		<Property Name="target.FPProtocolGlobals_ControlTimeLimit" Type="Int">300</Property>
 		<Property Name="target.getDefault-&gt;WebServer.Port" Type="Int">80</Property>
 		<Property Name="target.getDefault-&gt;WebServer.Timeout" Type="Int">60</Property>
-		<Property Name="target.IOScan.Enabled" Type="Bool">true</Property>
 		<Property Name="target.IOScan.Faults" Type="Str"></Property>
 		<Property Name="target.IOScan.NetVarPeriod" Type="UInt">100</Property>
 		<Property Name="target.IOScan.NetWatchdogEnabled" Type="Bool">false</Property>
@@ -631,15 +630,13 @@ KeepAliveTimeout 60
 			<Item Name="RT Overlay Helper.vi" Type="VI" URL="../RT Overlay Helper.vi"/>
 			<Item Name="Draw Filled Rect.vi" Type="VI" URL="../Draw Filled Rect.vi"/>
 			<Item Name="PID Set Points.vi" Type="VI" URL="../PID Set Points.vi"/>
-			<Item Name="Actual RPM Global.vi" Type="VI" URL="../Actual RPM Global.vi"/>
 			<Item Name="Get Lowest Target.vi" Type="VI" URL="../Get Lowest Target.vi"/>
 			<Item Name="Set Hood Position.vi" Type="VI" URL="../Set Hood Position.vi"/>
-			<Item Name="Set Indexer Speed.vi" Type="VI" URL="../Set Indexer Speed.vi"/>
 			<Item Name="Dual State Press Change.vi" Type="VI" URL="../Dual State Press Change.vi"/>
 			<Item Name="Set Shooter RPM.vi" Type="VI" URL="../Set Shooter RPM.vi"/>
-			<Item Name="Indexer PID.vi" Type="VI" URL="../Indexer PID.vi"/>
-			<Item Name="Shooter RPM.vi" Type="VI" URL="../Shooter RPM.vi"/>
-			<Item Name="Pool Avg.vi" Type="VI" URL="../Pool Avg.vi"/>
+			<Item Name="System Set Points and States.vi" Type="VI" URL="../System Set Points and States.vi"/>
+			<Item Name="Indexer Inches.vi" Type="VI" URL="../Indexer Inches.vi"/>
+			<Item Name="Target Tracker.vi" Type="VI" URL="../Target Tracker.vi"/>
 			<Item Name="niLvFpgaFormatErrorSource.vi" Type="VI" URL="/&lt;vilib&gt;/rvi/errors/niLvFpgaFormatErrorSource.vi"/>
 			<Item Name="niLvFpgaWhatHappensToTopLevelVI.ctl" Type="VI" URL="/&lt;vilib&gt;/rvi/errors/niLvFpgaWhatHappensToTopLevelVI.ctl"/>
 			<Item Name="niFpgaNodeNameForErrorReporting.ctl" Type="VI" URL="/&lt;vilib&gt;/rvi/interface/common/niFpgaNodeNameForErrorReporting.ctl"/>
