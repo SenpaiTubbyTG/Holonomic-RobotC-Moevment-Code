@@ -26,7 +26,7 @@
 #pragma autonomousDuration(20)
 #pragma userControlDuration(120)
 
-#include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
+#include "Vex_Competition_Includes.c"
 
 void setSuckSpeed(int speed, int duration)   {
   motor[collectorL] = motor[collectorR] = speed;
@@ -75,7 +75,7 @@ task usercontrol()
 {
   while (true)
   {
-    ////////PNEUMATICS/////////////////////////////////////////////////////////////////////////////
+    ////////LIFT/////////////////////////////////////////////////////////////////////////////
 
     if(vexRT[Btn5U] == 1)   {      // If button 5U is pressed:
       SensorValue[solenoidL] = SensorValue[solenoidR] = 1;  // ...both pneumatics shoot out.
@@ -88,21 +88,27 @@ task usercontrol()
     //////////////////COLLECTOR///////////////////////////////////////////////////////////////////
 
     if(vexRT[Btn6U] == 1) {
-      motor[collectorL] = motor[collectorR] = 127;//if btn 6u is pressed turn both collector motors at full suck in
+      motor[collectorL] = motor[collectorR] = 127;   // if btn 6u is pressed turn both sides of the collector in at full
     }//end if
     else if(vexRT[Btn6D] == 1) {
-      motor[collectorL] = motor[collectorR] = -127;//if btn 6d is pressed turn both collector motors at full spitout
+      motor[collectorL] = motor[collectorR] = -127;  // if btn 6d is pressed turn both sides of the collector out at full speed
     }//end else if
-    else if(vexRT[Btn8R] == 1) {
+    else if(vexRT[Btn8U] == 1) {                     // if btn 8u is pressed turn both sides of the collector in at 100 speed
+      motor[collectorL] = motor[collectorR] = 100;
+    }//end else if
+    else if(vexRT[Btn8D] == 1) {                     // if btn 8d is pressed turn both sides of the collector out at 100 speed
+    motor[collectorL] = motor[collectorR] = -100;
+    }//end else if
+    else if(vexRT[Btn8R] == 1) {                     // if btn 8r is pressed turn both sides of the collector in oppisite directions
       motor[collectorL] = 127;
       motor[collectorR] = -127;
-    }//END if
-    else if(vexRT[Btn8L] == 1) {
-      motor[collectorL] = -127;
+    }//end else if
+    else if(vexRT[Btn8L] == 1) {                     // if btn 8l is pressed turn both sides of the collector in oppisite directions
+      motor[collectorL] = -127;                      // (oppisite to the previous else if)
       motor[collectorR] = 127;
-    }//END
+    }//end else if
     else {
-      motor[collectorL] = motor[collectorR] = 0;//if no btn is pressed turn neither motors
+      motor[collectorL] = motor[collectorR] = 0;     // if no btn is pressed turn neither side of the collector
     }//end else
 
     /////////////////DRIVETRAIN//////////////////////////////////////////////////////////////////
