@@ -28,15 +28,43 @@
 /*To example of use:
 setSuckSpeed(127);
 type desired speed, between -127 and 127, between ()*/
-void setSuckSpeed(int speed)
-{
+void setSuckSpeed(int speed, int duration)   {
   motor[collectorL] = motor[collectorR] = speed;
+  wait1Msec(duration);
 }// void //
 
 
 void killDrive(){
   motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = 0;
 }//END void //
+
+void drive_forward_msec(int speed, int duration) {
+  motor[frontR]  = speed;
+  motor[frontR2] = speed;
+  motor[backR]   = speed;
+  motor[backR2]  = speed;
+  motor[frontL]  = speed;
+  motor[frontL2] = speed;
+  motor[backL]   = speed;
+  motor[backL2]  = speed;
+
+  wait1Msec(duration);
+
+  motor[frontR]  = 0;
+  motor[frontR2] = 0;
+  motor[backR]   = 0;
+  motor[backR2]  = 0;
+  motor[frontL]  = 0;
+  motor[frontL2] = 0;
+  motor[backL]   = 0;
+  motor[backL2]  = 0;
+
+}//END void
+
+void killSuck() {
+motor[collectorR] = motor[collectorL] = 0;
+
+}//END void
 
 void pre_auton()
 {
@@ -47,7 +75,43 @@ void pre_auton()
 
 task autonomous()
 {
-  while(SensorValue[startAuton] == 0) {
+  wait1Msec(200);
+SensorValue[solenoidL] = SensorValue[solenoidR] = 1;
+while(SensorValue[startAuton] == 0);
+
+drive_forward_msec(-127,1150);
+killDrive();
+
+
+wait1Msec(1000);
+setSuckSpeed(100,3500);
+killSuck();
+
+drive_forward_msec(127,500);
+killDrive();
+
+SensorValue[solenoidL] = sensorvalue[solenoidR] = 0;
+
+drive_forward_msec(127,500);
+killDrive();
+
+while(SensorValue[startAuton] == 0);
+
+drive_forward_msec(-127,350);
+killDrive();
+
+drive_forward_msec(127,70);
+killDrive;
+
+setSuckSpeed(100,3000);
+killSuck();
+
+drive_forward_msec(127,400);
+
+}
+
+
+/*  while(SensorValue[startAuton] == 0) {
 
     SensorValue[solenoidL] = SensorValue[solenoidR] = 1;     //raises lift...
     wait1Msec(2000000);
@@ -64,9 +128,8 @@ task autonomous()
   wait1Msec(500);
   killDrive();                                           // kill drivetrain...
 
-  setSuckSpeed(127);                                     //scores tubes in high goal...
-  wait1Msec(4000);
-  setSuckSpeed(0);                                       //stop collector from spinning...
+  setSuckSpeed(127,4000);                                     //scores tubes in high goal...
+  setSuckSpeed(0,0);                                       //stop collector from spinning...
 
   motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] =  -127;  //comes back to original side of goal...
   wait1Msec(500);
@@ -85,9 +148,8 @@ task autonomous()
   wait1Msec(300);
   killDrive();                                           //kil drive train...
 
-  setSuckSpeed(127);                                     //scores tubes in low goal...
-  wait1Msec(2000);
-  setSuckSpeed(0);                                       //stop collector from spinning...
+  setSuckSpeed(127,2000);                                     //scores tubes in low goal...
+  setSuckSpeed(0,0);                                       //stop collector from spinning...
 
   motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = 127;   //comes back to blue tile...
   motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = 127;
@@ -99,7 +161,7 @@ task autonomous()
 
 
 }// task autonomous //
-
+*/
 //////////////////////////////////////////////////////////////RED INTERACTION AUTON
 
 /*
