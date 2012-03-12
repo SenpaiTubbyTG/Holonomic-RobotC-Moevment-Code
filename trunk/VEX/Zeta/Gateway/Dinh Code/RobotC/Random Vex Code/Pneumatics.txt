@@ -1,0 +1,11 @@
+while(1)
+{
+Channel5=GetRXInput (1,5);
+if (Channel5 = 0) 'Pressed
+{
+SetDigitalOutput (11,1); //On
+Wait 1000
+SetDigitalOutput (11,0_; //Off
+}
+}
+}

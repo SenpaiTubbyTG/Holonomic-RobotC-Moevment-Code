@@ -1,0 +1,3 @@
+task main ()
+int current_pos = SensorValue[gyro];
+int final = Current_pos + 500;  
