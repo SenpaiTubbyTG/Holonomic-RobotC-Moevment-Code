@@ -30,14 +30,12 @@
 #include "Zeta Function Library Austin 2.c"
 #include "Usercontrol Austin 2.c"
 #include "Zeta Autonomous Austin 2.c"
+#include "LCD Austin 2.c"
+#include "Variables Austin 2.c"
 
-
-
-void pre_auton()
-{
-  // Set bStopTasksBetweenModes to false if you want to keep user created tasks running between
-  // Autonomous and Tele-Op modes. You will need to manage all user created tasks if set to false.
+void pre_auton() {
   bStopTasksBetweenModes = true;
+  Autonchooser();                                 // choose LCD function.
 }//end pre_auton
 
 task autonomous()

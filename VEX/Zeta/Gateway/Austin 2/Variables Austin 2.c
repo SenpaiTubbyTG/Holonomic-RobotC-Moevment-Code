@@ -1,0 +1,15 @@
+const short leftButton = 1;
+const short centerButton = 2;
+const short rightButton = 4;
+short count = 0;
+bool Iso = false;
+bool on  = false;
+bool red = false;
+bool Program = false;
+bool color = false;
+char programselect = 0;//save space
+bool stall = false;
+short Isolation_RED_Program = 0;
+short Interaction_RED_Program = 0;
+short Isolation_BLUE_Program = 0;
+short Interaction_BLUE_Program = 0;
