@@ -120,8 +120,11 @@ KeepAliveTimeout 60
 			<Item Name="Finish.vi" Type="VI" URL="../Finish.vi"/>
 			<Item Name="Get Priority Target.vi" Type="VI" URL="../Get Priority Target.vi"/>
 			<Item Name="Encoder RPM.vi" Type="VI" URL="../Encoder RPM.vi"/>
+			<Item Name="WakerControl.vi" Type="VI" URL="../WakerControl.vi"/>
 			<Item Name="DriveControl.vi" Type="VI" URL="../DriveControl.vi"/>
 			<Item Name="Distance Logger.vi" Type="VI" URL="../Distance Logger.vi"/>
+			<Item Name="teleop2.vi" Type="VI" URL="../teleop2.vi"/>
+			<Item Name="LEDS_Spotlight Control.vi" Type="VI" URL="../LEDS_Spotlight Control.vi"/>
 			<Item Name="Open Loop Shooter Control.vi" Type="VI" URL="../Open Loop Shooter Control.vi"/>
 			<Item Name="3 state controller.vi" Type="VI" URL="../3 state controller.vi"/>
 		</Item>
@@ -433,10 +436,6 @@ KeepAliveTimeout 60
 				<Item Name="FPGA_DIOReadOutputEnable.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/DIO/FPGA_DIOReadOutputEnable.vi"/>
 				<Item Name="FPGA_DIOReadDO.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/DIO/FPGA_DIOReadDO.vi"/>
 				<Item Name="FPGA_DIOReadPWMValue.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/DIO/FPGA_DIOReadPWMValue.vi"/>
-				<Item Name="FPGA_SolenoidOpen.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/Solenoid/FPGA_SolenoidOpen.vi"/>
-				<Item Name="FPGA_SolenoidDevRef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/Solenoid/FPGA_SolenoidDevRef.ctl"/>
-				<Item Name="FPGA_TypedefSolenoidModule.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/Typedef/FPGA_TypedefSolenoidModule.ctl"/>
-				<Item Name="FPGA_SolenoidReadD07_0.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/Solenoid/FPGA_SolenoidReadD07_0.vi"/>
 				<Item Name="WPI_CameraClose.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Camera/WPI_CameraClose.vi"/>
 				<Item Name="WPI_JoystickClose.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Joystick/WPI_JoystickClose.vi"/>
 				<Item Name="WPI_RobotDriveClose.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/RobotDrive/WPI_RobotDriveClose.vi"/>
@@ -664,6 +663,10 @@ KeepAliveTimeout 60
 			<Item Name="System Set Points and States.vi" Type="VI" URL="../System Set Points and States.vi"/>
 			<Item Name="Indexer Inches.vi" Type="VI" URL="../Indexer Inches.vi"/>
 			<Item Name="Target Tracker.vi" Type="VI" URL="../Target Tracker.vi"/>
+			<Item Name="niLvFpgaFormatErrorSource.vi" Type="VI" URL="/&lt;vilib&gt;/rvi/errors/niLvFpgaFormatErrorSource.vi"/>
+			<Item Name="niLvFpgaWhatHappensToTopLevelVI.ctl" Type="VI" URL="/&lt;vilib&gt;/rvi/errors/niLvFpgaWhatHappensToTopLevelVI.ctl"/>
+			<Item Name="niFpgaNodeNameForErrorReporting.ctl" Type="VI" URL="/&lt;vilib&gt;/rvi/interface/common/niFpgaNodeNameForErrorReporting.ctl"/>
+			<Item Name="niLvFpgaAdjustHostInterfaceError.vi" Type="VI" URL="/&lt;vilib&gt;/rvi/errors/niLvFpgaAdjustHostInterfaceError.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="First Full Mechanical" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
