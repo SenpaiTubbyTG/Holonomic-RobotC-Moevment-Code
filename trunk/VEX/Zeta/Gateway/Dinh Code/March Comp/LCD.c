@@ -6,9 +6,7 @@ void waitForPress()
     wait1Msec(5);
   }
 }
-//----------------------------------------------------------------
 
-//Wait for Release------------------------------------------------
 void waitForRelease()
 {
   while(nLCDButtons != 0)
@@ -55,13 +53,6 @@ clearLCDLine(line);
 
 }
 
-
-
-
-
-
-
-
 void RobotReady()
 {
 
@@ -97,8 +88,8 @@ void Autonchooser()
       displayLCDCenteredString(0, "Isolation Zone");
       displayLCDCenteredString(1, "<    Enter     >");
       waitForPress();
-      if(nLCDButtons == centerButton)
-      {
+      if(nLCDButtons == centerButton) {
+
         clearLCD();
         on = true;
         waitForRelease();
@@ -166,8 +157,6 @@ void Autonchooser()
   count = 0;
   while(color == false)
   {
-
-
     bLCDBacklight = true;
 
     switch (count){
@@ -305,32 +294,26 @@ void Autonchooser()
         displayLCDCenteredString(1," Selected    ");
         wait1Msec(1000);
         RobotReady();
-
-
       }
       else if(nLCDButtons == leftButton)
       {
         waitForRelease();
         count-- ;
       }
-      else if (nLCDButtons == rightButton)
-      {
+      else if (nLCDButtons == rightButton)  {
         waitForRelease();
         count =  0;
-
       }
       break;
+    }// end case
+  }// end third while
+}// end void
 
 
 
 
 
 
-    }//case
-
-
-  }//3rd while
-}
 /*
 The Following is a bit confusing so this comment should help...
 Finder:1 = Isolation Zone red
@@ -338,6 +321,24 @@ Finder:2 = Interaction Zone red
 Finder:3 = Isolation Zone Blue
 Finder:4 = Interaction Zone Blue
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void Autonfilter()
 {
   /////////////////////////////////////////////////////////////////////////////////////////////////////
