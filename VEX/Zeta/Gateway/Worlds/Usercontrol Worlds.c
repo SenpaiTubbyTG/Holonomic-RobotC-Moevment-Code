@@ -38,7 +38,7 @@ void collector() {
     /////////////////DRIVETRAIN//////////////////////////////////////////////////////////////////
 void drivetrain() {
 
-if (vexRt[Btn7L] == 0) {
+if (vexRT[Btn7L] == 0) {
     motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = vexRT[Ch3]*0.5;//L drivetrain speed = y axis of L joystick values divided by 2
     motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = vexRT[Ch2]*0.5;//R drivetrain speed = y axis of R joystick values divided by 2
 }// end if

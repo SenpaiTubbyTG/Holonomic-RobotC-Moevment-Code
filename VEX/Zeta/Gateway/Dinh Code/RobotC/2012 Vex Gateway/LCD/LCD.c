@@ -45,8 +45,7 @@ bool programselecting = true;
 const int totalprogramnumber = 5;
 
 //function:
-void screenrefresh()
-{
+void screenrefresh()  {
   clearLCDLine(1);
   displayLCDPos(1,0);
   if (redteam == true)

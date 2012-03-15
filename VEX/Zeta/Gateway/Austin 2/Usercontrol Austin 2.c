@@ -11,18 +11,24 @@ void lift() {
 }//end void lift
     //////////////////COLLECTOR///////////////////////////////////////////////////////////////////
 void collector() {
-    if(vexRT[Btn6U] == 1) {
-      motor[collectorL] = motor[collectorR] = 127;   // if btn 6u is pressed turn both sides of the collector in at full
+    if(vexRT[Btn8U] == 1) {
+      motor[collectorL] = motor[collectorR] = 127;   // if btn 8u is pressed turn both sides of the collector in at full speed
     }//end if
-    else if(vexRT[Btn6D] == 1) {
-      motor[collectorL] = motor[collectorR] = -127;  // if btn 6d is pressed turn both sides of the collector out at full speed
+    else if(vexRT[Btn8D] == 1) {
+      motor[collectorL] = motor[collectorR] = -127;  // if btn 8d is pressed turn both sides of the collector out at full speed
     }//end else if
-    else if(vexRT[Btn8U] == 1) {                     // if btn 8u is pressed turn both sides of the collector in at 100 speed
+    else if(vexRT[Btn6U] == 1) {                     // if btn 6u is pressed turn both sides of the collector in at 100 speed
       motor[collectorL] = motor[collectorR] = 100;
     }//end else if
-    else if(vexRT[Btn8D] == 1) {                     // if btn 8d is pressed turn both sides of the collector out at 100 speed
+    else if(vexRT[Btn6D] == 1) {                     // if btn 6d is pressed turn both sides of the collector out at 100 speed
     motor[collectorL] = motor[collectorR] = -100;
     }//end else if
+    else if(vexRT[Btn7U] == 1) {
+    motor[collectorL] = motor[collectorR] = 65;      // if btn 7u is pressed turn both sides of the collector in at 65 speed
+    }
+    else if(vexRT[Btn7D] == 1) {
+    motor[collectorL] = motor[collectorR] = -65;     // if btn 7d is pressed turn both sides of the collector out at 65 speed
+    }
     else if(vexRT[Btn8R] == 1) {                     // if btn 8r is pressed turn both sides of the collector in oppisite directions
       motor[collectorL] = 127;
       motor[collectorR] = -127;

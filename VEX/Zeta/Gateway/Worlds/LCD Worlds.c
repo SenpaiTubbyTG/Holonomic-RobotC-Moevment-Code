@@ -12,11 +12,11 @@ void waitForRelease() {
 
 //Function to increment and decriment count - small savings on space
 void menuTracker() {
-  if(nLCDButtons == leftButton) {
+  if(nLCDButtons == kButtonLeft) {
     waitForRelease();
     count--;
   }// end if
-  else if(nLCDButtons == rightButton) {
+  else if(nLCDButtons == kButtonRight) {
     waitForRelease();
     count++;
   }// end else if
@@ -65,7 +65,7 @@ void Autonchooser() {
     displayLCDCenteredString(0, "Isolation Zone");
     displayLCDCenteredString(1, "<    Enter     >");
       waitForPress();
-  if(nLCDButtons == centerButton) {
+  if(nLCDButtons == kButtonCenter) {
         clearLCD();
         on = true;
         waitForRelease();
@@ -76,12 +76,12 @@ void Autonchooser() {
         wait1Msec(500);
       }// end if
 
-  else if(nLCDButtons == leftButton) {
+  else if(nLCDButtons == kButtonLeft) {
         waitForRelease();
         count = 1;
       }
 
-      else if(nLCDButtons == rightButton)
+      else if(nLCDButtons == kButtonRight)
       {
         waitForRelease();
         count++;
@@ -94,7 +94,7 @@ void Autonchooser() {
       displayLCDCenteredString(0, "Interaction Zone");
       displayLCDCenteredString(1, "<    Enter     >");
       waitForPress();
-      if(nLCDButtons == centerButton)
+      if(nLCDButtons == kButtonCenter)
       {
         clearLCD();
         on = true;
@@ -105,13 +105,13 @@ void Autonchooser() {
         wait1Msec(500);
       }
 
-      else if(nLCDButtons == rightButton)
+      else if(nLCDButtons == kButtonRight)
       {
         waitForRelease();
         count = 0;
       }
 
-      else if(nLCDButtons == leftButton)
+      else if(nLCDButtons == kButtonLeft)
       {
         waitForRelease();
         count--;
@@ -142,7 +142,7 @@ void Autonchooser() {
       displayLCDCenteredString(0, "Red Alliance");
       displayLCDCenteredString(1, "<     Enter    >");
       waitForPress();
-      if(nLCDButtons == centerButton)
+      if(nLCDButtons == kButtonCenter)
       {
         clearLCD();
         color = true;
@@ -154,13 +154,13 @@ void Autonchooser() {
         wait1Msec(500);
       }
 
-      else if(nLCDButtons == leftButton)
+      else if(nLCDButtons == kButtonLeft)
       {
         waitForRelease();
         count = 1;
       }
 
-      else if(nLCDButtons == rightButton)
+      else if(nLCDButtons == kButtonRight)
       {
         waitForRelease();
         count++;
@@ -173,7 +173,7 @@ void Autonchooser() {
       displayLCDCenteredString(0, "Blue Alliance");
       displayLCDCenteredString(1, "<     Enter    >");
       waitForPress();
-      if(nLCDButtons == centerButton)
+      if(nLCDButtons == kButtonCenter)
       {
         clearLCD();
         color = true;
@@ -184,13 +184,13 @@ void Autonchooser() {
         wait1Msec(500);
       }
 
-      else if(nLCDButtons == rightButton)
+      else if(nLCDButtons == kButtonRight)
       {
         waitForRelease();
         count = 0;
       }
 
-      else if(nLCDButtons == leftButton)
+      else if(nLCDButtons == kButtonLeft)
       {
         waitForRelease();
         count--;
@@ -211,7 +211,7 @@ void Autonchooser() {
       displayLCDCenteredString(0," Autonomous 1");
       displayLCDCenteredString(1,"<    Enter     >");
       waitForPress();
-      if (nLCDButtons == centerButton)
+      if (nLCDButtons == kButtonCenter)
       {
         waitForRelease();
         Program = true;
@@ -222,13 +222,13 @@ void Autonchooser() {
         RobotReady();
       }
 
-      else if(nLCDButtons == rightButton)
+      else if(nLCDButtons == kButtonRight)
       {
         waitForRelease();
         count++;
       }
 
-      else if(nLCDButtons == leftButton)
+      else if(nLCDButtons == kButtonLeft)
       {
         waitForRelease();
         count = 2;
@@ -240,7 +240,7 @@ void Autonchooser() {
       displayLCDCenteredString(0," Autonomous 2");
       displayLCDCenteredString(1,"<    Enter     >");
       waitForPress();
-      if(nLCDButtons == centerButton)
+      if(nLCDButtons == kButtonCenter)
       {
         waitForRelease();
         Program = true;
@@ -262,7 +262,7 @@ void Autonchooser() {
       displayLCDCenteredString(0," Autonomous 3");
       displayLCDCenteredString(1,"<    Enter     >");
       waitForPress();
-      if(nLCDButtons == centerButton)
+      if(nLCDButtons == kButtonCenter)
       {
         waitForRelease();
         Program = true;
@@ -274,12 +274,12 @@ void Autonchooser() {
 
 
       }
-      else if(nLCDButtons == leftButton)
+      else if(nLCDButtons == kButtonLeft)
       {
         waitForRelease();
         count-- ;
       }
-      else if (nLCDButtons == rightButton)
+      else if (nLCDButtons == kButtonRight)
       {
         waitForRelease();
         count =  0;
