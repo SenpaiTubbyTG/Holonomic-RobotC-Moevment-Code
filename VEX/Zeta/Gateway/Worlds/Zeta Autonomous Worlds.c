@@ -1,4 +1,4 @@
-void autonHighLow() {
+void autonIntHighLow() {
 
   wait1Msec(200);
   SensorValue[solenoidL] = SensorValue[solenoidR] = 1;  // raise lift
