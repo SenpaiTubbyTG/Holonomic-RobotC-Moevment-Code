@@ -45,27 +45,20 @@ bLCDBacklight = true;
   redteam = true;
   screenrefresh();
   time1[T1] = 0;
-  while (programselecting == true)
-  {
-    if (nLCDButtons & kLeftButton)
-    {
-      while (nLCDButtons & kLeftButton)
-      {
+  while (programselecting == true)  {
+    if (nLCDButtons & kLeftButton)  {
+      while (nLCDButtons & kLeftButton)  {
       }
-      if (redteam == true)
-      {
+      if (redteam == true)  {
         redteam = false;
       }
-      else if (redteam == false)
-      {
+      else if (redteam == false)  {
         redteam = true;
       }
       screenrefresh();
     }
-    if (nLCDButtons & kCenterButton)
-    {
-      while (nLCDButtons & kCenterButton)
-      {
+    if (nLCDButtons & kCenterButton)  {
+      while (nLCDButtons & kCenterButton)  {
       }
       programselect = programselect+1;
       if (programselect > totalprogramnumber)
@@ -74,8 +67,7 @@ bLCDBacklight = true;
       }
       screenrefresh();
     }
-    if (nLCDButtons & kRightButton)
-    {
+    if (nLCDButtons & kRightButton)  {
       clearLCDLine(0);
       clearLCDLine(1);
       displayLCDPos(0,0);
