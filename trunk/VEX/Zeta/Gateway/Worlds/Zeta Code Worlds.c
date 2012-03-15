@@ -30,13 +30,16 @@
 #include "Usercontrol Worlds.c"
 #include "Zeta Autonomous Worlds.c"
 
+//#include "Auton Filter.c"
 //#include "LCD Worlds.c"
 //#include "Variables Worlds.c"
 
 int programselect = 1;
 bool redteam = true;
 bool programselecting = true;
-const int totalprogramnumber = 5;
+const int totalprogramnumber = 3;
+short Red_Program = 0;
+short Blue_Program = 0;
 
 void screenrefresh()  {
   clearLCDLine(1);
@@ -106,10 +109,67 @@ void pre_auton() {
   }
 }//end pre_auton
 
-task autonomous()
-{
-autonHighLow();
-}//end task autonomous
+task autonomous()  {
+
+    if (redteam == true)
+    if (programselect == 1)  {
+    Red_Program = 1;
+  }
+
+    if (redteam == true)
+    if (programselect == 2)  {
+    Red_Program = 2;
+  }
+
+    if (redteam == true)
+    if (programselect == 3)  {
+    Red_Program = 3;
+  }
+
+    if (redteam == false)
+    if (programselect == 1)  {
+    Blue_Program = 1;
+  }
+
+    if (redteam == false)
+    if (programselect == 2)  {
+    Blue_Program = 2;
+  }
+
+    if (redteam == false)
+    if (programselect == 3)  {
+    Blue_Program = 3;
+  }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+  {
+    if(Red_Program == 1)
+    {
+      autonIntHighLow();
+    }
+    else if(Red_Program ==2)
+    {
+      autonIntHighLow();
+    }
+    else if(Red_Program ==3)
+    {
+      autonIntHighLow();
+    }
+    else if (Blue_Program ==  1)
+    {
+      autonIntHighLow();
+    }
+    else if(Blue_Program == 2)
+    {
+      autonIntHighLow();
+    }
+    else if(Blue_Program == 3)
+    {
+      autonIntHighLow();
+    }
+
+  }// end bracket set
+}// end task autonomous
 
 task usercontrol()
 {
