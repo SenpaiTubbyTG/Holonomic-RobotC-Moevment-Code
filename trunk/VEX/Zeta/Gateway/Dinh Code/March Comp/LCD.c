@@ -73,21 +73,19 @@ void RobotReady()
 
 void Autonchooser()
 {
-
   clearLCDLine(0);
   clearLCDLine(1);//clean up
   waitForRelease();
 
   while (on == false)
   {
-
-
     bLCDBacklight = true;
-    switch (count){
+    switch (count)  {
     case 0:
       displayLCDCenteredString(0, "Isolation Zone");
       displayLCDCenteredString(1, "<    Enter     >");
       waitForPress();
+
       if(nLCDButtons == centerButton) {
 
         clearLCD();
@@ -119,8 +117,9 @@ void Autonchooser()
       displayLCDCenteredString(0, "Interaction Zone");
       displayLCDCenteredString(1, "<    Enter     >");
       waitForPress();
-      if(nLCDButtons == centerButton)
-      {
+
+      if(nLCDButtons == centerButton)  {
+
         clearLCD();
         on = true;
         waitForRelease();
@@ -130,29 +129,18 @@ void Autonchooser()
         wait1Msec(500);
       }
 
-      else if(nLCDButtons == rightButton)
-      {
+      else if(nLCDButtons == rightButton)  {
         waitForRelease();
         count = 0;
       }
 
-      else if(nLCDButtons == leftButton)
-      {
+      else if(nLCDButtons == leftButton)  {
         waitForRelease();
         count--;
       }
       break;
     }//case
-
-
-
-
-
-
-
-
-  }//while
-  //----------------------------------------------------------------------
+  }// first while
   //which color?
   count = 0;
   while(color == false)
@@ -229,13 +217,14 @@ void Autonchooser()
   count = 0;
   while(Program == false)
   {
-    switch(count){
+    switch(count)  {
     case 0:
       displayLCDCenteredString(0," Autonomous 1");
       displayLCDCenteredString(1,"<    Enter     >");
       waitForPress();
-      if (nLCDButtons == centerButton)
-      {
+
+      if (nLCDButtons == centerButton)  {
+
         waitForRelease();
         Program = true;
         programselect = 1;
@@ -245,8 +234,7 @@ void Autonchooser()
         RobotReady();
       }
 
-      else if(nLCDButtons == rightButton)
-      {
+      else if(nLCDButtons == rightButton)  {
         waitForRelease();
         count++;
       }
