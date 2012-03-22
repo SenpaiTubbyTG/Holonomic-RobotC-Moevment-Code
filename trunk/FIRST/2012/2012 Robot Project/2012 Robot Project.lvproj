@@ -118,6 +118,7 @@ KeepAliveTimeout 60
 			<Item Name="Robot Global Data.vi" Type="VI" URL="../Robot Global Data.vi"/>
 			<Item Name="Build DashBoard Data.vi" Type="VI" URL="../Build DashBoard Data.vi"/>
 			<Item Name="Finish.vi" Type="VI" URL="../Finish.vi"/>
+			<Item Name="ManualHoodControl.vi" Type="VI" URL="../ManualHoodControl.vi"/>
 			<Item Name="Get Priority Target.vi" Type="VI" URL="../Get Priority Target.vi"/>
 			<Item Name="Encoder RPM.vi" Type="VI" URL="../Encoder RPM.vi"/>
 			<Item Name="WakerControl.vi" Type="VI" URL="../WakerControl.vi"/>
@@ -134,7 +135,6 @@ KeepAliveTimeout 60
 			<Item Name="Elapsed Times.vi" Type="VI" URL="../Elapsed Times.vi"/>
 		</Item>
 		<Item Name="robot main.vi" Type="VI" URL="../robot main.vi"/>
-		<Item Name="ManualHoodControl.vi" Type="VI" URL="../ManualHoodControl.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="Image Type" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Image Type"/>
