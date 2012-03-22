@@ -27,6 +27,8 @@
 		<Item Name="Build Simple Skeleton Data.vi" Type="VI" URL="../Build Simple Skeleton Data.vi"/>
 		<Item Name="Build Camera IP.vi" Type="VI" URL="../Build Camera IP.vi"/>
 		<Item Name="Draw Simple Skeleton Picture.vi" Type="VI" URL="../Draw Simple Skeleton Picture.vi"/>
+		<Item Name="Extraction of Data.vi" Type="VI" URL="../Extraction of Data.vi"/>
+		<Item Name="Auton.vi" Type="VI" URL="../Auton.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="IMAQ Create" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Create"/>
@@ -98,7 +100,7 @@
 				<Property Name="Destination[1].path" Type="Path">../builds/FRC Dashboard Project/FRC PC Dashboard/data</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
 				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/Support/App EXE.ico</Property>
-				<Property Name="Source[0].itemID" Type="Str">{F9D55EE4-BD0A-4E17-A96A-AE9A2ED0CC81}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{DDF77BA7-E031-4C3C-B4E0-45A5D6C5E415}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Dashboard Main.vi</Property>
