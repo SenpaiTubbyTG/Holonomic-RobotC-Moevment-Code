@@ -28,7 +28,6 @@
 		<Item Name="Build Camera IP.vi" Type="VI" URL="../Build Camera IP.vi"/>
 		<Item Name="Draw Simple Skeleton Picture.vi" Type="VI" URL="../Draw Simple Skeleton Picture.vi"/>
 		<Item Name="Extraction of Data.vi" Type="VI" URL="../Extraction of Data.vi"/>
-		<Item Name="Auton.vi" Type="VI" URL="../Auton.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="IMAQ Create" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Create"/>
@@ -79,6 +78,7 @@
 			<Item Name="nivision.dll" Type="Document" URL="nivision.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
+			<Item Name="Dashboard Datatype.ctl" Type="VI" URL="../../2012 Robot Project/Dashboard Datatype.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC PC Dashboard" Type="EXE">
