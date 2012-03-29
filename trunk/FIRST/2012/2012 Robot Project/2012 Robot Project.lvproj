@@ -131,6 +131,7 @@ KeepAliveTimeout 60
 			<Item Name="3 state controller.vi" Type="VI" URL="../3 state controller.vi"/>
 			<Item Name="Create Graphs.vi" Type="VI" URL="../Create Graphs.vi"/>
 			<Item Name="Track Open.vi" Type="VI" URL="../Track Open.vi"/>
+			<Item Name="Bridge Balancing.vi" Type="VI" URL="../Bridge Balancing.vi"/>
 		</Item>
 		<Item Name="Vision Support Code" Type="Folder"/>
 		<Item Name="Support Code" Type="Folder">
@@ -138,7 +139,6 @@ KeepAliveTimeout 60
 			<Item Name="Elapsed Times.vi" Type="VI" URL="../Elapsed Times.vi"/>
 		</Item>
 		<Item Name="robot main.vi" Type="VI" URL="../robot main.vi"/>
-		<Item Name="Bridge Balancing.vi" Type="VI" URL="../Bridge Balancing.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="Image Type" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Image Type"/>
@@ -644,11 +644,11 @@ KeepAliveTimeout 60
 				<Item Name="IMAQ Overlay Rectangle" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Rectangle"/>
 				<Item Name="IMAQ Clear Overlay" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Clear Overlay"/>
 				<Item Name="IMAQ Merge Overlay" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Merge Overlay"/>
+				<Item Name="WPI_GyroRefNum Registry Get.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Gyro/WPI_GyroRefNum Registry Get.vi"/>
 				<Item Name="WPI_AnalogChannelValueToVoltage.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/AnalogChannel/WPI_AnalogChannelValueToVoltage.vi"/>
 				<Item Name="FPGA_AIReadAccumulatorCenter.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/AI/FPGA_AIReadAccumulatorCenter.vi"/>
 				<Item Name="WPI_GyroDevRefToAnalogChannelDevRef.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Gyro/WPI_GyroDevRefToAnalogChannelDevRef.vi"/>
 				<Item Name="WPI_GyroGetAngle.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Gyro/WPI_GyroGetAngle.vi"/>
-				<Item Name="WPI_GyroRefNum Registry Get.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Gyro/WPI_GyroRefNum Registry Get.vi"/>
 			</Item>
 			<Item Name="nivissvc.dll" Type="Document" URL="nivissvc.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -671,11 +671,11 @@ KeepAliveTimeout 60
 			<Item Name="System Set Points and States.vi" Type="VI" URL="../System Set Points and States.vi"/>
 			<Item Name="Draw Filled Rect.vi" Type="VI" URL="../Draw Filled Rect.vi"/>
 			<Item Name="RT Overlay Helper.vi" Type="VI" URL="../RT Overlay Helper.vi"/>
+			<Item Name="Get Lowest Target.vi" Type="VI" URL="../Get Lowest Target.vi"/>
 			<Item Name="niLvFpgaFormatErrorSource.vi" Type="VI" URL="/&lt;vilib&gt;/rvi/errors/niLvFpgaFormatErrorSource.vi"/>
 			<Item Name="niLvFpgaWhatHappensToTopLevelVI.ctl" Type="VI" URL="/&lt;vilib&gt;/rvi/errors/niLvFpgaWhatHappensToTopLevelVI.ctl"/>
 			<Item Name="niFpgaNodeNameForErrorReporting.ctl" Type="VI" URL="/&lt;vilib&gt;/rvi/interface/common/niFpgaNodeNameForErrorReporting.ctl"/>
 			<Item Name="niLvFpgaAdjustHostInterfaceError.vi" Type="VI" URL="/&lt;vilib&gt;/rvi/errors/niLvFpgaAdjustHostInterfaceError.vi"/>
-			<Item Name="Get Lowest Target.vi" Type="VI" URL="../Get Lowest Target.vi"/>
 			<Item Name="Target Tracker.vi" Type="VI" URL="../Target Tracker.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
