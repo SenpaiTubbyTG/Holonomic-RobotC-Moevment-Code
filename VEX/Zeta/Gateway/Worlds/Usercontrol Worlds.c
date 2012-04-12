@@ -1,4 +1,11 @@
-
+void block() {
+if(vexRT[Btn7U] == 1) {
+ SensorValue[solenoidB] = 1;
+} // END if
+if(vexRT[Btn7D] == 1) {
+ SensorValue[solenoidB] = 0;
+ } // END if
+} // END void
     ////////LIFT/////////////////////////////////////////////////////////////////////////////
 void lift() {
     if(vexRT[Btn5U] == 1)   {      // If button 5U is pressed:
@@ -39,12 +46,12 @@ void collector() {
 void drivetrain() {
 
 if (vexRT[Btn7L] == 0) {
-    motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = vexRT[Ch3]*0.5;//L drivetrain speed = y axis of L joystick values divided by 2
-    motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = vexRT[Ch2]*0.5;//R drivetrain speed = y axis of R joystick values divided by 2
-}// end if
-
-else {
     motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = vexRT[Ch3];//L drivetrain speed = y axis of L joystick values
     motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = vexRT[Ch2];//R drivetrain speed = y axis of R joystick values
+}// end if
+
+else if (vexRT[Btn7L] == 1) {
+    motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = vexRT[Ch3]*0.5;//L drivetrain speed = y axis of L joystick values divided by 2
+    motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = vexRT[Ch2]*0.5;//R drivetrain speed = y axis of R joystick values divided
  }// end else
 }//end void drivtrain
