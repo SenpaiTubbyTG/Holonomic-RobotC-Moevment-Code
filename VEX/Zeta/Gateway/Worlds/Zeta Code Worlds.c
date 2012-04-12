@@ -1,7 +1,8 @@
 #pragma config(UART_Usage, UART2, VEX_2x16_LCD, baudRate19200, IOPins, None, None)
 #pragma config(I2C_Usage, I2C1, i2cSensors)
 #pragma config(Sensor, dgtl1,  nick,           sensorQuadEncoder)
-#pragma config(Sensor, dgtl6,  startAuton,     sensorTouch)
+#pragma config(Sensor, dgtl6,  AutonHigh,     sensorTouch)
+#pragma config(Sensor, dgtl5,  AutonLow,     sensorTouch)
 #pragma config(Sensor, dgtl7,  encoderL,       sensorQuadEncoder)
 #pragma config(Sensor, dgtl9,  solenoidL,      sensorDigitalOut)
 #pragma config(Sensor, dgtl10, solenoidR,      sensorDigitalOut)
@@ -28,147 +29,80 @@
 #include "Vex_Competition_Includes.c"
 #include "Zeta Function Library Worlds.c"
 #include "Usercontrol Worlds.c"
-#include "Zeta Autonomous Worlds.c"
+#include "Autonomous Worlds.c"
 
-//#include "Auton Filter.c"
-//#include "LCD Worlds.c"
-//#include "Variables Worlds.c"
-
-int programselect = 1;
-bool redteam = true;
-bool programselecting = true;
-const int totalprogramnumber = 3;
-short Red_Program = 0;
-short Blue_Program = 0;
-
-void screenrefresh()  {
-  clearLCDLine(1);
-  displayLCDPos(1,0);
-
-  if (redteam == true)  {
-    displayNextLCDString("RED ");
-  }
-  if (redteam == false)  {
-    displayNextLCDString("BlUE");
-  }
-  displayNextLCDString("    ");
-  displayNextLCDNumber(programselect);
-  displayNextLCDString("     OK");
-}
+bool selecting = true;
+bool skills = false;
+int team = 0;         // RED = 0, BLUE = 1
+int zone = 0;         // INT = 0, ISO  = 1
 
 void pre_auton() {
   bStopTasksBetweenModes = true;
 
   bLCDBacklight = true;
   displayLCDPos(0,0);
-  displayNextLCDString("program select");
-  redteam = true;
-  screenrefresh();
-  time1[T1] = 0;
-  while (programselecting == true)  {
-
-    if (nLCDButtons & kButtonLeft)  {
-
-      while (nLCDButtons & kButtonLeft)  {
-      }
-      if (redteam == true)  {
-        redteam = false;
-      }
-      else if (redteam == false)  {
-        redteam = true;
-      }
-      screenrefresh();
-    }// end while
-    if (nLCDButtons & kButtonCenter)  {
-      while (nLCDButtons & kButtonCenter)
-      {
-      }
-      programselect = programselect+1;
-      if (programselect > totalprogramnumber)
-      {
-        programselect = 1;
-      }
-      screenrefresh();
-    }
-    if (nLCDButtons & kButtonRight)
-    {
+  displayNextLCDString("Initializing");
+  displayNextLCDChar('.');
+  wait10Msec(50);
+  displayNextLCDChar('.');
+  wait10Msec(50);
+  displayNextLCDChar('.');
+  wait10Msec(50);
+  wait10Msec(100);
+  while(selecting == true){
+    clearLCDLine(0);
+    displayLCDPos(0,0);
+    displayNextLCDString("RST  MATCH SKILLS");
+    while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
+    if (nLCDButtons == 2){
       clearLCDLine(0);
-      clearLCDLine(1);
-      displayLCDPos(0,0);
-      displayNextLCDString("Robot ready");
-      wait1Msec(300);
-      displayNextLCDString(".");
-      wait1Msec(300);
-      displayNextLCDString(".");
-      wait1Msec(300);
-      displayNextLCDString(".");
-      wait1Msec(500);
-      bLCDBacklight = false;
-      programselecting = false;
+	    displayLCDPos(0,0);
+	    displayNextLCDString("RST     RED BLUE");
+	    while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
+	    if (nLCDButtons == 2){
+	      team = 0;
+	    } else if(nLCDButtons == 4){
+	      team = 1;
+	    } else if(nLCDButtons == 1){
+	      continue;
+	    }
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("RST        INT ISO");
+	    while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
+	    if (nLCDButtons == 2){
+	      zone = 0;
+	    } else if(nLCDButtons == 4){
+	      team = 1;
+	    } else if(nLCDButtons == 1){
+	      continue;
+	    }
+    } else if(nLCDButtons == 4){
+      skills = true;
+    } else if(nLCDButtons == 1){
+      continue;
     }
+    selecting = false;
   }
 }//end pre_auton
 
-task autonomous()  {
-
-    if (redteam == true)
-    if (programselect == 1)  {
-    Red_Program = 1;
-  }
-
-    if (redteam == true)
-    if (programselect == 2)  {
-    Red_Program = 2;
-  }
-
-    if (redteam == true)
-    if (programselect == 3)  {
-    Red_Program = 3;
-  }
-
-    if (redteam == false)
-    if (programselect == 1)  {
-    Blue_Program = 1;
-  }
-
-    if (redteam == false)
-    if (programselect == 2)  {
-    Blue_Program = 2;
-  }
-
-    if (redteam == false)
-    if (programselect == 3)  {
-    Blue_Program = 3;
-  }
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-  {
-    if(Red_Program == 1)
-    {
-      autonIntHighLow();
-    }
-    else if(Red_Program ==2)
-    {
-      autonIntHighLow();
-    }
-    else if(Red_Program ==3)
-    {
-      autonIntHighLow();
-    }
-    else if (Blue_Program ==  1)
-    {
-      autonIntHighLow();
-    }
-    else if(Blue_Program == 2)
-    {
-      autonIntHighLow();
-    }
-    else if(Blue_Program == 3)
-    {
-      autonIntHighLow();
-    }
-
-  }// end bracket set
+task autonomous(){
+  if(skills){
+    skillsAutonomous();
+  }else{
+	  if(team == 0 && zone == 0){
+	    redIntAutonomous();
+	  }
+	  if(team == 0 && zone == 1){
+	    redIsoAutonomous();
+	  }
+	  if(team == 1 && zone == 0){
+	    blueIntAutonomous();
+	  }
+	  if(team == 1 && zone == 1){
+	    blueIsoAutonomous();
+	  }
+	}
 }// end task autonomous
 
 task usercontrol()
