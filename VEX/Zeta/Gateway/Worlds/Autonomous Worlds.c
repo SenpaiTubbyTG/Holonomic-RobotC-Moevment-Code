@@ -7,7 +7,7 @@ void redIntAutonomous() {
     if(SensorValue[AutonHigh] == 1) {                             // if btn autonHigh is pressed...
       if(SensorValue[solenoidL] == 0) {                           // if the arm is lowered...
         SensorValue[solenoidL] = SensorValue[solenoidR] = 1;      // raise the arm
-        wait10Msec(0);                                            // wait no time
+        wait10Msec(50);                                            // wait no time
       } // END 2nd if
       else {                                                      // else
         drive_forward_msec(-127,1150);                            // drive backwards at full power for 1.15 seconds

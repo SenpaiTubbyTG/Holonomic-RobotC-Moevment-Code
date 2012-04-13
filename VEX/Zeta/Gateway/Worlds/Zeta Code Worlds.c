@@ -1,6 +1,7 @@
 #pragma config(UART_Usage, UART2, VEX_2x16_LCD, baudRate19200, IOPins, None, None)
 #pragma config(I2C_Usage, I2C1, i2cSensors)
 #pragma config(Sensor, dgtl1,  nick,           sensorQuadEncoder)
+#pragma config(Sensor, dgtl3,  solenoidH,      sensorDigitalOut)
 #pragma config(Sensor, dgtl4,  solenoidB,      sensorDigitalOut)
 #pragma config(Sensor, dgtl5,  AutonLow,       sensorTouch)
 #pragma config(Sensor, dgtl6,  AutonHigh,      sensorTouch)
@@ -32,15 +33,15 @@
 #include "Usercontrol Worlds.c"
 #include "Autonomous Worlds.c"
 
-//bool selecting = true;
-//bool skills = false;
-//int team = 0;         // RED = 0, BLUE = 1
-//int zone = 0;         // INT = 0, ISO  = 1
+bool selecting = true;
+bool skills = false;
+int team = 0;         // RED = 0, BLUE = 1
+int zone = 0;         // INT = 0, ISO  = 1
 
 void pre_auton() {
   bStopTasksBetweenModes = true;
 
-/*  bLCDBacklight = true;
+  bLCDBacklight = true;
   displayLCDPos(0,0);
   displayNextLCDString("Initializing");
   displayNextLCDChar('.');
@@ -55,46 +56,85 @@ void pre_auton() {
     displayLCDPos(0,0);
     displayNextLCDString("RST  MATCH SKILLS");
     while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
-    if (nLCDButtons == 4){
-      skills = true;
-    }
-    if (nLCDButtons == 1){
-      continue;
-    }
     if (nLCDButtons == 2){
+      while(nLCDButtons != 0);
       clearLCDLine(0);
 	    displayLCDPos(0,0);
-	    displayNextLCDString("RST     RED BLUE");
+	    displayNextLCDString("RST   RED   BLUE");
 	    while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
 	    if (nLCDButtons == 2){
+	      while(nLCDButtons != 0);
 	      team = 0;
 	    } else if(nLCDButtons == 4){
+	      while(nLCDButtons != 0);
 	      team = 1;
 	    } else if(nLCDButtons == 1){
+	      while(nLCDButtons != 0);
 	      continue;
 	    }
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
-	    displayNextLCDString("RST        INT ISO");
+	    displayNextLCDString("RST   INT    ISO");
 	    while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
 	    if (nLCDButtons == 2){
+	      while(nLCDButtons != 0);
 	      zone = 0;
 	    } else if(nLCDButtons == 4){
+	      while(nLCDButtons != 0);
 	      team = 1;
 	    } else if(nLCDButtons == 1){
+	      while(nLCDButtons != 0);
 	      continue;
 	    }
     } else if(nLCDButtons == 4){
+      while(nLCDButtons != 0);
       skills = true;
     } else if(nLCDButtons == 1){
+      while(nLCDButtons != 0);
       continue;
     }
     selecting = false;
-  }*/
+  }
+	  if(skills == true) {
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("    SKILLS!     ");
+	    wait1Msec(2000);
+	    bLCDBacklight = false;
+	  } else {
+	  if(team == 0 && zone == 0) {
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("RED INTERACTION!");
+	    wait1Msec(2000);
+	    bLCDBacklight = false;
+	  }
+	  if(team == 0 && zone == 1) {
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("RED ISOLATION!!!");
+	    wait1Msec(2000);
+	    bLCDBacklight = false;
+	  }
+	  if(team == 1 && zone == 0) {
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("BLUE INTERACTION");
+	    wait1Msec(2000);
+	    bLCDBacklight = false;
+	  }
+	  if(team == 1 && zone == 1) {
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("BLUE ISOLATION!!");
+	    wait1Msec(2000);
+	    bLCDBacklight = false;
+	  }
+	}
 }//end pre_auton
 
 task autonomous(){
-  /*if(skills){
+  if(skills){
     skillsAutonomous();
   }else{
 	  if(team == 0 && zone == 0){
@@ -109,7 +149,7 @@ task autonomous(){
 	  if(team == 1 && zone == 1){
 	    blueIsoAutonomous();
 	  }
-	}*/
+	}
 }// end task autonomous
 
 task usercontrol()
@@ -120,5 +160,6 @@ task usercontrol()
 	collector();
 	lift();
 	block();
+	hoarder();
 	}//end while loop
 }//end task usercontrol

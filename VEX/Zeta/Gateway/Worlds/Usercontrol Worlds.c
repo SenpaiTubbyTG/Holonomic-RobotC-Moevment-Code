@@ -1,22 +1,36 @@
+/////////////////////////PNEUMATIC HOARDER//////////////////////////////////////////////////////////////////////////////////
+void hoarder() {
+    if(SensorValue[solenoidH] == 1 && vexRT[Btn7D] == 1) {
+    SensorValue[solenoidH] = 0;
+    while(vexRT[Btn7D] != 0);
+    }// END if
+    if(SensorValue[solenoidH] == 0 && vexRT[Btn7D] == 1) {
+     SensorValue[solenoidH] = 1;
+     while(vexRT[Btn7D] != 0);
+    }// END if
+}// END void
+//////////////////////// PNEUMATIC BLOCK/////////////////////////////////////////////////////////////////////////////////////
 void block() {
-if(vexRT[Btn7U] == 1) {
- SensorValue[solenoidB] = 1;
-} // END if
-if(vexRT[Btn7D] == 1) {
- SensorValue[solenoidB] = 0;
- } // END if
-} // END void
-    ////////LIFT/////////////////////////////////////////////////////////////////////////////
+    if(SensorValue[solenoidB] == 1 && vexRT[Btn7U] == 1) {
+     SensorValue[solenoidB] = 0;
+     while(vexRT[Btn7U] != 0);
+    }// END if
+    if(SensorValue[solenoidB] == 0 && vexRT[Btn7U] == 1) {
+     SensorValue[solenoidB] = 1;
+     while(vexRT[Btn7U] != 0);
+    }// END if
+}// END void
+//////////////////////////////LIFT////////////////////////////////////////////////////////////////////////////////////////////
 void lift() {
-    if(vexRT[Btn5U] == 1)   {      // If button 5U is pressed:
+    if(vexRT[Btn5U] == 1)   {                               // If button 5U is pressed:
       SensorValue[solenoidL] = SensorValue[solenoidR] = 1;  // ...both pneumatics shoot out.
     }//end if
 
-    else if(vexRT[Btn5D] == 1)  {   // If button 5D is pressed:
+    else if(vexRT[Btn5D] == 1)  {                           // If button 5D is pressed:
       SensorValue[solenoidL] = SensorValue[solenoidR] = 0;  // ...both pneumatics shoot in.
     }//end else if
 }//end void lift
-    //////////////////COLLECTOR///////////////////////////////////////////////////////////////////
+    //////////////////////////COLLECTOR///////////////////////////////////////////////////////////////////////////////////////
 void collector() {
     if(vexRT[Btn6U] == 1) {
       motor[collectorL] = motor[collectorR] = 127;   // if btn 6u is pressed turn both sides of the collector in at full
@@ -42,7 +56,7 @@ void collector() {
       motor[collectorL] = motor[collectorR] = 0;     // if no btn is pressed turn neither side of the collector
     }//end else
 }//end void collector
-    /////////////////DRIVETRAIN//////////////////////////////////////////////////////////////////
+    //////////////////////////DRIVETRAIN///////////////////////////////////////////////////////////////////////////////////////
 void drivetrain() {
 
 if (vexRT[Btn7L] == 0) {
