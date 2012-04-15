@@ -1,5 +1,5 @@
 /////////////////////////PNEUMATIC HOARDER//////////////////////////////////////////////////////////////////////////////////
-void hoarder() {
+/*void hoarder() {
     if(SensorValue[solenoidH] == 1 && vexRT[Btn7D] == 1) {
     SensorValue[solenoidH] = 0;
     while(vexRT[Btn7D] != 0);
@@ -8,7 +8,7 @@ void hoarder() {
      SensorValue[solenoidH] = 1;
      while(vexRT[Btn7D] != 0);
     }// END if
-}// END void
+}// END void*/
 //////////////////////// PNEUMATIC BLOCK/////////////////////////////////////////////////////////////////////////////////////
 void block() {
     if(SensorValue[solenoidB] == 1 && vexRT[Btn7U] == 1) {
