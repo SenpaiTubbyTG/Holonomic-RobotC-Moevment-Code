@@ -1,14 +1,23 @@
-/////////////////////////PNEUMATIC HOARDER//////////////////////////////////////////////////////////////////////////////////
-/*void hoarder() {
-    if(SensorValue[solenoidH] == 1 && vexRT[Btn7D] == 1) {
-    SensorValue[solenoidH] = 0;
-    while(vexRT[Btn7D] != 0);
-    }// END if
-    if(SensorValue[solenoidH] == 0 && vexRT[Btn7D] == 1) {
-     SensorValue[solenoidH] = 1;
-     while(vexRT[Btn7D] != 0);
-    }// END if
-}// END void*/
+void twotrigger() {
+ if(vexRT[Btn6U] == 1 && vexRT[Btn6D] == 1) {
+  SensorValue[solenoidB] = 0;
+  motor[collectorL] = motor[collectorR] = 100;
+ } // END if
+} // END void
+
+void fourtrigger() {
+ if(vexRT[Btn6D] == 1 && vexRT[Btn6U] == 1 && vexRT[Btn5D] == 1 && vexRT[Btn5U] == 1) {
+   motor[collectorL] = motor[collectorR] = 50;
+ } // END if
+} // END void
+
+void diagonaltrigger() {
+  if(vexRT[Btn5D] == 1 && vexRT[Btn6U] == 1) {
+    motor[collectorL] = 127;
+    motor[collectorR] = -127;
+ } // END if
+} // END void
+
 //////////////////////// PNEUMATIC BLOCK/////////////////////////////////////////////////////////////////////////////////////
 void block() {
     if(SensorValue[solenoidB] == 1 && vexRT[Btn7U] == 1) {

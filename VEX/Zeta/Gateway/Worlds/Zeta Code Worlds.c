@@ -37,6 +37,7 @@ bool selecting = true;
 bool skills = false;
 int team = 0;         // RED = 0, BLUE = 1
 int zone = 0;         // INT = 0, ISO  = 1
+int extra = 0;
 
 void pre_auton() {
   bStopTasksBetweenModes = true;
@@ -86,14 +87,29 @@ void pre_auton() {
 	      while(nLCDButtons != 0);
 	      continue;
 	    }
-    } else if(nLCDButtons == 4){
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("RST   ONE    TWO");
+	    while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
+	    if (nLCDButtons == 2) {
+	      while(nLCDButtons != 0);
+	      extra = 0;
+	    } else if (nLCDButtons == 4) {
+	      while(nLCDButtons != 0);
+	      extra = 1;
+	    } else if (nLCDButtons == 1) {
+	      while(nLCDButtons != 0);
+	      continue;
+	    }
+    } // END if(nLCDbuttons == 2);
+    else if(nLCDButtons == 4){
       while(nLCDButtons != 0);
       skills = true;
     } else if(nLCDButtons == 1){
       while(nLCDButtons != 0);
       continue;
     }
-    selecting = false;
+    selecting = false; ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
 	  if(skills == true) {
 	    clearLCDLine(0);
@@ -102,31 +118,59 @@ void pre_auton() {
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  } else {
-	  if(team == 0 && zone == 0) {
+	  if(team == 0 && zone == 0 && extra == 0) {
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
 	    displayNextLCDString("RED INTERACTION!");
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  }
-	  if(team == 0 && zone == 1) {
+	  if(team == 0 && zone == 0 && extra == 1) {
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("RED INTERACT 2!!");
+	    wait1Msec(2000);
+	    bLCDBacklight = false;
+	  }
+	  if(team == 0 && zone == 1 && extra == 0) {
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
 	    displayNextLCDString("RED ISOLATION!!!");
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  }
-	  if(team == 1 && zone == 0) {
+	  if(team == 0 && zone == 1 && extra == 1) {
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("RED ISOLATION 2!");
+	    wait1Msec(2000);
+	    bLCDBacklight = false;
+	  }
+	  if(team == 1 && zone == 0 && extra == 0) {
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
 	    displayNextLCDString("BLUE INTERACTION");
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  }
-	  if(team == 1 && zone == 1) {
+	  if(team == 1 && zone == 0 && extra == 1) {
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("BLUE INTERACT 2 ");
+	    wait1Msec(2000);
+	    bLCDBacklight = false;
+	  }
+	  if(team == 1 && zone == 1 && extra == 0) {
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
 	    displayNextLCDString("BLUE ISOLATION!!");
+	    wait1Msec(2000);
+	    bLCDBacklight = false;
+	  }
+	  if(team == 1 && zone == 1 && extra == 1) {
+	    clearLCDLine(0);
+	    displayLCDPos(0,0);
+	    displayNextLCDString("BLUE ISOLATION 2");
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  }
@@ -137,20 +181,32 @@ task autonomous(){
   if(skills){
     skillsAutonomous();
   }else{
-	  if(team == 0 && zone == 0){
+	  if(team == 0 && zone == 0 && extra == 0){
 	    redIntAutonomous();
 	  }
-	  if(team == 0 && zone == 1){
+	  if(team == 0 && zone == 0 && extra == 1){
+	    redIntAutonomous2();
+	  }
+	  if(team == 0 && zone == 1 && extra == 0){
 	    redIsoAutonomous();
 	  }
-	  if(team == 1 && zone == 0){
+	  if(team == 0 && zone == 1 && extra == 1) {
+      redIsoAutonomous2();
+	  }
+	  if(team == 1 && zone == 0 && extra == 0){
 	    blueIntAutonomous();
 	  }
-	  if(team == 1 && zone == 1){
+	  if(team == 1 && zone == 0 && extra == 1) {
+	    blueIntAutonomous2();
+	  }
+	  if(team == 1 && zone == 1 && extra == 0){
 	    blueIsoAutonomous();
 	  }
-	}
-}// end task autonomous
+	  if(team == 1 && zone == 1 && extra == 1) {
+	    blueIsoAutonomous2();
+	  }//END if
+	}// END else
+}// END autonomous
 
 task usercontrol()
 {
@@ -160,6 +216,8 @@ task usercontrol()
 		collector();
 		lift();
 		block();
-		//hoarder();
+		diagonaltrigger();
+		twotrigger();
+		fourtrigger();
 	}//end while loop
 }//end task usercontrol
