@@ -35,9 +35,8 @@
 
 bool selecting = true;
 bool skills = false;
-int team = 0;         // RED = 0, BLUE = 1
 int zone = 0;         // INT = 0, ISO  = 1
-int extra = 0;
+int autonNumber = 0;
 
 void pre_auton() {
   bStopTasksBetweenModes = true;
@@ -59,20 +58,6 @@ void pre_auton() {
     while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
     if (nLCDButtons == 2){
       while(nLCDButtons != 0);
-      clearLCDLine(0);
-	    displayLCDPos(0,0);
-	    displayNextLCDString("RST   RED   BLUE");
-	    while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
-	    if (nLCDButtons == 2){
-	      while(nLCDButtons != 0);
-	      team = 0;
-	    } else if(nLCDButtons == 4){
-	      while(nLCDButtons != 0);
-	      team = 1;
-	    } else if(nLCDButtons == 1){
-	      while(nLCDButtons != 0);
-	      continue;
-	    }
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
 	    displayNextLCDString("RST   INT    ISO");
@@ -93,10 +78,10 @@ void pre_auton() {
 	    while(nLCDButtons != 1 && nLCDButtons != 2 && nLCDButtons != 4);
 	    if (nLCDButtons == 2) {
 	      while(nLCDButtons != 0);
-	      extra = 0;
+	      autonNumber = 0;
 	    } else if (nLCDButtons == 4) {
 	      while(nLCDButtons != 0);
-	      extra = 1;
+	      autonNumber = 1;
 	    } else if (nLCDButtons == 1) {
 	      while(nLCDButtons != 0);
 	      continue;
@@ -118,59 +103,31 @@ void pre_auton() {
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  } else {
-	  if(team == 0 && zone == 0 && extra == 0) {
+	  if(zone == 0 && autonNumber == 0) {
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
-	    displayNextLCDString("RED INTERACTION!");
+	    displayNextLCDString("INTERACTION No 1");
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  }
-	  if(team == 0 && zone == 0 && extra == 1) {
+	  if(zone == 0 && autonNumber == 1) {
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
-	    displayNextLCDString("RED INTERACT 2!!");
+	    displayNextLCDString("INTERACTION No 2");
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  }
-	  if(team == 0 && zone == 1 && extra == 0) {
+	  if(zone == 1 && autonNumber == 0) {
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
-	    displayNextLCDString("RED ISOLATION!!!");
+	    displayNextLCDString("ISOLATION No 1");
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  }
-	  if(team == 0 && zone == 1 && extra == 1) {
+	  if(zone == 1 && autonNumber == 1) {
 	    clearLCDLine(0);
 	    displayLCDPos(0,0);
-	    displayNextLCDString("RED ISOLATION 2!");
-	    wait1Msec(2000);
-	    bLCDBacklight = false;
-	  }
-	  if(team == 1 && zone == 0 && extra == 0) {
-	    clearLCDLine(0);
-	    displayLCDPos(0,0);
-	    displayNextLCDString("BLUE INTERACTION");
-	    wait1Msec(2000);
-	    bLCDBacklight = false;
-	  }
-	  if(team == 1 && zone == 0 && extra == 1) {
-	    clearLCDLine(0);
-	    displayLCDPos(0,0);
-	    displayNextLCDString("BLUE INTERACT 2 ");
-	    wait1Msec(2000);
-	    bLCDBacklight = false;
-	  }
-	  if(team == 1 && zone == 1 && extra == 0) {
-	    clearLCDLine(0);
-	    displayLCDPos(0,0);
-	    displayNextLCDString("BLUE ISOLATION!!");
-	    wait1Msec(2000);
-	    bLCDBacklight = false;
-	  }
-	  if(team == 1 && zone == 1 && extra == 1) {
-	    clearLCDLine(0);
-	    displayLCDPos(0,0);
-	    displayNextLCDString("BLUE ISOLATION 2");
+	    displayNextLCDString("ISOLATION No 2");
 	    wait1Msec(2000);
 	    bLCDBacklight = false;
 	  }
@@ -181,37 +138,25 @@ task autonomous(){
   if(skills){
     skillsAutonomous();
   }else{
-	  if(team == 0 && zone == 0 && extra == 0){
-	    redIntAutonomous();
+	  if(zone == 0 && autonNumber == 0){
+	      interactionAuton1();
 	  }
-	  if(team == 0 && zone == 0 && extra == 1){
-	    redIntAutonomous2();
+	  if(zone == 0 && autonNumber == 1){
+	      interactionAuton2();
 	  }
-	  if(team == 0 && zone == 1 && extra == 0){
-	    redIsoAutonomous();
+	  if(zone == 1 && autonNumber == 0){
+	      isolationAuton1();
 	  }
-	  if(team == 0 && zone == 1 && extra == 1) {
-      redIsoAutonomous2();
+	  if(zone == 1 && autonNumber == 1){
+	      isolationAuton2();
 	  }
-	  if(team == 1 && zone == 0 && extra == 0){
-	    blueIntAutonomous();
-	  }
-	  if(team == 1 && zone == 0 && extra == 1) {
-	    blueIntAutonomous2();
-	  }
-	  if(team == 1 && zone == 1 && extra == 0){
-	    blueIsoAutonomous();
-	  }
-	  if(team == 1 && zone == 1 && extra == 1) {
-	    blueIsoAutonomous2();
-	  }//END if
 	}// END else
 }// END autonomous
 
 task usercontrol()
 {
  while (true)
-	{
+ {
 		drivetrain();
 		collector();
 		lift();
@@ -219,5 +164,5 @@ task usercontrol()
 		diagonaltrigger();
 		twotrigger();
 		fourtrigger();
-	}//end while loop
+ }//end while loop
 }//end task usercontrol
