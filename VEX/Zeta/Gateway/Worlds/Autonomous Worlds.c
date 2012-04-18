@@ -1,41 +1,50 @@
 void skillsAutonomous(){  // Score six high, double, score 2 low. - 17 points Programming skills
   while(true) {
 
-        SensorValue[solenoidL] = SensorValue[solenoidR] = 1;      // raise the arm
-        SensorValue[solenoidB] = 0;                               // open the block
-        while(SensorValue[AutonHigh] == 0);                       // wait for btn to be pressed (AutonHigh)
-        drive_forward_until_touch(-127,1500);                     // drive backwards until touch or 1.5 seconds... to high goal
-        wait1Msec(200);                                           // wait one 5th of a second
-        setSuckSpeed(100,3500);                                   // collector scores at 100 speed for 3.5 seconds
-        drive_forward_msec(127,1250);                             // drive back to starting square for 1.25 seconds
-        SensorValue[solenoidL] = SensorValue[solenoidR] = 0;      // lowers arm
-        while(SensorValue[AutonHigh] == 0);                       // wait for btn to be pressed (AutonHigh)
-        SensorValue[solenoidB] = 1;                               // close block
-        drive_collect_msec(100,127,2000);                         // drive to doubler and collect for 2 seconds
-        setSuckSpeed(127,300);                                    // collect doubler for 1 third of a second
+        SensorValue[solenoidL] = SensorValue[solenoidR] = 1;                   // raise the arm
+        SensorValue[solenoidB] = 0;                                            // open the block
+        while(SensorValue[AutonHigh] == 0);                                    // wait for btn to be pressed (AutonHigh)
+        drive_forward_until_touch(-127,1500);                                  // drive backwards until touch or 1.5 seconds... to high goal
+        motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = -127;
+        wait1Msec(1000);
+        motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = 0;
+        wait1Msec(200);                                                        // wait one 5th of a second
+        setSuckSpeed(100,3500);                                                // collector scores at 100 speed for 3.5 seconds
+        drive_forward_msec(127,1250);                                          // drive back to starting square for 1.25 seconds
+        SensorValue[solenoidL] = SensorValue[solenoidR] = 0;                   // lowers arm
+        while(SensorValue[rearTouch] == 0);                                    // wait for btn to be pressed (rearTouch)
+        SensorValue[solenoidB] = 1;                                            // close block
+        drive_collect_msec(100,127,1900);                                      // drive to doubler and collect for 2 seconds
+        setSuckSpeed(127,300);                                                 // collect doubler for 1 third of a second
+        motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = -127;
+        wait1Msec(100);
         drive_backward_msec(127,1600);                            // drive back to starting square
         SensorValue[solenoidL] = SensorValue[solenoidR] = 1;      // raises arm
         SensorValue[solenoidB] = 0;                               // open block
         while(SensorValue[AutonHigh] == 0);                       // wait for btn to be pressed (AutonHigh)
         drive_forward_until_touch(-127,1500);                     // drive backwards until touch or 1.5 seconds... to high goal
         wait1Msec(200);                                           // wait one 5th of a second
-        setSuckSpeed(100,300);                                    // score doubler in high goal for one third of a second at 100/127 speed
+        setSuckSpeed(100,3500);                                   // score doubler in high goal for one third of a second at 100/127 speed
         drive_forward_msec(127,1250);                             // drive back to starting square for 1.25 seconds
+        SensorValue[solenoidL] = SensorValue[solenoidR] = 0;      // lowers lift
         SensorValue[solenoidB] = 1;                               // close block
-        while(SensorValue[AutonHigh] == 0);                       // wait for btn to be pressed (AutonHigh) (Put in any remaining matchloads)
-        setSuckSpeed(127,1000);                                   // collect stack of two by low goal
+        while(SensorValue[rearTouch] == 0);                       // wait for btn to be pressed (rearTouch) (Put in any remaining matchloads)
+        drive_forward_msec(100,200);
+        setSuckSpeed(127,2500);                                   // collect stack of two by low goal
         wait1Msec(100);                                           // wait one 10th of a second
         setSuckSpeed(-127,200);                                   // lower stack in collector for two tenths of a second
+        drive_forward_msec(-127,300);
         while(SensorValue[AutonHigh] == 0);                       // wait for btn to be pressed (AutonHigh) (Put in any remaining matchloads)
-        setSuckSpeed(127,1000);                                   // collect stack of two by starting tile
+        setSuckSpeed(127,2500);                                   // collect stack of two by starting tile
         wait1Msec(100);                                           // wait one 10th of a second
         SensorValue[solenoidB] = 0;                               // open block
         while(SensorValue[AutonHigh] == 0);                       // wait for btn to be pressed (AutonHigh)
         drive_forward_until_touch(-127,400);                      // drive backwards to little goal
-        setSuckSpeed(100,1000);                                   // score stack in little goal at 100/127 speed for 1 second
-        drive_forward_msec(127,300);                              // drives back to starting square
+        setSuckSpeed(100,1500);                                   // score stack in little goal at 100/127 speed for 1 second
+        drive_forward_msec(127,500);                              // drives back to starting square
         while(SensorValue[AutonHigh] == 0);                       // wait for btn to be pressed (AutonHigh)
         drive_forward_until_touch(-127,2700);                     // wait for
+        setSuckSpeed(127,3000)
       }
     }
 
