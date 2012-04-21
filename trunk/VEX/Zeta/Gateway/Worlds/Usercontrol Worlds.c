@@ -40,7 +40,7 @@ void lift() {
     }//end else if
 }//end void lift
     //////////////////////////COLLECTOR///////////////////////////////////////////////////////////////////////////////////////
-void collector() {
+void collector(){
     if(vexRT[Btn6U] == 1) {
       motor[collectorL] = motor[collectorR] = 127;   // if btn 6u is pressed turn both sides of the collector in at full
     }//end if
@@ -67,14 +67,21 @@ void collector() {
 }//end void collector
     //////////////////////////DRIVETRAIN///////////////////////////////////////////////////////////////////////////////////////
 void drivetrain() {
+	if (vexRT[Btn7L] == 0){
+	    motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = vexRT[Ch3];//L drivetrain speed = y axis of L joystick values
+	    motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = vexRT[Ch2];//R drivetrain speed = y axis of R joystick values
+	}// end if
 
-if (vexRT[Btn7L] == 0) {
-    motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = vexRT[Ch3];//L drivetrain speed = y axis of L joystick values
-    motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = vexRT[Ch2];//R drivetrain speed = y axis of R joystick values
-}// end if
-
-else if (vexRT[Btn7L] == 1) {
-    motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = vexRT[Ch3]*0.5;//L drivetrain speed = y axis of L joystick values divided by 2
-    motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = vexRT[Ch2]*0.5;//R drivetrain speed = y axis of R joystick values divided
- }// end else
+	else if (vexRT[Btn7L] == 1){
+	    motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = vexRT[Ch3]*0.5;//L drivetrain speed = y axis of L joystick values divided by 2
+	    motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = vexRT[Ch2]*0.5;//R drivetrain speed = y axis of R joystick values divided
+  }// end else
 }//end void drivtrain
+
+// control of the brake
+void brake(){
+  if(vexRT[Btn7D] == 1){
+    SensorValue[solenoidBrake] = (SensorValue[solenoidBrake]+1)%2;
+    while(vexRT[Btn7D] != 0);
+  }
+}

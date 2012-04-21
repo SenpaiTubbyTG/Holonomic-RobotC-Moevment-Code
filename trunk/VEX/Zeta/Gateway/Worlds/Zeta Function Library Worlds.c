@@ -39,7 +39,7 @@ void drive_collect_msec(int speed, int cspeed, int duration){
 }//END void
 
 //second parameter is the time limit given. If sensor doesn't trip, the method aborts after this amount of time.
-bool drive_forward_dist(int power, int inches, int milAbort){
+/*bool drive_forward_dist(int power, int inches, int milAbort){
   SensorValue[encoderL] = 0;
   SensorValue[encoderR] = 0;
   time1[T1] = 0;
@@ -48,13 +48,13 @@ bool drive_forward_dist(int power, int inches, int milAbort){
     motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = power;
   }
   motor[frontL] = motor[frontL2] = motor[backL] = motor[backL2] = motor[frontR] = motor[frontR2] = motor[backR] = motor[backR2] = 0;
-  if(time1[T1]>milAbort){
+  if(time1[T1]>milAbort){f
     return false;
   }
   else{
     return true;
   }
-} //<<--- THIS IS AN ENDING BRACKET AHHHHHHHHHHH! DON'T TOUCH!
+} //<<--- THIS IS AN ENDING BRACKET AHHHHHHHHHHH! DON'T TOUCH!*/
 
 //second parameter is the time limit given. If sensor doesn't trip, the method aborts after this amount of time.
 bool drive_forward_until_touch(int power, int milAbort){
@@ -71,14 +71,14 @@ bool drive_forward_until_touch(int power, int milAbort){
   }
 } //<<--- THIS IS AN ENDING BRACKET AHHHHHHHHHHH! DON'T TOUCH!
 
-bool drive_collect_dist(int power, int cspeed, int dist, int milAbort){
+/*bool drive_collect_dist(int power, int cspeed, int dist, int milAbort){
   motor[collectorR] = motor[collectorL] = cspeed;
   bool r = drive_forward_dist(power, dist, milAbort);
   motor[collectorL] = motor[collectorR] = 0;
   return r;
-}//END void
+}//END void*/
 
-bool turn_degrees(int degrees, int milAbort){
+/*bool turn_degrees(int degrees, int milAbort){
   int direction; // CLOCKWISE = 0; COUNTERCLOCKWISE = 1
   if(degrees<0){
     direction = -1;
@@ -101,4 +101,4 @@ bool turn_degrees(int degrees, int milAbort){
   else{
     return true;
   }
-}//<<--- THIS IS AN ENDING BRACKET AHHHHHHHHHHH! DON'T TOUCH!
+}//<<--- THIS IS AN ENDING BRACKET AHHHHHHHHHHH! DON'T TOUCH!*/
