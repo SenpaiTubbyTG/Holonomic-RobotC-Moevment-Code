@@ -7,46 +7,79 @@ import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 
 public class LaserDragon extends SimpleRobot {
     
-    Joystick m_leftStick, m_rightStick, m_shootStick;
-    RobotDrive drive;
+    //EDIT THESE WHEN MAKING HARDWARE CHANGES
+    private final int
+                     // motor port assignment
+                     leftFrontDriveChannel   =9,   leftFrontDriveSlot  =1,
+                     leftBackDriveChannel    =10,  leftBackDriveSlot   =1,
+                     rightFrontDriveChannel  =7,   rightFrontDriveSlot =1, 
+                     rightBackDriveChannel   =8,   rightBackDriveSlot  =1,
+                     mouthChannel            =5,   mouthSlot           =2,
+                     indexerChannel          =4,   indexerSlot         =2,
+                     shooter1Channel        =5,   shooter1Slot        =1,
+                     shooter2Channel         =6,   shooter2Slot        =1,
+                     tiltMotorChannel        =4,   tiltMotorSlot       =1,
+                     // Pneumatic Solenoids
+                     rightWhackerChannel     =2,   rightWhackerSlot    =1,
+                     leftWhackerChannel      =3,   leftWhackerSlot     =1,
+                     // Digital inputs
+                     chamberChannel          =7,   chamberSlot         =1,
+                     bridgeChannel           =7,   bridgeSlot          =2,
+                     encoderChannel          =3,   encoderSlot         =2,
+                     pressureSwitchChannel   =11,  pressureSwitchSlot  =2,
+                     // analog inputs
+                     potChannel              =3,   potSlot             =1,
+                     // relay  output (spotlight and compressor)
+                     spotlightChannel        =2,   spotlightSlot       =1,
+                     compressorChannel       =7,   compressorSlot      =2;
+                     
+                     
+    
+    RobotControlSystem controls;
     Victor m_shooter1;
     Victor m_shooter2;
-    PIDController shooterPID;
     Victor m_indexer;
     Victor m_mouth;
     Victor m_tiltMotor;
-    Victor m_waker;
+    RobotDrive drive;
     DiscoCounterEncoder m_shooterEncoder;
-    Counter m_shooterCounter;
+    PIDController shooterPID;
     AnalogChannel m_pot;
     DigitalInput m_Chamber;
     DigitalInput m_Bridge;
-    Relay m_BridgeRelay;
     Relay m_SpotlightRelay;
+    Solenoid rightWhacker;
+    Solenoid leftWhacker;
+    Compressor compressor;
     
     public LaserDragon(){
-        m_leftStick = new Joystick(1);
-        m_rightStick = new Joystick(2);
-        m_shootStick = new Joystick(3);
-        drive = new RobotDrive(9,10,7,8); // these values need to be checked
+        // initialization of channels and slots for all robot systems. USE CAUTION
+        controls = new ThreeJoystickControl(1,2,3); // sticks 1, 2, and 3 (interchangeable)
+        drive = new RobotDrive(leftFrontDriveChannel, leftBackDriveChannel,
+                               rightFrontDriveChannel, rightBackDriveChannel);
         drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
         drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-        m_shooter1 = new Victor(1,5);
-        m_shooter2 = new Victor(1,6);
-        m_indexer = new Victor(2,4);
-        m_indexer = new Victor(2,1);
-        m_tiltMotor = new Victor(1,4);
-        m_waker = new Victor(2,8);
-        m_shooterEncoder = new DiscoCounterEncoder(2,3,1);
+        m_shooter1 = new Victor(shooter1Slot, shooter1Channel);
+        m_shooter2 = new Victor(shooter2Slot, shooter2Channel);
+        m_indexer = new Victor(indexerSlot, indexerChannel);
+        m_mouth   = new Victor(mouthSlot, mouthChannel);
+        m_tiltMotor = new Victor(tiltMotorSlot, tiltMotorChannel);
+        m_shooterEncoder = new DiscoCounterEncoder(encoderSlot, encoderChannel, 1);
         m_shooterEncoder.setMaxPeriod(0.6);
         m_shooterEncoder.start();
-        m_pot = new AnalogChannel(1,3);
-        m_Chamber = new DigitalInput(1,7);
-        m_Bridge = new DigitalInput(2,7);
-        m_BridgeRelay = new Relay(2,8);
-        m_SpotlightRelay = new Relay(2,1);
+        m_pot = new AnalogChannel(potSlot, potChannel);
+        m_Chamber = new DigitalInput(chamberSlot, chamberChannel);
+        m_Bridge = new DigitalInput(bridgeSlot, bridgeChannel);
+        m_SpotlightRelay = new Relay(spotlightSlot, spotlightChannel);
+        
+        //pneumatics
+        rightWhacker = new Solenoid(rightWhackerSlot, rightWhackerChannel);
+        leftWhacker  = new Solenoid(leftWhackerSlot,  leftWhackerSlot);
+        compressor = new Compressor(pressureSwitchSlot, pressureSwitchChannel,
+                                    compressorSlot, compressorChannel);
+        compressor.start();
         
         //pid controls
         initPID();
@@ -54,39 +87,108 @@ public class LaserDragon extends SimpleRobot {
     
     public void initPID(){
         shooterPID = new PIDController(0.0017, 0.0068, 0, m_shooterEncoder, m_shooter1);
-        shooterPID.setInputRange(200, 3600);
+        shooterPID.setInputRange(100, 3500);
         shooterPID.setOutputRange(0, 1.0);
+        shooterPID.setSetpoint(1600);
+        shooterPID.enable();
     }
     
-    public void autonomous(){
-        
+    public void autonomous(){    
     }
 
     public void operatorControl(){
         while(isEnabled()){
-            drive.tankDrive(m_leftStick, m_rightStick);
+            drive.tankDrive(controls.rightDriveInput(),
+                            controls.leftDriveInput());
             mouthControl();
             indexerControl();
         }
     }
     
     public void mouthControl(){
-        if(m_shootStick.getRawButton(2)){
-            m_mouth.set(1);
-        } else if(m_shootStick.getRawButton(3)){
-            m_mouth.set(-1);
-        } else {
-            m_mouth.set(0);
+        int mouthState = controls.mouthInput();
+        switch(mouthState){
+            case RobotControlSystem.FORWARD:
+                m_mouth.set(1); break;
+            case RobotControlSystem.BACKWARD:
+                m_mouth.set(-1); break;
+            case RobotControlSystem.NONE:
+                m_mouth.set(0); break;
         }
     }
     
     public void indexerControl(){
-        if(m_shootStick.getRawButton(1) && m_shootStick.getRawButton(4)){
-            m_indexer.set(-1);
-        } else if(m_shootStick.getRawButton(1) && !m_Chamber.get()){
-            m_indexer.set(1);
-        } else {
-            m_indexer.set(0);
+        int indexerState = controls.indexerInput();
+        switch(indexerState){
+            case RobotControlSystem.SEND:
+                m_indexer.set(1); break;
+            case RobotControlSystem.BACKWARD:
+                m_indexer.set(-1); break;
+            case RobotControlSystem.FORWARD:
+                if(m_Chamber.get()){
+                    m_indexer.set(1);
+                } else {
+                    m_indexer.set(0);
+                }
+                break;
+            case RobotControlSystem.NONE:
+                m_indexer.set(0); break;
+        }
+    }
+   
+    public void whackerControl(){
+        int whackerState = controls.whackerInput();
+        //check this for functionality
+        switch(whackerState){
+            case RobotControlSystem.FORWARD:
+                rightWhacker.set(true);
+                leftWhacker.set(true);
+                break;
+            case RobotControlSystem.BACKWARD:
+                rightWhacker.set(false);
+                leftWhacker.set(false);
+                break;
+        }
+    }
+    
+    public void shooterControl(){
+        int shootSpeedState = controls.shooterSpeedInput();
+        int shootEnableState = controls.shooterEnableInput();
+        if(shooterPID.isEnable()){
+            double currentSetpoint = shooterPID.getSetpoint();
+            switch(shootSpeedState){
+                case RobotControlSystem.SHOOTER_INC:
+                    if(currentSetpoint < 3500){
+                        shooterPID.setSetpoint(currentSetpoint+100);
+                    }
+                    break;
+                case RobotControlSystem.SHOOTER_DEC:
+                    if(currentSetpoint > 100){
+                        shooterPID.setSetpoint(currentSetpoint+100);
+                    }
+                    break;
+            }
+        }
+        switch(shootEnableState){
+            case RobotControlSystem.SHOOTER_ENABLE:
+                if(shooterPID.isEnable()){
+                    shooterPID.disable();
+                } else {
+                    shooterPID.enable();
+                }
+                break;
+        }
+    }
+    
+    public void hoodTiltControl(){
+        int hoodState = controls.hoodTiltInput();
+        switch(hoodState){
+            case RobotControlSystem.FORWARD:
+                m_tiltMotor.set(1); break;
+            case RobotControlSystem.BACKWARD:
+                m_tiltMotor.set(-1);
+            case RobotControlSystem.NONE:
+                m_tiltMotor.set(0);
         }
     }
 }
