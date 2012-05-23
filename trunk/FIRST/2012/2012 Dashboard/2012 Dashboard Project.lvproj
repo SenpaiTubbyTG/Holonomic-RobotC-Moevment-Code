@@ -27,7 +27,6 @@
 		<Item Name="Build Simple Skeleton Data.vi" Type="VI" URL="../Build Simple Skeleton Data.vi"/>
 		<Item Name="Build Camera IP.vi" Type="VI" URL="../Build Camera IP.vi"/>
 		<Item Name="Draw Simple Skeleton Picture.vi" Type="VI" URL="../Draw Simple Skeleton Picture.vi"/>
-		<Item Name="Extraction of Data.vi" Type="VI" URL="../Extraction of Data.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="IMAQ Create" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Create"/>
@@ -114,18 +113,19 @@
 				<Property Name="Bld_buildSpecName" Type="Str">FRC PC Dashboard</Property>
 				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
 				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../builds/FRC Dashboard Project/FRC PC Dashboard</Property>
-				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_localDestDir" Type="Path">/C/Program Files (x86)/FRC Dashboard</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{F12754D6-B5E0-496F-B50C-3EDB6F368199}</Property>
 				<Property Name="Destination[0].destName" Type="Str">Dashboard.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../builds/FRC Dashboard Project/FRC PC Dashboard/Dashboard.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">/C/Program Files (x86)/FRC Dashboard/Dashboard.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">&lt;none&gt;</Property>
 				<Property Name="Destination[0].type" Type="Str">App</Property>
 				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../builds/FRC Dashboard Project/FRC PC Dashboard/data</Property>
+				<Property Name="Destination[1].path" Type="Path">/C/Program Files (x86)/FRC Dashboard/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">&lt;none&gt;</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
 				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/Support/App EXE.ico</Property>
-				<Property Name="Source[0].itemID" Type="Str">{DDF77BA7-E031-4C3C-B4E0-45A5D6C5E415}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{ACF83D8A-3C57-4EF8-B7F0-6F000F867324}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Dashboard Main.vi</Property>
@@ -146,18 +146,19 @@
 				<Property Name="Bld_buildSpecName" Type="Str">Dashboard</Property>
 				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
 				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/Dashboard</Property>
-				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_localDestDir" Type="Path">/C/Program Files (x86)/FRC Dashboard/Dashboard.exe</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{DF00F8D7-6811-4540-994D-1A5B8B813A4F}</Property>
 				<Property Name="Destination[0].destName" Type="Str">Dashboard.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Dashboard/Dashboard.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">/C/Program Files (x86)/FRC Dashboard/Dashboard.exe/Dashboard.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">&lt;none&gt;</Property>
 				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
 				<Property Name="Destination[0].type" Type="Str">App</Property>
 				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/Dashboard/data</Property>
+				<Property Name="Destination[1].path" Type="Path">/C/Program Files (x86)/FRC Dashboard/Dashboard.exe/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">&lt;none&gt;</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{68436C92-C677-4560-A8F2-F41FAF72735A}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{AB54977B-2CC9-4C6E-A3D8-15B6BAB438EC}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Dashboard Main.vi</Property>
