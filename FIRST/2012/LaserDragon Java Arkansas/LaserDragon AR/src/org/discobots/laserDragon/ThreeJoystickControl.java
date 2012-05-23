@@ -77,10 +77,10 @@ public class ThreeJoystickControl implements RobotControlSystem{
     }
     
     public double rightDriveInput(){
-        return -m_rightStick.getRawAxis(2);
+        return -m_rightStick.getY();
     }
     
     public double leftDriveInput(){
-        return -m_leftStick.getRawAxis(2);
+        return -m_leftStick.getY();
     }
 }
