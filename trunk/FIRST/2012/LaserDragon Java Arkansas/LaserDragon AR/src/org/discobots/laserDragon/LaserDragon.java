@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
+import edu.wpi.first.wpilibj.camera.AxisCameraException;
+import edu.wpi.first.wpilibj.image.ColorImage;
+import edu.wpi.first.wpilibj.image.NIVisionException;
 
 public class LaserDragon extends SimpleRobot {
     
@@ -54,6 +57,7 @@ public class LaserDragon extends SimpleRobot {
     Compressor m_compressor;
     
     AxisCamera m_goalCamera, m_ballCamera;
+    LaserDragonTracker visionTracker;
     
     public LaserDragon(){
         // initialization of channels and slots for all robot systems. USE CAUTION
@@ -86,6 +90,7 @@ public class LaserDragon extends SimpleRobot {
         // initialize cameras
         m_goalCamera = AxisCamera.getInstance("10.25.87.11");
         m_ballCamera = AxisCamera.getInstance("10.25.87.12");
+        visionTracker = new LaserDragonTracker(4);
         //pid controls
         initPID();
     }
@@ -95,7 +100,7 @@ public class LaserDragon extends SimpleRobot {
         shooterPID.setInputRange(100, 3500);
         shooterPID.setOutputRange(0, 1.0);
         shooterPID.setSetpoint(1600);
-        shooterPID.enable();
+        shooterPID.disable();
     }
     
     public void autonomous(){
@@ -108,6 +113,9 @@ public class LaserDragon extends SimpleRobot {
                             controls.leftDriveInput());
             mouthControl();
             indexerControl();
+            shooterControl();
+            whackerControl();
+            hoodTiltControl();
         }
     }
     
@@ -170,7 +178,7 @@ public class LaserDragon extends SimpleRobot {
                     break;
                 case RobotControlSystem.SHOOTER_DEC:
                     if(currentSetpoint > 100){
-                        shooterPID.setSetpoint(currentSetpoint+100);
+                        shooterPID.setSetpoint(currentSetpoint-100);
                     }
                     break;
             }
@@ -200,9 +208,35 @@ public class LaserDragon extends SimpleRobot {
         }
     }
     
-    private class LaserDragonTracker extends Thread{
-        public void run(){
-            
+    private class LaserDragonTracker{
+        
+        private boolean enabled;
+        private int maxTargets;
+        Target[] targets;
+        
+        public LaserDragonTracker(int max){
+            maxTargets = max;
+            enabled = false;
+        }
+        
+        public void trackTargets(){
+            ColorImage image;
+            if(m_goalCamera.freshImage()){
+                try{
+                    image = m_goalCamera.getImage();
+                } catch (AxisCameraException e){
+                    System.out.println("AxisCameraException within trackTargets()");
+                } catch (NIVisionException e){
+                    System.out.println("NIVisionException within trackTargets()");
+                }
+            }
+        }
+        
+        public void enable(){
+            enabled = true;
+        }
+        public void disbale(){
+            enabled = false;
         }
     }
 }
