@@ -14,10 +14,10 @@ public class LaserDragon extends SimpleRobot {
     //EDIT THESE WHEN MAKING HARDWARE CHANGES
     private final int
                      // motor port assignment
-                     leftFrontDriveChannel   =9,   leftFrontDriveSlot  =1,
+                     leftFrontDriveChannel   =8,   leftFrontDriveSlot  =1,
                      leftBackDriveChannel    =10,  leftBackDriveSlot   =1,
                      rightFrontDriveChannel  =7,   rightFrontDriveSlot =1, 
-                     rightBackDriveChannel   =8,   rightBackDriveSlot  =1,
+                     rightBackDriveChannel   =9,   rightBackDriveSlot  =1,
                      mouthChannel            =1,   mouthSlot           =2,
                      indexerChannel          =4,   indexerSlot         =2,
                      shooter1Channel         =5,   shooter1Slot        =1,
@@ -65,8 +65,6 @@ public class LaserDragon extends SimpleRobot {
         drive = new RobotDrive(leftFrontDriveChannel, leftBackDriveChannel,
                                rightFrontDriveChannel, rightBackDriveChannel);
         drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-        drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-        drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         m_shooter1 = new Victor(shooter1Slot, shooter1Channel);
         m_shooter2 = new Victor(shooter2Slot, shooter2Channel);
@@ -109,8 +107,8 @@ public class LaserDragon extends SimpleRobot {
     public void operatorControl(){
         m_compressor.start();
         while(isEnabled()){
-            drive.tankDrive(controls.rightDriveInput(),
-                            controls.leftDriveInput());
+            drive.tankDrive(controls.leftDriveInput(),
+                            controls.rightDriveInput());
             mouthControl();
             indexerControl();
             shooterControl();
