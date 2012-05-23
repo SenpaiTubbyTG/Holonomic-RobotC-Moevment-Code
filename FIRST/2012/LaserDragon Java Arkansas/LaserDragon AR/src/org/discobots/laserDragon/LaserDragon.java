@@ -4,6 +4,7 @@ package org.discobots.laserDragon;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
+import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 public class LaserDragon extends SimpleRobot {
     
@@ -14,9 +15,9 @@ public class LaserDragon extends SimpleRobot {
                      leftBackDriveChannel    =10,  leftBackDriveSlot   =1,
                      rightFrontDriveChannel  =7,   rightFrontDriveSlot =1, 
                      rightBackDriveChannel   =8,   rightBackDriveSlot  =1,
-                     mouthChannel            =5,   mouthSlot           =2,
+                     mouthChannel            =1,   mouthSlot           =2,
                      indexerChannel          =4,   indexerSlot         =2,
-                     shooter1Channel        =5,   shooter1Slot        =1,
+                     shooter1Channel         =5,   shooter1Slot        =1,
                      shooter2Channel         =6,   shooter2Slot        =1,
                      tiltMotorChannel        =4,   tiltMotorSlot       =1,
                      // Pneumatic Solenoids
@@ -30,7 +31,7 @@ public class LaserDragon extends SimpleRobot {
                      // analog inputs
                      potChannel              =3,   potSlot             =1,
                      // relay  output (spotlight and compressor)
-                     spotlightChannel        =2,   spotlightSlot       =1,
+                     spotlightChannel        =1,   spotlightSlot       =2,
                      compressorChannel       =7,   compressorSlot      =2;
                      
                      
@@ -48,9 +49,11 @@ public class LaserDragon extends SimpleRobot {
     DigitalInput m_Chamber;
     DigitalInput m_Bridge;
     Relay m_SpotlightRelay;
-    Solenoid rightWhacker;
-    Solenoid leftWhacker;
-    Compressor compressor;
+    Solenoid m_rightWhacker;
+    Solenoid m_leftWhacker;
+    Compressor m_compressor;
+    
+    AxisCamera m_goalCamera, m_ballCamera;
     
     public LaserDragon(){
         // initialization of channels and slots for all robot systems. USE CAUTION
@@ -75,12 +78,14 @@ public class LaserDragon extends SimpleRobot {
         m_SpotlightRelay = new Relay(spotlightSlot, spotlightChannel);
         
         //pneumatics
-        rightWhacker = new Solenoid(rightWhackerSlot, rightWhackerChannel);
-        leftWhacker  = new Solenoid(leftWhackerSlot,  leftWhackerSlot);
-        compressor = new Compressor(pressureSwitchSlot, pressureSwitchChannel,
+        m_rightWhacker = new Solenoid(rightWhackerSlot, rightWhackerChannel);
+        m_leftWhacker  = new Solenoid(leftWhackerSlot,  leftWhackerChannel);
+        m_compressor = new Compressor(pressureSwitchSlot, pressureSwitchChannel,
                                     compressorSlot, compressorChannel);
-        compressor.start();
         
+        // initialize cameras
+        m_goalCamera = AxisCamera.getInstance("10.25.87.11");
+        m_ballCamera = AxisCamera.getInstance("10.25.87.12");
         //pid controls
         initPID();
     }
@@ -93,10 +98,11 @@ public class LaserDragon extends SimpleRobot {
         shooterPID.enable();
     }
     
-    public void autonomous(){    
+    public void autonomous(){
     }
 
     public void operatorControl(){
+        m_compressor.start();
         while(isEnabled()){
             drive.tankDrive(controls.rightDriveInput(),
                             controls.leftDriveInput());
@@ -141,12 +147,12 @@ public class LaserDragon extends SimpleRobot {
         //check this for functionality
         switch(whackerState){
             case RobotControlSystem.FORWARD:
-                rightWhacker.set(true);
-                leftWhacker.set(true);
+                m_rightWhacker.set(true);
+                m_leftWhacker.set(true);
                 break;
             case RobotControlSystem.BACKWARD:
-                rightWhacker.set(false);
-                leftWhacker.set(false);
+                m_rightWhacker.set(false);
+                m_leftWhacker.set(false);
                 break;
         }
     }
@@ -173,8 +179,10 @@ public class LaserDragon extends SimpleRobot {
             case RobotControlSystem.SHOOTER_ENABLE:
                 if(shooterPID.isEnable()){
                     shooterPID.disable();
+                    m_compressor.start();
                 } else {
                     shooterPID.enable();
+                    m_compressor.stop();
                 }
                 break;
         }
@@ -189,6 +197,12 @@ public class LaserDragon extends SimpleRobot {
                 m_tiltMotor.set(-1);
             case RobotControlSystem.NONE:
                 m_tiltMotor.set(0);
+        }
+    }
+    
+    private class LaserDragonTracker extends Thread{
+        public void run(){
+            
         }
     }
 }
