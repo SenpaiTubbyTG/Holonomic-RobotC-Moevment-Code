@@ -42,6 +42,7 @@ public class LaserDragon extends SimpleRobot {
     RobotControlSystem controls;
     Victor m_shooter1;
     Victor m_shooter2;
+    ShooterDrive m_shooterDrive;
     Victor m_indexer;
     Victor m_mouth;
     Victor m_tiltMotor;
@@ -68,6 +69,7 @@ public class LaserDragon extends SimpleRobot {
         drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         m_shooter1 = new Victor(shooter1Slot, shooter1Channel);
         m_shooter2 = new Victor(shooter2Slot, shooter2Channel);
+        m_shooterDrive = new ShooterDrive(m_shooter1, m_shooter2);
         m_indexer = new Victor(indexerSlot, indexerChannel);
         m_mouth   = new Victor(mouthSlot, mouthChannel);
         m_tiltMotor = new Victor(tiltMotorSlot, tiltMotorChannel);
@@ -94,7 +96,7 @@ public class LaserDragon extends SimpleRobot {
     }
     
     public void initPID(){
-        shooterPID = new PIDController(0.0017, 0.0068, 0, m_shooterEncoder, m_shooter1);
+        shooterPID = new PIDController(0.0017, 0.0068, 0, m_shooterEncoder, m_shooterDrive);
         shooterPID.setInputRange(100, 3500);
         shooterPID.setOutputRange(0, 1.0);
         shooterPID.setSetpoint(1600);
@@ -163,6 +165,7 @@ public class LaserDragon extends SimpleRobot {
         }
     }
     
+    int lastShootEnableState;
     public void shooterControl(){
         int shootSpeedState = controls.shooterSpeedInput();
         int shootEnableState = controls.shooterEnableInput();
@@ -181,17 +184,17 @@ public class LaserDragon extends SimpleRobot {
                     break;
             }
         }
-        switch(shootEnableState){
-            case RobotControlSystem.SHOOTER_ENABLE:
-                if(shooterPID.isEnable()){
-                    shooterPID.disable();
-                    m_compressor.start();
-                } else {
-                    shooterPID.enable();
-                    m_compressor.stop();
-                }
-                break;
+        if(shootEnableState == RobotControlSystem.SHOOTER_ENABLE &&
+           lastShootEnableState == RobotControlSystem.NONE){
+            if(shooterPID.isEnable()){
+                shooterPID.disable();
+                m_compressor.start();
+            } else {
+                shooterPID.enable();
+                m_compressor.stop();
+            } 
         }
+        lastShootEnableState = shootEnableState;
     }
     
     public void hoodTiltControl(){
@@ -236,5 +239,6 @@ public class LaserDragon extends SimpleRobot {
         public void disbale(){
             enabled = false;
         }
+        public boolean isEnabled(){ return enabled;}
     }
 }
