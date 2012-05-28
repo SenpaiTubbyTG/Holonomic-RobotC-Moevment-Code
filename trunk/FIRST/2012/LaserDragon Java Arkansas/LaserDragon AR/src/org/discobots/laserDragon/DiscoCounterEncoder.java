@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.PIDSource;
  * @author mrdouglass
  */
 public class DiscoCounterEncoder extends Counter implements PIDSource{
-    private int cyclesPerRev;
     
-    public DiscoCounterEncoder(int slot, int channel, int a){
+    private double cyclesPerRev;
+    
+    public DiscoCounterEncoder(int slot, int channel, double a){
         super(slot, channel);
         cyclesPerRev = a;
     }

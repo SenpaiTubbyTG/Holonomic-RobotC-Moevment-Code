@@ -69,8 +69,14 @@ public class ThreeJoystickControl implements RobotControlSystem{
     public int whackerInput(){
         if(m_rightStick.getRawButton(1)){
             return FORWARD;
-        } else if(m_leftStick.getRawButton(1)){
+        } else {
             return BACKWARD;
+        }
+    }
+    
+    public int brakeInput(){
+        if(m_rightStick.getRawButton(2)){
+            return FORWARD;
         } else {
             return NONE;
         }

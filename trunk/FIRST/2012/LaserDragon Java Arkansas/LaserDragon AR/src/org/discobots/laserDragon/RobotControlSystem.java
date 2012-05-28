@@ -25,6 +25,7 @@ public interface RobotControlSystem {
     public abstract int shooterSpeedInput();
     public abstract int hoodTiltInput();
     public abstract int whackerInput();
+    public abstract int brakeInput();
     public abstract double leftDriveInput();
     public abstract double rightDriveInput();
 }
