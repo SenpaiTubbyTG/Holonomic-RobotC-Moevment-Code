@@ -9,9 +9,11 @@ import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 
-public class LaserDragon extends SimpleRobot {
+/*public class LaserDragon extends PIDTunner{
+}*/
     
-    //EDIT THESE WHEN MAKING HARDWARE CHANGES
+public class LaserDragon extends SimpleRobot{
+   //EDIT THESE WHEN MAKING HARDWARE CHANGES  
     private final int
                      // motor port assignment
                      leftFrontDriveChannel   =8,   leftFrontDriveSlot  =1,
@@ -31,7 +33,7 @@ public class LaserDragon extends SimpleRobot {
                      // Digital inputs
                      chamberChannel          =7,   chamberSlot         =1,
                      bridgeChannel           =7,   bridgeSlot          =2,
-                     encoderChannel          =3,   encoderSlot         =2,
+                     encoderChannel          =10,   encoderSlot         =2,
                      pressureSwitchChannel   =1,  pressureSwitchSlot  = 1,
                      // analog inputs
                      potChannel              =3,   potSlot             =1,
@@ -248,7 +250,7 @@ public class LaserDragon extends SimpleRobot {
             case RobotControlSystem.FORWARD:
                 m_tiltMotor.set(1); break;
             case RobotControlSystem.BACKWARD:
-                m_tiltMotor.set(-1);
+                m_tiltMotor.set(-1); break;
             case RobotControlSystem.NONE:
                 m_tiltMotor.set(0);
         }
