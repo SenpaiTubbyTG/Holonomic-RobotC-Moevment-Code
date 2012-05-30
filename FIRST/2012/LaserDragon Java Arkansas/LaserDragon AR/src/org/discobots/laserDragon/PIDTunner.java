@@ -16,7 +16,7 @@ public class PIDTunner extends SimpleRobot{
     private final int
                         shooter1Channel  = 5,  shooter1Slot = 1,
                         shooter2Channel  = 6,  shooter2Slot = 1,
-                        encoderChannel   = 3,  encoderSlot  = 2;
+                        encoderChannel   = 10,  encoderSlot  = 2;
     
     DiscoCounterEncoder encoder;
     PIDController       shooterPID;
@@ -28,12 +28,16 @@ public class PIDTunner extends SimpleRobot{
         Victor shooter1 = new Victor(shooter1Slot, shooter1Channel);
         Victor shooter2 = new Victor(shooter2Slot, shooter2Channel);
         shooterDrive = new ShooterDrive(shooter1, shooter2);
-        shooterPID = new PIDController(0.0017, 0.0068, 0, encoder, shooterDrive);
+        shooterPID = new PIDController(0.0, 0.0, 0.0, encoder, shooterDrive);
         shooterPID.setInputRange(100, 3500);
         shooterPID.setOutputRange(0, 1.0);
         shooterPID.setSetpoint(1600);
         shooterPID.disable();
         controls = new PIDTunnerControl(1);
+    }
+    
+    public void robotInit(){
+        System.out.println("Running the PID Tunner");
     }
     
     public void disabled(){
@@ -45,22 +49,34 @@ public class PIDTunner extends SimpleRobot{
         double pGain = 0, iGain = 0, dGain = 0;
         double setPoint = 1600;
         double change = 1;
-        int counter = 0;
+        boolean update;
         while(isEnabled()){
-            pGain += change*pChange();
-            iGain += change*iChange();
-            dGain += change*dChange();
-            setPoint += 100*setPointChange();
+            int c;
+            update = false;
+            if((c = pChange()) != 0){
+                pGain += change*c;
+                update = true;
+            }
+            if((c = iChange()) != 0){
+                iGain += change*c;
+                update = true;
+            }
+            if((c = dChange()) != 0){
+                dGain += change*c;
+                update = true;
+            }
+            if((c = setPointChange()) != 0){
+                setPoint += change*c;
+                update = true;
+            }
             int changeChange = changeChange();
             if(changeChange == -1){
                 change *= 0.1;
             } else if(changeChange == 1){
                 change *= 10;
             }
-            counter++;
             // only update every 100 loops
-            if(counter == 100){
-                counter = 0; 
+            if(update){
                 shooterPID.setPID(pGain, iGain, dGain);
                 shooterPID.setSetpoint(setPoint);
                 
@@ -70,7 +86,9 @@ public class PIDTunner extends SimpleRobot{
                                 " I: " + iGain +
                                 " D: " + dGain + "\n" +
                                 "Setpoint: " + setPoint +
-                                " Change: " + change;
+                                " Change: " + change +
+                                " RPM: " + encoder.getRPM() + 
+                                "\n------------------------";
                 System.out.println(output);                
             }
         }
