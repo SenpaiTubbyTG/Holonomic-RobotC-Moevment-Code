@@ -13,13 +13,16 @@ import edu.wpi.first.wpilibj.image.NIVisionException;
 }*/
     
 public class LaserDragon extends SimpleRobot{
-   //EDIT THESE WHEN MAKING HARDWARE CHANGES  
+   // setings/state constants and variables
+   private final int THREE_JOYSTICK = 0, TWO_GAMEPAD = 1;
+   private int controlType = THREE_JOYSTICK;
+   //EDIT THESE WHEN MAKING HARDWARE CHANGES 
     private final int
                      // motor port assignment
-                     leftFrontDriveChannel   =8,   leftFrontDriveSlot  =1,
+                     leftFrontDriveChannel   =9,   leftFrontDriveSlot  =1,
                      leftBackDriveChannel    =10,  leftBackDriveSlot   =1,
                      rightFrontDriveChannel  =7,   rightFrontDriveSlot =1, 
-                     rightBackDriveChannel   =9,   rightBackDriveSlot  =1,
+                     rightBackDriveChannel   =8,   rightBackDriveSlot  =1,
                      mouthChannel            =2,   mouthSlot           =2,
                      indexerChannel          =1,   indexerSlot         =2,
                      shooter1Channel         =5,   shooter1Slot        =1,
@@ -31,9 +34,9 @@ public class LaserDragon extends SimpleRobot{
                      liftBrakeChannel        =7,   brakeSlot           =2,
                      lowerBrakeChannel       =8,   
                      // Digital inputs
-                     chamberChannel          =7,   chamberSlot         =1,
+                     chamberChannel          =3,   chamberSlot         =1,
                      bridgeChannel           =7,   bridgeSlot          =2,
-                     encoderChannel          =10,   encoderSlot         =2,
+                     encoderChannel          =9,   encoderSlot         =2,
                      pressureSwitchChannel   =1,  pressureSwitchSlot  = 1,
                      // analog inputs
                      potChannel              =3,   potSlot             =1,
@@ -76,47 +79,56 @@ public class LaserDragon extends SimpleRobot{
     
     public LaserDragon(){
         // initialization of channels and slots for all robot systems. USE CAUTION
-        controls = new ThreeJoystickControl(1,2,3); // sticks 1, 2, and 3 (interchangeable)
+        // controls
+        if(controlType == THREE_JOYSTICK){
+            controls = new ThreeJoystickControl(1,2,3);
+        } else if(controlType == TWO_GAMEPAD){
+            controls = new GamePadControl(1,2); // sticks 1, 2(interchangeable)
+        } else {
+            controls = null;
+        }
+        
+        //motor drives
         drive = new RobotDrive(leftFrontDriveChannel, leftBackDriveChannel,
                                rightFrontDriveChannel, rightBackDriveChannel);
         drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-        m_shooter1 = new Victor(shooter1Slot, shooter1Channel);
-        m_shooter2 = new Victor(shooter2Slot, shooter2Channel);
-        m_shooterDrive = new ShooterDrive(m_shooter1, m_shooter2);
         m_indexer = new Victor(indexerSlot, indexerChannel);
         m_mouth   = new Victor(mouthSlot, mouthChannel);
         m_tiltMotor = new Victor(tiltMotorSlot, tiltMotorChannel);
-        m_shooterEncoder = new DiscoCounterEncoder(encoderSlot, encoderChannel, 1);
-        m_shooterEncoder.setMaxPeriod(0.6);
-        m_shooterEncoder.start();
+        
+        //digital sensors
         m_pot = new AnalogChannel(potSlot, potChannel);
         m_Chamber = new DigitalInput(chamberSlot, chamberChannel);
         m_Bridge = new DigitalInput(bridgeSlot, bridgeChannel);
+        
+        //lights
         m_SpotlightRelay = new Relay(spotlightSlot, spotlightChannel, Relay.Direction.kForward);
         m_indexerLED     = new Relay(indexerLEDSlot, indexerLEDChannel, Relay.Direction.kForward);
         m_shooterLED     = new Relay(shooterLEDSlot, shooterLEDChannel, Relay.Direction.kForward);
         
         //pneumatics
-        m_whacker = new DoubleSolenoid(whackerSlot, lowerWhackerChannel, liftWhackerChannel);
-        m_brake    = new DoubleSolenoid(brakeSlot, lowerBrakeChannel, liftBrakeChannel);
         m_compressor = new Compressor(pressureSwitchSlot, pressureSwitchChannel,
                                      compressorSlot, compressorChannel);
+        m_whacker = new DoubleSolenoid(whackerSlot, lowerWhackerChannel, liftWhackerChannel);
+        m_brake    = new DoubleSolenoid(brakeSlot, lowerBrakeChannel, liftBrakeChannel);
+        m_brake.set(DoubleSolenoid.Value.kForward);
         
-        // initialize cameras
+        // vision
         //m_goalCamera = AxisCamera.getInstance("10.25.87.11");
         //m_ballCamera = AxisCamera.getInstance("10.25.87.12");
         visionTracker = new LaserDragonTracker(4, m_goalCamera);
-        //pid controls
-        initPID();   
-    }
-    
-    public void initPID(){
-        shooterPID = new PIDController(0.0017, 0.0068, 0, m_shooterEncoder, m_shooterDrive);
+        
+        //pid controls 
+        m_shooterEncoder = new DiscoCounterEncoder(encoderSlot, encoderChannel, 1);
+        m_shooterEncoder.start();
+        m_shooter1 = new Victor(shooter1Slot, shooter1Channel);
+        m_shooter2 = new Victor(shooter2Slot, shooter2Channel);
+        m_shooterDrive = new ShooterDrive(m_shooter1, m_shooter2);
+        shooterPID = new PIDController(0.001, 0.001, 0.0, m_shooterEncoder, m_shooterDrive);
         shooterPID.setInputRange(100, 3500);
         shooterPID.setOutputRange(0, 1.0);
         shooterPID.setSetpoint(1600);
-        shooterPID.disable();
     }
     
     public void disabled(){
@@ -127,9 +139,8 @@ public class LaserDragon extends SimpleRobot{
         m_mouth.set(0);
         m_tiltMotor.set(0);
         m_whacker.set(DoubleSolenoid.Value.kReverse);
-        m_brake.set(DoubleSolenoid.Value.kReverse);
         
-        System.out.println("disabled");
+        System.out.println("Robot it Disabled");
     }
     
     public void autonomous(){
@@ -148,6 +159,10 @@ public class LaserDragon extends SimpleRobot{
             brakeControl();
             hoodTiltControl();
             LEDController();
+            if(controlType == TWO_GAMEPAD){
+                ((GamePadControl)controls).checkControllerState();
+            }
+            Thread.yield();
         }
     }
     
@@ -204,7 +219,7 @@ public class LaserDragon extends SimpleRobot{
             double currentSetpoint = shooterPID.getSetpoint();
             switch(shootSpeedState){
                 case RobotControlSystem.SHOOTER_INC:
-                    if(currentSetpoint < 3500){
+                    if(currentSetpoint <= 3500){
                         shooterPID.setSetpoint(currentSetpoint+100);
                     }
                     break;
@@ -228,29 +243,29 @@ public class LaserDragon extends SimpleRobot{
         prevShootEnableState = shootEnableState;
     }
     
-    private int prevBrakeInput;
+    private int prevBrakeInput = RobotControlSystem.NONE;
     public void brakeControl(){
         int brakeInput = controls.brakeInput();
         if(brakeInput == RobotControlSystem.FORWARD && 
            prevBrakeInput == RobotControlSystem.NONE){
             if(m_brake.get() == DoubleSolenoid.Value.kForward){
                 m_brake.set(DoubleSolenoid.Value.kReverse);
-                System.out.println("reverse");
             } else if(m_brake.get() == DoubleSolenoid.Value.kReverse){
                 m_brake.set(DoubleSolenoid.Value.kForward);
-                System.out.println("forward");
             }
+            System.out.println("Shooter RPM: " + m_shooterEncoder.getRPM() + " PID OUT: " + shooterPID.get());
         }
         prevBrakeInput = brakeInput;
     }
     
+    private double hoodTiltPower = 0.3;
     public void hoodTiltControl(){
         int hoodState = controls.hoodTiltInput();
         switch(hoodState){
             case RobotControlSystem.FORWARD:
-                m_tiltMotor.set(1); break;
+                m_tiltMotor.set(hoodTiltPower); break;
             case RobotControlSystem.BACKWARD:
-                m_tiltMotor.set(-1); break;
+                m_tiltMotor.set(-hoodTiltPower); break;
             case RobotControlSystem.NONE:
                 m_tiltMotor.set(0);
         }

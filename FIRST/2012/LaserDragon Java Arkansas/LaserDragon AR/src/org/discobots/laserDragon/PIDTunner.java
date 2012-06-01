@@ -16,19 +16,24 @@ public class PIDTunner extends SimpleRobot{
     private final int
                         shooter1Channel  = 5,  shooter1Slot = 1,
                         shooter2Channel  = 6,  shooter2Slot = 1,
-                        encoderChannel   = 10,  encoderSlot  = 2;
+                        encoderChannel   = 9,  encoderSlot  = 2;
     
     DiscoCounterEncoder encoder;
     PIDController       shooterPID;
     ShooterDrive        shooterDrive;
     PIDTunnerControl    controls;
     
+    double pGain = 0.001, iGain = 0.001, dGain = 0;
+    double setPoint = 1600;
+    double change = 1;
+    
     public PIDTunner(){
         encoder = new DiscoCounterEncoder(encoderSlot, encoderChannel, 1);
+        encoder.start();
         Victor shooter1 = new Victor(shooter1Slot, shooter1Channel);
         Victor shooter2 = new Victor(shooter2Slot, shooter2Channel);
         shooterDrive = new ShooterDrive(shooter1, shooter2);
-        shooterPID = new PIDController(0.0, 0.0, 0.0, encoder, shooterDrive);
+        shooterPID = new PIDController(0.001, 0.001, 0.0, encoder, shooterDrive);
         shooterPID.setInputRange(100, 3500);
         shooterPID.setOutputRange(0, 1.0);
         shooterPID.setSetpoint(1600);
@@ -46,9 +51,6 @@ public class PIDTunner extends SimpleRobot{
     
     public void operatorControl(){
         shooterPID.enable();
-        double pGain = 0, iGain = 0, dGain = 0;
-        double setPoint = 1600;
-        double change = 1;
         boolean update;
         while(isEnabled()){
             int c;
@@ -66,7 +68,7 @@ public class PIDTunner extends SimpleRobot{
                 update = true;
             }
             if((c = setPointChange()) != 0){
-                setPoint += change*c;
+                setPoint += 100*c;
                 update = true;
             }
             int changeChange = changeChange();
@@ -87,7 +89,7 @@ public class PIDTunner extends SimpleRobot{
                                 " D: " + dGain + "\n" +
                                 "Setpoint: " + setPoint +
                                 " Change: " + change +
-                                " RPM: " + encoder.getRPM() + 
+                                " RPM: " + encoder.getRPM() +
                                 "\n------------------------";
                 System.out.println(output);                
             }
