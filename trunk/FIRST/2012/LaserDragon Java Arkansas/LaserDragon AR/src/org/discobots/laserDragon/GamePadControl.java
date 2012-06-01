@@ -18,9 +18,9 @@ public class GamePadControl implements RobotControlSystem{
     public int mouthInput(){
         if(state == INDEXING){
             if(stick1.getRawButton(7) || stick2.getRawButton(7)){
-               return FORWARD; 
+               return BACKWARD; 
             } else if(stick1.getRawButton(5) || stick2.getRawButton(5)){
-                return BACKWARD;
+                return FORWARD;
             } else {
                 return NONE;
             }
@@ -67,7 +67,7 @@ public class GamePadControl implements RobotControlSystem{
     public int hoodTiltInput(){
         if((stick1.getRawAxis(6)>0.9 || stick2.getRawAxis(6)>0.9)){
             return FORWARD;
-        } else if((stick1.getRawAxis(5)<-0.9 || stick2.getRawAxis(5)<-0.9)){
+        } else if((stick1.getRawAxis(6)<-0.9 || stick2.getRawAxis(6)<-0.9)){
             return BACKWARD;
         } else {
             return NONE;
@@ -76,7 +76,7 @@ public class GamePadControl implements RobotControlSystem{
 
     public int whackerInput(){
         if(state == BRIDGE){
-            if(stick1.getRawButton(7) || stick2.getRawButton(7)){
+            if(stick1.getRawButton(6) || stick2.getRawButton(6)){
                 return FORWARD;
             } else {
                 return BACKWARD;
@@ -88,7 +88,7 @@ public class GamePadControl implements RobotControlSystem{
 
     public int brakeInput(){
         if(state == BRIDGE){
-            if(stick1.getRawButton(6) || stick2.getRawButton(6)){
+            if(stick1.getRawButton(5) || stick2.getRawButton(5)){
                 return FORWARD;
             } else {
                 return NONE;
@@ -99,11 +99,11 @@ public class GamePadControl implements RobotControlSystem{
     }
 
     public double leftDriveInput(){
-        return -stick1.getRawAxis(4);
+        return -stick1.getRawAxis(2);
     }
 
     public double rightDriveInput(){
-        return -stick1.getRawAxis(2);
+        return -stick1.getRawAxis(4);
     }
     
     private boolean lastCheckStateValue = false;
