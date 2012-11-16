@@ -16,5 +16,6 @@ IF you have read this document, please indicate your name below and Commit your 
 1. Andrew Lynch
 2. Nick Dulworth
 3. Sam Dietrich
+4. Doris Hui
   
 
