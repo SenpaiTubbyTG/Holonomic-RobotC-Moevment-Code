@@ -12,7 +12,8 @@ Each team will have its own folder and should only use common libraries.
 Please don't commit a common library file in your subteam's folder, instead call the library file in  
 VEX/Generic_Libraries   , that way code only changes in one place and other teams can use the library. 
 
-IF you have read this document, please indicate your name below and Commit your changes.  
+IF you have read this document, please indicate your name below and Commit your changes.
+0. Mitchell Douglass ( <- he's cool)
 1. Andrew Lynch
 2. Nick Dulworth
 3. Sam Dietrich
