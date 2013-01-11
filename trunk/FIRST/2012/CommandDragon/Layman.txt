@@ -1,0 +1,7 @@
+Logitach Game Pad 1:
+	Left joystick implements standard arcade drive.
+	Click left joystick to toggle all lights on robot.
+	Hold right bumper/trigger moves mouth in/out.
+	Hold left bumper/trigger moves indexer up/down.
+	Back/start actuates whacker up/down.
+	X toggles shooter on/off.
