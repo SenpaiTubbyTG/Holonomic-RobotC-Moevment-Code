@@ -24,7 +24,11 @@ public class Main extends IterativeRobot {
      */
     
     public void robotInit() {
-    
+        HW.drive.setSafetyEnabled(false);
+        Watchdog.getInstance().setEnabled(false);
+        HW.drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+        HW.drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+        
     }
 
     /**
@@ -38,22 +42,30 @@ public class Main extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        HW.drive.tankDrive(HW.Stick1.getY(),HW.Stick2.getY());
-        if(HW.Stick1.getRawButton(1)==true)
+        HW.drive.tankDrive(HW.Stick1.getLY(),HW.Stick1.getRY());
+        //System.out.println(Shooter1.get());
+        
+        
+        if(HW.Stick1.getRawButton(HW.Stick1.BTN_X)==true)
         {
             HW.Shooter1.set(0.25);
         }
-        else if(HW.Stick1.getRawButton(2)==true)
+        else if(HW.Stick1.getRawButton(HW.Stick1.BTN_Y)==true)
         {
             HW.Shooter1.set(0.5);
         }
-        else if(HW.Stick1.getRawButton(3)==true)
+        else if(HW.Stick1.getRawButton(HW.Stick1.BTN_B)==true)
         {
             HW.Shooter1.set(0.75);
         }
-        else if(HW.Stick1.getRawButton(4)==true)
+        else if(HW.Stick1.getRawButton(HW.Stick1.BTN_A)==true)
         {
             HW.Shooter1.set(1.0);
         }
+        else 
+        {
+            HW.Shooter1.set(0.0);
         }
-    }
+    
+        }
+}
