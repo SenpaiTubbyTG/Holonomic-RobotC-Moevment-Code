@@ -3,16 +3,15 @@ package disco.practice.subsystems;
 import com.sun.squawk.util.Arrays;
 import disco.practice.HW;
 import disco.utils.DiscoCounterEncoder;
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /*
  * Code based of LaserDragon and Ultraviolet code.
  */
-public class Shooter extends PIDSubsystem {
+public class Shooter extends Subsystem/*extends PIDSubsystem*/ {
     private Victor m_shooter1;
     private Victor m_shooter2;
     private DiscoCounterEncoder m_shooterEncoder;
@@ -23,26 +22,27 @@ public class Shooter extends PIDSubsystem {
     private static double shooter_kI=0.001;
     private static double shooter_kD=0.0;
 
-    public final double defaultSetpoint=1600;
-
+    //public final double defaultSetpoint=1600;
+    private double PWMSetpoint=0.5;
 
     public Shooter() {
-        super("Shooter", shooter_kP, shooter_kI, shooter_kD);
+        super("Shooter");
         m_shooterEncoder = new DiscoCounterEncoder(HW.encoderSlot, HW.encoderChannel,1);
         m_shooterEncoder.start();
         m_shooter1 = new Victor(HW.shooter1Slot, HW.shooter1Channel);
         m_shooter2 = new Victor(HW.shooter2Slot, HW.shooter2Channel);
 	//getController().setSetpointRange(100, 3500);
-	this.setSetpoint(defaultSetpoint);
     }
 
     protected void initDefaultCommand() {
 	//Do nothing
     }
+    
 
     public void setShooter(double speed) {
-        m_shooter1.set(speed);
-        m_shooter2.set(speed);
+        PWMSetpoint=speed;
+        m_shooter1.set(PWMSetpoint);
+        m_shooter2.set(PWMSetpoint);
     }
 
     protected double returnPIDInput() {
@@ -78,18 +78,23 @@ public class Shooter extends PIDSubsystem {
     public double getFilteredRate(){
      return avgSpeed;
     }
+    
 
-    public void setRPM(double rpm){
-        this.setSetpoint(rpm);
-    }
-
-    public boolean isEnabled(){
-	PIDController controller=this.getPIDController();
-	return controller.isEnable();
-    }
-
-    public PIDController getController(){
-	return getPIDController();
+//    public void setRPM(double rpm){
+//        this.setSetpoint(rpm);
+//    }
+//
+//    public boolean isEnabled(){
+//	PIDController controller=this.getPIDController();
+//	return controller.isEnable();
+//    }
+//
+//    public PIDController getController(){
+//	return getPIDController();
+//    }
+    
+    public double getSetpoint(){
+        return PWMSetpoint;
     }
 
 }

@@ -22,7 +22,7 @@ public class ShooterDec extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	shooter.setSetpointRelative(-100);
+	shooter.setShooter(shooter.getSetpoint()-.1);
 	done=true;
     }
 
