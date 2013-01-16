@@ -22,19 +22,15 @@ public class ToggleShooter extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-	shooterEnabled=shooter.isEnabled();
+	//shooterEnabled=shooter.isEnabled();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	if(shooterEnabled){
-	    shooter.disable();
-	    Scheduler.getInstance().add(new CompressorStart());
-	}
-	else{
-	    shooter.enable();
-	    Scheduler.getInstance().add(new CompressorStop());
-	}
+        if(shooter.getSetpoint()>0)
+            shooter.setShooter(0);
+        else
+            shooter.setShooter(0.5);
 	done=true;
     }
 

@@ -39,14 +39,14 @@ public class OI {
     private Button b_whackerUp=new JoystickButton(gp1,gp1.BTN_BACK);
     private Button b_whackerDown=new JoystickButton(gp1,gp1.BTN_START);
 
-    private Button b_toggleShooter=new JoystickButton(gp1,GamePad.DPAD_X_R);
-    private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
-    private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
+    private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_B);
+    private Button b_shooterInc=new AxisButton(gp1,gp1.BTN_Y);
+    private Button b_shooterDec=new AxisButton(gp1,gp1.BTN_A);
 
-    private Button b_toggleCompressor=new JoystickButton(gp1, gp1.BTN_B);
+    private Button b_toggleCompressor=new JoystickButton(gp1, gp1.BTN_X);
 
-    private Button b_hoodKey=new JoystickButton(gp1,gp1.BTN_Y);
-    private Button b_hoodFar=new JoystickButton(gp1,gp1.BTN_A);
+    private Button b_hoodKey=new JoystickButton(gp1,GamePad.DPAD_Y_U);
+    private Button b_hoodFar=new JoystickButton(gp1,GamePad.DPAD_Y_D);
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // Joystick stick = new Joystick(port);
