@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Encoder;
+
 
 /**
  *
@@ -52,8 +54,13 @@ public class HW {
     public static Victor Shooter1 = new Victor(3);
     public static Victor RFM = new Victor(9);
     public static Victor Shooter2 = new Victor(4);
+    public static Victor LMM = new Victor(11);
+    public static Victor RMM = new Victor(12);
     public static GamePad Stick1 = new GamePad(1, GamePad.MODE_D);
     public static RobotDrive drive = new RobotDrive(LFM, LBM, RFM, RBM);
+    public static Encoder encoder1 = new Encoder(1,2);
+    public static Encoder encoder2 = new Encoder(3,4);
+    
    
     
     
