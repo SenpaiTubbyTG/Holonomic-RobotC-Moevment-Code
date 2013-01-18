@@ -4,6 +4,7 @@
  */
 package disco.utils;
 
+import disco.commands.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Dashboard {
@@ -18,6 +19,8 @@ public class Dashboard {
     }
 
     public static void putSubsystems() {
+        SmartDashboard.putData(CommandBase.drivetrain);
+        SmartDashboard.putData(CommandBase.shooter);
         // Show what command your subsystem is running on the SmartDashboard
 //        SmartDashboard.putData(CommandBase.drivetrain);
     }
