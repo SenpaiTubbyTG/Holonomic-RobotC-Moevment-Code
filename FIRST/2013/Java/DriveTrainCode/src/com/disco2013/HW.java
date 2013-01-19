@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Encoder;
-
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 /**
  *
@@ -60,7 +60,10 @@ public class HW {
     public static RobotDrive drive = new RobotDrive(LFM, LBM, RFM, RBM);
     public static Encoder encoder1 = new Encoder(1,2);
     public static Encoder encoder2 = new Encoder(3,4);
-    
+    public static Ultrasonic ultra1 = new Ultrasonic(1,1,1,1);
+    public static Ultrasonic ultra2 = new Ultrasonic(2,2,2,2);
+    public static Ultrasonic ultra3 = new Ultrasonic(3,3,3,3);
+
    
     
     
