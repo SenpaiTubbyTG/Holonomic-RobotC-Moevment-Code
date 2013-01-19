@@ -35,8 +35,13 @@ public class Main extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+        if(HW.ultra1.getRangeInches()>5)
+            driveStraight(1);
+        else
+            driveStraight(0);
+        
     }
+
 
     /**
      * This function is called periodically during operator control
@@ -45,7 +50,14 @@ public class Main extends IterativeRobot {
         HW.drive.tankDrive(HW.Stick1.getLY(),HW.Stick1.getRY());
         //System.out.println(Shooter1.get());
         
-        
+        if(HW.Stick1.getRawButton(HW.Stick1.BUMPER_R)==true)
+        {
+            HW.Collect1.set(-1);
+        }
+        else if(HW.Stick1.getRawButton(HW.Stick1.TRIGGER_R)==true)
+        {
+            HW.Collect1.set(1);
+        }
         if(HW.Stick1.getRawButton(HW.Stick1.BTN_X)==true)
         {
             HW.Shooter1.set(0.25);
@@ -67,5 +79,14 @@ public class Main extends IterativeRobot {
             HW.Shooter1.set(0.0);
         }
     
-        }
+        }    
+    public void driveStraight(double speed){
+        if(HW.encoder1.getRate()==HW.encoder2.getRate())
+            HW.drive.tankDrive(speed,speed);
+        else if(HW.encoder1.getRate()<HW.encoder2.getRate())
+            HW.drive.tankDrive(speed,speed-0.1);
+        else if(HW.encoder1.getRate()>HW.encoder2.getRate())
+            HW.drive.tankDrive(speed-0.1,speed);
+    }
+    
 }
