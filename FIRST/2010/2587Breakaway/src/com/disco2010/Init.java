@@ -29,7 +29,7 @@ public class Init{
         newTargets[0].m_score = 0;
         HW.trackerDash.updateVisionDashboard(0.0, 0.0, 0.0, 0.0, newTargets);
 
-        //HW.ultra.setAutomaticMode(true);
+;        //HW.ultra.setAutomaticMode(true);
     }
     public void AutonInit()
     {
