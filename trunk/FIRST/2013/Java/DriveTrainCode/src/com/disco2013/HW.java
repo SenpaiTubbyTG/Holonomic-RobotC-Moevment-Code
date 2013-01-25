@@ -46,23 +46,21 @@ public class HW {
     public static Compressor compressor = new Compressor(1,1);
     public static Relay liftRelay = new Relay(2);
  
-    public static Victor LBM = new Victor(8);
-    public static Victor LFM = new Victor(7);
-    public static Victor Collect2 = new Victor(6);
-    public static Victor RBM = new Victor(10);
-    public static Victor Collect1 = new Victor(5);
-    public static Victor Shooter1 = new Victor(3);
-    public static Victor RFM = new Victor(9);
-    public static Victor Shooter2 = new Victor(4);
-    public static Victor LMM = new Victor(11);
-    public static Victor RMM = new Victor(12);
+    public static Victor LBM = new Victor(1);
+    public static Victor LFM = new Victor(2);
+//    public static Victor Collect2 = new Victor(6);
+    public static Victor RBM = new Victor(3);
+//    public static Victor Collect1 = new Victor(5);
+    public static Victor Shooter1 = new Victor(7);
+    public static Victor RFM = new Victor(4);
+    public static Victor Shooter2 = new Victor(8);
     public static GamePad Stick1 = new GamePad(1, GamePad.MODE_D);
     public static RobotDrive drive = new RobotDrive(LFM, LBM, RFM, RBM);
-    public static Encoder encoder1 = new Encoder(1,2);
-    public static Encoder encoder2 = new Encoder(3,4);
-    public static Ultrasonic ultra1 = new Ultrasonic(1,1,1,1);
-    public static Ultrasonic ultra2 = new Ultrasonic(2,2,2,2);
-    public static Ultrasonic ultra3 = new Ultrasonic(3,3,3,3);
+//    public static Encoder encoder1 = new Encoder(1,2);
+//    public static Encoder encoder2 = new Encoder(3,4);
+//    public static Ultrasonic ultra1 = new Ultrasonic(1,1,1,1);
+//    public static Ultrasonic ultra2 = new Ultrasonic(2,2,2,2);
+//    public static Ultrasonic ultra3 = new Ultrasonic(3,3,3,3);
 
    
     
