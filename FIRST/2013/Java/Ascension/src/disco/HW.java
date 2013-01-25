@@ -1,11 +1,5 @@
 package disco;
 
-import disco.utils.GamePad;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Victor;
-
 /**
  * The HW is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -40,8 +34,8 @@ public class HW {
     ------------------------------------------------------- */
     public static int kSolenoidModuleSlot = 8;
 
-    public static Compressor compressor = new Compressor(1,1);
-    public static Relay liftRelay = new Relay(2);
+//    public static Compressor compressor = new Compressor(1,1);
+//    public static Relay liftRelay = new Relay(2);
 
     /** -------------------------------------------------------
     Motors
@@ -52,9 +46,8 @@ public class HW {
 			    RightDrive2Channel=4,   RightDrive2Slot=1,
 			    Collect1Channel=5,	    Collect1Slot=1,
 			    Collect2Channel=6,	    Collect2Slot=1,
-			    Shooter1Channel=7,	    Shooter1Slot=1,
-			    Shooter2Channel=8,	    Shooter2Slot=1,
-                            DiscoEncoderChannel=1,  DiscoEncoderSlot=1;
+			    Shooter1Channel=3,	    Shooter1Slot=1,
+			    Shooter2Channel=4,	    Shooter2Slot=1;
   /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
@@ -66,4 +59,15 @@ public class HW {
     /** -------------------------------------------------------
     Sensors
     ------------------------------------------------------- */
+    public static final int leftEncoderAChannel=2,
+			    leftEncoderBChannel=3,	leftEncoderSlot=1,
+			    rightEncoderAChannel=4,
+			    rightEncoderBChannel=5,	rightEncoderSlot=1,
+			    shooterEncoderChannel=1,	shooterEncoderSlot=1,
+			    ultrasonic1PingChannel=5,
+			    ultrasonic1EchoChannel=6,	ultrasonic1Slot=1,
+			    ultrasonic2PingChannel=7,
+			    ultrasonic2EchoChannel=8,	ultrasonic2Slot=1,
+			    ultrasonic3PingChannel=9,
+			    ultrasonic3EchoChannel=10,	ultrasonic3Slot=1;
 }
