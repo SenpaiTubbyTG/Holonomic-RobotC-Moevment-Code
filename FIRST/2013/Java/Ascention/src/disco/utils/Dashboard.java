@@ -21,6 +21,8 @@ public class Dashboard {
     public static void putSubsystems() {
         SmartDashboard.putData(CommandBase.drivetrain);
         SmartDashboard.putData(CommandBase.shooter);
+        SmartDashboard.putNumber("Left joy", ((GamePad)(CommandBase.oi.getJoy())).getLY());
+        SmartDashboard.putNumber("RIght joy", ((GamePad)(CommandBase.oi.getJoy())).getRY());
         // Show what command your subsystem is running on the SmartDashboard
 //        SmartDashboard.putData(CommandBase.drivetrain);
     }

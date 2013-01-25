@@ -46,14 +46,15 @@ public class HW {
     /** -------------------------------------------------------
     Motors
     ------------------------------------------------------- */
-    public static final int LeftDrive1Channel=7,    LeftDrive1Slot=1,
-			    LeftDrive2Channel=8,    LeftDrive2Slot=1,
-			    RightDrive1Channel=9,   RightDrive1Slot=1,
-			    RightDrive2Channel=10,  RightDrive2Slot=1,
+    public static final int LeftDrive1Channel=1,    LeftDrive1Slot=1,
+			    LeftDrive2Channel=2,    LeftDrive2Slot=1,
+			    RightDrive1Channel=3,   RightDrive1Slot=1,
+			    RightDrive2Channel=4,   RightDrive2Slot=1,
 			    Collect1Channel=5,	    Collect1Slot=1,
 			    Collect2Channel=6,	    Collect2Slot=1,
-			    Shooter1Channel=3,	    Shooter1Slot=1,
-			    Shooter2Channel=4,	    Shooter2Slot=1;
+			    Shooter1Channel=7,	    Shooter1Slot=1,
+			    Shooter2Channel=8,	    Shooter2Slot=1,
+                            DiscoEncoderChannel=1,  DiscoEncoderSlot=1;
   /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
