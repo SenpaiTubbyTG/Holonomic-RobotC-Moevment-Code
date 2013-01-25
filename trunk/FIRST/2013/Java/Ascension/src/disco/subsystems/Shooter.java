@@ -5,24 +5,27 @@
 package disco.subsystems;
 
 import disco.HW;
+import disco.utils.DiscoCounterEncoder;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import disco.utils.DiscoCounterEncoder;
 
 //This is what we have now. This will eventually become a PIDSubsystem (maybe)
 public class Shooter extends PIDSubsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    private Victor shooter1;
-    private Victor shooter2;
-    private static double kP=0, kI=0, kD=0;
-    private DiscoCounterEncoder encoder;
+    private Victor m_shooter1;
+    private Victor m_shooter2;
+    private DiscoCounterEncoder m_encoder;
+    private static double   kP=0,
+			    kI=0,
+			    kD=0,
+			    kF=0;
 
     public Shooter(){
-	super("shooter", kP, kI, kD);
-	shooter1=new Victor(HW.Shooter1Slot,HW.Shooter1Channel);
-	shooter2=new Victor(HW.Shooter2Slot,HW.Shooter2Channel);
-        encoder=new DiscoCounterEncoder(HW.DiscoEncoderSlot, HW.DiscoEncoderChannel, 1);
+	super("shooter",kP,kI,kD,kF);
+	m_shooter1=new Victor(HW.Shooter1Slot,HW.Shooter1Channel);
+	m_shooter2=new Victor(HW.Shooter2Slot,HW.Shooter2Channel);
+	m_encoder=new DiscoCounterEncoder(HW.shooterEncoderSlot,HW.shooterEncoderChannel,1);
     }
 
     public void initDefaultCommand() {
@@ -36,26 +39,30 @@ public class Shooter extends PIDSubsystem {
     }
 
     public void setPower1(double power){
-	shooter1.set(power);
+	m_shooter1.set(power);
     }
 
     public void setPower2(double power){
-	shooter2.set(power);
+	m_shooter2.set(power);
     }
 
     public double getPower1(){
-	return shooter1.get();
+	return m_shooter1.get();
     }
 
     public double getPower2(){
-	return shooter2.get();
+	return m_shooter2.get();
     }
 
     protected double returnPIDInput() {
-        return encoder.getRPM();
+	return m_encoder.getRPM();
     }
 
     protected void usePIDOutput(double output) {
-        setPower(output);
+	setPower(output);
+    }
+
+    public double getRPM() {
+	return m_encoder.getRPM();
     }
 }

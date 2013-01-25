@@ -24,8 +24,8 @@ public class Drivetrain extends Subsystem {
 	RightDrive1=new Victor(HW.RightDrive1Slot,HW.RightDrive1Channel);
 	RightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
 	drive=new RobotDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
-	drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+	drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 	drive.setSafetyEnabled(false);
     }
 
