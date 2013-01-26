@@ -56,9 +56,9 @@ public class HW {
     public static Victor Shooter2 = new Victor(8);
     public static GamePad Stick1 = new GamePad(1, GamePad.MODE_D);
     public static RobotDrive drive = new RobotDrive(LFM, LBM, RFM, RBM);
-    public static Encoder encoder1 = new Encoder(1,2);
-    public static Encoder encoder2 = new Encoder(3,4);
-    public static Ultrasonic ultra1 = new Ultrasonic(1,5,1,6);
-    public static Ultrasonic ultra2 = new Ultrasonic(1,7,1,8);
-    public static Ultrasonic ultra3 = new Ultrasonic(1,9,1,10);
+//    public static Encoder encoder1 = new Encoder(1,2);
+//    public static Encoder encoder2 = new Encoder(3,4);
+//    public static Ultrasonic ultra1 = new Ultrasonic(1,5,1,6);
+//    public static Ultrasonic ultra2 = new Ultrasonic(1,7,1,8);
+//    public static Ultrasonic ultra3 = new Ultrasonic(1,9,1,10);
 }

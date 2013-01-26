@@ -5,8 +5,10 @@
 package disco.subsystems;
 
 import disco.HW;
-import disco.commands.drivetrain.RawJoyTank;
+import disco.commands.drivetrain.JoyArcadeTwoSpeed;
+import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -16,6 +18,9 @@ public class Drivetrain extends Subsystem {
     private Victor RightDrive1;
     private Victor RightDrive2;
     private RobotDrive drive;
+    
+    private MaxbotixSonar sonar1;
+    private Ultrasonic ultra1;
 
     public Drivetrain(){
 	super("Drivetrain");
@@ -24,13 +29,17 @@ public class Drivetrain extends Subsystem {
 	RightDrive1=new Victor(HW.RightDrive1Slot,HW.RightDrive1Channel);
 	RightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
 	drive=new RobotDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
-	drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+	//drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+	//drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 	drive.setSafetyEnabled(false);
+        
+        sonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
+        ultra1=new Ultrasonic(  HW.ultrasonic1Slot,HW.ultrasonic1PingChannel,
+                                HW.ultrasonic1Slot,HW.ultrasonic1EchoChannel,Ultrasonic.Unit.kInches);
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new RawJoyTank());
+        setDefaultCommand(new JoyArcadeTwoSpeed());
     }
 
     public void tankDrive(double left,double right){
@@ -38,6 +47,14 @@ public class Drivetrain extends Subsystem {
     }
 
     public void arcadeDrive(double move, double turn) {
-	drive.arcadeDrive(move,turn);
+	drive.arcadeDrive(move,turn,true);
+    }
+    
+    public double getSonar(){
+        return sonar1.getMedianRange();
+    }
+    
+    public double getUltra1(){
+        return ultra1.getRangeInches();
     }
 }

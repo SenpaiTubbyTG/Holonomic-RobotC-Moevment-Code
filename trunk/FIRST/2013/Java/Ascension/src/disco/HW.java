@@ -44,10 +44,12 @@ public class HW {
 			    LeftDrive2Channel=2,    LeftDrive2Slot=1,
 			    RightDrive1Channel=3,   RightDrive1Slot=1,
 			    RightDrive2Channel=4,   RightDrive2Slot=1,
-			    Collect1Channel=5,	    Collect1Slot=1,
-			    Collect2Channel=6,	    Collect2Slot=1,
-			    Shooter1Channel=3,	    Shooter1Slot=1,
-			    Shooter2Channel=4,	    Shooter2Slot=1;
+            
+			    Collect1Channel=7,	    Collect1Slot=1,
+			    Collect2Channel=3,	    Collect2Slot=2,
+            
+			    Shooter1Channel=2,	    Shooter1Slot=2,
+			    Shooter2Channel=4,	    Shooter2Slot=2;
   /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
@@ -59,15 +61,18 @@ public class HW {
     /** -------------------------------------------------------
     Sensors
     ------------------------------------------------------- */
-    public static final int leftEncoderAChannel=2,
-			    leftEncoderBChannel=3,	leftEncoderSlot=1,
-			    rightEncoderAChannel=4,
-			    rightEncoderBChannel=5,	rightEncoderSlot=1,
-			    shooterEncoderChannel=1,	shooterEncoderSlot=1,
-			    ultrasonic1PingChannel=5,
-			    ultrasonic1EchoChannel=6,	ultrasonic1Slot=1,
+    public static final int //Digital
+                            leftEncoderAChannel=10,
+			    leftEncoderBChannel=10,	leftEncoderSlot=1,
+			    rightEncoderAChannel=10,
+			    rightEncoderBChannel=10,	rightEncoderSlot=1,
+			    shooterEncoderChannel=10,	shooterEncoderSlot=1,
+			    ultrasonic1PingChannel=1,
+			    ultrasonic1EchoChannel=2,	ultrasonic1Slot=1,
 			    ultrasonic2PingChannel=7,
 			    ultrasonic2EchoChannel=8,	ultrasonic2Slot=1,
 			    ultrasonic3PingChannel=9,
-			    ultrasonic3EchoChannel=10,	ultrasonic3Slot=1;
+			    ultrasonic3EchoChannel=10,	ultrasonic3Slot=1,
+                            //Analog
+                            maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1;
 }
