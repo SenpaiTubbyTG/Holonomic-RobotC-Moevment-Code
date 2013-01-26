@@ -21,13 +21,17 @@ public class Dashboard {
     public static void putSubsystems() {
         SmartDashboard.putData(CommandBase.drivetrain);
         SmartDashboard.putData(CommandBase.shooter);
+        SmartDashboard.putData(CommandBase.collector);
         // Show what command your subsystem is running on the SmartDashboard
     }
 
     public static void putSensors() {
 //	SmartDashboard.putData("Shooter PID",CommandBase.shooter.getController()); //don't need this?
 	SmartDashboard.putNumber("Shooter RPM", CommandBase.shooter.getRPM());
-	SmartDashboard.putNumber("Left joy", ((GamePad)(CommandBase.oi.getJoy())).getLY());
-        SmartDashboard.putNumber("RIght joy", ((GamePad)(CommandBase.oi.getJoy())).getRY());
+	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy())).getLY());
+        SmartDashboard.putNumber("Left joy X", ((GamePad)(CommandBase.oi.getJoy())).getLX());
+        SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
+        SmartDashboard.putNumber("Sonar", CommandBase.drivetrain.getSonar());
+        SmartDashboard.putNumber("Ultrasonic1", CommandBase.drivetrain.getUltra1());
     }
 }

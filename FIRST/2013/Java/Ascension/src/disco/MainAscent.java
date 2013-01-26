@@ -48,11 +48,12 @@ public class MainAscent extends IterativeRobot {
 
     public void disabledPeriodic() {
 	Scheduler.getInstance().run();
+        Dashboard.putSensors();
     }
 
     public void autonomousInit() {
 	// schedule the autonomous command (example)
-	autonomousCommand.start();
+	//autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {
@@ -60,11 +61,12 @@ public class MainAscent extends IterativeRobot {
     }
 
     public void teleopInit() {
-	autonomousCommand.cancel();
+	//autonomousCommand.cancel();
     }
 
     public void teleopPeriodic() {
 	Scheduler.getInstance().run();
+        Dashboard.putSensors();
     }
 
     public void testPeriodic() {

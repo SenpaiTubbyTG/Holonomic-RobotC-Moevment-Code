@@ -1,6 +1,7 @@
 package disco.commands;
 
 import disco.OI;
+import disco.subsystems.Collector;
 import disco.subsystems.Drivetrain;
 import disco.subsystems.Shooter;
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,6 +18,7 @@ public abstract class CommandBase extends Command {
     // Create a single static instance of all of your subsystems
     public static Drivetrain drivetrain=new Drivetrain();
     public static Shooter shooter=new Shooter();
+    public static Collector collector=new Collector();
 
 
     public static void init() {

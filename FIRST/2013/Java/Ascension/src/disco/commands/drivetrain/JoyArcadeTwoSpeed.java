@@ -9,15 +9,17 @@ import disco.utils.GamePad;
 import edu.wpi.first.wpilibj.Joystick;
 
 
-
-public class RawJoyArcade extends CommandBase {
+/**
+ * Allows fine control with the right joystick
+ */
+public class JoyArcadeTwoSpeed extends CommandBase {
     private double move=0;
     private double turn=0;
     private Joystick joy1;
     private GamePad gp;
     private double threshold=0.2;
 
-    public RawJoyArcade() {
+    public JoyArcadeTwoSpeed() {
         // Use requires() here to declare subsystem dependencies
         requires(drivetrain);
     }
@@ -37,12 +39,12 @@ public class RawJoyArcade extends CommandBase {
 	    move=Math.abs(move)>threshold ? move : 0;
 	    turn=-1*gp.getLX();
 	    turn=Math.abs(turn)>threshold ? turn : 0;
+            
+            move+=gp.getRY()/2;
+            turn+= -1*gp.getRX()/2;
 	}
 	else{
-	    move=joy1.getAxis(Joystick.AxisType.kY);
-	    move=Math.abs(move)>threshold ? move : 0;
-	    turn=joy1.getAxis(Joystick.AxisType.kX);
-	    turn=Math.abs(turn)>threshold ? turn : 0;
+	    throw new IllegalStateException("JoyArcadeTwoSpeed only works with gamepads for now.");
 	}
 	drivetrain.arcadeDrive(move,turn);
     }
