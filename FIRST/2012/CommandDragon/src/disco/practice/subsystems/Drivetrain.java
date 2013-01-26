@@ -5,6 +5,7 @@
 package disco.practice.subsystems;
 
 import disco.practice.HW;
+import disco.practice.commands.Drivetrain.RawJoyArcade;
 import disco.practice.commands.Drivetrain.RawJoyTank;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
@@ -31,7 +32,7 @@ public class Drivetrain extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new RawJoyTank());
+        setDefaultCommand(new RawJoyArcade());
     }
 
     public void driveArcade(double move, double turn){

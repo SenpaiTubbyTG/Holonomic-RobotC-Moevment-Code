@@ -73,11 +73,12 @@ public class MainDragon extends IterativeRobot {
 
     public void teleopInit() {
 	//Stop auton commmand
-	Scheduler.getInstance().add(new CompressorStart());
+	//Scheduler.getInstance().add(new CompressorStart());
     }
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
 //	Dashboard.putStuff();
+        System.out.println(CommandBase.shooter.getRPM());
     }
     public void teleopContinuous(){
 	// Scheduler.getInstance().run();

@@ -49,6 +49,7 @@ public class Dashboard {
         SmartDashboard.putString("Hood position", position);
 
 //	SmartDashboard.putData("Shooter PID",CommandBase.shooter.getController()); //don't need this?
-//	SmartDashboard.putNumber("Shooter RPM", CommandBase.shooter.getRPM());
+	SmartDashboard.putNumber("Shooter RPM", CommandBase.shooter.getRPM());
+        
     }
 }
