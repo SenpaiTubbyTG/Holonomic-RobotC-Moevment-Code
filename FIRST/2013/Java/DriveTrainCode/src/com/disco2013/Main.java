@@ -50,14 +50,14 @@ public class Main extends IterativeRobot {
         HW.drive.tankDrive(-HW.Stick1.getLY(),HW.Stick1.getRY());
         //System.out.println(Shooter1.get());
         
-//        if(HW.Stick1.getRawButton(HW.Stick1.BUMPER_R)==true)
-//        {
-//            HW.Collect1.set(-1);
-//        }
-//        else if(HW.Stick1.getRawButton(HW.Stick1.TRIGGER_R)==true)
-//        {
-//            HW.Collect1.set(1);
-//        }
+        if(HW.Stick1.getRawButton(HW.Stick1.BUMPER_R)==true)
+        {
+            HW.Collect1.set(-1);
+        }
+        else if(HW.Stick1.getRawButton(HW.Stick1.TRIGGER_R)==true)
+        {
+            HW.Collect1.set(1);
+        }
         if(HW.Stick1.getRawButton(HW.Stick1.BTN_X)==true)
         {
             HW.Shooter1.set(0.25);
