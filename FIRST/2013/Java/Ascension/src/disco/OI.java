@@ -3,6 +3,8 @@ package disco;
 import disco.commands.collector.CollectorDec;
 import disco.commands.collector.CollectorInc;
 import disco.commands.collector.CollectorToggle;
+import disco.commands.drivetrain.JoyArcadeTwoSpeed;
+import disco.commands.drivetrain.RawJoyTank;
 import disco.commands.shooter.ShooterDec;
 import disco.commands.shooter.ShooterInc;
 import disco.commands.shooter.ShooterToggle;
@@ -29,6 +31,9 @@ public class OI {
     private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_Y);
     private Button b_shooterInc=new JoystickButton(gp1,GamePad.DPAD_X_R);
     private Button b_shooterDec=new JoystickButton(gp1,GamePad.DPAD_X_L);
+    
+    private Button b_makeTank=new JoystickButton(gp1,gp1.BUMPER_R);
+    private Button b_makeArcade=new JoystickButton(gp1,gp1.BUMPER_L);
 
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -64,6 +69,9 @@ public class OI {
         b_toggleShooter.whenPressed(new ShooterToggle());
         b_shooterInc.whenPressed(new ShooterInc());
         b_shooterDec.whenPressed(new ShooterDec());
+        
+        b_makeTank.whenPressed(new RawJoyTank());
+        b_makeArcade.whenPressed(new JoyArcadeTwoSpeed());
     }
 
     public Joystick getJoy() {
