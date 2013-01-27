@@ -1,0 +1,280 @@
+<head><version>2.48.3</version></head>
+<Read_HTTP>
+  <is_active>TRUE</is_active>
+  <url>http://10.25.87.11/axis-cgi/mjpg/video.cgi?resolution=320x240&amp;color=0</url>
+  <password>admin</password>
+  <username>root</username>
+  <erase_on_error>TRUE</erase_on_error>
+</Read_HTTP>
+<Marker>
+  <include_graphics>FALSE</include_graphics>
+  <name>Source</name>
+  <revert_to>Current</revert_to>
+</Marker>
+<Adaptive_Threshold>
+  <mean_offset>5</mean_offset>
+  <filter_size>7</filter_size>
+  <min_threshold>230</min_threshold>
+  <result_type>2</result_type>
+  <channel_type>2</channel_type>
+  <max_threshold>255</max_threshold>
+</Adaptive_Threshold>
+<RGB_Filter disabled>
+  <channel>2</channel>
+  <hysteresis>0</hysteresis>
+  <result_type>2</result_type>
+  <min_value>100</min_value>
+  <hue_value>50</hue_value>
+</RGB_Filter>
+<HLS_Channel>
+  <channel>3</channel>
+</HLS_Channel>
+<Close>
+  <restrict_dilation>FALSE</restrict_dilation>
+  <erode_count>10</erode_count>
+  <dilate_count>10</dilate_count>
+  <close_borders>FALSE</close_borders>
+  <kernal_shape>4</kernal_shape>
+  <symmetrical>TRUE</symmetrical>
+</Close>
+<Fill>
+  <four_pixel_connectivity>FALSE</four_pixel_connectivity>
+  <check_border>FALSE</check_border>
+  <fill_with_average_color>FALSE</fill_with_average_color>
+</Fill>
+<Blob_Size>
+  <limit>512</limit>
+  <min_area>300</min_area>
+  <treat_as_color_image>FALSE</treat_as_color_image>
+  <mask>FALSE</mask>
+  <threshold>5</threshold>
+  <max_area>0</max_area>
+</Blob_Size>
+<Blob_Replace>
+  <thickness>1</thickness>
+  <color_index>3</color_index>
+  <fill_shape>TRUE</fill_shape>
+  <order_array_on_x>TRUE</order_array_on_x>
+  <shape_index>15</shape_index>
+  <order_array_on_y>FALSE</order_array_on_y>
+</Blob_Replace>
+<Geometric_Statistics>
+  <basic_statistics>TRUE</basic_statistics>
+  <scope>1</scope>
+</Geometric_Statistics>
+<Blob_Filter>
+  <filters>
+    <tab:5/>
+    <tab:2>
+      <filter:2>
+        <create_array>0</create_array>
+        <count_threshold>1</count_threshold>
+        <weight_threshold>0</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>28</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:2>
+      <filter>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>8</filter_id>
+        <invert_threshold>0</invert_threshold>
+        <minimum_size>500</minimum_size>
+      </filter>
+    </tab:2>
+    <tab:4/>
+    <tab>
+      <filter:2>
+        <create_array>0</create_array>
+        <count_threshold>1</count_threshold>
+        <weight_threshold>0</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>22</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:2>
+      <filter:4>
+        <create_array>0</create_array>
+        <ratio>1.30000</ratio>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>63</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:4>
+      <filter:3>
+        <object>2</object>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>98</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:3>
+      <filter>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>8</filter_id>
+        <invert_threshold>0</invert_threshold>
+        <minimum_size>502</minimum_size>
+      </filter>
+    </tab>
+    <tab:6/>
+    <tab:3/>
+  </filters>
+  <sort_array_on_y>TRUE</sort_array_on_y>
+  <largest_is_background>FALSE</largest_is_background>
+  <sort_array_on_x>FALSE</sort_array_on_x>
+  <show_weights>FALSE</show_weights>
+  <create_blob_array_variable>TRUE</create_blob_array_variable>
+</Blob_Filter>
+<VBScript_Program>
+  <tab_size_index>1</tab_size_index>
+  <script>	imageWidth = GetVariable("IMAGE_WIDTH")
+	imageHeight = GetVariable("IMAGE_HEIGHT")
+	blobs = GetArrayVariable("BLOBS")
+	blobCount = GetVariable("BLOB_COUNT")
+	fov = 45
+	fovRad = 3.14159265 / 4
+	
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+	SetVariable "defAng", ((fov * ((imageWidth / 2) - 310)) / imageWidth)	
+
+	if blobCount &gt; 0 then 
+		SetVariable "rotAng1", FormatNumber(((fov * ((imageWidth / 2) - blobs(0))) / imageWidth),3)
+  else 
+		SetVariable "rotAng1", 0
+  end if
+	if blobCount &gt; 1 then 
+		SetVariable "rotAng2", FormatNumber(((fov * ((imageWidth / 2) - blobs(2))) / imageWidth),3)
+  else 
+		SetVariable "rotAng2", 0
+  end if
+	if blobCount &gt; 2 then 
+		SetVariable "rotAng3", FormatNumber(((fov * ((imageWidth / 2) - blobs(4))) / imageWidth),3)
+  else 
+		SetVariable "rotAng3", 0
+  end if
+	if blobCount &gt; 3 then 
+		SetVariable "rotAng4", FormatNumber(((fov * ((imageWidth / 2) - blobs(6))) / imageWidth),3)
+  else 
+		SetVariable "rotAng4", 0
+  end if
+	if blobCount &gt; 4 then 
+		SetVariable "rotAng5", FormatNumber(((fov * ((imageWidth / 2) - blobs(8))) / imageWidth),3)
+  else
+		SetVariable "rotAng5", 0
+  end if
+	if blobCount &gt; 5 then 
+		SetVariable "error", "true"
+  else 
+		SetVariable "error", "false"
+  end if
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+	mysub()
+	halfTargetWidthRadians = FormatNumber(((fovRad * GetArrayVariable("WIDTH")(0))/(2 * imageWidth)),3)
+	testWidthInches = 14
+	SetVariable "distance", ((testWidthInches)/(24*Tan(halfTargetWidthRadians)))-1 
+	
+	
+Sub mysub()
+	SetVariable "distance", 0
+End Sub
+	
+	</script>
+  <filename>C:\Users\Nolan\User Documents\Robotics\2587 Discobots\FIRST\2013\RoboRealm\Calc.vbs</filename>
+  <source_mode>gui</source_mode>
+</VBScript_Program>
+<Object_Recognition disabled>
+  <select_top_objects>0</select_top_objects>
+  <max_angle>360</max_angle>
+  <create_shape_array>FALSE</create_shape_array>
+  <monitor_folder>FALSE</monitor_folder>
+  <absent_after_frames>0</absent_after_frames>
+  <display_filename>TRUE</display_filename>
+  <matched_color_index>3</matched_color_index>
+  <check_tx>TRUE</check_tx>
+  <max_confidence>1000</max_confidence>
+  <check_orientation>TRUE</check_orientation>
+  <min_angle>0</min_angle>
+  <sort_array_on_y>FALSE</sort_array_on_y>
+  <font_size_index>2</font_size_index>
+  <enable_tracking>TRUE</enable_tracking>
+  <base_folder>C:\Program Files (x86)\RoboRealm\Objects\</base_folder>
+  <display_ty>FALSE</display_ty>
+  <display_orientation>FALSE</display_orientation>
+  <recognition_method>2</recognition_method>
+  <present_after_frames>0</present_after_frames>
+  <max_size>1000</max_size>
+  <display_scale>FALSE</display_scale>
+  <check_ty>TRUE</check_ty>
+  <black_is_mask>FALSE</black_is_mask>
+  <min_confidence>70</min_confidence>
+  <sort_array_on_x>FALSE</sort_array_on_x>
+  <min_tracking_confidence>50</min_tracking_confidence>
+  <min_size>20</min_size>
+  <check_scale>TRUE</check_scale>
+  <display_tx>FALSE</display_tx>
+  <display_confidence>TRUE</display_confidence>
+  <match_isolation>20</match_isolation>
+</Object_Recognition>
+<Math>
+  <image_1_channel>2</image_1_channel>
+  <image_2_channel>1</image_2_channel>
+  <image2>Current</image2>
+  <function>6</function>
+  <divisor>1</divisor>
+  <image1>Source</image1>
+  <all_channels>FALSE</all_channels>
+  <bias>0</bias>
+</Math>
+<Display_Variables>
+  <display_as_annotation>FALSE</display_as_annotation>
+  <font_size_index>2</font_size_index>
+  <east>HEIGHT
+WIDTH
+</east>
+  <display_value_only>FALSE</display_value_only>
+  <northeast>BLOB_COUNT
+error
+</northeast>
+  <dim_background>TRUE</dim_background>
+  <border_color_index>5</border_color_index>
+  <southeast>distance
+rotAng1
+rotAng2
+rotAng3
+rotAng4
+rotAng5
+</southeast>
+  <border_color>yellow</border_color>
+  <font_size>Normal (10pt)</font_size>
+</Display_Variables>
+<Display_Point>
+  <shape_color>yellow</shape_color>
+  <display_as_annotation>FALSE</display_as_annotation>
+  <thickness>1</thickness>
+  <color_index>6</color_index>
+  <y_coord>[IMAGE_HEIGHT/2]</y_coord>
+  <shape_size>1</shape_size>
+  <size_index>2</size_index>
+  <clear_image>FALSE</clear_image>
+  <data_source>2</data_source>
+  <shape_index>4</shape_index>
+  <x_coord>[IMAGE_WIDTH/2]</x_coord>
+</Display_Point>
+<Display_Point>
+  <shape_color>yellow</shape_color>
+  <display_as_annotation>FALSE</display_as_annotation>
+  <thickness>1</thickness>
+  <shape_size>2</shape_size>
+  <y_coord>100</y_coord>
+  <clear_image>FALSE</clear_image>
+  <data_source>1</data_source>
+  <shape_index>4</shape_index>
+  <x_coord>100</x_coord>
+  <xy_variable>BLOBS</xy_variable>
+</Display_Point>
