@@ -22,10 +22,8 @@ public class CollectorInc extends CommandBase {
     protected void execute() {
 	double power=collector.getPower();
 
-	if(power<=0.9){
-	    power+=0.1;
-	}
-	else{
+	power+=0.1;
+	if(power>1){
 	    power=1;
 	}
 	collector.setPower(power);

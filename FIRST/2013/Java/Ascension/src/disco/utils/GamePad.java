@@ -138,7 +138,7 @@ public class GamePad extends Joystick{
      */
     public double getDpadY(){
         if(DPAD_Y==0) {
-	    return 0;
+	    return 0;//axis does not exist
 	}
         else {
 	    return getRawAxis(DPAD_Y)*reversedAxes[DPAD_Y - 1];
@@ -149,7 +149,7 @@ public class GamePad extends Joystick{
      */
     public double getTriggerAxis(){
         if(TRIGGER==0) {
-	    return 0;
+	    return 0;//axis does not exist
 	}
         else {
 	    return getRawAxis(TRIGGER)*reversedAxes[TRIGGER - 1];
@@ -175,10 +175,10 @@ public class GamePad extends Joystick{
 	double result=0;
 	switch(stick){
 	    case STICK_L:
-		result=MathUtils.atan2(getX(), -getY());
+		result=MathUtils.atan2(getLX(), -getLY());
 		break;
 	    case STICK_R:
-		result=MathUtils.atan2(getX(), -getY());
+		result=MathUtils.atan2(getRX(), -getRY());
 		break;
 	    default:
 		throw new IllegalArgumentException();
@@ -246,7 +246,7 @@ public class GamePad extends Joystick{
 		if(m_buttonAxis==GamePad.DPAD_X_L){
 		    return m_gp.getDpadY()<-m_threshold;
 		}
-	    //It's just a regular button. Why did the developer use this class? Silly developer!
+	    //It's just a regular button. Why did the developer use this class? Silly developer! (ok, for compatibility, wise guy)
 	    return m_gp.getRawButton(m_buttonAxis);
 	}
 

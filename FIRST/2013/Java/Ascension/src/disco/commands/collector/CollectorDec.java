@@ -22,10 +22,8 @@ public class CollectorDec extends CommandBase {
     protected void execute() {
 	double power=collector.getPower();
 
-	if(power>=0){
-	    power-=0.1;
-	}
-	else{
+	power-=0.1;
+	if(power<0){
 	    power=0;
 	}
 	collector.setPower(power);

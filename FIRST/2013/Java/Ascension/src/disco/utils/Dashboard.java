@@ -18,6 +18,7 @@ public class Dashboard {
         putSensors();
     }
 
+    //Only call this once or we overflow the memory. Bad day.
     public static void putSubsystems() {
         SmartDashboard.putData(CommandBase.drivetrain);
         SmartDashboard.putData(CommandBase.shooter);
@@ -25,6 +26,7 @@ public class Dashboard {
         // Show what command your subsystem is running on the SmartDashboard
     }
 
+    //Repeatedly call this to update dashboard values.
     public static void putSensors() {
 //	SmartDashboard.putData("Shooter PID",CommandBase.shooter.getController()); //don't need this?
 	SmartDashboard.putNumber("Shooter RPM", CommandBase.shooter.getRPM());

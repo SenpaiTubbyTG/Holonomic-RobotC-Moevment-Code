@@ -22,10 +22,8 @@ public class ShooterInc extends CommandBase {
     protected void execute() {
 	double power=shooter.getPower1();
 
-	if(power<=0.9){
-	    power+=0.1;
-	}
-	else{
+	power+=0.1;
+	if(power>1){
 	    power=1;
 	}
 	shooter.setPower(power);
