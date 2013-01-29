@@ -32,18 +32,6 @@ public class RawJoyArcade extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute(){
-	if(gp != null){
-	    move=gp.getLY();
-	    move=Math.abs(move)>threshold ? move : 0;
-	    turn=-1*gp.getLX();
-	    turn=Math.abs(turn)>threshold ? turn : 0;
-	}
-	else{
-	    move=joy1.getAxis(Joystick.AxisType.kY);
-	    move=Math.abs(move)>threshold ? move : 0;
-	    turn=joy1.getAxis(Joystick.AxisType.kX);
-	    turn=Math.abs(turn)>threshold ? turn : 0;
-	}
 	drivetrain.arcadeDrive(move,turn);
     }
 
@@ -61,5 +49,19 @@ public class RawJoyArcade extends CommandBase {
     // subsystems is scheduled to run
     protected void interrupted() {
 	end();
+    }
+    protected void calculateInput(){
+        if(gp != null){
+	    move=gp.getLY();
+	    move=Math.abs(move)>threshold ? move : 0;
+	    turn=-1*gp.getLX();
+	    turn=Math.abs(turn)>threshold ? turn : 0;
+	}
+	else{
+	    move=joy1.getAxis(Joystick.AxisType.kY);
+	    move=Math.abs(move)>threshold ? move : 0;
+	    turn=joy1.getAxis(Joystick.AxisType.kX);
+	    turn=Math.abs(turn)>threshold ? turn : 0;
+	}
     }
 }
