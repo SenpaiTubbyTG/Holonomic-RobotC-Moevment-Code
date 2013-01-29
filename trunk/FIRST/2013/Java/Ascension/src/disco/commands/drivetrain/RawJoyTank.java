@@ -5,10 +5,10 @@ import disco.utils.GamePad;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class RawJoyTank extends CommandBase {
-    private double left=0;
-    private double right=0;
-    private Joystick joy1;
-    private GamePad gp;
+    protected double left=0;
+    protected double right=0;
+    protected Joystick joy1;
+    protected GamePad gp;
     private double threshold=0.2;
 
     public RawJoyTank() {
@@ -26,19 +26,8 @@ public class RawJoyTank extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute(){
-	if(gp != null){
-	    left=gp.getLY();
-	    left=Math.abs(left)>threshold ? left : 0;
-	    right=gp.getRY();
-	    right=Math.abs(right)>threshold ? right : 0;
-	    drivetrain.tankDrive(left, right);
-	}
-	else{
-	    //left=joy1.getAxis(Joystick.AxisType.kY);
-	    //right=joy1.getAxis(Joystick.AxisType.kX);
-	    throw new IllegalStateException("Tank drive only works with game pads for now. Sorry");
-	    //drivetrain.driveArcade(left,right);
-	}
+	calculateInput();
+	drivetrain.tankDrive(left, right);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -55,5 +44,22 @@ public class RawJoyTank extends CommandBase {
     // subsystems is scheduled to run
     protected void interrupted() {
 	end();
+    }
+
+    protected void calculateInput(){
+	if(gp != null){
+	    left=gp.getLY();
+	    left=Math.abs(left)>threshold ? left : 0;
+	    right=gp.getRY();
+	    right=Math.abs(right)>threshold ? right : 0;
+	}
+	else{
+	    //left=joy1.getAxis(Joystick.AxisType.kY);
+	    //right=joy1.getAxis(Joystick.AxisType.kX);
+	    left=0;
+	    right=0;
+	    throw new IllegalStateException("Tank drive only works with game pads for now. Sorry");
+	    //drivetrain.driveArcade(left,right);
+	}
     }
 }
