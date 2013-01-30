@@ -5,6 +5,7 @@
 package disco.utils;
 
 import disco.commands.CommandBase;
+import disco.commands.drivetrain.AssistedTank;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Dashboard {
@@ -23,13 +24,15 @@ public class Dashboard {
         SmartDashboard.putData(CommandBase.drivetrain);
         SmartDashboard.putData(CommandBase.shooter);
         SmartDashboard.putData(CommandBase.collector);
-        // Show what command your subsystem is running on the SmartDashboard
+        //put other PID and stuff
     }
 
     //Repeatedly call this to update dashboard values.
     public static void putSensors() {
 //	SmartDashboard.putData("Shooter PID",CommandBase.shooter.getController()); //don't need this?
 	SmartDashboard.putNumber("Shooter RPM", CommandBase.shooter.getRPM());
+	SmartDashboard.putNumber("Shooter PWM", CommandBase.shooter.getPower1());
+        
 	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy())).getLY());
         SmartDashboard.putNumber("Left joy X", ((GamePad)(CommandBase.oi.getJoy())).getLX());
         SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());

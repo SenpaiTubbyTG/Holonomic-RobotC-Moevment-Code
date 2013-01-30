@@ -66,7 +66,9 @@ public class HW {
 			    leftEncoderBChannel=10,	leftEncoderSlot=1,
 			    rightEncoderAChannel=10,
 			    rightEncoderBChannel=10,	rightEncoderSlot=1,
-			    shooterEncoderChannel=10,	shooterEncoderSlot=1,
+            
+			    shooterEncoderChannel=1,	shooterEncoderSlot=2,
+            
 			    ultrasonic1PingChannel=1,
 			    ultrasonic1EchoChannel=2,	ultrasonic1Slot=1,
 			    ultrasonic2PingChannel=7,

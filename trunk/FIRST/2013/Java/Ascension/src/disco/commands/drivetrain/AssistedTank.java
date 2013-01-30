@@ -7,6 +7,7 @@ package disco.commands.drivetrain;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class AssistedTank extends RawJoyTank {
@@ -16,7 +17,7 @@ public class AssistedTank extends RawJoyTank {
 		    m_kD=0;
     //joystick differences below this are assumed to be intended to be identical.
     private double m_correctionThreshold=0.2;
-    private double m_inputThreshold=0.2;
+    //protected double threshold=0.2;
 
     private double m_correction=0;
     private int m_leftInitial=0;
@@ -49,13 +50,14 @@ public class AssistedTank extends RawJoyTank {
 	turnControl=new PIDController(m_kP,m_kI,m_kD,source,output);
 	turnControl.enable();
 	turnControl.setSetpoint(0); //minimize error
+        SmartDashboard.putData("Encoder PID",turnControl);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 	calculateInput();
-	//we should correct
 	if(Math.abs(left-right)<=m_correctionThreshold){
+            //we should correct
 	    if(!turnControl.isEnable()){
 		turnControl.enable();
 	    }
@@ -64,7 +66,8 @@ public class AssistedTank extends RawJoyTank {
 	    //normalize if we are out of range (based on RobotDrive, which only does this for mecanum)
 	    double max=Math.max(Math.abs(left), Math.abs(right));
 	    if(max>1){
-
+                left=left/max;
+                right=right/max;
 	    }
 	}
 	else{
@@ -107,6 +110,10 @@ public class AssistedTank extends RawJoyTank {
     }
     private int offsetRight(){
 	return drivetrain.getRightEncoder()-m_rightInitial;
+    }
+    
+    public PIDController getController(){
+        return turnControl;
     }
 
 }

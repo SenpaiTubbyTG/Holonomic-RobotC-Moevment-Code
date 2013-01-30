@@ -6,6 +6,8 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.utils.DiscoCounterEncoder;
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -13,19 +15,19 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 public class Shooter extends PIDSubsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    private Victor m_shooter1;
-    private Victor m_shooter2;
-    private DiscoCounterEncoder m_encoder;
+    private Talon m_shooter1;
+    private Talon m_shooter2;
+    private Counter m_encoder;
     private static double   kP=0,
 			    kI=0,
 			    kD=0,
-			    kF=0;
+			    kF=0.1;
 
     public Shooter(){
 	super("shooter",kP,kI,kD,kF);
-	m_shooter1=new Victor(HW.Shooter1Slot,HW.Shooter1Channel);
-	m_shooter2=new Victor(HW.Shooter2Slot,HW.Shooter2Channel);
-	m_encoder=new DiscoCounterEncoder(HW.shooterEncoderSlot,HW.shooterEncoderChannel,1);
+	m_shooter1=new Talon(HW.Shooter1Slot,HW.Shooter1Channel);
+	m_shooter2=new Talon(HW.Shooter2Slot,HW.Shooter2Channel);
+	m_encoder=new Counter(HW.shooterEncoderSlot,HW.shooterEncoderChannel);
     }
 
     public void initDefaultCommand() {
@@ -55,7 +57,7 @@ public class Shooter extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-	return m_encoder.getRPM();
+	return m_encoder.get();
     }
 
     protected void usePIDOutput(double output) {
@@ -63,6 +65,6 @@ public class Shooter extends PIDSubsystem {
     }
 
     public double getRPM() {
-	return m_encoder.getRPM();
+	return m_encoder.get();
     }
 }
