@@ -25,7 +25,7 @@ public class ShooterToggle extends CommandBase {
 	    shooter.setPower(0);
 	}
 	else {
-	    shooter.setPower(1);
+	    shooter.setPower(0.5);
 	}
 	done=true;
     }

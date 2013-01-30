@@ -5,6 +5,7 @@
 package disco.subsystems;
 
 import disco.HW;
+import disco.commands.drivetrain.AssistedTank;
 import disco.commands.drivetrain.JoyArcadeTwoSpeed;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.Encoder;
@@ -20,13 +21,6 @@ public class Drivetrain extends Subsystem {
     private Victor RightDrive1;
     private Victor RightDrive2;
     private RobotDrive drive;
-
-    private static double  kP_range=0.01,
-		    kI_range=0,
-		    kD_range=0;
-    private static double  kP_distance=0,
-		    kI_distance=0,
-		    kD_distance=0;
 
     private MaxbotixSonar sonar1;
     private Ultrasonic ultra1;
@@ -50,7 +44,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new JoyArcadeTwoSpeed());
+        setDefaultCommand(new AssistedTank());
     }
 
     public void tankDrive(double left,double right){

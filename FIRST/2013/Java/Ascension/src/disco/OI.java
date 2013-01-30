@@ -24,13 +24,13 @@ public class OI {
     private int gp1_mode = GamePad.MODE_D;
     private GamePad gp1 = new GamePad(1, gp1_mode);
 
-    private Button b_toggleCollector=new JoystickButton(gp1,gp1.BTN_X);
-    private Button b_collectorInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
-    private Button b_collectorDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
+//    private Button b_toggleCollector=new JoystickButton(gp1,gp1.BTN_X);
+//    private Button b_collectorInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
+//    private Button b_collectorDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
     
     private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_Y);
-    private Button b_shooterInc=new JoystickButton(gp1,GamePad.DPAD_X_R);
-    private Button b_shooterDec=new JoystickButton(gp1,GamePad.DPAD_X_L);
+    private Button b_shooterInc=new JoystickButton(gp1,gp1.BTN_B);
+    private Button b_shooterDec=new JoystickButton(gp1,gp1.BTN_X);
     
     private Button b_makeTank=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_makeArcade=new JoystickButton(gp1,gp1.BUMPER_L);
@@ -62,9 +62,9 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     public OI() {
-	b_toggleCollector.whenPressed(new CollectorToggle());
-	b_collectorInc.whenPressed(new CollectorInc());
-	b_collectorDec.whenPressed(new CollectorDec());
+//	b_toggleCollector.whenPressed(new CollectorToggle());
+//	b_collectorInc.whenPressed(new CollectorInc());
+//	b_collectorDec.whenPressed(new CollectorDec());
         
         b_toggleShooter.whenPressed(new ShooterToggle());
         b_shooterInc.whenPressed(new ShooterInc());
