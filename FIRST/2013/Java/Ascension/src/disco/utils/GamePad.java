@@ -5,7 +5,7 @@ import com.sun.squawk.util.MathUtils;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 
-public class GamePad extends Joystick{
+public class GamePad extends Joystick {
     /**
      * Select the mode with the switch on the back of the joystick.
      * X uses the triggers as an axis but cannot use the vertical Dpad.
@@ -241,10 +241,10 @@ public class GamePad extends Joystick{
 	    }
 	    //Axes in all modes
 		if(m_buttonAxis==GamePad.DPAD_X_R){
-		    return m_gp.getDpadY()>m_threshold;
+		    return m_gp.getDpadX()>m_threshold;
 		}
 		if(m_buttonAxis==GamePad.DPAD_X_L){
-		    return m_gp.getDpadY()<-m_threshold;
+		    return m_gp.getDpadX()<-m_threshold;
 		}
 	    //It's just a regular button. Why did the developer use this class? Silly developer! (ok, for compatibility, wise guy)
 	    return m_gp.getRawButton(m_buttonAxis);
