@@ -1,14 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package disco.subsystems;
 
 import disco.HW;
 import disco.utils.DiscoCounterEncoder;
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 //This is what we have now. This will eventually become a PIDSubsystem (maybe)
@@ -17,23 +11,20 @@ public class Shooter extends PIDSubsystem {
     // here. Call these from Commands.
     private Talon m_shooter1;
     private Talon m_shooter2;
-    private Counter m_encoder;
+    private DiscoCounterEncoder m_encoder;
     private static double   kP=0,
 			    kI=0,
 			    kD=0,
-			    kF=0.1;
+			    kF=0;
 
     public Shooter(){
 	super("shooter",kP,kI,kD,kF);
 	m_shooter1=new Talon(HW.Shooter1Slot,HW.Shooter1Channel);
 	m_shooter2=new Talon(HW.Shooter2Slot,HW.Shooter2Channel);
-	m_encoder=new Counter(HW.shooterEncoderSlot,HW.shooterEncoderChannel);
+	m_encoder=new DiscoCounterEncoder(HW.shooterEncoderSlot,HW.shooterEncoderChannel,1);
     }
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+    public void initDefaultCommand() {}
 
     public void setPower(double power){
 	setPower1(power);
@@ -57,7 +48,7 @@ public class Shooter extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-	return m_encoder.get();
+	return m_encoder.getRPM();
     }
 
     protected void usePIDOutput(double output) {
@@ -65,6 +56,6 @@ public class Shooter extends PIDSubsystem {
     }
 
     public double getRPM() {
-	return m_encoder.get();
+	return m_encoder.getRPM();
     }
 }
