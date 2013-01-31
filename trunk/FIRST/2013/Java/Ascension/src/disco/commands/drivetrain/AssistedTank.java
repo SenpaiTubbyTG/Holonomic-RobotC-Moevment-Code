@@ -44,13 +44,13 @@ public class AssistedTank extends RawJoyTank {
     // Called just before this Command runs the first time
     protected void initialize() {
 	super.initialize();
-	m_leftInitial=drivetrain.getLeftEncoder();
-	m_rightInitial=drivetrain.getRightEncoder();
+	m_leftInitial = drivetrain.getLeftEncoder();
+	m_rightInitial = drivetrain.getRightEncoder();
 
-	turnControl=new PIDController(m_kP,m_kI,m_kD,source,output);
+	turnControl = new PIDController(m_kP, m_kI, m_kD, source, output);
 	turnControl.enable();
 	turnControl.setSetpoint(0); //minimize error
-        SmartDashboard.putData("Encoder PID",turnControl);
+        SmartDashboard.putData("Encoder PID", turnControl);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -61,16 +61,16 @@ public class AssistedTank extends RawJoyTank {
 	    if(!turnControl.isEnable()){
 		turnControl.enable();
 	    }
-	    left-=m_correction;
-	    right+=m_correction;
+	    left -= m_correction;
+	    right += m_correction;
 	    //normalize if we are out of range (based on RobotDrive, which only does this for mecanum)
-	    double max=Math.max(Math.abs(left), Math.abs(right));
-	    if(max>1){
-                left=left/max;
-                right=right/max;
+	    double max = Math.max(Math.abs(left), Math.abs(right));
+	    if(max > 1){
+                left = left / max;
+                right = right / max;
 	    }
 	}
-	else{
+        else {
 	    //driver is doing something else. start over.
 	    if(turnControl.isEnable()){
 		turnControl.disable();
@@ -78,6 +78,7 @@ public class AssistedTank extends RawJoyTank {
 	    m_leftInitial=drivetrain.getLeftEncoder();
 	    m_rightInitial=drivetrain.getRightEncoder();
 	}
+        drivetrain.tankDrive(left, right);
     }
 
     // Make this return true when this Command no longer needs to run execute()

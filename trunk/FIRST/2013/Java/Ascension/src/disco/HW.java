@@ -7,7 +7,7 @@ package disco;
  * floating around.
  */
 public class HW {
-   //------------------------------------
+//------------------------------------
 //      Public Constants
 //------------------------------------
 //------------------------------------
@@ -50,14 +50,15 @@ public class HW {
             
 			    Shooter1Channel=2,	    Shooter1Slot=2,
 			    Shooter2Channel=4,	    Shooter2Slot=2;
-  /** -------------------------------------------------------
+    /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
-
+    public static final int compressorSlot = 3,
+                            compressorChannel = 5;
     /** -------------------------------------------------------
     Solenoids
     ------------------------------------------------------- */
-
+    
     /** -------------------------------------------------------
     Sensors
     ------------------------------------------------------- */
@@ -76,5 +77,8 @@ public class HW {
 			    ultrasonic3PingChannel=9,
 			    ultrasonic3EchoChannel=10,	ultrasonic3Slot=1,
                             //Analog
-                            maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1;
+                            maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1,
+            
+                            pressureSwitchSlot = 2,
+                            pressureSwitchChannel = 5;
 }

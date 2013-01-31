@@ -1,9 +1,7 @@
 package disco.commands;
 
 import disco.OI;
-import disco.subsystems.Collector;
-import disco.subsystems.Drivetrain;
-import disco.subsystems.Shooter;
+import disco.subsystems.*;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -16,10 +14,10 @@ public abstract class CommandBase extends Command {
 
     public static OI oi;
     // Create a single static instance of all of your subsystems
-    public static Drivetrain drivetrain=new Drivetrain();
-    public static Shooter shooter=new Shooter();
-    public static Collector collector=new Collector();
-
+    public static Drivetrain drivetrain = new Drivetrain();
+    public static Shooter shooter = new Shooter();
+    public static Collector collector = new Collector();
+    public static CompressorSub compressor = new CompressorSub();
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
