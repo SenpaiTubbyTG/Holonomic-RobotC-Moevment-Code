@@ -2,13 +2,11 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.utils.DiscoCounterEncoder;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
-//This is what we have now. This will eventually become a PIDSubsystem (maybe)
 public class Shooter extends PIDSubsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
     private Talon m_shooter1;
     private Talon m_shooter2;
     private DiscoCounterEncoder m_encoder;
@@ -22,6 +20,7 @@ public class Shooter extends PIDSubsystem {
 	m_shooter1=new Talon(HW.Shooter1Slot,HW.Shooter1Channel);
 	m_shooter2=new Talon(HW.Shooter2Slot,HW.Shooter2Channel);
 	m_encoder=new DiscoCounterEncoder(HW.shooterEncoderSlot,HW.shooterEncoderChannel,1);
+        m_encoder.start();
     }
 
     public void initDefaultCommand() {}
@@ -49,6 +48,7 @@ public class Shooter extends PIDSubsystem {
 
     protected double returnPIDInput() {
 	return m_encoder.getRPM();
+//	return 0;
     }
 
     protected void usePIDOutput(double output) {

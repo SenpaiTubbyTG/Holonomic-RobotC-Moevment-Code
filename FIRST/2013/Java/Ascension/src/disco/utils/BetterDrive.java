@@ -13,12 +13,11 @@ public class BetterDrive extends RobotDrive {
     
     double scalar = 2.5;
     
-    public void tankDrive(double leftValue, double rightValue, boolean squaredInputs) {
+    public void tankDrive(double leftValue, double rightValue) {
 
         // square the inputs (while preserving the sign) to increase fine control while permitting full power
         leftValue = limit(leftValue);
         rightValue = limit(rightValue);
-        if(squaredInputs) {
             if (leftValue >= 0.0) {
                 leftValue = (MathUtils.pow(leftValue, scalar));
             } else {
@@ -29,10 +28,9 @@ public class BetterDrive extends RobotDrive {
             } else {
                 rightValue = -(MathUtils.pow(rightValue, scalar));
             }
-        }
         setLeftRightMotorOutputs(leftValue, rightValue);
     }
-    public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {
+    public void arcadeDrive(double moveValue, double rotateValue) {
         // local variables to hold the computed PWM values for the motors
 
         double leftMotorSpeed;
@@ -43,7 +41,6 @@ public class BetterDrive extends RobotDrive {
         moveValue = limit(moveValue);
         rotateValue = limit(rotateValue);
 
-        if (squaredInputs) {
             // square the inputs (while preserving the sign) to increase fine control while permitting full power
             if (moveValue >= 0.0) {
                 moveValue =  MathUtils.pow(moveValue, scalar);
@@ -55,7 +52,6 @@ public class BetterDrive extends RobotDrive {
             } else {
                 rotateValue = -MathUtils.pow(rotateValue, scalar);
             }
-        }
 
         if (moveValue > 0.0) {
             if (rotateValue > 0.0) {

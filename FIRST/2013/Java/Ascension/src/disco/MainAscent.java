@@ -49,6 +49,7 @@ public class MainAscent extends IterativeRobot {
     public void disabledPeriodic() {
 	Scheduler.getInstance().run();
         Dashboard.putSensors();
+
     }
 
     public void autonomousInit() {
@@ -67,7 +68,6 @@ public class MainAscent extends IterativeRobot {
     public void teleopPeriodic() {
 	Scheduler.getInstance().run();
         Dashboard.putSensors();
-        System.out.println(CommandBase.shooter.getRPM());
     }
 
     public void testPeriodic() {
