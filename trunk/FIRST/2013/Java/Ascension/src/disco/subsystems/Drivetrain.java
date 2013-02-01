@@ -6,7 +6,6 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.commands.drivetrain.AssistedTank;
-import disco.commands.drivetrain.JoyArcadeTwoSpeed;
 import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.Encoder;
@@ -24,7 +23,8 @@ public class Drivetrain extends Subsystem {
     private BetterDrive drive;
 
     private MaxbotixSonar sonar1;
-    private Ultrasonic ultra1;
+    private MaxbotixSonar sonar2;
+    private MaxbotixSonar sonar3;
     private Encoder leftEncoder;
     private Encoder rightEncoder;
 
@@ -40,8 +40,8 @@ public class Drivetrain extends Subsystem {
 	drive.setSafetyEnabled(false);
 
         sonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
-        ultra1=new Ultrasonic(  HW.ultrasonic1Slot,HW.ultrasonic1PingChannel,
-                                HW.ultrasonic1Slot,HW.ultrasonic1EchoChannel,Ultrasonic.Unit.kInches);
+        sonar2=new MaxbotixSonar(HW.maxbotixsonar2Slot,HW.maxbotixsonar2Channel,MaxbotixSonar.Unit.kInches);
+        sonar3=new MaxbotixSonar(HW.maxbotixsonar3Slot,HW.maxbotixsonar3Channel,MaxbotixSonar.Unit.kInches);
     }
 
     public void initDefaultCommand() {
@@ -53,15 +53,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public void arcadeDrive(double move, double turn) {
-	drive.arcadeDrive(move,turn,true);
+	drive.arcadeDrive(move,turn);
     }
 
     public double getSonar(){
         return sonar1.getMedianRange();
-    }
-
-    public double getUltra1(){
-        return ultra1.getRangeInches();
     }
 
     public int getLeftEncoder() {

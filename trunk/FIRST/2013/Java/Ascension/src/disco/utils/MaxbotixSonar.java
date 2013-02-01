@@ -16,7 +16,13 @@ import edu.wpi.first.wpilibj.parsing.ISensor;
  *
  * @author JAG
  */
+/**
+ * Maxbotix sonar MB 1240
+ */
 public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
+    protected static final double k_CentimeterFactor=204.8;
+    protected static final double k_InchesFactor = k_CentimeterFactor*0.393;
+    protected static final double k_MillimetersFactor = 10*k_CentimeterFactor;
 
     /**
      * The units to return when PIDGet is called
@@ -42,6 +48,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
             this.value = value;
         }
     }
+    
     //private static final double CM_TO_IN = 0.3937;
     private AnalogChannel m_inputChannel = null;
     private Unit m_units;
@@ -158,23 +165,23 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
     public double getRange() {
         double result=0;
         if(m_units==Unit.kInches) {
-            return getVoltage() * 80.62992125984252;
+            return getVoltage() * k_InchesFactor;
         }
         if(m_units==Unit.kMillimeter){
-            return getVoltage() * 80.62992125984252 * 240;
+            return getVoltage() *k_MillimetersFactor;
         }
-        return getVoltage() * 80.62992125984252;
+        return getVoltage() * k_InchesFactor;
     }
     
     public double getMedianRange() {
         double result=0;
         if(m_units==Unit.kInches) {
-            return getMedianVoltage() * 80.62992125984252;
+            return getMedianVoltage() * k_InchesFactor;
         }
         if(m_units==Unit.kMillimeter){
-            return getMedianVoltage() * 80.62992125984252 * 240;
+            return getMedianVoltage()*k_MillimetersFactor;
         }
-        return getMedianVoltage() * 80.62992125984252;
+        return getMedianVoltage() * k_InchesFactor;
     }
 
     /**

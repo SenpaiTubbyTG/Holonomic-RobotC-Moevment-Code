@@ -53,8 +53,7 @@ public class HW {
     /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
-    public static final int compressorSlot = 3,
-                            compressorChannel = 5;
+    public static final int compressorSlot = 2,     compressorChannel = 1;
     /** -------------------------------------------------------
     Solenoids
     ------------------------------------------------------- */
@@ -68,17 +67,18 @@ public class HW {
 			    rightEncoderAChannel=10,
 			    rightEncoderBChannel=10,	rightEncoderSlot=1,
             
-			    shooterEncoderChannel=1,	shooterEncoderSlot=2,
+			    shooterEncoderChannel=1,	shooterEncoderSlot=1,
             
-			    ultrasonic1PingChannel=1,
-			    ultrasonic1EchoChannel=2,	ultrasonic1Slot=1,
-			    ultrasonic2PingChannel=7,
-			    ultrasonic2EchoChannel=8,	ultrasonic2Slot=1,
-			    ultrasonic3PingChannel=9,
-			    ultrasonic3EchoChannel=10,	ultrasonic3Slot=1,
+//			    ultrasonic1PingChannel=1,
+//			    ultrasonic1EchoChannel=2,	ultrasonic1Slot=1,
+//			    ultrasonic2PingChannel=7,
+//			    ultrasonic2EchoChannel=8,	ultrasonic2Slot=1,
+//			    ultrasonic3PingChannel=9,
+//			    ultrasonic3EchoChannel=10,	ultrasonic3Slot=1,
                             //Analog
                             maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1,
+                            maxbotixsonar2Channel=2,    maxbotixsonar2Slot=1,
+                            maxbotixsonar3Channel=3,    maxbotixsonar3Slot=1,
             
-                            pressureSwitchSlot = 2,
-                            pressureSwitchChannel = 5;
+                            pressureSwitchSlot=2,     pressureSwitchChannel=9;
 }
