@@ -9,7 +9,7 @@ public class RawJoyTank extends CommandBase {
     protected double right=0;
     protected Joystick joy1;
     protected GamePad gp;
-    protected double threshold=0.2;
+    protected double threshold=0.0;
 
     public RawJoyTank() {
         // Use requires() here to declare subsystem dependencies
@@ -58,7 +58,7 @@ public class RawJoyTank extends CommandBase {
 	    //right=joy1.getAxis(Joystick.AxisType.kX);
 	    left=0;
 	    right=0;
-	    throw new IllegalStateException("Tank drive only works with game pads for now. Sorry");
+	    throw new IllegalStateException("Tank drive only works with game pads for now.");
 	    //drivetrain.driveArcade(left,right);
 	}
     }

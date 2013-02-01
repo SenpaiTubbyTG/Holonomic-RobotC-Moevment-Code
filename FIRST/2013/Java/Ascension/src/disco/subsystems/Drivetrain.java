@@ -7,6 +7,7 @@ package disco.subsystems;
 import disco.HW;
 import disco.commands.drivetrain.AssistedTank;
 import disco.commands.drivetrain.JoyArcadeTwoSpeed;
+import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -20,7 +21,7 @@ public class Drivetrain extends Subsystem {
     private Victor leftDrive2;
     private Victor RightDrive1;
     private Victor RightDrive2;
-    private RobotDrive drive;
+    private BetterDrive drive;
 
     private MaxbotixSonar sonar1;
     private Ultrasonic ultra1;
@@ -33,7 +34,7 @@ public class Drivetrain extends Subsystem {
 	leftDrive2=new Victor(HW.LeftDrive2Slot,HW.LeftDrive2Channel);
 	RightDrive1=new Victor(HW.RightDrive1Slot,HW.RightDrive1Channel);
 	RightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
-	drive=new RobotDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
+	drive=new BetterDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
 	//drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
 	//drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 	drive.setSafetyEnabled(false);
