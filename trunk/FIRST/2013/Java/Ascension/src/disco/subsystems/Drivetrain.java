@@ -22,9 +22,9 @@ public class Drivetrain extends Subsystem {
     private Victor RightDrive2;
     private BetterDrive drive;
 
-    private MaxbotixSonar sonar1;
-    private MaxbotixSonar sonar2;
-    private MaxbotixSonar sonar3;
+    private MaxbotixSonar frontSonar1;
+    private MaxbotixSonar frontSonar2;
+    private MaxbotixSonar leftSonar;
     private Encoder leftEncoder;
     private Encoder rightEncoder;
 
@@ -56,8 +56,14 @@ public class Drivetrain extends Subsystem {
 	drive.arcadeDrive(move,turn);
     }
 
-    public double getSonar(){
-        return sonar1.getMedianRange();
+    public double getFrontSonar1(){
+        return frontSonar1.getMedianRange();
+    }
+    public double getFrontSonar2(){
+        return frontSonar2.getMedianRange();
+    }
+    public double getLeftSonar(){
+        return leftSonar.getMedianRange();
     }
 
     public int getLeftEncoder() {
