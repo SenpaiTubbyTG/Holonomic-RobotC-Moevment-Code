@@ -37,6 +37,6 @@ public class Dashboard {
 	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy())).getLY());
         SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy())).getRY());
         SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
-        SmartDashboard.putNumber("Sonar", CommandBase.drivetrain.getSonar());
+       // SmartDashboard.putNumber("Sonar", CommandBase.drivetrain.getSonar());
     }
 }
