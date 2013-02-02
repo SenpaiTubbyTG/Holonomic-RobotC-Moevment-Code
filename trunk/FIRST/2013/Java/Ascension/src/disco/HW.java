@@ -46,10 +46,10 @@ public class HW {
 			    RightDrive2Channel=4,   RightDrive2Slot=1,
             
 			    Collect1Channel=7,	    Collect1Slot=1,
-			    Collect2Channel=3,	    Collect2Slot=2,
+			    Collect2Channel=9,	    Collect2Slot=2,
             
 			    Shooter1Channel=1,	    Shooter1Slot=2,
-			    Shooter2Channel=4,	    Shooter2Slot=2;
+			    Shooter2Channel=3,	    Shooter2Slot=2;
     /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
@@ -67,7 +67,7 @@ public class HW {
 			    rightEncoderAChannel=10,
 			    rightEncoderBChannel=10,	rightEncoderSlot=1,
             
-			    shooterEncoderChannel=1,	shooterEncoderSlot=1,
+			    shooterEncoderChannel=1,	shooterEncoderSlot=2,
             
 //			    ultrasonic1PingChannel=1,
 //			    ultrasonic1EchoChannel=2,	ultrasonic1Slot=1,
