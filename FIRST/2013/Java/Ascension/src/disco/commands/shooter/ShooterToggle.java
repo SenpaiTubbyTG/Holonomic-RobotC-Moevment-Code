@@ -21,11 +21,11 @@ public class ShooterToggle extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	if(shooter.getPower1() != 0){
-	    shooter.setPower(0);
+	if(shooter.getPIDController().isEnable()){
+	    shooter.disable();
 	}
 	else {
-	    shooter.setPower(0.5);
+	    shooter.enable();
 	}
 	done=true;
     }

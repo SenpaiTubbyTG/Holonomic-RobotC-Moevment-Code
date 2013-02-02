@@ -20,13 +20,10 @@ public class ShooterDec extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	double power=shooter.getPower1();
-
-	power-=0.1;
-	if(power<-1){
-	    power=-1;
+        double set=shooter.getSetpoint();
+	if(set>1000){
+	    shooter.setSetpoint(set-100);
 	}
-	shooter.setPower(power);
 	done=true;
     }
 

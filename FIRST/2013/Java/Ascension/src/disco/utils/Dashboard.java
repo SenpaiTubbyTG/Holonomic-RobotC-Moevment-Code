@@ -32,9 +32,10 @@ public class Dashboard {
 //	SmartDashboard.putData("Shooter PID",CommandBase.shooter.getController()); //don't need this?
 	SmartDashboard.putNumber("Shooter RPM", CommandBase.shooter.getRPM());
 	SmartDashboard.putNumber("Shooter PWM", CommandBase.shooter.getPower1());
+        SmartDashboard.putNumber("Shooter Setpoint", CommandBase.shooter.getSetpoint());
         
 	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy())).getLY());
-        SmartDashboard.putNumber("Left joy X", ((GamePad)(CommandBase.oi.getJoy())).getLX());
+        SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy())).getRY());
         SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
         SmartDashboard.putNumber("Sonar", CommandBase.drivetrain.getSonar());
     }

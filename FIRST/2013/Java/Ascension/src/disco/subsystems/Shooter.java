@@ -2,25 +2,26 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.utils.DiscoCounterEncoder;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 public class Shooter extends PIDSubsystem {
-    private Talon m_shooter1;
-    private Talon m_shooter2;
+    private Victor m_shooter1;
+    private Victor m_shooter2;
     private DiscoCounterEncoder m_encoder;
-    private static double   kP=0,
+    private static double   kP=0.01,
 			    kI=0,
 			    kD=0,
-			    kF=0;
+			    kF=0.000;
 
     public Shooter(){
 	super("shooter",kP,kI,kD,kF);
-	m_shooter1=new Talon(HW.Shooter1Slot,HW.Shooter1Channel);
-	m_shooter2=new Talon(HW.Shooter2Slot,HW.Shooter2Channel);
+	m_shooter1=new Victor(HW.Shooter1Slot,HW.Shooter1Channel);
+	m_shooter2=new Victor(HW.Shooter2Slot,HW.Shooter2Channel);
 	m_encoder=new DiscoCounterEncoder(HW.shooterEncoderSlot,HW.shooterEncoderChannel,1);
         m_encoder.start();
+        enable();
+        setSetpoint(7000);
     }
 
     public void initDefaultCommand() {}
@@ -57,5 +58,8 @@ public class Shooter extends PIDSubsystem {
 
     public double getRPM() {
 	return m_encoder.getRPM();
+    }
+    public double getSetpoint(){
+        return getPIDController().getSetpoint();
     }
 }
