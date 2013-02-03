@@ -8,24 +8,29 @@ import disco.commands.CommandBase;
 
 
 public class ShooterToggle extends CommandBase {
-    private boolean done=false;
+    private boolean done;
+    
 
     public ShooterToggle() {
         // Use requires() here to declare subsystem dependencies
         requires(shooter);
+        requires(compressor);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        done=false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 	if(shooter.getPIDController().isEnable()){
 	    shooter.disable();
+            compressor.set(true);
 	}
 	else {
 	    shooter.enable();
+            compressor.set(false);
 	}
 	done=true;
     }

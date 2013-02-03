@@ -6,6 +6,7 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.commands.drivetrain.AssistedTank;
+import disco.commands.drivetrain.RawJoyTank;
 import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.Encoder;
@@ -20,7 +21,7 @@ public class Drivetrain extends Subsystem {
     private Victor leftDrive2;
     private Victor RightDrive1;
     private Victor RightDrive2;
-    private BetterDrive drive;
+    private RobotDrive drive;
 
     private MaxbotixSonar frontSonar1;
     private MaxbotixSonar frontSonar2;
@@ -34,9 +35,11 @@ public class Drivetrain extends Subsystem {
 	leftDrive2=new Victor(HW.LeftDrive2Slot,HW.LeftDrive2Channel);
 	RightDrive1=new Victor(HW.RightDrive1Slot,HW.RightDrive1Channel);
 	RightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
-	drive=new BetterDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
-	//drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-	//drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+	drive=new RobotDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
+	drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+	drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 	drive.setSafetyEnabled(false);
 
         frontSonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
@@ -45,7 +48,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new AssistedTank());
+        setDefaultCommand(new RawJoyTank());
     }
 
     public void tankDrive(double left,double right){

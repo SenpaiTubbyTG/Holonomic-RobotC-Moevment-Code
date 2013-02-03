@@ -8,7 +8,7 @@ import disco.commands.CommandBase;
 
 
 public class CompressorStop extends CommandBase {
-    boolean done=false;
+    private boolean done;
 
     public CompressorStop() {
 	// Use requires() here to declare subsystem dependencies
@@ -18,6 +18,7 @@ public class CompressorStop extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        done=false;
     }
 
     // Called repeatedly when this Command is scheduled to run

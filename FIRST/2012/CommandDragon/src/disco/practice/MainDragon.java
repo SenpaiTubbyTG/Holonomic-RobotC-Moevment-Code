@@ -46,16 +46,12 @@ public class MainDragon extends IterativeRobot {
 	//End motion here
 	Scheduler.getInstance().add(new WhacksOff());
 	Scheduler.getInstance().add(new CompressorStop());
-	Dashboard.putStuff();
     }
     public void disabledPeriodic(){
 	Scheduler.getInstance().run();
 //	Dashboard.putStuff();
+        Dashboard.putSensors();
     }
-    public void disabledContinuous(){
-	Thread.yield();
-    }
-
 
 
     public void autonomousInit() {
@@ -65,10 +61,6 @@ public class MainDragon extends IterativeRobot {
         Scheduler.getInstance().run();
 //	Dashboard.putStuff();
     }
-    public void autonomousContinuous(){
-	Thread.yield();
-    }
-
 
 
     public void teleopInit() {
@@ -78,10 +70,6 @@ public class MainDragon extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
 //	Dashboard.putStuff();
-        System.out.println(CommandBase.shooter.getRPM());
-    }
-    public void teleopContinuous(){
-	// Scheduler.getInstance().run();
-	Thread.yield();
+        Dashboard.putSensors();
     }
 }

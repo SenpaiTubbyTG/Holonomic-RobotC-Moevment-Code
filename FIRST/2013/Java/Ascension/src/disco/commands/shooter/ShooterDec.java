@@ -8,7 +8,7 @@ import disco.commands.CommandBase;
 
 
 public class ShooterDec extends CommandBase {
-    private boolean done=false;
+    private boolean done;
 
     public ShooterDec() {
         requires(shooter);
@@ -16,6 +16,7 @@ public class ShooterDec extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        done=false;
     }
 
     // Called repeatedly when this Command is scheduled to run

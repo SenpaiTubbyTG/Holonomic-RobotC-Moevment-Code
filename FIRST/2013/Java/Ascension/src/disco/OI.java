@@ -1,18 +1,13 @@
 package disco;
 
-import disco.commands.collector.CollectorDec;
-import disco.commands.collector.CollectorInc;
 import disco.commands.collector.CollectorToggle;
-import disco.commands.drivetrain.JoyArcadeTwoSpeed;
-import disco.commands.drivetrain.RawJoyTank;
-import disco.commands.shooter.ShooterDec;
-import disco.commands.shooter.ShooterInc;
-import disco.commands.shooter.ShooterToggle;
+import disco.commands.drivetrain.*;
+import disco.commands.pneumatics.*;
+import disco.commands.shooter.*;
 import disco.utils.GamePad;
 import disco.utils.GamePad.AxisButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
@@ -23,17 +18,20 @@ public class OI {
 
     private int gp1_mode = GamePad.MODE_D;
     private GamePad gp1 = new GamePad(1, gp1_mode);
-
-//    private Button b_toggleCollector=new JoystickButton(gp1,gp1.BTN_X);
-//    private Button b_collectorInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
-//    private Button b_collectorDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
+    
+    private Button b_toggleCollector=new AxisButton(gp1,GamePad.DPAD_Y_U);
     
     private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_Y);
-    private Button b_shooterInc=new JoystickButton(gp1,gp1.BTN_B);
-    private Button b_shooterDec=new JoystickButton(gp1,gp1.BTN_X);
+    private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
+    private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_X_L);
+    
+    private Button b_shootIn=new JoystickButton(gp1,gp1.BTN_A);
+    //private Button b_shootOut=new JoystickButton(gp1,gp1.BTN_X);
     
     private Button b_makeTank=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_makeArcade=new JoystickButton(gp1,gp1.BUMPER_L);
+    
+    private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_B);
 
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -62,16 +60,19 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     public OI() {
-//	b_toggleCollector.whenPressed(new CollectorToggle());
-//	b_collectorInc.whenPressed(new CollectorInc());
-//	b_collectorDec.whenPressed(new CollectorDec());
+	b_toggleCollector.whenPressed(new CollectorToggle());
         
         b_toggleShooter.whenPressed(new ShooterToggle());
         b_shooterInc.whenPressed(new ShooterInc());
         b_shooterDec.whenPressed(new ShooterDec());
         
-        b_makeTank.whenPressed(new RawJoyTank());
+        b_shootIn.whenPressed(new Shoot());
+        //b_shootOut.whenPressed(new ShootOut());
+        
+        b_makeTank.whenPressed(new AssistedTank());
         b_makeArcade.whenPressed(new JoyArcadeTwoSpeed());
+        
+        b_compressorToggle.whenPressed(new ToggleCompressor());
     }
 
     public Joystick getJoy() {

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class AssistedTank extends RawJoyTank {
-    private PIDController turnControl;
+    protected PIDController turnControl;
     private double  m_kP=0,
 		    m_kI=0,
 		    m_kD=0;
@@ -19,17 +19,17 @@ public class AssistedTank extends RawJoyTank {
     private double m_correctionThreshold=0.2;
     //protected double threshold=0.2;
 
-    private double m_correction=0;
+    protected double m_correction=0;
     private int m_leftInitial=0;
     private int m_rightInitial=0;
 
-    private PIDOutput output = new PIDOutput() {
+    private PIDOutput turnOutput = new PIDOutput() {
 
         public void pidWrite(double output) {
             usePIDOutput(output);
         }
     };
-    private PIDSource source = new PIDSource() {
+    private PIDSource turnSource = new PIDSource() {
 
         public double pidGet() {
             return returnPIDInput();
@@ -47,10 +47,10 @@ public class AssistedTank extends RawJoyTank {
 	m_leftInitial = drivetrain.getLeftEncoder();
 	m_rightInitial = drivetrain.getRightEncoder();
 
-	turnControl = new PIDController(m_kP, m_kI, m_kD, source, output);
+	turnControl = new PIDController(m_kP, m_kI, m_kD, turnSource, turnOutput);
 	turnControl.enable();
 	turnControl.setSetpoint(0); //minimize error
-        SmartDashboard.putData("Encoder PID", turnControl);
+        //SmartDashboard.putData("Encoder PID", turnControl);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -106,10 +106,10 @@ public class AssistedTank extends RawJoyTank {
 	m_correction=output;
     }
 
-    private int offsetLeft(){
+    protected int offsetLeft(){
 	return drivetrain.getLeftEncoder()-m_leftInitial;
     }
-    private int offsetRight(){
+    protected int offsetRight(){
 	return drivetrain.getRightEncoder()-m_rightInitial;
     }
     

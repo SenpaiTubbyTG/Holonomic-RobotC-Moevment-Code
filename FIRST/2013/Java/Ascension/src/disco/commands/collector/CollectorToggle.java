@@ -8,7 +8,7 @@ import disco.commands.CommandBase;
 
 
 public class CollectorToggle extends CommandBase {
-    private boolean done=false;
+    private boolean done;
 
     public CollectorToggle() {
         // Use requires() here to declare subsystem dependencies
@@ -17,6 +17,7 @@ public class CollectorToggle extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        done=false;
     }
 
     // Called repeatedly when this Command is scheduled to run
