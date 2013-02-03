@@ -45,7 +45,7 @@ public class HW {
 			    RightDrive1Channel=3,   RightDrive1Slot=1,
 			    RightDrive2Channel=4,   RightDrive2Slot=1,
             
-			    Collect1Channel=7,	    Collect1Slot=1,
+			    Collect1Channel=4,	    Collect1Slot=2,
 			    Collect2Channel=9,	    Collect2Slot=2,
             
 			    Shooter1Channel=1,	    Shooter1Slot=2,
@@ -53,11 +53,12 @@ public class HW {
     /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
-    public static final int compressorSlot = 2,     compressorChannel = 1;
+    public static final int compressorChannel = 2,  compressorSlot = 2,
+                            shootPneumaticChannel=1,    shootPneumaticSlot=2;
     /** -------------------------------------------------------
     Solenoids
     ------------------------------------------------------- */
-    
+            
     /** -------------------------------------------------------
     Sensors
     ------------------------------------------------------- */
@@ -67,18 +68,12 @@ public class HW {
 			    rightEncoderAChannel=10,
 			    rightEncoderBChannel=10,	rightEncoderSlot=1,
             
-			    shooterEncoderChannel=1,	shooterEncoderSlot=2,
+			    shooterEncoderChannel=1,	shooterEncoderSlot=1,
             
-//			    ultrasonic1PingChannel=1,
-//			    ultrasonic1EchoChannel=2,	ultrasonic1Slot=1,
-//			    ultrasonic2PingChannel=7,
-//			    ultrasonic2EchoChannel=8,	ultrasonic2Slot=1,
-//			    ultrasonic3PingChannel=9,
-//			    ultrasonic3EchoChannel=10,	ultrasonic3Slot=1,
+                            pressureSwitchChannel=1,    pressureSwitchSlot=2,
+            
                             //Analog
                             maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1,
                             maxbotixsonar2Channel=2,    maxbotixsonar2Slot=1,
-                            maxbotixsonar3Channel=3,    maxbotixsonar3Slot=1,
-            
-                            pressureSwitchSlot=2,     pressureSwitchChannel=9;
+                            maxbotixsonar3Channel=3,    maxbotixsonar3Slot=1;
 }

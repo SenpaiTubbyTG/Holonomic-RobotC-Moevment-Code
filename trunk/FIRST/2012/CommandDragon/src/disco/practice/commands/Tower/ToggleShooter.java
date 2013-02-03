@@ -27,10 +27,12 @@ public class ToggleShooter extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(shooter.getSetpoint()>0)
+        if(shooter.getSetpoint()>0) {
             shooter.setShooter(0);
-        else
-            shooter.setShooter(0.5);
+        }
+        else {
+            shooter.setShooter(0.7);
+        }
 	done=true;
     }
 

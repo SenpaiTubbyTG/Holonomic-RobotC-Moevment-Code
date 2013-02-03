@@ -5,29 +5,40 @@
 package disco.commands.pneumatics;
 
 import disco.commands.CommandBase;
+import disco.subsystems.Shooter;
 
 /**
  *
- * @author Doris
+ * @author Developer
  */
-public class PistonOut extends CommandBase {
+public class ShootOut extends CommandBase {
+    private boolean done;
+    private double timeout=0.5;
     
-    public PistonOut() {
+    public ShootOut() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(shooter);
+        
+        //this.setTimeout(timeout);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        done=false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if(!done){
+            shooter.setPneumatic(Shooter.OUT);
+        }
+        done = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        //return isTimedOut();
+        return done;
     }
 
     // Called once after isFinished returns true
@@ -37,5 +48,6 @@ public class PistonOut extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        end();
     }
 }

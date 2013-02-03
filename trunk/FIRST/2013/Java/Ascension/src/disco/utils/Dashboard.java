@@ -5,7 +5,6 @@
 package disco.utils;
 
 import disco.commands.CommandBase;
-import disco.commands.drivetrain.AssistedTank;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Dashboard {
@@ -24,6 +23,7 @@ public class Dashboard {
         SmartDashboard.putData(CommandBase.drivetrain);
         SmartDashboard.putData(CommandBase.shooter);
         SmartDashboard.putData(CommandBase.collector);
+        SmartDashboard.putData(CommandBase.compressor);
         //put other PID and stuff
     }
 
@@ -37,6 +37,9 @@ public class Dashboard {
 	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy())).getLY());
         SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy())).getRY());
         SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
-       // SmartDashboard.putNumber("Sonar", CommandBase.drivetrain.getSonar());
+        SmartDashboard.putNumber("Front sonar 1", CommandBase.drivetrain.getFrontSonar1());
+        
+        SmartDashboard.putBoolean("Air Full", CommandBase.compressor.getPressureSwitch());
+        SmartDashboard.putString("Compressor State", CommandBase.compressor.getEnabled() ? "ON" : "OFF");
     }
 }

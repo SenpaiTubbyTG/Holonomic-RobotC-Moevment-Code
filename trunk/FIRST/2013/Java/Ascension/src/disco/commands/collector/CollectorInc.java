@@ -8,7 +8,7 @@ import disco.commands.CommandBase;
 
 
 public class CollectorInc extends CommandBase {
-    private boolean done=false;
+    private boolean done;
 
     public CollectorInc() {
         requires(collector);
@@ -16,6 +16,7 @@ public class CollectorInc extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        done=false;
     }
 
     // Called repeatedly when this Command is scheduled to run
