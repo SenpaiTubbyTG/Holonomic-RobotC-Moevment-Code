@@ -11,7 +11,7 @@ public class ShooterInc extends CommandBase {
     private boolean done;
 
     public ShooterInc() {
-        requires(shooter);
+        //requires(shooter);
     }
 
     // Called just before this Command runs the first time

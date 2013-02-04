@@ -53,14 +53,14 @@ public class JoyArcadeTwoSpeed extends CommandBase {
     protected void interrupted() {
 	end();
     }
-    
+
     protected void calculateInputs(){
         if(gp != null){
 	    move=gp.getLY();
 	    move=Math.abs(move)>threshold ? move : 0;
 	    turn=-1*gp.getLX();
 	    turn=Math.abs(turn)>threshold ? turn : 0;
-            
+
             move+=gp.getRY()/2;
             turn+= -1*gp.getRX()/2;
 	}

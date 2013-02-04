@@ -7,34 +7,40 @@ package disco.commands.shooter;
 import disco.commands.CommandBase;
 
 
-public class ShooterDec extends CommandBase {
+public class ShooterBangBang extends CommandBase {
     private boolean done;
 
-    public ShooterDec() {
-        //requires(shooter);
+    public ShooterBangBang() {
+        // Use requires() here to declare subsystem dependencies
+        requires(shooter);
+        requires(compressor);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        done=false;
+	done=false;
+	shooter.disable();
+	compressor.set(false);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        double set=shooter.getSetpoint();
-	if(set>1000){
-	    shooter.setSetpoint(set-100);
+	if(shooter.getRPM()>shooter.getSetpoint()){
+	    shooter.setPower(0);
 	}
-	done=true;
+	else{
+	    shooter.setPower(1);
+	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return done;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+	shooter.setPower(0);
     }
 
     // Called when another command which requires one or more of the same

@@ -35,7 +35,8 @@ public class Drivetrain extends Subsystem {
 	leftDrive2=new Victor(HW.LeftDrive2Slot,HW.LeftDrive2Channel);
 	RightDrive1=new Victor(HW.RightDrive1Slot,HW.RightDrive1Channel);
 	RightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
-	drive=new RobotDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
+	drive=new BetterDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
+	//what is wrong with this picture?
 	drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
 	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
@@ -52,11 +53,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public void tankDrive(double left,double right){
-	drive.tankDrive(left, right);
+	drive.tankDrive(left, right,true);
     }
 
     public void arcadeDrive(double move, double turn) {
-	drive.arcadeDrive(move,turn);
+	drive.arcadeDrive(move,turn,true);
     }
 
     public double getFrontSonar1(){
