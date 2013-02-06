@@ -11,13 +11,12 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class DriveAngle extends AssistedTank {
     final double startPosition = 0;
-    private PIDController turnControl;
     private double  m_kP=0,
 		    m_kI=0,
 		    m_kD=0;
     
-    private double m_correction=0;
-    private int rightStartPos = 0, leftStartPos = 0;
+    private final double m_correctionThreshold = 0.2;
+    private int m_leftInitial = 0, m_rightInitial = 0;
     final double angleSetpoint;
     final double angleStart;
     double angleChange = 0;
@@ -38,17 +37,15 @@ public class DriveAngle extends AssistedTank {
 
     public DriveAngle(double setpoint) {
         requires(drivetrain);
-        angleSetpoint = setpoint;
+        this.angleSetpoint = setpoint;
         angleStart = 0;
     }
 
-    // Herp derp. This is run before anything else runs but after the const is run...
-    // Once again... Herp derp.
     protected void initialize() {
         super.initialize();
 
-        rightStartPos = drivetrain.getRightEncoder();
-        leftStartPos = drivetrain.getLeftEncoder();
+        m_leftInitial = drivetrain.getRightEncoder();
+        m_rightInitial = drivetrain.getLeftEncoder();
         
 	turnControl = new PIDController(m_kP, m_kI, m_kD, distSource, distOutput);
 	turnControl.setSetpoint(angleSetpoint);
@@ -56,7 +53,7 @@ public class DriveAngle extends AssistedTank {
     }
     
     protected void execute() {
-        if(Math.abs(left-right) <= 0.2){
+        if(Math.abs(left-right) <= m_correctionThreshold){
 	    if(!turnControl.isEnable()){
 		turnControl.enable();
 	    }
@@ -74,7 +71,7 @@ public class DriveAngle extends AssistedTank {
 	    }
 	} 
         drivetrain.tankDrive(left, right);
-        if ((int) angleChange == (int) angleSetpoint) {
+        if ((int) angleChange == (int) angleSetpoint) { // Fix degree of error
             finished = true;
         }
     }
@@ -83,33 +80,20 @@ public class DriveAngle extends AssistedTank {
     protected boolean isFinished() {
         return false;
     }
-
-    // Called once finished equals true... Herp derp.
-    protected void end() {
-        drivetrain.tankDrive(0,0);
-    }
-
-    // Called when command is interrupted by another command that uses same subsystem.
-    protected void interrupted() {
-        end();
-    }
     
     private double returnPIDInput(){
         /*
          * TODO: REMEMBER TO SET THESE THREE VARIABLES!
-         * Herp derp.
          */
         double wheelRadius = 0;
         double wheelSeperation = 0;
         int encoderTicks = 0;
-        angleChange = Math.toDegrees((2 * Math.PI) * (wheelRadius / wheelSeperation) * (((leftStartPos - drivetrain.getLeftEncoder()) - (rightStartPos - drivetrain.getRightEncoder())) / encoderTicks));
+        angleChange = Math.toDegrees((2 * Math.PI) * (wheelRadius / wheelSeperation) * ((offsetRight()) - (offsetLeft()) / encoderTicks));
         return angleChange;
     }
-    
-    private void usePIDOutput(double output) {
-        m_correction=output;
+    private void usePIDOutput(double output){
+	m_correction=output;
     }
-    
     /*
      * TODO: TABLES NEED A NAME or they will feel sad. :'(
      */
