@@ -41,6 +41,7 @@ public class ShooterBangBang extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
 	shooter.setPower(0);
+	compressor.set(true);
     }
 
     // Called when another command which requires one or more of the same
