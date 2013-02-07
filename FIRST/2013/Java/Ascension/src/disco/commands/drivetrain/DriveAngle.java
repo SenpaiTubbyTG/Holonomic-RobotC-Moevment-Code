@@ -11,14 +11,13 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 
 public class DriveAngle extends AssistedTank {
-    protected PIDController turnControl;
     private double  m_kP=0,
 		    m_kI=0,
 		    m_kD=0;
-    protected double m_correction=0;
     private int m_leftInitial=0;
     private int m_rightInitial=0;
     private int m_setpoint = 0;
+    boolean finished = false;
 
     private PIDOutput turnOutput = new PIDOutput() {
 
@@ -38,7 +37,8 @@ public class DriveAngle extends AssistedTank {
         double wheelRadius = 0;
         double wheelSeperation = 0;
         int encoderTicks = 0;
- 
+
+	//gives difference in encoder counts we want to target
         m_setpoint = (int) (Math.toRadians(angleSetpoint) / (2 * Math.PI) * (wheelSeperation / wheelRadius) * encoderTicks);
     }
 
@@ -61,10 +61,8 @@ public class DriveAngle extends AssistedTank {
             left = left / max;
             right = right / max;
 	}
-	m_leftInitial=drivetrain.getLeftEncoder();
-	m_rightInitial=drivetrain.getRightEncoder();
         drivetrain.tankDrive(left, right);
-        if (m_correction < 0.2) {
+        if (turnControl.getError()<10) {
             finished = true;
         }
     }
@@ -73,7 +71,7 @@ public class DriveAngle extends AssistedTank {
     protected boolean isFinished() {
         return finished;
     }
-    boolean finished = false;
+
     private double returnPIDInput(){
 	return offsetLeft()-offsetRight();
     }
