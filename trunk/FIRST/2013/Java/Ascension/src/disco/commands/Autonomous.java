@@ -4,9 +4,10 @@
  */
 package disco.commands;
 
+import disco.commands.drivetrain.DriveAngle;
 import disco.commands.drivetrain.DriveDistance;
-import disco.commands.pneumatics.ShootIn;
-import disco.commands.pneumatics.ShootOut;
+import disco.commands.shooter.ShootIn;
+import disco.commands.shooter.ShootOut;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
@@ -28,12 +29,15 @@ public class Autonomous extends CommandGroup {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        addSequential(new ShootIn());
+        addSequential(new DriveAngle(DriveAngle.getTargetAngle()));
+        /*addSequential(new ShootIn());
         addSequential(new WaitCommand(0.5));
         addSequential(new ShootOut());
+        addSequential(new WaitCommand(0.5));*/
         /*12.566 in. circumference
         128 pulses
         10.1859 pulses/in.*/
+        
         
 
     }
