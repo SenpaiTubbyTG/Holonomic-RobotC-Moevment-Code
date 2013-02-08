@@ -12,6 +12,7 @@ public class Shooter extends PIDSubsystem {
     private Victor m_shooter1;
     private Victor m_shooter2;
     private DiscoCounterEncoder m_encoder;
+//    private DiscoCounterEncoder m_encoder2;
     private static double   kP=0.01,
 			    kI=0,
 			    kD=0,
@@ -31,6 +32,11 @@ public class Shooter extends PIDSubsystem {
         m_encoder.start();
         setSetpoint(6200);
 
+  /*      m_encoder2=new DiscoCounterEncoder(HW.shooterEncoder2Slot,HW.shooterEncoder2Channel,1);
+	m_encoder2.setSemiPeriodMode(false);
+        m_encoder2.start();
+        setSetpoint(6200);*/
+        
         m_pneumatic=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
         m_pneumatic.set(Relay.Value.kReverse);
         m_pneumatic.setDirection(Relay.Direction.kReverse);
