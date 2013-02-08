@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disco.commands.pneumatics;
+package disco.commands.shooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -31,7 +31,7 @@ public class Shoot extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
         addSequential(new ShootIn());
-        addSequential(new WaitCommand(0.5));
+        addSequential(new WaitCommand(0.25));
         addSequential(new ShootOut());
     }
 }

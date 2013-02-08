@@ -22,7 +22,7 @@ public class ShooterInc extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         double set=shooter.getSetpoint();
-	if(set<10000){
+	if(set<14000){
             shooter.setSetpoint(set+100);
         }
 	done=true;

@@ -54,9 +54,9 @@ public class Drivetrain extends Subsystem {
         frontSonar2=new MaxbotixSonar(HW.maxbotixsonar2Slot,HW.maxbotixsonar2Channel,MaxbotixSonar.Unit.kInches);
         leftSonar=new MaxbotixSonar(HW.maxbotixsonar3Slot,HW.maxbotixsonar3Channel,MaxbotixSonar.Unit.kInches);
         
-        pyramidSwitch1 = new DigitalInput(HW.limitSwitchSlot, HW.limitSwitchChannel);
-        pyramidSwitch2 = new DigitalInput(HW.limitSwitchSlot2, HW.limitSwitchChannel2);
-        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
+//        pyramidSwitch1 = new DigitalInput(HW.limitSwitchLeftSlot, HW.limitSwitchLeftChannel);
+//        pyramidSwitch2 = new DigitalInput(HW.limitSwitchRightSlot, HW.limitSwitchRightChannel);
+//        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
     }
 
     public void initDefaultCommand() {

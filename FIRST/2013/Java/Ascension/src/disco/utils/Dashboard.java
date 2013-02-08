@@ -1,65 +1,50 @@
-<xml version="1.0">
-<dashboard>
-	<widget field="shooter" type="PIDSubsystem" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
-		<location x="223" y="201"/>
-	</widget>
-	<widget field="Air Full" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="209" y="119"/>
-		<width>127</width>
-	</widget>
-	<widget field="Compressor" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
-		<location x="208" y="93"/>
-	</widget>
-	<widget field="Front sonar 1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="209" y="42"/>
-	</widget>
-	<widget field="Compressor State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="202" y="147"/>
-	</widget>
-	<widget field="Left joy X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="436" y="149"/>
-	</widget>
-	<widget field="Left joy Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="428" y="87"/>
-	</widget>
-	<widget field="Checkbox 1" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="432" y="185"/>
-	</widget>
-	<widget field="Checkbox 2" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="443" y="214"/>
-	</widget>
-	<widget field="Shooter PWM" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="168"/>
-	</widget>
-	<widget field="Collector Power" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="147"/>
-	</widget>
-	<widget field="Right joy Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="126"/>
-	</widget>
-	<widget field="Drivetrain" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
-		<location x="0" y="105"/>
-	</widget>
-	<widget field="Shooter Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="63"/>
-	</widget>
-	<widget field="Collector" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
-		<location x="211" y="68"/>
-	</widget>
-	<widget field="Sonar" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="21"/>
-	</widget>
-	<widget field="Slider 1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="0"/>
-	</widget>
-	<widget field="Shooter RPM" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
-		<location x="573" y="74"/>
-		<width>200</width>
-		<height>127</height>
-		<property name="Upper Limit" value="14000.0"/>
-		<property name="Tick Interval" value="500.0"/>
-	</widget>
-</dashboard>
-<live-window>
-</live-window>
-</xml>
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package disco.utils;
+
+import disco.commands.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+public class Dashboard {
+
+    public static void init() {
+        putStuff();
+    }
+
+    public static void putStuff() {
+        putSubsystems();
+        putSensors();
+    }
+
+    //Only call this once or we overflow the memory. Bad day.
+    public static void putSubsystems() {
+        SmartDashboard.putData(CommandBase.drivetrain);
+        SmartDashboard.putData(CommandBase.shooter);
+        SmartDashboard.putData(CommandBase.collector);
+        SmartDashboard.putData(CommandBase.compressor);
+        //put other PID and stuff
+    }
+
+    //Repeatedly call this to update dashboard values.
+    public static void putSensors() {
+//	SmartDashboard.putData("Shooter PID",CommandBase.shooter.getController()); //don't need this?
+	SmartDashboard.putNumber("Forward Shooter RPM", CommandBase.shooter.getRPM1());
+	SmartDashboard.putNumber("Forward Shooter PWM", CommandBase.shooter.getPower1());
+	SmartDashboard.putNumber("Back Shooter RPM", CommandBase.shooter.getRPM2());
+	SmartDashboard.putNumber("Back Shooter PWM", CommandBase.shooter.getPower2());
+        
+        SmartDashboard.putNumber("Shooter Setpoint", CommandBase.shooter.getSetpoint());
+        SmartDashboard.putBoolean("Shooter On target", CommandBase.shooter.isOnTarget());
+        
+        
+	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy())).getLY());
+        SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy())).getRY());
+        SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
+        SmartDashboard.putNumber("Front sonar 1", CommandBase.drivetrain.getFrontSonar1());
+        
+        SmartDashboard.putBoolean("Air Full", CommandBase.compressor.getPressureSwitch());
+        SmartDashboard.putString("Compressor State", CommandBase.compressor.getEnabled() ? "ON" : "OFF");
+    }
+}

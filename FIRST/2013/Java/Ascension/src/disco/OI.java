@@ -1,11 +1,13 @@
 package disco;
 
+import disco.commands.shooter.Shoot;
 import disco.commands.collector.CollectorToggle;
 import disco.commands.drivetrain.*;
 import disco.commands.pneumatics.*;
 import disco.commands.shooter.*;
 import disco.utils.GamePad;
 import disco.utils.GamePad.AxisButton;
+import disco.utils.ShooterButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -24,9 +26,9 @@ public class OI {
     private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_Y);
     private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
     private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_X_L);
+    private Button b_bangbang=new JoystickButton(gp1,gp1.BTN_X);
     
-    private Button b_shootIn=new JoystickButton(gp1,gp1.BTN_A);
-    //private Button b_shootOut=new JoystickButton(gp1,gp1.BTN_X);
+    private Button b_shoot=new JoystickButton(gp1,gp1.BTN_A);
     
     private Button b_makeTank=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_makeArcade=new JoystickButton(gp1,gp1.BUMPER_L);
@@ -65,9 +67,9 @@ public class OI {
         b_toggleShooter.whenPressed(new ShooterToggle());
         b_shooterInc.whenPressed(new ShooterInc());
         b_shooterDec.whenPressed(new ShooterDec());
+        b_bangbang.whenPressed(new ShooterBangBang());
         
-        b_shootIn.whenPressed(new Shoot());
-        //b_shootOut.whenPressed(new ShootOut());
+        b_shoot.whenPressed(new Shoot());
         
         b_makeTank.whenPressed(new AssistedTank());
         b_makeArcade.whenPressed(new JoyArcadeTwoSpeed());
