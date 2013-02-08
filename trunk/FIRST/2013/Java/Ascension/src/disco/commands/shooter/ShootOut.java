@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disco.commands.pneumatics;
+package disco.commands.shooter;
 
 import disco.commands.CommandBase;
 import disco.subsystems.Shooter;
@@ -11,13 +11,13 @@ import disco.subsystems.Shooter;
  *
  * @author Developer
  */
-public class ShootIn extends CommandBase {
+public class ShootOut extends CommandBase {
     private boolean done;
     private double timeout=0.5;
     
-    public ShootIn() {
+    public ShootOut() {
         // Use requires() here to declare subsystem dependencies
-        requires(shooter);
+        //requires(shooter);
         
         //this.setTimeout(timeout);
     }
@@ -30,9 +30,9 @@ public class ShootIn extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         if(!done){
-            shooter.setPneumatic(Shooter.IN);
+            shooter.setPneumatic(Shooter.OUT);
         }
-        done=true;
+        done = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()

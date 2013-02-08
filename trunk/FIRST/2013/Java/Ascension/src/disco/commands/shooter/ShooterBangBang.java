@@ -25,11 +25,17 @@ public class ShooterBangBang extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	if(shooter.getRPM()>shooter.getSetpoint()){
-	    shooter.setPower(0);
+	if(shooter.getRPM1()>shooter.getSetpoint()){
+	    shooter.setPower1(0);
 	}
 	else{
-	    shooter.setPower(1);
+	    shooter.setPower1(1);
+	}
+	if(shooter.getRPM2()>shooter.getSetpoint()){
+	    shooter.setPower2(0);
+	}
+	else{
+	    shooter.setPower2(1);
 	}
     }
 

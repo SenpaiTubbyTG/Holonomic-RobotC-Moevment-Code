@@ -12,7 +12,7 @@ public class Shooter extends PIDSubsystem {
     private Victor m_shooter1;
     private Victor m_shooter2;
     private DiscoCounterEncoder m_encoder;
-//    private DiscoCounterEncoder m_encoder2;
+    private DiscoCounterEncoder m_encoder2;
     private static double   kP=0.01,
 			    kI=0,
 			    kD=0,
@@ -21,6 +21,8 @@ public class Shooter extends PIDSubsystem {
     public static final int IN=0;
     public static final int OUT=1;
     private Relay m_pneumatic;
+    
+    private boolean onTarget=false;
 
     public Shooter(){
 	super("shooter",kP,kI,kD,kF);
@@ -28,14 +30,12 @@ public class Shooter extends PIDSubsystem {
 	m_shooter2=new Victor(HW.Shooter2Slot,HW.Shooter2Channel);
 
 	m_encoder=new DiscoCounterEncoder(HW.shooterEncoderSlot,HW.shooterEncoderChannel,1);
-	m_encoder.setSemiPeriodMode(false);
         m_encoder.start();
         setSetpoint(6200);
 
-  /*      m_encoder2=new DiscoCounterEncoder(HW.shooterEncoder2Slot,HW.shooterEncoder2Channel,1);
-	m_encoder2.setSemiPeriodMode(false);
+        m_encoder2=new DiscoCounterEncoder(HW.shooterEncoder2Slot,HW.shooterEncoder2Channel,1);
         m_encoder2.start();
-        setSetpoint(6200);*/
+        setSetpoint(6200);
         
         m_pneumatic=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
         m_pneumatic.set(Relay.Value.kReverse);
@@ -87,7 +87,17 @@ public class Shooter extends PIDSubsystem {
 	setPower(output);
     }
 
-    public double getRPM() {
+    public double getRPM1() {
 	return m_encoder.getRPM();
+    }
+    public double getRPM2() {
+	return m_encoder2.getRPM();
+    }
+    
+    public void setOntarget(boolean val){
+        onTarget=val;
+    }
+    public boolean isOnTarget(){
+        return onTarget;
     }
 }
