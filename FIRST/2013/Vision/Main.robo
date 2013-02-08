@@ -1,11 +1,22 @@
 <head><version>2.48.3</version></head>
-<Read_HTTP>
+<Read_HTTP disabled>
   <is_active>TRUE</is_active>
   <url>http://10.25.87.11/axis-cgi/mjpg/video.cgi?resolution=320x240&amp;color=0</url>
   <password>admin</password>
   <username>root</username>
   <erase_on_error>TRUE</erase_on_error>
 </Read_HTTP>
+<Radial_Distortion disabled>
+  <scale>1000.0</scale>
+  <coeff_c>0.0</coeff_c>
+  <coeff_d>0.0</coeff_d>
+  <center_x>0.5</center_x>
+  <crop_image>FALSE</crop_image>
+  <coeff_b>1.0</coeff_b>
+  <center_y>0.5</center_y>
+  <coeff_e>0.0</coeff_e>
+  <coeff_a>-1000.0</coeff_a>
+</Radial_Distortion>
 <Marker>
   <include_graphics>FALSE</include_graphics>
   <name>Source</name>
@@ -131,6 +142,16 @@
   <show_weights>FALSE</show_weights>
   <create_blob_array_variable>TRUE</create_blob_array_variable>
 </Blob_Filter>
+<Math>
+  <image_1_channel>2</image_1_channel>
+  <image_2_channel>1</image_2_channel>
+  <image2>Current</image2>
+  <function>6</function>
+  <divisor>1</divisor>
+  <image1>Source</image1>
+  <all_channels>TRUE</all_channels>
+  <bias>0</bias>
+</Math>
 <VBScript_Program>
   <tab_size_index>1</tab_size_index>
   <script>	imageWidth = GetVariable("IMAGE_WIDTH")
@@ -174,21 +195,15 @@
 		SetVariable "error", "false"
   end if
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-	mysub()
+	SetVariable "distance", 0
 	halfTargetWidthRadians = FormatNumber(((fovRad * GetArrayVariable("WIDTH")(0))/(2 * imageWidth)),3)
 	testWidthInches = 14
 	SetVariable "distance", ((testWidthInches)/(24*Tan(halfTargetWidthRadians)))-1 
-	
-	
-Sub mysub()
-	SetVariable "distance", 0
-End Sub
-	
 	</script>
   <filename>C:\Users\Nolan\User Documents\Robotics\2587 Discobots\FIRST\2013\RoboRealm\Calc.vbs</filename>
   <source_mode>gui</source_mode>
 </VBScript_Program>
-<Object_Recognition disabled>
+<Object_Recognition>
   <select_top_objects>0</select_top_objects>
   <max_angle>360</max_angle>
   <create_shape_array>FALSE</create_shape_array>
@@ -221,16 +236,6 @@ End Sub
   <display_confidence>TRUE</display_confidence>
   <match_isolation>20</match_isolation>
 </Object_Recognition>
-<Math>
-  <image_1_channel>2</image_1_channel>
-  <image_2_channel>1</image_2_channel>
-  <image2>Current</image2>
-  <function>6</function>
-  <divisor>1</divisor>
-  <image1>Source</image1>
-  <all_channels>FALSE</all_channels>
-  <bias>0</bias>
-</Math>
 <Display_Variables>
   <display_as_annotation>FALSE</display_as_annotation>
   <font_size_index>2</font_size_index>
