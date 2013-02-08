@@ -34,9 +34,10 @@ public class DriveAngle extends AssistedTank {
 
     public DriveAngle(double angleSetpoint) {
         requires(drivetrain);
-        double wheelRadius = 0;
-        double wheelSeperation = 0;
-        int encoderTicks = 0;
+        
+        double wheelRadius = 2.5;
+        double wheelSeperation = 18.5;
+        int encoderTicks = 128;
 
 	//gives difference in encoder counts we want to target
         m_setpoint = (int) (Math.toRadians(angleSetpoint) / (2 * Math.PI) * (wheelSeperation / wheelRadius) * encoderTicks);
@@ -83,7 +84,7 @@ public class DriveAngle extends AssistedTank {
      * TODO: TABLES NEED A NAME
      */
     public static double getTargetAngle() {
-        return NetworkTable.getTable("").getNumber("mainTargetAngle");
+        return NetworkTable.getTable("").getNumber("rotAng1");
     }
     public static double getTargetDistance() {
         return NetworkTable.getTable("").getNumber("mainTargetDistance");
