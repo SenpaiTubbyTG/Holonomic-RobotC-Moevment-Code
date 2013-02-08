@@ -4,11 +4,17 @@
  */
 package disco.commands;
 
+import disco.commands.drivetrain.DriveDistance;
+import disco.commands.pneumatics.ShootIn;
+import disco.commands.pneumatics.ShootOut;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
+
 /**
  *
  * @author Doris
  */
-public class Autonomous extends CommandBase {
+public class Autonomous extends CommandGroup {
     
     public Autonomous() {
         // Use requires() here to declare subsystem dependencies
@@ -17,10 +23,19 @@ public class Autonomous extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        addSequential(new ShootIn());
+        addSequential(new WaitCommand(0.5));
+        addSequential(new ShootOut());
+        /*12.566 in. circumference
+        128 pulses
+        10.1859 pulses/in.*/
+        
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
