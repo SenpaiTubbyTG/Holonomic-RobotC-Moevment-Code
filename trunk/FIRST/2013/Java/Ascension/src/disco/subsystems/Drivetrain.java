@@ -9,10 +9,12 @@ import disco.commands.drivetrain.AssistedTank;
 import disco.commands.drivetrain.RawJoyTank;
 import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
@@ -28,7 +30,12 @@ public class Drivetrain extends Subsystem {
     private MaxbotixSonar leftSonar;
     private Encoder leftEncoder;
     private Encoder rightEncoder;
+    
+    private DigitalInput pyramidSwitch1;
+    private DigitalInput pyramidSwitch2;
 
+    private Gyro gyro;
+    
     public Drivetrain(){
 	super("Drivetrain");
 	leftDrive1=new Victor(HW.LeftDrive1Slot,HW.LeftDrive1Channel);
@@ -46,6 +53,10 @@ public class Drivetrain extends Subsystem {
         frontSonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
         frontSonar2=new MaxbotixSonar(HW.maxbotixsonar2Slot,HW.maxbotixsonar2Channel,MaxbotixSonar.Unit.kInches);
         leftSonar=new MaxbotixSonar(HW.maxbotixsonar3Slot,HW.maxbotixsonar3Channel,MaxbotixSonar.Unit.kInches);
+        
+        pyramidSwitch1 = new DigitalInput(HW.limitSwitchSlot, HW.limitSwitchChannel);
+        pyramidSwitch2 = new DigitalInput(HW.limitSwitchSlot2, HW.limitSwitchChannel2);
+        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
     }
 
     public void initDefaultCommand() {
@@ -75,5 +86,9 @@ public class Drivetrain extends Subsystem {
     }
     public int getRightEncoder(){
 	return 0;
+    }
+    public double getGyroAngle() {
+        return gyro.getAngle();
+        
     }
 }

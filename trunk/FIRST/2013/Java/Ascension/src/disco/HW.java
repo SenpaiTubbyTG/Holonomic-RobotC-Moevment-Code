@@ -69,11 +69,17 @@ public class HW {
 			    rightEncoderBChannel=10,	rightEncoderSlot=1,
             
 			    shooterEncoderChannel=1,	shooterEncoderSlot=1,
+                            shooterEncoder2Channel=4,	shooterEncoder2Slot=1,
             
                             pressureSwitchChannel=1,    pressureSwitchSlot=2,
-            
+                            
+                            limitSwitchChannel = 8, limitSwitchSlot = 1,
+                            limitSwitchChannel2 = 9, limitSwitchSlot2 = 1,
                             //Analog
+                            gyroChannel = 8, gyroSlot = 1,
                             maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1,
                             maxbotixsonar2Channel=2,    maxbotixsonar2Slot=1,
                             maxbotixsonar3Channel=3,    maxbotixsonar3Slot=1;
+    
+                            
 }
