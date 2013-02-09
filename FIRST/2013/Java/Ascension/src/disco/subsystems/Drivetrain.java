@@ -54,9 +54,11 @@ public class Drivetrain extends Subsystem {
         frontSonar2=new MaxbotixSonar(HW.maxbotixsonar2Slot,HW.maxbotixsonar2Channel,MaxbotixSonar.Unit.kInches);
         leftSonar=new MaxbotixSonar(HW.maxbotixsonar3Slot,HW.maxbotixsonar3Channel,MaxbotixSonar.Unit.kInches);
         
-//        pyramidSwitch1 = new DigitalInput(HW.limitSwitchLeftSlot, HW.limitSwitchLeftChannel);
-//        pyramidSwitch2 = new DigitalInput(HW.limitSwitchRightSlot, HW.limitSwitchRightChannel);
-//        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
+        pyramidSwitch1 = new DigitalInput(HW.limitSwitchLeftSlot, HW.limitSwitchLeftChannel);
+        pyramidSwitch2 = new DigitalInput(HW.limitSwitchRightSlot, HW.limitSwitchRightChannel);
+        
+        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
+        gyro.setSensitivity(0.007);
     }
 
     public void initDefaultCommand() {
@@ -88,7 +90,6 @@ public class Drivetrain extends Subsystem {
 	return 0;
     }
     public double getGyroAngle() {
-        return gyro.getAngle();
-        
+        return gyro.getAngle(); 
     }
 }

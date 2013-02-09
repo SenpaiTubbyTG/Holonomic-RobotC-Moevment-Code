@@ -14,18 +14,27 @@ public abstract class CommandBase extends Command {
 
     public static OI oi;
     // Create a single static instance of all of your subsystems
-    public static Drivetrain drivetrain = new Drivetrain();
-    public static Shooter shooter = new Shooter();
-    public static Collector collector = new Collector();
-    public static CompressorSub compressor = new CompressorSub();
+    public static Drivetrain drivetrain;
+    public static Shooter shooter;
+    public static Collector collector;
+    public static CompressorSub compressor;
 
     public static void init() {
+        drivetrain = new Drivetrain();
+        System.out.println("command2");
+        shooter = new Shooter();
+        System.out.println("command3");
+        collector = new Collector();
+        System.out.println("command4");
+        compressor = new CompressorSub();
+        System.out.println("command5");
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
         oi = new OI();
+        System.out.println("command1");
 
         // Show what command your subsystem is running on the SmartDashboard
     }

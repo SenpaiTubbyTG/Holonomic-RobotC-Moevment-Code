@@ -24,14 +24,6 @@ public class ShooterToggle extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	if(shooter.getPIDController().isEnable()){
-	    shooter.disable();
-            compressor.set(true);
-	}
-	else {
-	    shooter.enable();
-            compressor.set(false);
-	}
 	done=true;
     }
 

@@ -1,13 +1,11 @@
 package disco;
 
-import disco.commands.shooter.Shoot;
 import disco.commands.collector.CollectorToggle;
 import disco.commands.drivetrain.*;
 import disco.commands.pneumatics.*;
 import disco.commands.shooter.*;
 import disco.utils.GamePad;
 import disco.utils.GamePad.AxisButton;
-import disco.utils.ShooterButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

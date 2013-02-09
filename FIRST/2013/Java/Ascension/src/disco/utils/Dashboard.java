@@ -41,8 +41,10 @@ public class Dashboard {
         
 	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy())).getLY());
         SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy())).getRY());
-        SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
         SmartDashboard.putNumber("Front sonar 1", CommandBase.drivetrain.getFrontSonar1());
+        SmartDashboard.putNumber("Gyro angle", CommandBase.drivetrain.getGyroAngle());
+        
+        SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
         
         SmartDashboard.putBoolean("Air Full", CommandBase.compressor.getPressureSwitch());
         SmartDashboard.putString("Compressor State", CommandBase.compressor.getEnabled() ? "ON" : "OFF");

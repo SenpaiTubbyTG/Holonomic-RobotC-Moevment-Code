@@ -19,7 +19,6 @@ public class ShooterBangBang extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
 	done=false;
-	shooter.disable();
 	compressor.set(false);
     }
 
@@ -27,9 +26,11 @@ public class ShooterBangBang extends CommandBase {
     protected void execute() {
 	if(shooter.getRPM1()>shooter.getSetpoint()){
 	    shooter.setPower1(0);
+            shooter.setOntarget(true);
 	}
 	else{
 	    shooter.setPower1(1);
+            shooter.setOntarget(false);
 	}
 	if(shooter.getRPM2()>shooter.getSetpoint()){
 	    shooter.setPower2(0);

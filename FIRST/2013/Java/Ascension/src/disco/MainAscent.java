@@ -39,9 +39,11 @@ public class MainAscent extends IterativeRobot {
 
 	// Initialize all subsystems
 	CommandBase.init();
+        System.out.println("main1");
 	getWatchdog().setEnabled(false);
 	Dashboard.init();
 	Dashboard.putStuff();
+        System.out.println("main2");
     }
 
     public void disabledInit() {
