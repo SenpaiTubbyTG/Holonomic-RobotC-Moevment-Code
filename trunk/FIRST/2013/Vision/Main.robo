@@ -1,4 +1,4 @@
-<head><version>2.48.3</version></head>
+<head><version>2.49.4</version></head>
 <Read_HTTP disabled>
   <is_active>TRUE</is_active>
   <url>http://10.25.87.11/axis-cgi/mjpg/video.cgi?resolution=320x240&amp;color=0</url>
@@ -169,37 +169,7 @@
   else 
 		SetVariable "rotAng1", 0
   end if
-	if blobCount &gt; 1 then 
-		SetVariable "rotAng2", FormatNumber(((fov * ((imageWidth / 2) - blobs(2))) / imageWidth),3)
-  else 
-		SetVariable "rotAng2", 0
-  end if
-	if blobCount &gt; 2 then 
-		SetVariable "rotAng3", FormatNumber(((fov * ((imageWidth / 2) - blobs(4))) / imageWidth),3)
-  else 
-		SetVariable "rotAng3", 0
-  end if
-	if blobCount &gt; 3 then 
-		SetVariable "rotAng4", FormatNumber(((fov * ((imageWidth / 2) - blobs(6))) / imageWidth),3)
-  else 
-		SetVariable "rotAng4", 0
-  end if
-	if blobCount &gt; 4 then 
-		SetVariable "rotAng5", FormatNumber(((fov * ((imageWidth / 2) - blobs(8))) / imageWidth),3)
-  else
-		SetVariable "rotAng5", 0
-  end if
-	if blobCount &gt; 5 then 
-		SetVariable "error", "true"
-  else 
-		SetVariable "error", "false"
-  end if
-''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-	SetVariable "distance", 0
-	halfTargetWidthRadians = FormatNumber(((fovRad * GetArrayVariable("WIDTH")(0))/(2 * imageWidth)),3)
-	testWidthInches = 14
-	SetVariable "distance", ((testWidthInches)/(24*Tan(halfTargetWidthRadians)))-1 
-	</script>
+</script>
   <filename>C:\Users\Nolan\User Documents\Robotics\2587 Discobots\FIRST\2013\RoboRealm\Calc.vbs</filename>
   <source_mode>gui</source_mode>
 </VBScript_Program>
