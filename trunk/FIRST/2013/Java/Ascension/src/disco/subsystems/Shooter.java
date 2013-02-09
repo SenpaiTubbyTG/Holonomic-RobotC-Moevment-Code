@@ -2,40 +2,36 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.utils.DiscoCounterEncoder;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Shooter extends PIDSubsystem {
+public class Shooter extends Subsystem {
     private Victor m_shooter1;
     private Victor m_shooter2;
     private DiscoCounterEncoder m_encoder;
     private DiscoCounterEncoder m_encoder2;
-    private static double   kP=0.01,
-			    kI=0,
-			    kD=0,
-			    kF=0.000;
 
     public static final int IN=0;
     public static final int OUT=1;
     private Relay m_pneumatic;
     
     private boolean onTarget=false;
+    private double setpoint=0;
 
     public Shooter(){
-	super("shooter",kP,kI,kD,kF);
 	m_shooter1=new Victor(HW.Shooter1Slot,HW.Shooter1Channel);
 	m_shooter2=new Victor(HW.Shooter2Slot,HW.Shooter2Channel);
 
-	m_encoder=new DiscoCounterEncoder(HW.shooterEncoderSlot,HW.shooterEncoderChannel,1);
+	m_encoder=new DiscoCounterEncoder(HW.shooterEncoderSlot,HW.shooterEncoderChannel,2);
+        m_encoder.setUpSourceEdge(true, true);
         m_encoder.start();
         setSetpoint(6200);
 
-        m_encoder2=new DiscoCounterEncoder(HW.shooterEncoder2Slot,HW.shooterEncoder2Channel,1);
+        m_encoder2=new DiscoCounterEncoder(HW.shooterEncoder2Slot,HW.shooterEncoder2Channel,2);
+        m_encoder2.setUpSourceEdge(true, true);
         m_encoder2.start();
-        setSetpoint(6200);
         
         m_pneumatic=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
         m_pneumatic.set(Relay.Value.kReverse);
@@ -43,6 +39,13 @@ public class Shooter extends PIDSubsystem {
     }
 
     public void initDefaultCommand() {}
+    
+    public void setSetpoint(double setpoint){
+        this.setpoint=setpoint;
+    }
+    public double getSetpoint(){
+        return this.setpoint;
+    }
 
     public void setPower(double power){
 	setPower1(power);
@@ -78,20 +81,11 @@ public class Shooter extends PIDSubsystem {
         return m_pneumatic.get();
     }
 
-    protected double returnPIDInput() {
-	return m_encoder.getRPM();
-//	return 0;
-    }
-
-    protected void usePIDOutput(double output) {
-	setPower(output);
-    }
-
     public double getRPM1() {
-	return m_encoder.getRPM();
+	return m_encoder.getFilteredRPM();
     }
     public double getRPM2() {
-	return m_encoder2.getRPM();
+	return m_encoder2.getFilteredRPM();
     }
     
     public void setOntarget(boolean val){

@@ -76,10 +76,10 @@ public class HW {
                             limitSwitchLeftChannel = 10, limitSwitchLeftSlot = 1,
                             limitSwitchRightChannel =10, limitSwitchRightSlot = 2,
                             //Analog
-                            gyroChannel = 10, gyroSlot = 1,
+                            gyroChannel = 2, gyroSlot = 1,
                             maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1,
-                            maxbotixsonar2Channel=2,    maxbotixsonar2Slot=1,
-                            maxbotixsonar3Channel=3,    maxbotixsonar3Slot=1;
+                            maxbotixsonar2Channel=3,    maxbotixsonar2Slot=1,
+                            maxbotixsonar3Channel=4,    maxbotixsonar3Slot=1;
     
                             
 }
