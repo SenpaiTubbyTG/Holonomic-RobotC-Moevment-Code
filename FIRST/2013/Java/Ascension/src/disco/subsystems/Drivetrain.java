@@ -111,4 +111,11 @@ public class Drivetrain extends Subsystem {
     public boolean getRightPyramid(){
         return !pyramidSwitchRight.get();
     }
+
+	public double getPWMLeft() {
+        return leftDrive2.getSpeed();
+    }
+    public double getPWMRight() {
+        return RightDrive2.getSpeed();
+    }
 }
