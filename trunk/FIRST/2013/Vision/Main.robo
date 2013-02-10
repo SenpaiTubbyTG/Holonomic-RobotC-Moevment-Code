@@ -6,6 +6,22 @@
   <username>root</username>
   <erase_on_error>TRUE</erase_on_error>
 </Read_HTTP>
+<Axis_Internet_Camera>
+  <auto_exposure>FALSE</auto_exposure>
+  <auto_back_light>TRUE</auto_back_light>
+  <exposure_value>20</exposure_value>
+  <auto_white_balance>TRUE</auto_white_balance>
+  <compression_index>3</compression_index>
+  <sharpness_value>58</sharpness_value>
+  <ip_address>10.25.87.11</ip_address>
+  <password>FRC</password>
+  <username>FRC</username>
+  <port>80</port>
+  <contrast_value>95</contrast_value>
+  <is_active>TRUE</is_active>
+  <resolution>2</resolution>
+  <brightness_value>45</brightness_value>
+</Axis_Internet_Camera>
 <Radial_Distortion disabled>
   <scale>1000.0</scale>
   <coeff_c>0.0</coeff_c>
@@ -25,7 +41,7 @@
 <Adaptive_Threshold>
   <mean_offset>5</mean_offset>
   <filter_size>7</filter_size>
-  <min_threshold>230</min_threshold>
+  <min_threshold>180</min_threshold>
   <result_type>2</result_type>
   <channel_type>2</channel_type>
   <max_threshold>255</max_threshold>
@@ -55,7 +71,7 @@
 </Fill>
 <Blob_Size>
   <limit>512</limit>
-  <min_area>300</min_area>
+  <min_area>350</min_area>
   <treat_as_color_image>FALSE</treat_as_color_image>
   <mask>FALSE</mask>
   <threshold>5</threshold>
@@ -144,7 +160,7 @@
 </Blob_Filter>
 <Math>
   <image_1_channel>2</image_1_channel>
-  <image_2_channel>1</image_2_channel>
+  <image_2_channel>2</image_2_channel>
   <image2>Current</image2>
   <function>6</function>
   <divisor>1</divisor>
@@ -173,7 +189,7 @@
   <filename>C:\Users\Nolan\User Documents\Robotics\2587 Discobots\FIRST\2013\RoboRealm\Calc.vbs</filename>
   <source_mode>gui</source_mode>
 </VBScript_Program>
-<Object_Recognition>
+<Object_Recognition disabled>
   <select_top_objects>0</select_top_objects>
   <max_angle>360</max_angle>
   <create_shape_array>FALSE</create_shape_array>
@@ -228,6 +244,15 @@ rotAng5
   <border_color>yellow</border_color>
   <font_size>Normal (10pt)</font_size>
 </Display_Variables>
+<NetworkTables>
+  <port>1735</port>
+  <variable_type_index>2</variable_type_index>
+  <variables_to_send>rotAng1</variables_to_send>
+  <prefix>/Camera/</prefix>
+  <filter_type_index>0</filter_type_index>
+  <delay>100</delay>
+  <hostname>10.25.87.2</hostname>
+</NetworkTables>
 <Display_Point>
   <shape_color>yellow</shape_color>
   <display_as_annotation>FALSE</display_as_annotation>
