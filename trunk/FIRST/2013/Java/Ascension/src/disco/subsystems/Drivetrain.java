@@ -32,12 +32,12 @@ public class Drivetrain extends Subsystem {
     private MaxbotixSonar leftSonar;
     private Encoder leftEncoder;
     private Encoder rightEncoder;
-    
+
     private DigitalInput pyramidSwitchLeft;
     private DigitalInput pyramidSwitchRight;
 
     private Gyro gyro;
-    
+
     public Drivetrain(){
 	super("Drivetrain");
 	leftDrive1=new Victor(HW.LeftDrive1Slot,HW.LeftDrive1Channel);
@@ -55,15 +55,17 @@ public class Drivetrain extends Subsystem {
         frontSonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
         frontSonar2=new MaxbotixSonar(HW.maxbotixsonar2Slot,HW.maxbotixsonar2Channel,MaxbotixSonar.Unit.kInches);
         leftSonar=new MaxbotixSonar(HW.maxbotixsonar3Slot,HW.maxbotixsonar3Channel,MaxbotixSonar.Unit.kInches);
-        
+
         leftEncoder=new Encoder(    HW.leftEncoderSlot,HW.leftEncoderAChannel,
                                     HW.leftEncoderSlot,HW.leftEncoderBChannel,false,EncodingType.k4X);
         rightEncoder=new Encoder(    HW.rightEncoderSlot,HW.rightEncoderAChannel,
                                     HW.rightEncoderSlot,HW.rightEncoderBChannel,false,EncodingType.k4X);
-        
+	leftEncoder.start();
+	rightEncoder.start();
+
         pyramidSwitchLeft = new DigitalInput(HW.limitSwitchLeftSlot, HW.limitSwitchLeftChannel);
         pyramidSwitchRight = new DigitalInput(HW.limitSwitchRightSlot, HW.limitSwitchRightChannel);
-        
+
         gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
         gyro.setSensitivity(0.007);
     }
@@ -100,9 +102,9 @@ public class Drivetrain extends Subsystem {
 	return rightEncoder.get();
     }
     public double getGyroAngle() {
-        return gyro.getAngle(); 
+        return gyro.getAngle();
     }
-    
+
     public boolean getLeftPyramid(){
         return !pyramidSwitchLeft.get();
     }
