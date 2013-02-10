@@ -1,44 +1,49 @@
 package disco.subsystems;
 
 import disco.HW;
+import disco.commands.shooter.ShooterBangBang;
 import disco.utils.DiscoCounterEncoder;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
-    private Victor m_shooter1;
-    private Victor m_shooter2;
-    private DiscoCounterEncoder m_encoder;
-    private DiscoCounterEncoder m_encoder2;
+    private Victor m_shooterFront;
+    private Victor m_shooterBack;
+    private DiscoCounterEncoder m_encoderFront;
+    private DiscoCounterEncoder m_encoderBack;
 
     public static final int IN=0;
     public static final int OUT=1;
     private Relay m_pneumatic;
     
+    private boolean enabled=false;
     private boolean onTarget=false;
     private double setpoint=0;
+    public final double m_defaultSetpoint=6300;
 
     public Shooter(){
-	m_shooter1=new Victor(HW.Shooter1Slot,HW.Shooter1Channel);
-	m_shooter2=new Victor(HW.Shooter2Slot,HW.Shooter2Channel);
+	m_shooterFront=new Victor(HW.ShooterFrontSlot,HW.ShooterFrontChannel);
+	m_shooterBack=new Victor(HW.ShooterBackSlot,HW.ShooterBackChannel);
 
-	m_encoder=new DiscoCounterEncoder(HW.shooterEncoderSlot,HW.shooterEncoderChannel,2);
-        m_encoder.setUpSourceEdge(true, true);
-        m_encoder.start();
-        setSetpoint(6200);
+	m_encoderFront=new DiscoCounterEncoder(HW.shooterEncoderFrontSlot,HW.shooterEncoderFrontChannel,2);
+        m_encoderFront.setUpSourceEdge(true, true);
+        m_encoderFront.start();
+        setSetpoint(m_defaultSetpoint);
 
-        m_encoder2=new DiscoCounterEncoder(HW.shooterEncoder2Slot,HW.shooterEncoder2Channel,2);
-        m_encoder2.setUpSourceEdge(true, true);
-        m_encoder2.start();
+        m_encoderBack=new DiscoCounterEncoder(HW.shooterEncoderBackSlot,HW.shooterEncoderBackChannel,2);
+        m_encoderBack.setUpSourceEdge(true, true);
+        m_encoderBack.start();
         
         m_pneumatic=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
         m_pneumatic.set(Relay.Value.kReverse);
         m_pneumatic.setDirection(Relay.Direction.kReverse);
     }
 
-    public void initDefaultCommand() {}
+    public void initDefaultCommand() {
+    }
     
     public void setSetpoint(double setpoint){
         this.setpoint=setpoint;
@@ -46,26 +51,41 @@ public class Shooter extends Subsystem {
     public double getSetpoint(){
         return this.setpoint;
     }
+    
+    public void enable(){
+        this.enabled=true;
+        new ShooterBangBang().start();
+    }
+    public void disable(){
+        Command com=this.getCurrentCommand();
+        if(com!=null){
+            com.cancel();
+        }
+        this.enabled=false;
+    }
+    public boolean isEnabled(){
+        return this.enabled;
+    }
 
     public void setPower(double power){
-	setPower1(power);
-	setPower2(power);
+	setFrontPower(power);
+	setBackPower(power);
     }
 
-    public void setPower1(double power){
-	m_shooter1.set(power);
+    public void setFrontPower(double power){
+	m_shooterFront.set(power);
     }
 
-    public void setPower2(double power){
-	m_shooter2.set(power);
+    public void setBackPower(double power){
+	m_shooterBack.set(power);
     }
 
-    public double getPower1(){
-	return m_shooter1.get();
+    public double getFrontPower(){
+	return m_shooterFront.get();
     }
 
-    public double getPower2(){
-	return m_shooter2.get();
+    public double getBackPower(){
+	return m_shooterBack.get();
     }
 
     public void setPneumatic(int position){
@@ -81,14 +101,14 @@ public class Shooter extends Subsystem {
         return m_pneumatic.get();
     }
 
-    public double getRPM1() {
-	return m_encoder.getFilteredRPM();
+    public double getFrontRPM() {
+	return m_encoderFront.getFilteredRPM();
     }
-    public double getRPM2() {
-	return m_encoder2.getFilteredRPM();
+    public double getBackRPM() {
+	return m_encoderBack.getFilteredRPM();
     }
     
-    public void setOntarget(boolean val){
+    public void setOnTarget(boolean val){
         onTarget=val;
     }
     public boolean isOnTarget(){

@@ -4,7 +4,11 @@
  */
 package disco.utils;
 
+import disco.HW;
+import disco.MainAscent;
 import disco.commands.CommandBase;
+import disco.commands.drivetrain.DriveAngleGyro;
+import disco.commands.shooter.ShooterBangBang;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Dashboard {
@@ -24,16 +28,18 @@ public class Dashboard {
         SmartDashboard.putData(CommandBase.shooter);
         SmartDashboard.putData(CommandBase.collector);
         SmartDashboard.putData(CommandBase.compressor);
-        //put other PID and stuff
+        //SmartDashboard.putData("Gyro PID",DriveAngleGyro.getController());
     }
 
     //Repeatedly call this to update dashboard values.
     public static void putSensors() {
-//	SmartDashboard.putData("Shooter PID",CommandBase.shooter.getController()); //don't need this?
-	SmartDashboard.putNumber("Forward Shooter RPM", CommandBase.shooter.getRPM1());
-	SmartDashboard.putNumber("Forward Shooter PWM", CommandBase.shooter.getPower1());
-	SmartDashboard.putNumber("Back Shooter RPM", CommandBase.shooter.getRPM2());
-	SmartDashboard.putNumber("Back Shooter PWM", CommandBase.shooter.getPower2());
+         SmartDashboard.putNumber("Execution loop time", MainAscent.getExecutionTime());
+        
+	SmartDashboard.putNumber("Forward Shooter RPM", CommandBase.shooter.getFrontRPM());
+	SmartDashboard.putNumber("Forward Shooter PWM", CommandBase.shooter.getFrontPower());
+	SmartDashboard.putNumber("Back Shooter RPM", CommandBase.shooter.getBackRPM());
+	SmartDashboard.putNumber("Back Shooter PWM", CommandBase.shooter.getBackPower());
+        SmartDashboard.putNumber("Shooter difference", ShooterBangBang.difference);
         
         SmartDashboard.putNumber("Shooter Setpoint", CommandBase.shooter.getSetpoint());
         SmartDashboard.putBoolean("Shooter On target", CommandBase.shooter.isOnTarget());
@@ -43,6 +49,10 @@ public class Dashboard {
         SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy())).getRY());
         SmartDashboard.putNumber("Front sonar 1", CommandBase.drivetrain.getFrontSonar1());
         SmartDashboard.putNumber("Gyro angle", CommandBase.drivetrain.getGyroAngle());
+        SmartDashboard.putBoolean("Touching Left Pyramid", CommandBase.drivetrain.getLeftPyramid());
+        SmartDashboard.putBoolean("Touching Right Pyramid", CommandBase.drivetrain.getRightPyramid());
+        SmartDashboard.putNumber("Left Encoder", CommandBase.drivetrain.getLeftEncoder());
+        SmartDashboard.putNumber("Right Encoder", CommandBase.drivetrain.getRightEncoder());
         
         SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
         
