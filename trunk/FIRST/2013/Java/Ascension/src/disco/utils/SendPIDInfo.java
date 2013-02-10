@@ -15,8 +15,8 @@ public class SendPIDInfo {
     TimerTask sender=new TimerTask(){
         public void run() {
             IT.putNumber("setpoint", CommandBase.shooter.getSetpoint());
-            IT.putNumber("RPM", CommandBase.shooter.getRPM1());
-            IT.putNumber("PWM", CommandBase.shooter.getPower1());
+            IT.putNumber("RPM", CommandBase.shooter.getFrontRPM());
+            IT.putNumber("PWM", CommandBase.shooter.getFrontPower());
         }
         
     };

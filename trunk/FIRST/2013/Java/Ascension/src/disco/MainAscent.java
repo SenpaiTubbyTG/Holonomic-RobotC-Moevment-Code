@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.io.IOException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +25,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class MainAscent extends IterativeRobot {
 
+    private static double executionTimeMillis=0;
+    private static long lastTime=0;
     Command autonomousCommand;
 
     public MainAscent() {
@@ -34,24 +38,33 @@ public class MainAscent extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-	// instantiate the command used for the autonomous period
-	//autonomousCommand = new ExampleCommand();
+            //autonomousCommand = new ExampleCommand();
+            //autonomousCommand = new ExampleCommand();
 
-	// Initialize all subsystems
-	CommandBase.init();
-        System.out.println("main1");
-	getWatchdog().setEnabled(false);
-	Dashboard.init();
-	Dashboard.putStuff();
-        System.out.println("main2");
+            // Initialize all subsystems
+            System.out.println("\n\nInitializing robot...\n");
+            CommandBase.init();
+            System.out.println("CommandBase initialization successful");
+            getWatchdog().setEnabled(false);
+            lastTime=System.currentTimeMillis();
+            //NetworkTable.setServerMode();
+            Dashboard.init();
+            Dashboard.putStuff();
+            System.out.println("Robot initialization successful");
     }
 
     public void disabledInit() {
     }
 
     public void disabledPeriodic() {
-	Scheduler.getInstance().run();
-        Dashboard.putSensors();
+            lastTime = System.currentTimeMillis();
+            
+            
+            NetworkTable.getTable("Camera").putString("Hi", "Does it work?");
+            
+            Scheduler.getInstance().run();
+            Dashboard.putSensors();
+            executionTimeMillis=System.currentTimeMillis()-lastTime;
 
     }
 
@@ -61,7 +74,10 @@ public class MainAscent extends IterativeRobot {
     }
 
     public void autonomousPeriodic() {
+	lastTime = System.currentTimeMillis();
 	Scheduler.getInstance().run();
+        Dashboard.putSensors();
+        executionTimeMillis=System.currentTimeMillis()-lastTime;
     }
 
     public void teleopInit() {
@@ -69,13 +85,17 @@ public class MainAscent extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-        long timeStart = System.currentTimeMillis();
+        lastTime = System.currentTimeMillis();
 	Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Execution loop time", (System.currentTimeMillis() - timeStart));
         Dashboard.putSensors();
+        executionTimeMillis=System.currentTimeMillis()-lastTime;
     }
 
     public void testPeriodic() {
 	LiveWindow.run();
+    }
+    
+    public static double getExecutionTime(){
+        return executionTimeMillis;
     }
 }

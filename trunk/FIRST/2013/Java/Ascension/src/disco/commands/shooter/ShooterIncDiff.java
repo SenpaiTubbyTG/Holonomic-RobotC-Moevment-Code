@@ -7,12 +7,11 @@ package disco.commands.shooter;
 import disco.commands.CommandBase;
 
 
-public class ShooterToggle extends CommandBase {
+public class ShooterIncDiff extends CommandBase {
     private boolean done;
-    
 
-    public ShooterToggle() {
-        // Use requires() here to declare subsystem dependencies
+    public ShooterIncDiff() {
+        //requires(shooter);
     }
 
     // Called just before this Command runs the first time
@@ -22,15 +21,8 @@ public class ShooterToggle extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	if(shooter.isEnabled()){
-            shooter.disable();
-            compressor.set(true);
-        }
-        else {
-            shooter.enable();
-            compressor.set(false);
-        }
-        done=true;
+        ShooterBangBang.difference+=100;
+	done=true;
     }
 
     // Make this return true when this Command no longer needs to run execute()

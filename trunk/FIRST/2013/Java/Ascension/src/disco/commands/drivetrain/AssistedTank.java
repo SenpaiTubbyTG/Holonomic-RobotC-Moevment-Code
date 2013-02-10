@@ -78,6 +78,15 @@ public class AssistedTank extends RawJoyTank {
 	    m_leftInitial=drivetrain.getLeftEncoder();
 	    m_rightInitial=drivetrain.getRightEncoder();
 	}
+        //don't drive forwards if we are touching the pyramid
+        if(drivetrain.getLeftPyramid()){
+            left = left>0 ? 0 : left;  
+        }
+        if(drivetrain.getRightPyramid()){
+            right = right>0 ? 0 : right;  
+        }
+        
+        //finally drive
         drivetrain.tankDrive(left, right);
     }
 

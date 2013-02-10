@@ -4,13 +4,14 @@
  */
 package disco.commands.drivetrain;
 
+import disco.HW;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 
-public class DriveAngle extends AssistedTank {
+public class DriveAngleEncoder extends AssistedTank {
     private double  m_kP=0,
 		    m_kI=0,
 		    m_kD=0;
@@ -32,15 +33,11 @@ public class DriveAngle extends AssistedTank {
         }
     };
 
-    public DriveAngle(double angleSetpoint) {
+    public DriveAngleEncoder(double angleSetpoint) {
         requires(drivetrain);
-        
-        double wheelRadius = 2.5;
-        double wheelSeperation = 18.5;
-        int encoderTicks = 128;
 
 	//gives difference in encoder counts we want to target
-        m_setpoint = (int) (Math.toRadians(angleSetpoint) / (2 * Math.PI) * (wheelSeperation / wheelRadius) * encoderTicks);
+        m_setpoint = (int) (Math.toRadians(angleSetpoint) / (2 * Math.PI) * (HW.wheelSeparation / HW.wheelRadius) * HW.encoderTicks);
     }
 
     protected void initialize() {

@@ -19,17 +19,19 @@ public class OI {
     private int gp1_mode = GamePad.MODE_D;
     private GamePad gp1 = new GamePad(1, gp1_mode);
     
-    private Button b_toggleCollector=new AxisButton(gp1,GamePad.DPAD_Y_U);
+    private Button b_toggleCollect=new JoystickButton(gp1,gp1.BTN_START);
     
-    private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_Y);
+    private Button b_diffInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
+    private Button b_diffDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
+    
+    private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_X);
     private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
     private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_X_L);
-    private Button b_bangbang=new JoystickButton(gp1,gp1.BTN_X);
-    
     private Button b_shoot=new JoystickButton(gp1,gp1.BTN_A);
     
     private Button b_makeTank=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_makeArcade=new JoystickButton(gp1,gp1.BUMPER_L);
+    private Button b_turn=new JoystickButton(gp1,gp1.BTN_Y);
     
     private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_B);
 
@@ -60,17 +62,20 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     public OI() {
-	b_toggleCollector.whenPressed(new CollectorToggle());
+        b_toggleCollect.whenPressed(new CollectorToggle());
+        
+	b_diffInc.whenPressed(new ShooterIncDiff());
+	b_diffDec.whenPressed(new ShooterDecDiff());
         
         b_toggleShooter.whenPressed(new ShooterToggle());
         b_shooterInc.whenPressed(new ShooterInc());
         b_shooterDec.whenPressed(new ShooterDec());
-        b_bangbang.whenPressed(new ShooterBangBang());
         
         b_shoot.whenPressed(new Shoot());
         
         b_makeTank.whenPressed(new AssistedTank());
         b_makeArcade.whenPressed(new JoyArcadeTwoSpeed());
+        b_turn.whenPressed(new DriveAngleGyro(90));
         
         b_compressorToggle.whenPressed(new ToggleCompressor());
     }

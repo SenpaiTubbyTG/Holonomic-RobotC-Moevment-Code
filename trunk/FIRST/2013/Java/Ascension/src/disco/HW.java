@@ -1,5 +1,7 @@
 package disco;
 
+import edu.wpi.first.wpilibj.camera.AxisCamera;
+
 /**
  * The HW is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -7,36 +9,14 @@ package disco;
  * floating around.
  */
 public class HW {
-//------------------------------------
-//      Public Constants
-//------------------------------------
-//------------------------------------
-//       Module Locations
-//------------------------------------
-    /** -------------------------------------------------------
-    The slot where the default analog Module is located
-    ------------------------------------------------------- */
-    public static int kAnalogModuleSlot = 0;
-    /** -------------------------------------------------------
-    The slot where the second analog Module is located
-    ------------------------------------------------------- */
-    public static int kSecondAnalogModuleSlot = 0;
-    /** -------------------------------------------------------
-    The slot where the default Digital Module is located
-    ------------------------------------------------------- */
-    public static int kDigitalModuleSlot = 4;	//Really?
-    /** -------------------------------------------------------
-    The slot where the second Digital Module is located
-    ------------------------------------------------------- */
-    public static int kSecondDigitalModuleSlot = 6;
-    /** -------------------------------------------------------
-    The slot where the default Solenoid Module is located
-    ------------------------------------------------------- */
-    public static int kSolenoidModuleSlot = 8;
 
-//    public static Compressor compressor = new Compressor(1,1);
-//    public static Relay liftRelay = new Relay(2);
-
+    /**
+     * Hardware
+     */
+    public static double wheelRadius=2.5;//in
+    public static double wheelSeparation=18.5;//in
+    public static int encoderTicks=128;
+    
     /** -------------------------------------------------------
     Motors
     ------------------------------------------------------- */
@@ -48,8 +28,8 @@ public class HW {
 			    Collect1Channel=4,	    Collect1Slot=2,
 			    Collect2Channel=9,	    Collect2Slot=2,
             
-			    Shooter1Channel=1,	    Shooter1Slot=2,
-			    Shooter2Channel=3,	    Shooter2Slot=2;
+			    ShooterFrontChannel=1,	    ShooterFrontSlot=2,
+			    ShooterBackChannel=3,	    ShooterBackSlot=2;
     /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
@@ -63,15 +43,15 @@ public class HW {
     Sensors
     ------------------------------------------------------- */
     public static final int //Digital
-                            leftEncoderAChannel=10,
-			    leftEncoderBChannel=10,	leftEncoderSlot=1,
-			    rightEncoderAChannel=10,
-			    rightEncoderBChannel=10,	rightEncoderSlot=1,
+                            leftEncoderAChannel=2,
+			    leftEncoderBChannel=1,	leftEncoderSlot=1,
+			    rightEncoderAChannel=2,
+			    rightEncoderBChannel=1,	rightEncoderSlot=2,
             
-			    shooterEncoderChannel=3,	shooterEncoderSlot=1,
-                            shooterEncoder2Channel=4,	shooterEncoder2Slot=1,
+			    shooterEncoderFrontChannel=3,	shooterEncoderFrontSlot=1,
+                            shooterEncoderBackChannel=4,	shooterEncoderBackSlot=1,
             
-                            pressureSwitchChannel=1,    pressureSwitchSlot=2,
+                            pressureSwitchChannel=14,    pressureSwitchSlot=2,
                             
                             limitSwitchLeftChannel = 10, limitSwitchLeftSlot = 1,
                             limitSwitchRightChannel =10, limitSwitchRightSlot = 2,

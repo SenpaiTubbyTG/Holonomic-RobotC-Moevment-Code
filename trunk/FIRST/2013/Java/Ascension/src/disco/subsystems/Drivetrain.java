@@ -9,6 +9,8 @@ import disco.commands.drivetrain.AssistedTank;
 import disco.commands.drivetrain.RawJoyTank;
 import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
+import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -31,8 +33,8 @@ public class Drivetrain extends Subsystem {
     private Encoder leftEncoder;
     private Encoder rightEncoder;
     
-    private DigitalInput pyramidSwitch1;
-    private DigitalInput pyramidSwitch2;
+    private DigitalInput pyramidSwitchLeft;
+    private DigitalInput pyramidSwitchRight;
 
     private Gyro gyro;
     
@@ -54,19 +56,27 @@ public class Drivetrain extends Subsystem {
         frontSonar2=new MaxbotixSonar(HW.maxbotixsonar2Slot,HW.maxbotixsonar2Channel,MaxbotixSonar.Unit.kInches);
         leftSonar=new MaxbotixSonar(HW.maxbotixsonar3Slot,HW.maxbotixsonar3Channel,MaxbotixSonar.Unit.kInches);
         
-        pyramidSwitch1 = new DigitalInput(HW.limitSwitchLeftSlot, HW.limitSwitchLeftChannel);
-        pyramidSwitch2 = new DigitalInput(HW.limitSwitchRightSlot, HW.limitSwitchRightChannel);
+        leftEncoder=new Encoder(    HW.leftEncoderSlot,HW.leftEncoderAChannel,
+                                    HW.leftEncoderSlot,HW.leftEncoderBChannel,false,EncodingType.k4X);
+        rightEncoder=new Encoder(    HW.rightEncoderSlot,HW.rightEncoderAChannel,
+                                    HW.rightEncoderSlot,HW.rightEncoderBChannel,false,EncodingType.k4X);
+        
+        pyramidSwitchLeft = new DigitalInput(HW.limitSwitchLeftSlot, HW.limitSwitchLeftChannel);
+        pyramidSwitchRight = new DigitalInput(HW.limitSwitchRightSlot, HW.limitSwitchRightChannel);
         
         gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
         gyro.setSensitivity(0.007);
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new RawJoyTank());
+        setDefaultCommand(new AssistedTank());
     }
 
     public void tankDrive(double left,double right){
 	drive.tankDrive(left, right,true);
+    }
+    public void tankDriveUnsmoothed(double left, double right){
+        drive.tankDrive(left,right,false);
     }
 
     public void arcadeDrive(double move, double turn) {
@@ -84,12 +94,19 @@ public class Drivetrain extends Subsystem {
     }
 
     public int getLeftEncoder() {
-	return 0;  //not supported
+	return leftEncoder.get();
     }
     public int getRightEncoder(){
-	return 0;
+	return rightEncoder.get();
     }
     public double getGyroAngle() {
         return gyro.getAngle(); 
+    }
+    
+    public boolean getLeftPyramid(){
+        return !pyramidSwitchLeft.get();
+    }
+    public boolean getRightPyramid(){
+        return !pyramidSwitchRight.get();
     }
 }

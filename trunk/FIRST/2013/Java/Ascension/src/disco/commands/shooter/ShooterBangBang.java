@@ -9,6 +9,8 @@ import disco.commands.CommandBase;
 
 public class ShooterBangBang extends CommandBase {
     private boolean done;
+    private boolean onTarget=false;
+    public static double difference=0;
 
     public ShooterBangBang() {
         // Use requires() here to declare subsystem dependencies
@@ -24,20 +26,21 @@ public class ShooterBangBang extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	if(shooter.getRPM1()>shooter.getSetpoint()){
-	    shooter.setPower1(0);
-            shooter.setOntarget(true);
+	if(shooter.getFrontRPM()>shooter.getSetpoint()){
+	    shooter.setFrontPower(0);
 	}
 	else{
-	    shooter.setPower1(1);
-            shooter.setOntarget(false);
+	    shooter.setFrontPower(1);
 	}
-	if(shooter.getRPM2()>shooter.getSetpoint()){
-	    shooter.setPower2(0);
+	if(shooter.getBackRPM()>shooter.getSetpoint()-difference){
+	    shooter.setBackPower(0);
 	}
 	else{
-	    shooter.setPower2(1);
+	    shooter.setBackPower(1);
 	}
+        //on target if within 5%
+        onTarget=Math.abs( (shooter.getFrontRPM()-shooter.getSetpoint()) / shooter.getSetpoint() )<0.005;
+        shooter.setOnTarget(onTarget);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -49,6 +52,7 @@ public class ShooterBangBang extends CommandBase {
     protected void end() {
 	shooter.setPower(0);
 	compressor.set(true);
+        shooter.setOnTarget(false);
     }
 
     // Called when another command which requires one or more of the same
