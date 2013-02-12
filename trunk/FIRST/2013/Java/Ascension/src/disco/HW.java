@@ -16,7 +16,7 @@ public class HW {
     public static double wheelRadius=2.5;//in
     public static double wheelSeparation=18.5;//in
     public static int encoderTicks=128;
-    
+
     /** -------------------------------------------------------
     Motors
     ------------------------------------------------------- */
@@ -24,10 +24,12 @@ public class HW {
 			    LeftDrive2Channel=2,    LeftDrive2Slot=1,
 			    RightDrive1Channel=3,   RightDrive1Slot=1,
 			    RightDrive2Channel=4,   RightDrive2Slot=1,
-            
+
 			    Collect1Channel=4,	    Collect1Slot=2,
-			    Collect2Channel=9,	    Collect2Slot=2,
-            
+			    Collect2Channel=5,	    Collect2Slot=2,
+			    Collect3Channel=6,	    Collect3Slot=2,
+			    Collect4Channel=7,	    Collect4Slot=2,
+
 			    ShooterFrontChannel=1,	    ShooterFrontSlot=2,
 			    ShooterBackChannel=3,	    ShooterBackSlot=2;
     /** -------------------------------------------------------
@@ -38,7 +40,7 @@ public class HW {
     /** -------------------------------------------------------
     Solenoids
     ------------------------------------------------------- */
-            
+
     /** -------------------------------------------------------
     Sensors
     ------------------------------------------------------- */
@@ -47,12 +49,12 @@ public class HW {
 			    leftEncoderBChannel=1,	leftEncoderSlot=1,
 			    rightEncoderAChannel=2,
 			    rightEncoderBChannel=1,	rightEncoderSlot=2,
-            
+
 			    shooterEncoderFrontChannel=3,	shooterEncoderFrontSlot=1,
                             shooterEncoderBackChannel=4,	shooterEncoderBackSlot=1,
-            
+
                             pressureSwitchChannel=14,    pressureSwitchSlot=2,
-                            
+
                             limitSwitchLeftChannel = 10, limitSwitchLeftSlot = 1,
                             limitSwitchRightChannel =10, limitSwitchRightSlot = 2,
                             //Analog
@@ -60,6 +62,6 @@ public class HW {
                             maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1,
                             maxbotixsonar2Channel=3,    maxbotixsonar2Slot=1,
                             maxbotixsonar3Channel=4,    maxbotixsonar3Slot=1;
-    
-                            
+
+
 }

@@ -6,15 +6,12 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.commands.drivetrain.AssistedTank;
-import disco.commands.drivetrain.RawJoyTank;
 import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
-import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
