@@ -52,17 +52,17 @@ public class DriveAngleEncoder extends AssistedTank {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        left -= m_correction;
-	right += m_correction;
+        left = m_correction;
+	right = -m_correction;
 	double max = Math.max(Math.abs(left), Math.abs(right));
 	if(max > 1){
             left = left / max;
             right = right / max;
 	}
-        drivetrain.tankDrive(left, right);
-        if (turnControl.getError()<10) {
-            finished = true;
-        }
+        drivetrain.tankDriveUnsmoothed(left, right);
+//        if (turnControl.getError()<10) {
+//            finished = true;
+//        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

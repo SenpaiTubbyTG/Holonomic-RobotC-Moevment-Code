@@ -37,7 +37,7 @@ public class DriveAngleGyro extends RawJoyTank {
     public DriveAngleGyro(double angleSetpoint) {
         requires(drivetrain);
 
-	//gives difference in encoder counts we want to target
+	//the gyro value we want to target
         m_setpoint =angleSetpoint;
     }
 
@@ -59,15 +59,15 @@ public class DriveAngleGyro extends RawJoyTank {
             right = right / max;
 	}
         drivetrain.tankDriveUnsmoothed(left, right);
-        
-        if (gyroControl.getError()<5) {
-            finished = true;
-        }
+
+//        if (gyroControl.getError()<5) {
+//            finished = true;
+//        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return finished;
     }
 
     private double returnPIDInput(){
@@ -76,13 +76,12 @@ public class DriveAngleGyro extends RawJoyTank {
 
     private void usePIDOutput(double output){
 	m_correction=output;
-        System.out.println(output);
     }
-    
+
     public PIDController getController(){
         return gyroControl;
     }
-    
+
     /*
      * TODO: TABLES NEED A NAME
      */
