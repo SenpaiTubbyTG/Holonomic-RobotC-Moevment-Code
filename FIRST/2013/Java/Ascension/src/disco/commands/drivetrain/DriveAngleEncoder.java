@@ -5,20 +5,24 @@
 package disco.commands.drivetrain;
 
 import disco.HW;
+import disco.commands.CommandBase;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
-public class DriveAngleEncoder extends AssistedTank {
-    private double  m_kP=0,
-		    m_kI=0,
-		    m_kD=0;
-    private int m_leftInitial=0;
-    private int m_rightInitial=0;
+public class DriveAngleEncoder extends CommandBase {
+    private double  m_kP=0.001,
+		    m_kI=0.00005,
+		    m_kD=0.0;
     private int m_setpoint = 0;
+    protected double m_correction=0;
     boolean finished = false;
+    private int m_leftInitial;
+    private int m_rightInitial;
+    private PIDController turnControl;
 
     private PIDOutput turnOutput = new PIDOutput() {
 
@@ -32,16 +36,18 @@ public class DriveAngleEncoder extends AssistedTank {
             return returnPIDInput();
         }
     };
+    private double left;
+    private double right;
+
 
     public DriveAngleEncoder(double angleSetpoint) {
         requires(drivetrain);
 
 	//gives difference in encoder counts we want to target
-        m_setpoint = (int) (Math.toRadians(angleSetpoint) / (2 * Math.PI) * (HW.wheelSeparation / HW.wheelRadius) * HW.encoderTicks);
+        m_setpoint = (int) (Math.toRadians(angleSetpoint) / HW.distancePerRev * HW.wheelSeparation * HW.encoderTicksPerRev);
     }
 
     protected void initialize() {
-	super.initialize();
 	m_leftInitial = drivetrain.getLeftEncoder();
 	m_rightInitial = drivetrain.getRightEncoder();
 
@@ -63,11 +69,19 @@ public class DriveAngleEncoder extends AssistedTank {
 //        if (turnControl.getError()<10) {
 //            finished = true;
 //        }
+        SmartDashboard.putNumber("drive output",m_correction);
+        SmartDashboard.putNumber("drive input",turnControl.getError());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return finished;
+    }
+    
+    
+    
+    protected void interrupted(){
+        end();
     }
 
     private double returnPIDInput(){
@@ -89,4 +103,15 @@ public class DriveAngleEncoder extends AssistedTank {
   /*  public static double[] getTargetAngles() {
        NetworkTable.getTable("").getValue("targetListAngles", );
     }*/
+
+    protected void end() {
+        turnControl.disable();
+    }
+    
+    protected int offsetLeft(){
+	return drivetrain.getLeftEncoder()-m_leftInitial;
+    }
+    protected int offsetRight(){
+	return drivetrain.getRightEncoder()-m_rightInitial;
+    }
 }

@@ -7,6 +7,9 @@ package disco.commands.drivetrain;
 import disco.commands.CommandBase;
 import disco.utils.GamePad;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
 
 
 /**
@@ -18,6 +21,28 @@ public class JoyArcadeTwoSpeed extends CommandBase {
     private Joystick joy1;
     private GamePad gp;
     private double threshold=0.2;
+    
+    protected PIDController turnControl;
+    private double  m_kP=0.001,
+		    m_kI=0.00005,
+		    m_kD=0;
+    
+    protected double m_correction=0;
+    protected int m_leftInitial=0;
+    protected int m_rightInitial=0;
+
+    private PIDOutput turnOutput = new PIDOutput() {
+
+        public void pidWrite(double output) {
+            usePIDOutput(output);
+        }
+    };
+    private PIDSource turnSource = new PIDSource() {
+
+        public double pidGet() {
+            return returnPIDInput();
+        }
+    };
 
     public JoyArcadeTwoSpeed() {
         // Use requires() here to declare subsystem dependencies
@@ -30,11 +55,28 @@ public class JoyArcadeTwoSpeed extends CommandBase {
 	if(joy1 instanceof GamePad){
 	    gp=(GamePad) joy1;
 	}
+        
+        m_leftInitial = drivetrain.getLeftEncoder();
+	m_rightInitial = drivetrain.getRightEncoder();
+
+	turnControl = new PIDController(m_kP, m_kI, m_kD, turnSource, turnOutput);
+	turnControl.enable();
+	turnControl.setSetpoint(0); //minimize error
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute(){
         calculateInputs();
+        if(move==0){
+            turnControl.enable();
+            turn=-m_correction/2.0;
+        }
+        else{
+            //driver is doing something else. start over.
+            turnControl.disable();
+            m_leftInitial=drivetrain.getLeftEncoder();
+	    m_rightInitial=drivetrain.getRightEncoder();
+        }
 	drivetrain.arcadeDrive(move,turn);
     }
 
@@ -46,6 +88,7 @@ public class JoyArcadeTwoSpeed extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
 	drivetrain.arcadeDrive(0, 0);
+        turnControl.disable();
     }
 
     // Called when another command which requires one or more of the same
@@ -67,5 +110,20 @@ public class JoyArcadeTwoSpeed extends CommandBase {
 	else{
 	    throw new IllegalStateException("JoyArcadeTwoSpeed only works with gamepads for now.");
 	}
+    }
+    
+    private double returnPIDInput(){
+	return offsetLeft()-offsetRight();
+    }
+
+    private void usePIDOutput(double output){
+	m_correction=output;
+    }
+
+    protected int offsetLeft(){
+	return drivetrain.getLeftEncoder()-m_leftInitial;
+    }
+    protected int offsetRight(){
+	return drivetrain.getRightEncoder()-m_rightInitial;
     }
 }

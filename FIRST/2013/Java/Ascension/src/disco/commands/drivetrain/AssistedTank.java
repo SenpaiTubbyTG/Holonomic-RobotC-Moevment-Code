@@ -12,16 +12,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AssistedTank extends RawJoyTank {
     protected PIDController turnControl;
-    private double  m_kP=0,
-		    m_kI=0,
+    private double  m_kP=0.001,
+		    m_kI=0.00005,
 		    m_kD=0;
     //joystick differences below this are assumed to be intended to be identical.
     private double m_correctionThreshold=0.2;
     //protected double threshold=0.2;
 
     protected double m_correction=0;
-    private int m_leftInitial=0;
-    private int m_rightInitial=0;
+    protected int m_leftInitial=0;
+    protected int m_rightInitial=0;
 
     private PIDOutput turnOutput = new PIDOutput() {
 
@@ -58,9 +58,7 @@ public class AssistedTank extends RawJoyTank {
 	calculateInput();
 	if(Math.abs(left-right)<=m_correctionThreshold){
             //we should correct
-	    if(!turnControl.isEnable()){
-		turnControl.enable();
-	    }
+            turnControl.enable();
 	    left -= m_correction;
 	    right += m_correction;
 	    //normalize if we are out of range (based on RobotDrive, which only does this for mecanum)
@@ -78,12 +76,14 @@ public class AssistedTank extends RawJoyTank {
 	    m_leftInitial=drivetrain.getLeftEncoder();
 	    m_rightInitial=drivetrain.getRightEncoder();
 	}
-        //don't drive forwards if we are touching the pyramid
-        if(drivetrain.getLeftPyramid()){
-            left = left>0 ? 0 : left;  
-        }
-        if(drivetrain.getRightPyramid()){
-            right = right>0 ? 0 : right;  
+        //don't drive forwards if we are touching the pyramid and not pushing the right bumper
+        if(!gp.getRawButton(gp.BUMPER_L)){
+            if(drivetrain.getLeftPyramid()){
+                left = left>0 ? 0 : left;  
+            }
+            if(drivetrain.getRightPyramid()){
+                right = right>0 ? 0 : right;  
+            }
         }
         
         //finally drive
@@ -98,7 +98,7 @@ public class AssistedTank extends RawJoyTank {
     // Called once after isFinished returns true
     protected void end() {
 	turnControl.disable();
-	turnControl.free();
+        drivetrain.tankDrive(0,0);
     }
 
     // Called when another command which requires one or more of the same

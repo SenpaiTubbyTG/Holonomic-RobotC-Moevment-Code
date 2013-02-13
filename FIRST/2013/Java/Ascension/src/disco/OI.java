@@ -21,8 +21,8 @@ public class OI {
 
     //private Button b_toggleCollect=new JoystickButton(gp1,gp1.BTN_START);
 
-//    private Button b_diffInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
-//    private Button b_diffDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
+    private Button b_diffInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
+    private Button b_diffDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
 
     private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_X);
     private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
@@ -64,8 +64,8 @@ public class OI {
     public OI() {
 //        b_toggleCollect.whenPressed(new CollectorToggle());
 //
-//	b_diffInc.whenPressed(new ShooterIncDiff());
-//	b_diffDec.whenPressed(new ShooterDecDiff());
+	b_diffInc.whenPressed(new ShooterIncDiff());
+	b_diffDec.whenPressed(new ShooterDecDiff());
 
         b_toggleShooter.whenPressed(new ShooterToggle());
         b_shooterInc.whenPressed(new ShooterInc());
@@ -75,7 +75,7 @@ public class OI {
 
         b_makeTank.whenPressed(new AssistedTank());
         b_makeArcade.whenPressed(new JoyArcadeTwoSpeed());
-        b_turn.whenPressed(new DriveAngleGyro(90));
+        b_turn.whenPressed(new DriveAngleEncoder(90));
 
         b_compressorToggle.whenPressed(new ToggleCompressor());
     }

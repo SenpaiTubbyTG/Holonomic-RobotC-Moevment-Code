@@ -18,29 +18,27 @@ public class Autonomous extends CommandGroup {
     public Autonomous() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        addSequential(new ShooterToggle());
+        addSequential(new WaitCommand(2));
+        addSequential(new Shoot());
+        addSequential(new WaitCommand(1));
+        addSequential(new Shoot());
+        addSequential(new WaitCommand(1));
+        addSequential(new Shoot());
+        addSequential(new WaitCommand(1));
+        addSequential(new Shoot());
+        addSequential(new WaitCommand(1));
+        addSequential(new Shoot());
+        addSequential(new ShooterToggle());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        addSequential(new ShooterToggle());
-        addSequential(new WaitCommand(0.5));
-        addSequential(new Shoot());
-        addSequential(new WaitCommand(0.5));
-        addSequential(new Shoot());
-        addSequential(new WaitCommand(0.5));
-        addSequential(new Shoot());
-        addSequential(new WaitCommand(0.5));
-        addSequential(new Shoot());
-        addSequential(new WaitCommand(0.5));
-        addSequential(new Shoot());
-        addSequential(new WaitCommand(0.5));
-        addSequential(new ShooterToggle());
-        addSequential(new WaitCommand(12.0));
         
     }
 
@@ -56,5 +54,6 @@ public class Autonomous extends CommandGroup {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        end();
     }
 }
