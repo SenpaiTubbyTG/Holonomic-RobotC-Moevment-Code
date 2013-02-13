@@ -30,12 +30,14 @@ public class Shooter extends Subsystem {
 
 	m_encoderFront=new DiscoCounterEncoder(HW.shooterEncoderFrontSlot,HW.shooterEncoderFrontChannel,2);
         m_encoderFront.setUpSourceEdge(true, true);
+        m_encoderFront.setMaxPeriod(1);
         m_encoderFront.start();
         setSetpoint(m_defaultSetpoint);
 
         m_encoderBack=new DiscoCounterEncoder(HW.shooterEncoderBackSlot,HW.shooterEncoderBackChannel,2);
         m_encoderBack.setUpSourceEdge(true, true);
         m_encoderBack.start();
+        m_encoderBack.setMaxPeriod(1);
         
         m_pneumatic=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
         m_pneumatic.set(Relay.Value.kReverse);
@@ -90,10 +92,10 @@ public class Shooter extends Subsystem {
 
     public void setPneumatic(int position){
         if(position==IN){
-	    m_pneumatic.set(Relay.Value.kOff);
+	    m_pneumatic.set(Relay.Value.kReverse);
 	}
 	else if(position==OUT){
-	    m_pneumatic.set(Relay.Value.kReverse);
+	    m_pneumatic.set(Relay.Value.kOff);
 	}
     }
 

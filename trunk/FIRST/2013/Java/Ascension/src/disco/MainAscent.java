@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 package disco;
 
+import disco.commands.Autonomous;
 import disco.commands.CommandBase;
 import disco.utils.Dashboard;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -38,9 +39,6 @@ public class MainAscent extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-            //autonomousCommand = new ExampleCommand();
-            //autonomousCommand = new ExampleCommand();
-
             // Initialize all subsystems
             System.out.println("\n\nInitializing robot...\n");
             CommandBase.init();
@@ -50,6 +48,7 @@ public class MainAscent extends IterativeRobot {
             //NetworkTable.setServerMode();
             Dashboard.init();
             Dashboard.putStuff();
+            autonomousCommand=new Autonomous();
             System.out.println("Robot initialization successful");
     }
 
@@ -70,7 +69,7 @@ public class MainAscent extends IterativeRobot {
 
     public void autonomousInit() {
 	// schedule the autonomous command (example)
-	//autonomousCommand.start();
+	autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {
@@ -81,7 +80,7 @@ public class MainAscent extends IterativeRobot {
     }
 
     public void teleopInit() {
-	//autonomousCommand.cancel();
+	autonomousCommand.cancel();
     }
 
     public void teleopPeriodic() {

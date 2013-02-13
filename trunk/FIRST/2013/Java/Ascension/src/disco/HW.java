@@ -13,9 +13,12 @@ public class HW {
     /**
      * Hardware
      */
-    public static double wheelRadius=2.5;//in
-    public static double wheelSeparation=18.5;//in
-    public static int encoderTicks=128;
+    public static final double wheelRadius=2.0;//in
+    public static final double wheelSeparation=18.5;//in
+    public static final double driveReduction=0.5;
+    public static final double encoderTicksPerRev=128/driveReduction;
+    public static final double distancePerRev=2*Math.PI*wheelRadius;
+
 
     /** -------------------------------------------------------
     Motors

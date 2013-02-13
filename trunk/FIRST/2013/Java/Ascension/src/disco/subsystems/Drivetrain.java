@@ -54,7 +54,7 @@ public class Drivetrain extends Subsystem {
         leftSonar=new MaxbotixSonar(HW.maxbotixsonar3Slot,HW.maxbotixsonar3Channel,MaxbotixSonar.Unit.kInches);
 
         leftEncoder=new Encoder(    HW.leftEncoderSlot,HW.leftEncoderAChannel,
-                                    HW.leftEncoderSlot,HW.leftEncoderBChannel,false,EncodingType.k4X);
+                                    HW.leftEncoderSlot,HW.leftEncoderBChannel,true,EncodingType.k4X);
         rightEncoder=new Encoder(    HW.rightEncoderSlot,HW.rightEncoderAChannel,
                                     HW.rightEncoderSlot,HW.rightEncoderBChannel,false,EncodingType.k4X);
 	leftEncoder.start();
