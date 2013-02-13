@@ -5,6 +5,7 @@
 package disco.commands;
 
 import disco.commands.shooter.Shoot;
+import disco.commands.shooter.ShooterToggle;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
@@ -26,14 +27,21 @@ public class Autonomous extends CommandGroup {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        addSequential(new ShooterToggle());
+        addSequential(new WaitCommand(0.5));
         addSequential(new Shoot());
         addSequential(new WaitCommand(0.5));
-        /*12.566 in. circumference
-        128 pulses
-        10.1859 pulses/in.*/
+        addSequential(new Shoot());
+        addSequential(new WaitCommand(0.5));
+        addSequential(new Shoot());
+        addSequential(new WaitCommand(0.5));
+        addSequential(new Shoot());
+        addSequential(new WaitCommand(0.5));
+        addSequential(new Shoot());
+        addSequential(new WaitCommand(0.5));
+        addSequential(new ShooterToggle());
+        addSequential(new WaitCommand(12.0));
         
-        
-
     }
 
     // Make this return true when this Command no longer needs to run execute()
