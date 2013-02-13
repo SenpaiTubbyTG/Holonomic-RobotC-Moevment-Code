@@ -1,0 +1,234 @@
+<head><version>2.49.4</version></head>
+<Axis_Internet_Camera>
+  <auto_exposure>FALSE</auto_exposure>
+  <auto_back_light>FALSE</auto_back_light>
+  <color_level_value>15</color_level_value>
+  <exposure_value>20</exposure_value>
+  <auto_white_balance>TRUE</auto_white_balance>
+  <compression_index>3</compression_index>
+  <sharpness_value>60</sharpness_value>
+  <ip_address>10.25.87.11</ip_address>
+  <password>FRC</password>
+  <username>FRC</username>
+  <port>80</port>
+  <contrast_value>90</contrast_value>
+  <is_active>FALSE</is_active>
+  <resolution>2</resolution>
+  <brightness_value>45</brightness_value>
+</Axis_Internet_Camera>
+<Set_Variable>
+  <set_1_once>FALSE</set_1_once>
+  <set_3_array>FALSE</set_3_array>
+  <set_3_once>FALSE</set_3_once>
+  <set_1_array>TRUE</set_1_array>
+  <variable_2>distance</variable_2>
+  <set_4_once>FALSE</set_4_once>
+  <set_2_once>FALSE</set_2_once>
+  <set_2_array>TRUE</set_2_array>
+  <set_4_array>FALSE</set_4_array>
+  <variable_1>angles</variable_1>
+</Set_Variable>
+<Adaptive_Threshold disabled>
+  <mean_offset>5</mean_offset>
+  <filter_size>7</filter_size>
+  <min_threshold>200</min_threshold>
+  <channel_type>2</channel_type>
+  <max_threshold>255</max_threshold>
+</Adaptive_Threshold>
+<HLS_Channel>
+  <channel>3</channel>
+</HLS_Channel>
+<Color_Threshold>
+  <green_end>255</green_end>
+  <red_start>136</red_start>
+  <blue_end>255</blue_end>
+  <blue_start>116</blue_start>
+  <red_end>182</red_end>
+  <green_start>45</green_start>
+</Color_Threshold>
+<Fill>
+  <four_pixel_connectivity>FALSE</four_pixel_connectivity>
+  <size>0</size>
+  <check_border>FALSE</check_border>
+  <fill_with_average_color>FALSE</fill_with_average_color>
+</Fill>
+<Close>
+  <restrict_dilation>FALSE</restrict_dilation>
+  <erode_count>2</erode_count>
+  <dilate_count>2</dilate_count>
+  <close_borders>TRUE</close_borders>
+  <symmetrical>FALSE</symmetrical>
+</Close>
+<Clean>
+  <four_pixel_connectivity>TRUE</four_pixel_connectivity>
+  <check_border>TRUE</check_border>
+  <blob_size>200</blob_size>
+</Clean>
+<Smooth_Hull>
+  <window_size>60</window_size>
+</Smooth_Hull>
+<Blob_Filter disabled>
+  <filters>
+    <tab:5/>
+    <tab:2/>
+    <tab:4/>
+    <tab>
+      <filter:7>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0.2</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>14</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:7>
+      <filter:5>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0.2</weight_threshold>
+        <invert_count>0</invert_count>
+        <image>Current</image>
+        <filter_id>77</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:5>
+      <filter>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>8</filter_id>
+        <invert_threshold>0</invert_threshold>
+        <minimum_size>100</minimum_size>
+      </filter>
+      <filter:6>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0.7</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>14</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:6>
+      <filter:4>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0.55</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>66</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:4>
+      <filter:3>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0.7</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>56</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:3>
+      <filter:2>
+        <create_array>0</create_array>
+        <count_threshold>0</count_threshold>
+        <weight_threshold>0.85</weight_threshold>
+        <invert_count>0</invert_count>
+        <filter_id>67</filter_id>
+        <invert_threshold>0</invert_threshold>
+      </filter:2>
+    </tab>
+    <tab:6/>
+    <tab:3/>
+  </filters>
+  <sort_array_on_y>TRUE</sort_array_on_y>
+  <largest_is_background>TRUE</largest_is_background>
+  <sort_array_on_x>FALSE</sort_array_on_x>
+  <show_weights>TRUE</show_weights>
+  <create_blob_array_variable>TRUE</create_blob_array_variable>
+</Blob_Filter>
+<Blob_Filter>
+  <filters>
+    <tab:5/>
+    <tab:2/>
+    <tab:4/>
+    <tab/>
+    <tab:6/>
+    <tab:3/>
+  </filters>
+  <sort_array_on_y>FALSE</sort_array_on_y>
+  <largest_is_background>FALSE</largest_is_background>
+  <sort_array_on_x>FALSE</sort_array_on_x>
+  <show_weights>FALSE</show_weights>
+  <create_blob_array_variable>TRUE</create_blob_array_variable>
+</Blob_Filter>
+<Geometric_Statistics>
+  <basic_statistics>FALSE</basic_statistics>
+  <scope>1</scope>
+</Geometric_Statistics>
+<VBScript_Program>
+  <tab_size_index>1</tab_size_index>
+  <script>blobs = GetArrayVariable("BLOBS")
+imageWidth = GetVariable("IMAGE_WIDTH")
+imageHeight = GetVariable("IMAGE_HEIGHT")
+blobCount = GetVariable("BLOB_COUNT")
+fovRad = 0.820304748
+fov = 47
+bcm = (blobCount - 1)
+
+angles = GetArrayVariable("angles")
+distance = GetArrayVariable("distance")
+
+If blobCount &gt; 0 Then
+	widthBlob = getArrayVariable("WIDTH")
+	For i=0 To blobCount Step 1
+		angle(i) = calculateAngle(blobs(i * 2 - 1))
+		distance(i) = calculateDistance(blobs(i * 2 - 1), widthBlob(i * 2 - 1))
+	Next
+End If
+
+SetArrayVariable "distance", distance
+SetArrayVariable "angles", angles
+
+
+
+Sub calculateAngle(centerX)
+	calculateAngle = FormatNumber(((fov * ((imageWidth / 2) - centerX)) / imageWidth),3)
+End Sub
+Sub calculateDistance(centerX, widthPx)
+	halfTargetRad = FormatNumber(((fovRad * widthPx)/(2 * imageWidth)),3)
+	widthTargetInch = 14
+	calculateDistance = ((widthTargetInch)/(24*Tan(halfTargetRad)))-1 
+End Sub</script>
+  <source_mode>gui</source_mode>
+</VBScript_Program>
+<Math>
+  <image_1_channel>2</image_1_channel>
+  <image2>Current</image2>
+  <function>1</function>
+  <divisor>1</divisor>
+  <image1>Source</image1>
+  <all_channels>FALSE</all_channels>
+  <bias>1</bias>
+</Math>
+<Display_Variables>
+  <display_as_annotation>FALSE</display_as_annotation>
+  <display_value_only>FALSE</display_value_only>
+  <font_color>white</font_color>
+  <dim_background>TRUE</dim_background>
+  <border_color>red</border_color>
+  <font_size>Normal (10pt)</font_size>
+</Display_Variables>
+<Display_Text>
+  <display_as_annotation>FALSE</display_as_annotation>
+  <y_coord>0</y_coord>
+  <x_percent>50</x_percent>
+  <static_text>Type in text here</static_text>
+  <text_source>1</text_source>
+  <dim_background>FALSE</dim_background>
+  <data_source>2</data_source>
+  <y_percent>50</y_percent>
+  <x_coord>0</x_coord>
+</Display_Text>
+<NetworkTables>
+  <port>1735</port>
+  <variable_type_index>0</variable_type_index>
+  <prefix>/Camera/</prefix>
+  <filter_type_index>0</filter_type_index>
+  <delay>100</delay>
+  <hostname>10.25.87.2</hostname>
+</NetworkTables>
