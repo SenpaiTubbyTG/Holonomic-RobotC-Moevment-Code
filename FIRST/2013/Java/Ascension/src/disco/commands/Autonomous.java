@@ -4,6 +4,8 @@
  */
 package disco.commands;
 
+import disco.commands.drivetrain.DriveAngleEncoder;
+import disco.commands.drivetrain.DriveDistance;
 import disco.commands.shooter.Shoot;
 import disco.commands.shooter.ShooterToggle;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -30,6 +32,9 @@ public class Autonomous extends CommandGroup {
         addSequential(new WaitCommand(1));
         addSequential(new Shoot());
         addSequential(new ShooterToggle());
+        addSequential(new DriveDistance(-10));
+        addSequential(new DriveAngleEncoder(180));
+        addSequential(new DriveDistance(94));
     }
 
     // Called just before this Command runs the first time
