@@ -22,7 +22,7 @@ public class Shooter extends Subsystem {
     private boolean enabled=false;
     private boolean onTarget=false;
     private double setpoint=0;
-    public final double m_defaultSetpoint=6300;
+    public final double m_defaultSetpoint=5000;
 
     public Shooter(){
 	m_shooterFront=new Victor(HW.ShooterFrontSlot,HW.ShooterFrontChannel);

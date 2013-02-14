@@ -48,19 +48,20 @@ public class AssistedTank extends RawJoyTank {
 	m_rightInitial = drivetrain.getRightEncoder();
 
 	turnControl = new PIDController(m_kP, m_kI, m_kD, turnSource, turnOutput);
-	turnControl.enable();
+	//turnControl.enable();
 	turnControl.setSetpoint(0); //minimize error
         //SmartDashboard.putData("Encoder PID", turnControl);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        left=right=0;
 	calculateInput();
-	if(Math.abs(left-right)<=m_correctionThreshold){
+	if(Math.abs(left-right)<=m_correctionThreshold && left!=0 && right!=0){
             //we should correct
             turnControl.enable();
-	    left -= m_correction;
-	    right += m_correction;
+	    left += left>0 ? m_correction : -m_correction;
+	    right -= right>0 ? m_correction : -m_correction;
 	    //normalize if we are out of range (based on RobotDrive, which only does this for mecanum)
 	    double max = Math.max(Math.abs(left), Math.abs(right));
 	    if(max > 1){

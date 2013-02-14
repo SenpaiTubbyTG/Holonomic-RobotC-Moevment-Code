@@ -4,24 +4,20 @@
  */
 package disco.commands.drivetrain;
 
+import disco.HW;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 
-/**
- *
- * @author Developer
- */
 public class DriveDistance extends AssistedTank {
     private final double m_setpoint;
     private PIDController distControl;
-    private double  m_kP=0,
-		    m_kI=0,
-		    m_kD=0;
+    private boolean finished=false;
+    private double  m_kP=0.0012,
+		    m_kI=0.00003,
+		    m_kD=0.005;
     
-    private double m_correction=0;
-    private int m_leftInitial=0;
-    private int m_rightInitial=0;
+    private double m_distCorrection=0;
     
     private PIDOutput distOutput = new PIDOutput() {
 
@@ -36,9 +32,10 @@ public class DriveDistance extends AssistedTank {
         }
     };
     
+    //give this the distance in inches
     public DriveDistance(double setpoint) {
         requires(drivetrain);
-        m_setpoint=setpoint;
+        m_setpoint=setpoint/HW.distancePerPulse;
     }
 
     // Called just before this Command runs the first time
@@ -55,10 +52,12 @@ public class DriveDistance extends AssistedTank {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        left=m_correction;
-        right=m_correction;
-        left-=super.m_correction;
-        right+=super.m_correction;
+        //drive
+        left=m_distCorrection;
+        right=m_distCorrection;
+        //but don't turn
+        left += left>0 ? super.m_correction : -super.m_correction;
+	right -= right>0 ? super.m_correction : -super.m_correction;
         
         double max = Math.max(Math.abs(left), Math.abs(right));
         if(max > 1){
@@ -70,12 +69,15 @@ public class DriveDistance extends AssistedTank {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        double distRate=(drivetrain.getLeftRate()+drivetrain.getRightRate())/2;
+        return Math.abs(distControl.getError())<10 && Math.abs(distRate)<10;
     }
 
     // Called once after isFinished returns true
     protected void end() {
         drivetrain.tankDrive(0,0);
+        distControl.disable();
+        super.turnControl.disable();
     }
 
     // Called when another command which requires one or more of the same
@@ -90,6 +92,6 @@ public class DriveDistance extends AssistedTank {
     }
     
     private void usePIDOutput(double output) {
-        m_correction=output;
+        m_distCorrection=output;
     }
 }

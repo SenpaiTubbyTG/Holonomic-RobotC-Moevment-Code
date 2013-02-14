@@ -68,7 +68,7 @@ public class JoyArcadeTwoSpeed extends CommandBase {
     protected void execute(){
         calculateInputs();
         if(move==0){
-            turnControl.enable();
+            //turnControl.enable();
             turn=-m_correction/2.0;
         }
         else{

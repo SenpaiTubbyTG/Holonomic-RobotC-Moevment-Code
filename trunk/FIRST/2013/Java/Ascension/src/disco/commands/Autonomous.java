@@ -32,9 +32,9 @@ public class Autonomous extends CommandGroup {
         addSequential(new WaitCommand(1));
         addSequential(new Shoot());
         addSequential(new ShooterToggle());
-        addSequential(new DriveDistance(-10));
+        addSequential(new DriveDistance(-20));
         addSequential(new DriveAngleEncoder(180));
-        addSequential(new DriveDistance(94));
+        addSequential(new DriveDistance(84));
     }
 
     // Called just before this Command runs the first time

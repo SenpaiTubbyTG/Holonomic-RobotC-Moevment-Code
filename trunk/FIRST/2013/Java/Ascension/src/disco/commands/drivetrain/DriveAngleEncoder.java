@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class DriveAngleEncoder extends CommandBase {
-    private double  m_kP=0.001,
-		    m_kI=0.00005,
-		    m_kD=0.0;
+    private double  m_kP=0.0012,
+		    m_kI=0.00003,
+		    m_kD=0.005;
     private int m_setpoint = 0;
     protected double m_correction=0;
     boolean finished = false;
@@ -75,7 +75,8 @@ public class DriveAngleEncoder extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return finished;
+        double turnRate=drivetrain.getLeftRate()-drivetrain.getRightRate();
+        return Math.abs(turnControl.getError())<10 && Math.abs(turnRate)<10;
     }
     
     
@@ -106,6 +107,7 @@ public class DriveAngleEncoder extends CommandBase {
 
     protected void end() {
         turnControl.disable();
+        drivetrain.tankDrive(0,0);
     }
     
     protected int offsetLeft(){

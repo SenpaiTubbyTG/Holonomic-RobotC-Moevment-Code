@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class DriveAngleGyro extends RawJoyTank {
     private double  m_kP=0.007,
 		    m_kI=0.0005,
-		    m_kD=0;
+		    m_kD=0.0;
     private double m_setpoint = 0;
     private double m_correction=0;
     private double initialAngle=0;
