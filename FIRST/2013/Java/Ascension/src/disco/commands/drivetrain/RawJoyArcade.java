@@ -15,7 +15,7 @@ public class RawJoyArcade extends CommandBase {
     private double turn=0;
     private Joystick joy1;
     private GamePad gp;
-    private double threshold=0.2;
+    protected final double threshold=0.2;
 
     public RawJoyArcade() {
         // Use requires() here to declare subsystem dependencies

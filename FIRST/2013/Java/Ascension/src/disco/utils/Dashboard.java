@@ -53,6 +53,8 @@ public class Dashboard {
         SmartDashboard.putBoolean("Touching Right Pyramid", CommandBase.drivetrain.getRightPyramid());
         SmartDashboard.putNumber("Left Encoder", CommandBase.drivetrain.getLeftEncoder());
         SmartDashboard.putNumber("Right Encoder", CommandBase.drivetrain.getRightEncoder());
+        SmartDashboard.putNumber("Left Rate", CommandBase.drivetrain.getLeftRate()/12.0);
+        SmartDashboard.putNumber("Right Rate", CommandBase.drivetrain.getRightRate()/12.0);
 
 	//COLLECTOR
         SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());

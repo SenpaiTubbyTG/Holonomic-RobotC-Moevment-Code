@@ -6,6 +6,7 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.commands.drivetrain.AssistedTank;
+import disco.commands.drivetrain.JoyArcadeTwoSpeed;
 import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -57,6 +58,8 @@ public class Drivetrain extends Subsystem {
                                     HW.leftEncoderSlot,HW.leftEncoderBChannel,true,EncodingType.k4X);
         rightEncoder=new Encoder(    HW.rightEncoderSlot,HW.rightEncoderAChannel,
                                     HW.rightEncoderSlot,HW.rightEncoderBChannel,false,EncodingType.k4X);
+        leftEncoder.setDistancePerPulse(HW.distancePerPulse);
+        rightEncoder.setDistancePerPulse(HW.distancePerPulse);
 	leftEncoder.start();
 	rightEncoder.start();
 
@@ -68,7 +71,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new AssistedTank());
+        setDefaultCommand(new JoyArcadeTwoSpeed());
     }
 
     public void tankDrive(double left,double right){
@@ -95,9 +98,17 @@ public class Drivetrain extends Subsystem {
     public int getLeftEncoder() {
 	return leftEncoder.get();
     }
+    public double getLeftRate(){
+        return leftEncoder.getRate();
+    }
     public int getRightEncoder(){
 	return rightEncoder.get();
     }
+    public double getRightRate(){
+        return rightEncoder.getRate();
+    }
+    
+    
     public double getGyroAngle() {
         return gyro.getAngle();
     }

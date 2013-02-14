@@ -18,6 +18,8 @@ public class HW {
     public static final double driveReduction=0.5;
     public static final double encoderTicksPerRev=128/driveReduction;
     public static final double distancePerRev=2*Math.PI*wheelRadius;
+    public static final double distancePerPulse=distancePerRev/encoderTicksPerRev;
+    
 
 
     /** -------------------------------------------------------
@@ -58,8 +60,8 @@ public class HW {
 
                             pressureSwitchChannel=14,    pressureSwitchSlot=2,
 
-                            limitSwitchLeftChannel = 10, limitSwitchLeftSlot = 1,
-                            limitSwitchRightChannel =10, limitSwitchRightSlot = 2,
+                            limitSwitchLeftChannel = 14, limitSwitchLeftSlot = 1,
+                            limitSwitchRightChannel =3, limitSwitchRightSlot = 2,
                             //Analog
                             gyroChannel = 2, gyroSlot = 1,
                             maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1,
