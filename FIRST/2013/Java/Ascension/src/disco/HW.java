@@ -36,7 +36,7 @@ public class HW {
 			    Collect4Channel=7,	    Collect4Slot=2,
 
 			    ShooterFrontChannel=1,	    ShooterFrontSlot=2,
-			    ShooterBackChannel=3,	    ShooterBackSlot=2;
+			    ShooterBackChannel=2,	    ShooterBackSlot=2;
     /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
