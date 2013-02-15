@@ -16,25 +16,32 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  * @author Doris
  */
 public class Autonomous extends CommandGroup {
+    int mode;
     
     public Autonomous() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        addSequential(new ShooterToggle());
-        addSequential(new WaitCommand(2));
-        addSequential(new Shoot());
-        addSequential(new WaitCommand(1));
-        addSequential(new Shoot());
-        addSequential(new WaitCommand(1));
-        addSequential(new Shoot());
-        addSequential(new WaitCommand(1));
-        addSequential(new Shoot());
-        addSequential(new WaitCommand(1));
-        addSequential(new Shoot());
-        addSequential(new ShooterToggle());
-        addSequential(new DriveDistance(-20));
-        addSequential(new DriveAngleEncoder(180));
-        addSequential(new DriveDistance(84));
+        if(mode==1){
+            addSequential(new ShooterToggle());
+            addSequential(new WaitCommand(2));
+            addSequential(new Shoot());
+            addSequential(new WaitCommand(1));
+            addSequential(new Shoot());
+            addSequential(new WaitCommand(1));
+            addSequential(new Shoot());
+            addSequential(new WaitCommand(1));
+            addSequential(new Shoot());
+            addSequential(new WaitCommand(1));
+            addSequential(new Shoot());
+            addSequential(new ShooterToggle());
+            addSequential(new DriveDistance(-20));
+            addSequential(new DriveAngleEncoder(180));
+            addSequential(new DriveDistance(84));
+        }
+        if(mode==2){
+        }
+        if(mode==3){
+        }
     }
 
     // Called just before this Command runs the first time
