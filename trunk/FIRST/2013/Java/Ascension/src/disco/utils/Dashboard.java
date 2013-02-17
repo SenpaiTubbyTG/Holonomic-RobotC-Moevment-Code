@@ -6,20 +6,29 @@ package disco.utils;
 
 import disco.HW;
 import disco.MainAscent;
+import disco.commands.Autonomous;
 import disco.commands.CommandBase;
 import disco.commands.drivetrain.DriveAngleGyro;
 import disco.commands.shooter.ShooterBangBang;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Dashboard {
 
+    public static SendableChooser autonChooser;
+    
     public static void init() {
+        autonChooser = new SendableChooser();
+        autonChooser.addDefault("Safe", new Autonomous(0));
+        autonChooser.addDefault("Risky", new Autonomous(1));
+        autonChooser.addDefault("Dangerous", new Autonomous(2));
         putStuff();
     }
 
     public static void putStuff() {
         putSubsystems();
         putSensors();
+        SmartDashboard.putData("Autonomous Chooser", autonChooser);
     }
 
     //Only call this once or we overflow the memory. Bad day.
@@ -43,6 +52,7 @@ public class Dashboard {
         SmartDashboard.putNumber("Shooter difference", ShooterBangBang.difference);
         SmartDashboard.putNumber("Shooter Setpoint", CommandBase.shooter.getSetpoint());
         SmartDashboard.putBoolean("Shooter On target", CommandBase.shooter.isOnTarget());
+        SmartDashboard.putNumber("load sensor", CommandBase.shooter.isLoaded());
 
         //DRIVETRAIN
 	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy())).getLY());
