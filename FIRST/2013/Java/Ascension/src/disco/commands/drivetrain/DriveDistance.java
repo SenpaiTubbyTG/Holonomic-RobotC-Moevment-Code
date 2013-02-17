@@ -11,24 +11,38 @@ import edu.wpi.first.wpilibj.PIDSource;
 
 public class DriveDistance extends AssistedTank {
     private final double m_setpoint;
-    private PIDController distControl;
+    private PIDController leftDistControl;
+    private PIDController rightDistControl;
     private boolean finished=false;
-    private double  m_kP=0.0012,
+    private double  m_kP=0.009,
 		    m_kI=0.00003,
-		    m_kD=0.005;
+		    m_kD=0.008;
     
-    private double m_distCorrection=0;
+    private double m_leftDistCorrection=0;
+    private double m_rightDistCorrection=0;
     
-    private PIDOutput distOutput = new PIDOutput() {
+    private PIDOutput distOutputL = new PIDOutput() {
 
         public void pidWrite(double output) {
-            usePIDOutput(output);
+            m_leftDistCorrection=output;
         }
     };
-    private PIDSource distSource = new PIDSource() {
+    private PIDSource distSourceL = new PIDSource() {
 
         public double pidGet() {
-            return returnPIDInput();
+            return offsetLeft();
+        }
+    };
+    private PIDOutput distOutputR = new PIDOutput() {
+
+        public void pidWrite(double output) {
+            m_rightDistCorrection=output;
+        }
+    };
+    private PIDSource distSourceR = new PIDSource() {
+
+        public double pidGet() {
+            return offsetRight();
         }
     };
     
@@ -36,6 +50,8 @@ public class DriveDistance extends AssistedTank {
     public DriveDistance(double setpoint) {
         requires(drivetrain);
         m_setpoint=setpoint/HW.distancePerPulse;
+        leftDistControl = new PIDController(m_kP, m_kI, m_kD, distSourceL, distOutputL);
+        rightDistControl = new PIDController(m_kP, m_kI, m_kD, distSourceR, distOutputR);
     }
 
     // Called just before this Command runs the first time
@@ -44,20 +60,22 @@ public class DriveDistance extends AssistedTank {
         m_leftInitial = drivetrain.getLeftEncoder();
 	m_rightInitial = drivetrain.getRightEncoder();
 
-	distControl = new PIDController(m_kP, m_kI, m_kD, distSource, distOutput);
-	distControl.setSetpoint(m_setpoint);
-        distControl.enable();
-        super.turnControl.enable();
+	
+	leftDistControl.setSetpoint(m_setpoint);
+        leftDistControl.enable();
+	rightDistControl.setSetpoint(m_setpoint);
+        rightDistControl.enable();
+        super.turnControl.disable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         //drive
-        left=m_distCorrection;
-        right=m_distCorrection;
+        left=m_leftDistCorrection;
+        right=m_rightDistCorrection;
         //but don't turn
-        left += left>0 ? super.m_correction : -super.m_correction;
-	right -= right>0 ? super.m_correction : -super.m_correction;
+//        left += left>0 ? super.m_correction : -super.m_correction;
+//	right -= right>0 ? super.m_correction : -super.m_correction;
         
         double max = Math.max(Math.abs(left), Math.abs(right));
         if(max > 1){
@@ -70,13 +88,15 @@ public class DriveDistance extends AssistedTank {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         double distRate=(drivetrain.getLeftRate()+drivetrain.getRightRate())/2;
-        return Math.abs(distControl.getError())<10 && Math.abs(distRate)<10;
+        return Math.abs(leftDistControl.getError())<10 && Math.abs(rightDistControl.getError())<10 && Math.abs(distRate)<10;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        super.end();
         drivetrain.tankDrive(0,0);
-        distControl.disable();
+        leftDistControl.disable();
+        rightDistControl.disable();
         super.turnControl.disable();
     }
 
@@ -84,14 +104,5 @@ public class DriveDistance extends AssistedTank {
     // subsystems is scheduled to run
     protected void interrupted() {
         end();
-    }
-    
-    private double returnPIDInput(){
-        //average current value
-        return (offsetLeft()+offsetRight())/2.0;
-    }
-    
-    private void usePIDOutput(double output) {
-        m_distCorrection=output;
     }
 }

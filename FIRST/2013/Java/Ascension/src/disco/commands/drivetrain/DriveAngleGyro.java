@@ -69,6 +69,15 @@ public class DriveAngleGyro extends RawJoyTank {
     protected boolean isFinished() {
         return finished;
     }
+    
+    public void end(){
+        gyroControl.disable();
+        drivetrain.tankDrive(0, 0);
+    }
+    
+    protected void interrupted(){
+        end();
+    }
 
     private double returnPIDInput(){
 	return drivetrain.getGyroAngle()-initialAngle;

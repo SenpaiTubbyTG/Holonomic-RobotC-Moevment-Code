@@ -48,7 +48,7 @@ public class MainAscent extends IterativeRobot {
             //NetworkTable.setServerMode();
             Dashboard.init();
             Dashboard.putStuff();
-            autonomousCommand=new Autonomous();
+            autonomousCommand=new Autonomous(Autonomous.MODE_SAFE);
             System.out.println("Robot initialization successful");
     }
 
@@ -57,10 +57,6 @@ public class MainAscent extends IterativeRobot {
 
     public void disabledPeriodic() {
             lastTime = System.currentTimeMillis();
-            
-            
-            NetworkTable.getTable("Camera").putString("Hi", "Does it work?");
-            
             Scheduler.getInstance().run();
             Dashboard.putSensors();
             executionTimeMillis=System.currentTimeMillis()-lastTime;
@@ -69,7 +65,8 @@ public class MainAscent extends IterativeRobot {
 
     public void autonomousInit() {
 	// schedule the autonomous command (example)
-	autonomousCommand.start();
+	autonomousCommand = (Command) (Dashboard.autonChooser.getSelected());
+        autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {

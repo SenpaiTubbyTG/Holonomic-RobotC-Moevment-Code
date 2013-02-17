@@ -14,7 +14,7 @@ public class HW {
      * Hardware
      */
     public static final double wheelRadius=2.0;//in
-    public static final double wheelSeparation=18.5;//in
+    public static final double wheelSeparation=18.0;//in
     public static final double driveReduction=0.5;
     public static final double encoderTicksPerRev=128/driveReduction;
     public static final double distancePerRev=2*Math.PI*wheelRadius;
@@ -61,12 +61,18 @@ public class HW {
                             pressureSwitchChannel=14,    pressureSwitchSlot=2,
 
                             limitSwitchLeftChannel = 14, limitSwitchLeftSlot = 1,
-                            limitSwitchRightChannel =3, limitSwitchRightSlot = 2,
+                            limitSwitchRightChannel =13, limitSwitchRightSlot = 1,
+            
+            
                             //Analog
-                            gyroChannel = 2, gyroSlot = 1,
-                            maxbotixsonar1Channel=1,    maxbotixsonar1Slot=1,
-                            maxbotixsonar2Channel=3,    maxbotixsonar2Slot=1,
-                            maxbotixsonar3Channel=4,    maxbotixsonar3Slot=1;
+                            gyroChannel = 1, gyroSlot = 1,
+                            maxbotixsonar1Channel=4,    maxbotixsonar1Slot=1,
+                            maxbotixsonar2Channel=5,    maxbotixsonar2Slot=1,
+                            maxbotixsonar3Channel=6,    maxbotixsonar3Slot=1,
+            
+                            autonPotChannel=2,          autonPotSlot=1,
+                            
+                            frisbeeLoadedChannel=3,     frisbeeLoadedSlot=1;
 
 
 }

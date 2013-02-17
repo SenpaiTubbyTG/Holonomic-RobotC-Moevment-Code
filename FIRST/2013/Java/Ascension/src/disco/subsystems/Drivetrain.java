@@ -23,7 +23,7 @@ public class Drivetrain extends Subsystem {
     private Victor leftDrive2;
     private Victor RightDrive1;
     private Victor RightDrive2;
-    private RobotDrive drive;
+    private BetterDrive drive;
 
     private MaxbotixSonar frontSonar1;
     private MaxbotixSonar frontSonar2;
@@ -71,7 +71,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new JoyArcadeTwoSpeed());
+        setDefaultCommand(new AssistedTank());
     }
 
     public void tankDrive(double left,double right){

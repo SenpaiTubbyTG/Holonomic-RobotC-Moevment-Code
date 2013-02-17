@@ -4,6 +4,7 @@
  */
 package disco.commands.drivetrain;
 
+import disco.OI;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -16,8 +17,7 @@ public class AssistedTank extends RawJoyTank {
 		    m_kI=0.00005,
 		    m_kD=0;
     //joystick differences below this are assumed to be intended to be identical.
-    private double m_correctionThreshold=0.2;
-    //protected double threshold=0.2;
+    private double m_correctionThreshold=0.3;
 
     protected double m_correction=0;
     protected int m_leftInitial=0;
@@ -44,6 +44,7 @@ public class AssistedTank extends RawJoyTank {
     // Called just before this Command runs the first time
     protected void initialize() {
 	super.initialize();
+        super.threshold=0.1;
 	m_leftInitial = drivetrain.getLeftEncoder();
 	m_rightInitial = drivetrain.getRightEncoder();
 
@@ -60,8 +61,8 @@ public class AssistedTank extends RawJoyTank {
 	if(Math.abs(left-right)<=m_correctionThreshold && left!=0 && right!=0){
             //we should correct
             turnControl.enable();
-	    left += left>0 ? m_correction : -m_correction;
-	    right -= right>0 ? m_correction : -m_correction;
+	    left += left>0 ? m_correction : m_correction;
+	    right -= right>0 ? m_correction : m_correction;
 	    //normalize if we are out of range (based on RobotDrive, which only does this for mecanum)
 	    double max = Math.max(Math.abs(left), Math.abs(right));
 	    if(max > 1){

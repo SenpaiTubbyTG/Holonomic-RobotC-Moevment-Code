@@ -1,19 +1,23 @@
 package disco.subsystems;
 
 import disco.HW;
+import disco.commands.shooter.RawShooter;
 import disco.commands.shooter.ShooterBangBang;
 import disco.utils.DiscoCounterEncoder;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
-    private Victor m_shooterFront;
-    private Victor m_shooterBack;
+    private Talon m_shooterFront;
+    private Talon m_shooterBack;
     private DiscoCounterEncoder m_encoderFront;
     private DiscoCounterEncoder m_encoderBack;
+    private AnalogChannel loadSensor;
 
     public static final int IN=0;
     public static final int OUT=1;
@@ -22,11 +26,15 @@ public class Shooter extends Subsystem {
     private boolean enabled=false;
     private boolean onTarget=false;
     private double setpoint=0;
-    public final double m_defaultSetpoint=5000;
+    public final double m_defaultSetpoint=6100;
+    
+    public static final int MODE_CLOSED_LOOP=0;
+    public static final int MODE_OPEN_LOOP=1;
+    private int thisMode=0;
 
     public Shooter(){
-	m_shooterFront=new Victor(HW.ShooterFrontSlot,HW.ShooterFrontChannel);
-	m_shooterBack=new Victor(HW.ShooterBackSlot,HW.ShooterBackChannel);
+	m_shooterFront=new Talon(HW.ShooterFrontSlot,HW.ShooterFrontChannel);
+	m_shooterBack=new Talon(HW.ShooterBackSlot,HW.ShooterBackChannel);
 
 	m_encoderFront=new DiscoCounterEncoder(HW.shooterEncoderFrontSlot,HW.shooterEncoderFrontChannel,2);
         m_encoderFront.setUpSourceEdge(true, true);
@@ -42,6 +50,8 @@ public class Shooter extends Subsystem {
         m_pneumatic=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
         m_pneumatic.set(Relay.Value.kReverse);
         m_pneumatic.setDirection(Relay.Direction.kReverse);
+        
+        loadSensor=new AnalogChannel(HW.frisbeeLoadedSlot,HW.frisbeeLoadedChannel);
     }
 
     public void initDefaultCommand() {
@@ -56,7 +66,17 @@ public class Shooter extends Subsystem {
     
     public void enable(){
         this.enabled=true;
-        new ShooterBangBang().start();
+        switch(thisMode){
+            case MODE_CLOSED_LOOP:
+                new ShooterBangBang().start();
+                break;
+            case MODE_OPEN_LOOP:
+                new RawShooter().start();
+                break;
+            default:
+                new ShooterBangBang().start();
+        }
+        
     }
     public void disable(){
         Command com=this.getCurrentCommand();
@@ -67,6 +87,13 @@ public class Shooter extends Subsystem {
     }
     public boolean isEnabled(){
         return this.enabled;
+    }
+    
+    public void setMode(int mode){
+        thisMode=mode;
+    }
+    public int getMode(){
+        return thisMode;
     }
 
     public void setPower(double power){
@@ -115,5 +142,9 @@ public class Shooter extends Subsystem {
     }
     public boolean isOnTarget(){
         return onTarget;
+    }
+    
+    public double isLoaded(){
+        return loadSensor.getVoltage();
     }
 }

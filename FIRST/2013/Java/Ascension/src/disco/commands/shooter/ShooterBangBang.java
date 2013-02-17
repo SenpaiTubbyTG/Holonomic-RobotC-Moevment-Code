@@ -39,7 +39,7 @@ public class ShooterBangBang extends CommandBase {
 	    shooter.setBackPower(1);
 	}
         //on target if within 5%
-        onTarget=Math.abs( (shooter.getFrontRPM()-shooter.getSetpoint()) / shooter.getSetpoint() )<0.005;
+        onTarget=Math.abs( (shooter.getFrontRPM()-shooter.getSetpoint()) / shooter.getSetpoint() )<0.05;
         shooter.setOnTarget(onTarget);
     }
 
