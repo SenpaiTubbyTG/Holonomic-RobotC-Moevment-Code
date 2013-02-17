@@ -6,6 +6,7 @@ package disco.commands;
 
 import disco.commands.drivetrain.DriveAngleEncoder;
 import disco.commands.drivetrain.DriveDistance;
+import disco.commands.shooter.AutoShoot;
 import disco.commands.shooter.Shoot;
 import disco.commands.shooter.ShooterToggle;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -16,32 +17,27 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  * @author Doris
  */
 public class Autonomous extends CommandGroup {
-    int mode;
+    public static final int MODE_SAFE = 0;
+    public static final int MODE_RISKY = 1;
+    public static final int MODE_DANGEROUS = 2;
     
-    public Autonomous() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        if(mode==1){
-            addSequential(new ShooterToggle());
-            addSequential(new WaitCommand(2));
-            addSequential(new Shoot());
-            addSequential(new WaitCommand(1));
-            addSequential(new Shoot());
-            addSequential(new WaitCommand(1));
-            addSequential(new Shoot());
-            addSequential(new WaitCommand(1));
-            addSequential(new Shoot());
-            addSequential(new WaitCommand(1));
-            addSequential(new Shoot());
-            addSequential(new ShooterToggle());
-            addSequential(new DriveDistance(-20));
-            addSequential(new DriveAngleEncoder(180));
-            addSequential(new DriveDistance(84));
+    public Autonomous(int mode) {
+        switch (mode) {
+            case Autonomous.MODE_RISKY:
+                break;
+            case Autonomous.MODE_DANGEROUS:
+                addSequential(new ShooterToggle());
+                addSequential(new AutoShoot(5));
+                addSequential(new ShooterToggle());
+                addSequential(new DriveDistance(-90));
+            default:
+                addSequential(new ShooterToggle());
+                addSequential(new AutoShoot(5));
+                addSequential(new ShooterToggle());
+                break;
         }
-        if(mode==2){
-        }
-        if(mode==3){
-        }
+            
+
     }
 
     // Called just before this Command runs the first time

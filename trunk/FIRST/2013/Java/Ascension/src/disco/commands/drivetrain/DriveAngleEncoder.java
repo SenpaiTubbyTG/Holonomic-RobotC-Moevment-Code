@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class DriveAngleEncoder extends CommandBase {
-    private double  m_kP=0.0012,
-		    m_kI=0.00003,
-		    m_kD=0.005;
+    private double  m_kP=0.0008,
+		    m_kI=0.00002,
+		    m_kD=0.008;
     private int m_setpoint = 0;
     protected double m_correction=0;
     boolean finished = false;
@@ -45,15 +45,17 @@ public class DriveAngleEncoder extends CommandBase {
 
 	//gives difference in encoder counts we want to target
         m_setpoint = (int) (Math.toRadians(angleSetpoint) / HW.distancePerRev * HW.wheelSeparation * HW.encoderTicksPerRev);
+        turnControl = new PIDController(m_kP, m_kI, m_kD, turnSource, turnOutput);
     }
 
     protected void initialize() {
 	m_leftInitial = drivetrain.getLeftEncoder();
 	m_rightInitial = drivetrain.getRightEncoder();
 
-	turnControl = new PIDController(m_kP, m_kI, m_kD, turnSource, turnOutput);
+	
 	turnControl.enable();
 	turnControl.setSetpoint(m_setpoint);
+        SmartDashboard.putData("angle control", turnControl);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -76,7 +78,7 @@ public class DriveAngleEncoder extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         double turnRate=drivetrain.getLeftRate()-drivetrain.getRightRate();
-        return Math.abs(turnControl.getError())<10 && Math.abs(turnRate)<10;
+        return Math.abs(turnControl.getError())<20 && Math.abs(turnRate)<10;
     }
     
     

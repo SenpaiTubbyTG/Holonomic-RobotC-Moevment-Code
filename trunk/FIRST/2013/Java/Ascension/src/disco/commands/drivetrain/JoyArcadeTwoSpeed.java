@@ -77,6 +77,13 @@ public class JoyArcadeTwoSpeed extends CommandBase {
             m_leftInitial=drivetrain.getLeftEncoder();
 	    m_rightInitial=drivetrain.getRightEncoder();
         }
+        
+        if(!gp.getRawButton(gp.BUMPER_L)){
+            if(drivetrain.getLeftPyramid() || drivetrain.getRightPyramid()){
+                move = move>0 ? 0 : move;  
+            }
+        }
+        
 	drivetrain.arcadeDrive(move,turn);
     }
 
