@@ -18,24 +18,39 @@ public class DriveAngleEncoder extends CommandBase {
 		    m_kI=0.00002,
 		    m_kD=0.008;
     private int m_setpoint = 0;
-    protected double m_correction=0;
+    protected double m_leftCorrection = 0;
+    protected double m_rightCorrection = 0;
     boolean finished = false;
     private int m_leftInitial;
     private int m_rightInitial;
-    private PIDController turnControl;
+    private PIDController leftControl;
+    private PIDController rightControl;
 
-    private PIDOutput turnOutput = new PIDOutput() {
+    private PIDOutput leftOutput = new PIDOutput() {
 
         public void pidWrite(double output) {
-            usePIDOutput(output);
+            useLeftOutput(output);
         }
     };
-    private PIDSource turnSource = new PIDSource() {
+    private PIDSource leftSource = new PIDSource() {
 
         public double pidGet() {
-            return returnPIDInput();
+            return offsetLeft();
         }
     };
+    private PIDOutput rightOutput = new PIDOutput() {
+
+        public void pidWrite(double output) {
+            useRightOutput(output);
+        }
+    };
+    private PIDSource rightSource = new PIDSource() {
+
+        public double pidGet() {
+            return offsetRight();
+        }
+    };
+    
     private double left;
     private double right;
 
@@ -45,7 +60,8 @@ public class DriveAngleEncoder extends CommandBase {
 
 	//gives difference in encoder counts we want to target
         m_setpoint = (int) (Math.toRadians(angleSetpoint) / HW.distancePerRev * HW.wheelSeparation * HW.encoderTicksPerRev);
-        turnControl = new PIDController(m_kP, m_kI, m_kD, turnSource, turnOutput);
+        leftControl = new PIDController(m_kP, m_kI, m_kD, rightSource, leftOutput);
+        rightControl = new PIDController(m_kP, m_kI, m_kD, leftSource, rightOutput);
     }
 
     protected void initialize() {
@@ -53,15 +69,17 @@ public class DriveAngleEncoder extends CommandBase {
 	m_rightInitial = drivetrain.getRightEncoder();
 
 	
-	turnControl.enable();
-	turnControl.setSetpoint(m_setpoint);
-        SmartDashboard.putData("angle control", turnControl);
+	leftControl.enable();
+	rightControl.enable();
+	leftControl.setSetpoint(m_setpoint);
+	rightControl.setSetpoint(m_setpoint);
+        SmartDashboard.putData("angle control", leftControl);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        left = m_correction;
-	right = -m_correction;
+        left = m_rightCorrection;
+	right = -m_leftCorrection;
 	double max = Math.max(Math.abs(left), Math.abs(right));
 	if(max > 1){
             left = left / max;
@@ -71,14 +89,14 @@ public class DriveAngleEncoder extends CommandBase {
 //        if (turnControl.getError()<10) {
 //            finished = true;
 //        }
-        SmartDashboard.putNumber("drive output",m_correction);
-        SmartDashboard.putNumber("drive input",turnControl.getError());
+        SmartDashboard.putNumber("drive output",m_leftCorrection);
+        SmartDashboard.putNumber("drive input",leftControl.getError());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         double turnRate=drivetrain.getLeftRate()-drivetrain.getRightRate();
-        return Math.abs(turnControl.getError())<20 && Math.abs(turnRate)<10;
+        return Math.abs(leftControl.getError())<20 && Math.abs(turnRate)<10;
     }
     
     
@@ -86,29 +104,17 @@ public class DriveAngleEncoder extends CommandBase {
     protected void interrupted(){
         end();
     }
-
-    private double returnPIDInput(){
-	return offsetLeft()-offsetRight();
+    
+    private void useRightOutput(double output){
+	m_rightCorrection=output;
     }
-
-    private void usePIDOutput(double output){
-	m_correction=output;
+    private void useLeftOutput(double output){
+	m_leftCorrection=output;
     }
-    /*
-     * TODO: TABLES NEED A NAME
-     */
-    public static double getTargetAngle() {
-        return NetworkTable.getTable("").getNumber("rotAng1");
-    }
-    public static double getTargetDistance() {
-        return NetworkTable.getTable("").getNumber("mainTargetDistance");
-    }
-  /*  public static double[] getTargetAngles() {
-       NetworkTable.getTable("").getValue("targetListAngles", );
-    }*/
 
     protected void end() {
-        turnControl.disable();
+        leftControl.disable();
+        rightControl.disable();
         drivetrain.tankDrive(0,0);
     }
     

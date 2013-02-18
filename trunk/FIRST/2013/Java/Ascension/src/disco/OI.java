@@ -1,7 +1,6 @@
 package disco;
 
-import disco.commands.*;
-import disco.commands.collector.*;
+import disco.commands.collector.CollectorToggle;
 import disco.commands.drivetrain.*;
 import disco.commands.pneumatics.*;
 import disco.commands.shooter.*;
@@ -17,28 +16,28 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-    private static int gp1_mode = GamePad.MODE_D;
-    private static GamePad gp1 = new GamePad(1, gp1_mode);
+    private int gp1_mode = GamePad.MODE_D;
+    private GamePad gp1 = new GamePad(1, gp1_mode);
 
-    //private static Button b_toggleCollect=new JoystickButton(gp1,gp1.BTN_START);
+    //Left Bumper controls pyramid climb
+
+    private Button b_diffInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
+    private Button b_diffDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
+
+    private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_X);
+    private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
+    private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_X_L);
+    private Button b_shoot=new JoystickButton(gp1,gp1.BTN_A);
+    private Button b_cycleShooter=new JoystickButton(gp1,gp1.BTN_BACK);
+
+    //private Button b_makeTank=new JoystickButton(gp1,gp1.BUMPER_R);
+    //private Button b_makeArcade=new JoystickButton(gp1,gp1.BUMPER_L);
+    private Button b_turn=new JoystickButton(gp1,gp1.BTN_Y);
+    private Button b_dist=new JoystickButton(gp1,gp1.BUMPER_R);
+    private Button b_cycleDrive=new JoystickButton(gp1,gp1.BTN_START);
+
+    private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_B);
     
-    private static Button b_diffInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
-    private static Button b_diffDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
-    private static Button b_driveMode = new JoystickButton(gp1, gp1.BTN_BACK);
-    private static Button b_drivePIDMode = new JoystickButton(gp1, gp1.BTN_START);
-    private static Button b_shootPIDMode = new JoystickButton(gp1, gp1.BTN_X);
-    
-
-    private static Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_X);
-    //private static Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
-    //private static Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
-    private static Button b_shoot=new JoystickButton(gp1,gp1.BTN_A);
-
-    //private static Button b_makeTank=new JoystickButton(gp1,gp1.BUMPER_R);
-    //private static Button b_makeArcade=new JoystickButton(gp1,gp1.BUMPER_L);
-    //private static Button b_turn=new JoystickButton(gp1,gp1.BTN_Y);
-
-    //private static Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_B);
 
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -73,19 +72,18 @@ public class OI {
 	b_diffDec.whenPressed(new ShooterDecDiff());
 
         b_toggleShooter.whenPressed(new ShooterToggle());
-        b_driveMode.whenPressed(new CycleDriveModes());
-        b_drivePIDMode.whenPressed(new CycleDrivePIDMode());
-        b_shootPIDMode.whenPressed(new CycleShooterModes());
-        //b_shooterInc.whenPressed(new ShooterInc());
-        //b_shooterDec.whenPressed(new ShooterDec());
-
+        b_shooterInc.whenPressed(new ShooterInc());
+        b_shooterDec.whenPressed(new ShooterDec());
         b_shoot.whenPressed(new Shoot());
+        b_cycleShooter.whenPressed(new cycleShooter());
 
-        //b_makeTank.whenPressed(new AssistedTank());
-        //b_makeArcade.whenPressed(new JoyArcadeTwoSpeed());
-        //b_turn.whenPressed(new DriveAngleEncoder(90));
+//        b_makeTank.whenPressed(new AssistedTank());
+//        b_makeArcade.whenPressed(new JoyArcadeTwoSpeed());
+        b_turn.whenPressed(new DriveAngleEncoder(90));
+        b_dist.whenPressed(new DriveDistance(36));
+        b_cycleDrive.whenPressed(new cycleDrive());
 
-        //b_compressorToggle.whenPressed(new ToggleCompressor());
+        b_compressorToggle.whenPressed(new ToggleCompressor());
     }
 
     public Joystick getJoy() {

@@ -21,7 +21,9 @@ public class Shooter extends Subsystem {
 
     public static final int IN=0;
     public static final int OUT=1;
-    private Relay m_pneumatic;
+    private Relay m_shoot;
+    private Relay m_clearSmall;
+    private Relay m_clearLarge;
     
     private boolean enabled=false;
     private boolean onTarget=false;
@@ -47,9 +49,17 @@ public class Shooter extends Subsystem {
         m_encoderBack.start();
         m_encoderBack.setMaxPeriod(1);
         
-        m_pneumatic=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
-        m_pneumatic.set(Relay.Value.kReverse);
-        m_pneumatic.setDirection(Relay.Direction.kReverse);
+        m_shoot=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
+        m_shoot.set(Relay.Value.kReverse);
+        m_shoot.setDirection(Relay.Direction.kReverse);
+        
+        m_clearLarge = new Relay(HW.clearLargeSlot, HW.clearSmallChannel);
+        m_clearLarge.set(Relay.Value.kReverse);
+        m_clearLarge.setDirection(Relay.Direction.kReverse);
+        
+        m_clearSmall = new Relay(HW.clearSmallSlot, HW.clearSmallChannel);
+        m_clearSmall.set(Relay.Value.kReverse);
+        m_clearSmall.setDirection(Relay.Direction.kReverse);
         
         loadSensor=new AnalogChannel(HW.frisbeeLoadedSlot,HW.frisbeeLoadedChannel);
     }
@@ -117,17 +127,36 @@ public class Shooter extends Subsystem {
 	return m_shooterBack.get();
     }
 
-    public void setPneumatic(int position){
+    public void setPneuShoot(int position){
         if(position==IN){
-	    m_pneumatic.set(Relay.Value.kReverse);
+	    m_shoot.set(Relay.Value.kReverse);
+	} else if(position==OUT){
+	    m_shoot.set(Relay.Value.kOff);
 	}
-	else if(position==OUT){
-	    m_pneumatic.set(Relay.Value.kOff);
+    }
+    public void setPneuSmallClear(int position) {
+        if(position==IN){
+	    m_clearSmall.set(Relay.Value.kReverse);
+	} else if(position==OUT){
+	    m_clearSmall.set(Relay.Value.kOff);
+	}
+    }
+    public void setPneuLargeClear(int position) {
+        if(position==IN){
+	    m_clearLarge.set(Relay.Value.kReverse);
+	} else if(position==OUT){
+	    m_clearLarge.set(Relay.Value.kOff);
 	}
     }
 
-    public Relay.Value getPneumatic(){
-        return m_pneumatic.get();
+    public Relay.Value getPneuShoot(){
+        return m_shoot.get();
+    }
+    public Relay.Value getPneuSmallClear(){
+        return m_clearSmall.get();
+    }
+    public Relay.Value getPneuLargeClear(){
+        return m_clearLarge.get();
     }
 
     public double getFrontRPM() {
