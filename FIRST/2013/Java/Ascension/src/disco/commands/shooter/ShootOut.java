@@ -30,7 +30,7 @@ public class ShootOut extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         if(!done){
-            shooter.setPneumatic(Shooter.OUT);
+            shooter.setPneuShoot(Shooter.OUT);
         }
         done = true;
     }

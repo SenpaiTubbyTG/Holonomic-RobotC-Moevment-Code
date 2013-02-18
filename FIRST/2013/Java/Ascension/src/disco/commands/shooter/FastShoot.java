@@ -5,40 +5,38 @@
 package disco.commands.shooter;
 
 import disco.commands.CommandBase;
-import disco.subsystems.Shooter;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import java.util.Timer;
 
-/**
- *
- * @author Developer
- */
-public class ShootIn extends CommandBase {
-    private boolean done;
-    private double timeout=0.5;
+public class FastShoot extends CommandGroup {
+    private int number;
+    private int count;
+
     
-    public ShootIn() {
-        // Use requires() here to declare subsystem dependencies
-        //requires(shooter);
-        
-        //this.setTimeout(timeout);
+    public FastShoot(int number) {
+        this.number=number;
+        setTimeout(0);
+        count=0;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        done=false;
+        count=0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(!done){
-            shooter.setPneuShoot(Shooter.IN);
+        if(CommandBase.shooter.isOnTarget() && isTimedOut() && count<number){
+            new Shoot().start();
+            setTimeout(timeSinceInitialized()+0.5);
+            count++;
         }
-        done=true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        //return isTimedOut();
-        return done;
+        return count==number;
     }
 
     // Called once after isFinished returns true
@@ -48,6 +46,5 @@ public class ShootIn extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        end();
     }
 }
