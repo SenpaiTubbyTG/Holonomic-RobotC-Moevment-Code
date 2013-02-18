@@ -48,7 +48,6 @@ public class MainAscent extends IterativeRobot {
             //NetworkTable.setServerMode();
             Dashboard.init();
             Dashboard.putStuff();
-            autonomousCommand=new Autonomous(Autonomous.MODE_SAFE);
             System.out.println("Robot initialization successful");
     }
 

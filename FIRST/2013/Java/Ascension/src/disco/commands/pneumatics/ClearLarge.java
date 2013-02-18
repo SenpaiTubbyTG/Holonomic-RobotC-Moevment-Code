@@ -4,21 +4,13 @@
  */
 package disco.commands.pneumatics;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
+import disco.commands.CommandBase;
 
-/**
- *
- * @author Doris
- */
-public class ClearLarge extends CommandGroup {
+public class ClearLarge extends CommandBase {
     
     public ClearLarge() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        addSequential(new SmallClearIn());
-        addSequential(new WaitCommand(0.2));
-        addSequential(new SmallClearOut());
     }
 
     // Called just before this Command runs the first time

@@ -42,8 +42,8 @@ public class HW {
     ------------------------------------------------------- */
     public static final int compressorChannel = 2,      compressorSlot = 2,
                             shootPneumaticChannel=1,    shootPneumaticSlot=2,
-                            clearLargeChannel=2,        clearLargeSlot = 2,
-                            clearSmallChannel=0,        clearSmallSlot = 0;    
+                            clearLargeChannel=3,        clearLargeSlot = 2,
+                            clearSmallChannel=4,        clearSmallSlot = 2;    
                             
     /** -------------------------------------------------------
     Solenoids

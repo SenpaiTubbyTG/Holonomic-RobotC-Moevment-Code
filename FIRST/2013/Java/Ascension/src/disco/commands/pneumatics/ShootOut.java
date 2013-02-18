@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disco.commands.shooter;
+package disco.commands.pneumatics;
 
 import disco.commands.CommandBase;
 import disco.subsystems.Shooter;
