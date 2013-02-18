@@ -5,11 +5,12 @@
 package disco.commands.drivetrain;
 
 import disco.HW;
+import disco.commands.CommandBase;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 
-public class DriveDistance extends AssistedTank {
+public class DriveDistance extends CommandBase {
     private final double m_setpoint;
     private PIDController leftDistControl;
     private PIDController rightDistControl;
@@ -20,6 +21,12 @@ public class DriveDistance extends AssistedTank {
     
     private double m_leftDistCorrection=0;
     private double m_rightDistCorrection=0;
+    private int m_leftInitial;
+    private int m_rightInitial;
+    
+    private double left=0, right=0;
+    private double leftLast=0, rightLast=0; 
+    private final double m_rampLimit=0.05;
     
     private PIDOutput distOutputL = new PIDOutput() {
 
@@ -56,33 +63,30 @@ public class DriveDistance extends AssistedTank {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        super.initialize();
         m_leftInitial = drivetrain.getLeftEncoder();
 	m_rightInitial = drivetrain.getRightEncoder();
-
+        
+        leftLast=rightLast=0;
 	
 	leftDistControl.setSetpoint(m_setpoint);
         leftDistControl.enable();
 	rightDistControl.setSetpoint(m_setpoint);
         rightDistControl.enable();
-        super.turnControl.disable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //drive
         left=m_leftDistCorrection;
         right=m_rightDistCorrection;
-        //but don't turn
-//        left += left>0 ? super.m_correction : -super.m_correction;
-//	right -= right>0 ? super.m_correction : -super.m_correction;
+
+        ramp();
         
         double max = Math.max(Math.abs(left), Math.abs(right));
         if(max > 1){
             left = left / max;
             right = right / max;
         }
-        drivetrain.tankDrive(left, right);
+        drivetrain.tankDriveUnsmoothed(left, right);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -93,16 +97,36 @@ public class DriveDistance extends AssistedTank {
 
     // Called once after isFinished returns true
     protected void end() {
-        super.end();
         drivetrain.tankDrive(0,0);
         leftDistControl.disable();
         rightDistControl.disable();
-        super.turnControl.disable();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
         end();
+    }
+    
+    protected int offsetLeft(){
+	return drivetrain.getLeftEncoder()-m_leftInitial;
+    }
+    protected int offsetRight(){
+	return drivetrain.getRightEncoder()-m_rightInitial;
+    }
+    
+    protected void ramp(){
+        if(left-leftLast>m_rampLimit){
+            left=leftLast+m_rampLimit;
+        }
+        else if(leftLast-left>m_rampLimit){
+            left=leftLast-m_rampLimit;
+        }
+        if(right-rightLast>m_rampLimit){
+            right=rightLast+m_rampLimit;
+        }
+        else if(rightLast-right>m_rampLimit){
+            right=rightLast-m_rampLimit;
+        }
     }
 }

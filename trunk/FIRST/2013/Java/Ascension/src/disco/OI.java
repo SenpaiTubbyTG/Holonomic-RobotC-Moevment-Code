@@ -1,5 +1,6 @@
 package disco;
 
+import disco.commands.pneumatics.Shoot;
 import disco.commands.collector.CollectorToggle;
 import disco.commands.drivetrain.*;
 import disco.commands.pneumatics.*;

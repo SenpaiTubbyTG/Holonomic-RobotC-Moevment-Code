@@ -8,7 +8,7 @@ import disco.commands.drivetrain.DriveAngleEncoder;
 import disco.commands.drivetrain.DriveDistance;
 import disco.commands.shooter.AutoShoot;
 import disco.commands.shooter.FastShoot;
-import disco.commands.shooter.Shoot;
+import disco.commands.pneumatics.Shoot;
 import disco.commands.shooter.ShooterToggle;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -34,7 +34,8 @@ public class Autonomous extends CommandGroup {
                 addSequential(new AutoShoot(5));
                 addSequential(new ShooterToggle());
                 addSequential(new DriveDistance(-90));
-            default:
+                break;
+            case Autonomous.MODE_SAFE:
                 addSequential(new ShooterToggle());
                 addSequential(new AutoShoot(5));
                 addSequential(new ShooterToggle());
