@@ -1,7 +1,5 @@
 package disco;
 
-import disco.commands.pneumatics.Shoot;
-import disco.commands.collector.CollectorToggle;
 import disco.commands.drivetrain.*;
 import disco.commands.pneumatics.*;
 import disco.commands.shooter.*;
@@ -29,10 +27,9 @@ public class OI {
     private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
     private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_X_L);
     private Button b_shoot=new JoystickButton(gp1,gp1.BTN_A);
+    private Button b_clear=new AxisButton(gp1,gp1.TRIGGER_L);
     private Button b_cycleShooter=new JoystickButton(gp1,gp1.BTN_BACK);
 
-    //private Button b_makeTank=new JoystickButton(gp1,gp1.BUMPER_R);
-    //private Button b_makeArcade=new JoystickButton(gp1,gp1.BUMPER_L);
     private Button b_turn=new JoystickButton(gp1,gp1.BTN_Y);
     private Button b_dist=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_cycleDrive=new JoystickButton(gp1,gp1.BTN_START);
@@ -67,8 +64,6 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     public OI() {
-//        b_toggleCollect.whenPressed(new CollectorToggle());
-//
 	b_diffInc.whenPressed(new ShooterIncDiff());
 	b_diffDec.whenPressed(new ShooterDecDiff());
 
@@ -76,10 +71,9 @@ public class OI {
         b_shooterInc.whenPressed(new ShooterInc());
         b_shooterDec.whenPressed(new ShooterDec());
         b_shoot.whenPressed(new Shoot());
+        b_clear.whenPressed(new ClearSmall());
         b_cycleShooter.whenPressed(new cycleShooter());
 
-//        b_makeTank.whenPressed(new AssistedTank());
-//        b_makeArcade.whenPressed(new JoyArcadeTwoSpeed());
         b_turn.whenPressed(new DriveAngleEncoder(90));
         b_dist.whenPressed(new DriveDistance(36));
         b_cycleDrive.whenPressed(new cycleDrive());

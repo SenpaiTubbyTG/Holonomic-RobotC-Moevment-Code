@@ -7,9 +7,7 @@ import disco.utils.DiscoCounterEncoder;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
@@ -28,7 +26,11 @@ public class Shooter extends Subsystem {
     private boolean enabled=false;
     private boolean onTarget=false;
     private double setpoint=0;
-    public final double m_defaultSetpoint=6100;
+    public final double m_defaultSetpoint=5300;
+    
+    public double frontPWM=0.65;
+    public double backPWM=0.55;
+    
     
     public static final int MODE_CLOSED_LOOP=0;
     public static final int MODE_OPEN_LOOP=1;
@@ -53,9 +55,9 @@ public class Shooter extends Subsystem {
         m_shoot.set(Relay.Value.kReverse);
         m_shoot.setDirection(Relay.Direction.kReverse);
         
-        m_clearLarge = new Relay(HW.clearLargeSlot, HW.clearSmallChannel);
-        m_clearLarge.set(Relay.Value.kReverse);
-        m_clearLarge.setDirection(Relay.Direction.kReverse);
+        //m_clearLarge = new Relay(HW.clearLargeSlot, HW.clearSmallChannel);
+//        m_clearLarge.set(Relay.Value.kReverse);
+//        m_clearLarge.setDirection(Relay.Direction.kReverse);
         
         m_clearSmall = new Relay(HW.clearSmallSlot, HW.clearSmallChannel);
         m_clearSmall.set(Relay.Value.kReverse);

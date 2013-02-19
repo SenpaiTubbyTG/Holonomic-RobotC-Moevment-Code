@@ -4,14 +4,12 @@
  */
 package disco.commands;
 
-import disco.commands.drivetrain.DriveAngleEncoder;
 import disco.commands.drivetrain.DriveDistance;
 import disco.commands.shooter.AutoShoot;
-import disco.commands.shooter.FastShoot;
-import disco.commands.pneumatics.Shoot;
 import disco.commands.shooter.ShooterToggle;
+import disco.subsystems.Shooter;
+import disco.utils.Dashboard;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -23,21 +21,23 @@ public class Autonomous extends CommandGroup {
     public static final int MODE_DANGEROUS = 2;
     
     public Autonomous(int mode) {
+        CommandBase.shooter.setSetpoint(Dashboard.autonSetpoint);
+        CommandBase.shooter.setMode(Shooter.MODE_CLOSED_LOOP);
         switch (mode) {
             case Autonomous.MODE_RISKY:
                 addSequential(new ShooterToggle());
-                addSequential(new FastShoot(5));
+                addSequential(new AutoShoot(5,1));
                 addSequential(new ShooterToggle());
                 break;
             case Autonomous.MODE_DANGEROUS:
                 addSequential(new ShooterToggle());
-                addSequential(new AutoShoot(5));
+                addSequential(new AutoShoot(5,0.5));
                 addSequential(new ShooterToggle());
                 addSequential(new DriveDistance(-90));
                 break;
             case Autonomous.MODE_SAFE:
                 addSequential(new ShooterToggle());
-                addSequential(new AutoShoot(5));
+                addSequential(new AutoShoot(5,2));
                 addSequential(new ShooterToggle());
                 break;
         }
