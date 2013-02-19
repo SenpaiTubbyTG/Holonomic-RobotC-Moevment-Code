@@ -5,6 +5,7 @@
 package disco.commands.shooter;
 
 import disco.commands.CommandBase;
+import disco.subsystems.Shooter;
 
 
 public class ShooterIncDiff extends CommandBase {
@@ -21,7 +22,12 @@ public class ShooterIncDiff extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        ShooterBangBang.difference+=100;
+        if(shooter.getMode()==Shooter.MODE_CLOSED_LOOP){
+            ShooterBangBang.difference+=100;
+        }
+        else if(shooter.getMode()==Shooter.MODE_OPEN_LOOP){
+            shooter.backPWM+=0.01;
+        }
 	done=true;
     }
 

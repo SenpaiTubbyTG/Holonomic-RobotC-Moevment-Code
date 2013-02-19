@@ -127,5 +127,8 @@ public class DriveAngleEncoder extends CommandBase {
         else if(rightLast-right>m_rampLimit){
             right=rightLast-m_rampLimit;
         }
+        
+        leftLast=left;
+        rightLast=right;
     }
 }

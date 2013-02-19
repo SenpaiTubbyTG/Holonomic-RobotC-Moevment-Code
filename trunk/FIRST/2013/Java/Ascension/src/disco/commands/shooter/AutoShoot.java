@@ -10,26 +10,28 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoShoot extends CommandGroup {
     private int number;
+    private double delay;
     private int count;
 
     
-    public AutoShoot(int number) {
+    public AutoShoot(int number, double delay) {
         this.number=number;
-        setTimeout(0);
+        this.delay=delay;
+        setTimeout(delay);
         count=0;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
         count=0;
-        setTimeout(timeSinceInitialized());
+        setTimeout(timeSinceInitialized()+delay);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         if(CommandBase.shooter.isOnTarget() && isTimedOut() && count<number){
             new Shoot().start();
-            setTimeout(timeSinceInitialized()+1);
+            setTimeout(timeSinceInitialized()+delay);
             count++;
         }
     }

@@ -26,7 +26,7 @@ public class DriveDistance extends CommandBase {
     
     private double left=0, right=0;
     private double leftLast=0, rightLast=0; 
-    private final double m_rampLimit=0.05;
+    private final double m_rampLimit=0.01;
     
     private PIDOutput distOutputL = new PIDOutput() {
 
@@ -79,7 +79,7 @@ public class DriveDistance extends CommandBase {
         left=m_leftDistCorrection;
         right=m_rightDistCorrection;
 
-        ramp();
+        //ramp();
         
         double max = Math.max(Math.abs(left), Math.abs(right));
         if(max > 1){
@@ -128,5 +128,8 @@ public class DriveDistance extends CommandBase {
         else if(rightLast-right>m_rampLimit){
             right=rightLast-m_rampLimit;
         }
+        
+        leftLast=left;
+        rightLast=right;
     }
 }

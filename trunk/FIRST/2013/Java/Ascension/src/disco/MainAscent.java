@@ -6,16 +6,12 @@
 /*----------------------------------------------------------------------------*/
 package disco;
 
-import disco.commands.Autonomous;
 import disco.commands.CommandBase;
 import disco.utils.Dashboard;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import java.io.IOException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -65,7 +61,9 @@ public class MainAscent extends IterativeRobot {
     public void autonomousInit() {
 	// schedule the autonomous command (example)
 	autonomousCommand = (Command) (Dashboard.autonChooser.getSelected());
-        autonomousCommand.start();
+        if(autonomousCommand!=null) {
+            autonomousCommand.start();
+        }
     }
 
     public void autonomousPeriodic() {
@@ -76,7 +74,9 @@ public class MainAscent extends IterativeRobot {
     }
 
     public void teleopInit() {
-	autonomousCommand.cancel();
+        if(autonomousCommand!=null) {
+            autonomousCommand.cancel();
+        }
     }
 
     public void teleopPeriodic() {

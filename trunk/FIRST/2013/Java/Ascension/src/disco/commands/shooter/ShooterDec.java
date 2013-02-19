@@ -5,6 +5,7 @@
 package disco.commands.shooter;
 
 import disco.commands.CommandBase;
+import disco.subsystems.Shooter;
 
 
 public class ShooterDec extends CommandBase {
@@ -21,10 +22,15 @@ public class ShooterDec extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        double set=shooter.getSetpoint();
-	if(set>1000){
-	    shooter.setSetpoint(set-100);
-	}
+        if(shooter.getMode()==Shooter.MODE_CLOSED_LOOP){
+            double set=shooter.getSetpoint();
+            if(set>1000){
+                shooter.setSetpoint(set-100);
+            }
+        }
+        else if(shooter.getMode()==Shooter.MODE_OPEN_LOOP){
+            shooter.frontPWM-=0.01;
+        }
 	done=true;
     }
 

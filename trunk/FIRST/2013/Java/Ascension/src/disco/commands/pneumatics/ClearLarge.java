@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class ClearLarge extends CommandGroup {
     
     public ClearLarge() {
+        addSequential(new LargeClearIn());
+        addSequential(new WaitCommand(0.2));
+        addSequential(new LargeClearOut());
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         addSequential(new LargeClearIn());
