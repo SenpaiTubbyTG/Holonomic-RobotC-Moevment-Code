@@ -4,12 +4,12 @@
  */
 package disco.utils;
 
-import disco.HW;
 import disco.MainAscent;
 import disco.commands.Autonomous;
 import disco.commands.CommandBase;
-import disco.commands.drivetrain.DriveAngleGyro;
 import disco.commands.shooter.ShooterBangBang;
+import disco.commands.shooter.ShooterControlled;
+import disco.subsystems.Shooter;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -54,6 +54,9 @@ public class Dashboard {
         SmartDashboard.putNumber("Shooter difference", ShooterBangBang.difference);
         SmartDashboard.putNumber("Shooter Setpoint", CommandBase.shooter.getSetpoint());
         SmartDashboard.putBoolean("Shooter On target", CommandBase.shooter.isOnTarget());
+        SmartDashboard.putNumber("kP", ShooterControlled.kP);
+        SmartDashboard.putNumber("kI", ShooterControlled.kI);
+        SmartDashboard.putNumber("kD", ShooterControlled.kD);
         SmartDashboard.putNumber("load sensor", CommandBase.shooter.isLoaded());
 
         //DRIVETRAIN

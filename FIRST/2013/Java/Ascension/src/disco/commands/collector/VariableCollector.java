@@ -22,7 +22,7 @@ public class VariableCollector extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-	joy1=oi.getJoy();
+	joy1=oi.getJoy1();
 	if(joy1 instanceof GamePad){
 	    gp=(GamePad) joy1;
 	}

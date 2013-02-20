@@ -22,14 +22,18 @@ public class ShooterDec extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(shooter.getMode()==Shooter.MODE_CLOSED_LOOP){
-            double set=shooter.getSetpoint();
-            if(set>1000){
-                shooter.setSetpoint(set-100);
-            }
-        }
-        else if(shooter.getMode()==Shooter.MODE_OPEN_LOOP){
-            shooter.frontPWM-=0.01;
+        switch(shooter.getMode()){
+            case Shooter.MODE_BANG:
+                double set=shooter.getSetpoint();
+                if(set>100){
+                    shooter.setSetpoint(set-100);
+                }
+                break;
+            case Shooter.MODE_OPEN_LOOP:
+                shooter.frontPWM-=0.01;
+                break;
+            case Shooter.MODE_CLOSED_LOOP:
+                ShooterControlled.kP-=0.00001;
         }
 	done=true;
     }

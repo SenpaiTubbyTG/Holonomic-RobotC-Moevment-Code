@@ -22,7 +22,7 @@ public class Autonomous extends CommandGroup {
     
     public Autonomous(int mode) {
         CommandBase.shooter.setSetpoint(Dashboard.autonSetpoint);
-        CommandBase.shooter.setMode(Shooter.MODE_CLOSED_LOOP);
+        CommandBase.shooter.setMode(Shooter.MODE_BANG);
         switch (mode) {
             case Autonomous.MODE_RISKY:
                 addSequential(new ShooterToggle());

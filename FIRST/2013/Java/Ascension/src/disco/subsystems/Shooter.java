@@ -3,6 +3,7 @@ package disco.subsystems;
 import disco.HW;
 import disco.commands.shooter.RawShooter;
 import disco.commands.shooter.ShooterBangBang;
+import disco.commands.shooter.ShooterControlled;
 import disco.utils.DiscoCounterEncoder;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Relay;
@@ -32,8 +33,9 @@ public class Shooter extends Subsystem {
     public double backPWM=0.55;
     
     
-    public static final int MODE_CLOSED_LOOP=0;
+    public static final int MODE_BANG=0;
     public static final int MODE_OPEN_LOOP=1;
+    public static final int MODE_CLOSED_LOOP=2;
     private int thisMode=0;
 
     public Shooter(){
@@ -42,14 +44,15 @@ public class Shooter extends Subsystem {
 
 	m_encoderFront=new DiscoCounterEncoder(HW.shooterEncoderFrontSlot,HW.shooterEncoderFrontChannel,2);
         m_encoderFront.setUpSourceEdge(true, true);
-        m_encoderFront.setMaxPeriod(1);
+        m_encoderFront.setMaxPeriod(.03);
         m_encoderFront.start();
-        setSetpoint(m_defaultSetpoint);
 
         m_encoderBack=new DiscoCounterEncoder(HW.shooterEncoderBackSlot,HW.shooterEncoderBackChannel,2);
         m_encoderBack.setUpSourceEdge(true, true);
+        m_encoderBack.setMaxPeriod(.03);
         m_encoderBack.start();
-        m_encoderBack.setMaxPeriod(1);
+        
+        setSetpoint(m_defaultSetpoint);
         
         m_shoot=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
         m_shoot.set(Relay.Value.kReverse);
@@ -79,11 +82,14 @@ public class Shooter extends Subsystem {
     public void enable(){
         this.enabled=true;
         switch(thisMode){
-            case MODE_CLOSED_LOOP:
+            case MODE_BANG:
                 new ShooterBangBang().start();
                 break;
             case MODE_OPEN_LOOP:
                 new RawShooter().start();
+                break;
+            case MODE_CLOSED_LOOP:
+                new ShooterControlled(this.getSetpoint()).start();
                 break;
             default:
                 new ShooterBangBang().start();

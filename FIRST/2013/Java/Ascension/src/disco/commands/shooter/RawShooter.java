@@ -22,16 +22,17 @@ public class RawShooter extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(shooter.getFrontRPM()<shooter.getSetpoint()-300){
+        double set=shooter.getSetpoint();
+        if(shooter.getFrontRPM()<set-300){
             shooter.setFrontPower(1);
         }
-        else{
+        else {
             shooter.setFrontPower(shooter.frontPWM);
         }
-        if(shooter.getBackRPM()<shooter.getSetpoint()-300){
+        if(shooter.getBackRPM()<set-300){
             shooter.setBackPower(1);
         }
-        else{
+        else {
             shooter.setBackPower(shooter.backPWM);
         }
         shooter.setOnTarget(true);
