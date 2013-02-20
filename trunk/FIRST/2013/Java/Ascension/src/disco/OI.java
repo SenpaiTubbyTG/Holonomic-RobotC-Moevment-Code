@@ -17,6 +17,9 @@ public class OI {
 
     private int gp1_mode = GamePad.MODE_D;
     private GamePad gp1 = new GamePad(1, gp1_mode);
+    
+    private int gp2_mode = GamePad.MODE_D;
+    private GamePad gp2 = new GamePad(2, gp2_mode);
 
     //Left Bumper controls pyramid climb
 
@@ -81,7 +84,11 @@ public class OI {
         b_compressorToggle.whenPressed(new ToggleCompressor());
     }
 
-    public Joystick getJoy() {
+    public Joystick getJoy1() {
 	return gp1;
+    }
+    
+    public Joystick getJoy2() {
+	return gp2;
     }
 }

@@ -33,7 +33,7 @@ public class DiscoCounterEncoder extends Counter implements PIDSource{
     }
 
     class Filter extends Thread{
-        private int length=15;
+        private int length=12;
         private double[] periods=new double[length];
         private int index=0;
         public Filter(){

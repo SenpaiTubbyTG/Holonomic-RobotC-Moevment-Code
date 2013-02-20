@@ -14,11 +14,6 @@ public class ClearSmall extends CommandGroup {
         addSequential(new SmallClearIn());
         addSequential(new WaitCommand(0.2));
         addSequential(new SmallClearOut());
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        addSequential(new SmallClearIn());
-        addSequential(new WaitCommand(0.2));
-        addSequential(new SmallClearOut());
     }
 
     // Called just before this Command runs the first time

@@ -22,11 +22,15 @@ public class ShooterIncDiff extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(shooter.getMode()==Shooter.MODE_CLOSED_LOOP){
-            ShooterBangBang.difference+=100;
-        }
-        else if(shooter.getMode()==Shooter.MODE_OPEN_LOOP){
-            shooter.backPWM+=0.01;
+        switch(shooter.getMode()){
+            case Shooter.MODE_BANG:
+                ShooterBangBang.difference+=100;
+                break;
+            case Shooter.MODE_OPEN_LOOP:
+                shooter.backPWM+=0.01;
+                break;
+            case Shooter.MODE_CLOSED_LOOP:
+                ShooterControlled.kI+=0.000001;
         }
 	done=true;
     }

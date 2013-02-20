@@ -25,11 +25,14 @@ public class cycleShooter extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         switch(shooter.getMode()){
-            case Shooter.MODE_CLOSED_LOOP:
+            case Shooter.MODE_BANG:
                 shooter.setMode(Shooter.MODE_OPEN_LOOP);
                 break;
             case Shooter.MODE_OPEN_LOOP:
                 shooter.setMode(Shooter.MODE_CLOSED_LOOP);
+                break;
+            case Shooter.MODE_CLOSED_LOOP:
+                shooter.setMode(Shooter.MODE_BANG);
                 break;
         }
         //Please retart your shooter for the changes to take effect
