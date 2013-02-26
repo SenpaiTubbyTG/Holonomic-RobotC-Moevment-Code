@@ -20,6 +20,7 @@ public class Shooter extends Subsystem {
 
     public static final int IN=0;
     public static final int OUT=1;
+    
     private Relay m_shoot;
     private Relay m_clearSmall;
     private Relay m_clearLarge;
@@ -28,6 +29,7 @@ public class Shooter extends Subsystem {
     private boolean onTarget=false;
     private double setpoint=0;
     public final double m_defaultSetpoint=5300;
+    
     
     public double frontPWM=0.65;
     public double backPWM=0.55;
@@ -168,10 +170,15 @@ public class Shooter extends Subsystem {
     }
 
     public double getFrontRPM() {
-	return m_encoderFront.getFilteredRPM();
+        double c = m_encoderFront.getFilteredRPM();
+        System.out.println("Front: " + c);
+	return c;
+        
     }
     public double getBackRPM() {
-	return m_encoderBack.getFilteredRPM();
+	double c =  m_encoderBack.getFilteredRPM();
+        System.out.println("Back: " + c);
+        return c;
     }
     
     public void setOnTarget(boolean val){
