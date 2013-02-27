@@ -52,13 +52,13 @@ public class HW {
     Sensors
     ------------------------------------------------------- */
     public static final int //Digital
-                            leftEncoderAChannel=2,
-			    leftEncoderBChannel=1,	leftEncoderSlot=1,
-			    rightEncoderAChannel=2,
-			    rightEncoderBChannel=1,	rightEncoderSlot=2,
+                            leftEncoderAChannel=4,
+			    leftEncoderBChannel=3,	leftEncoderSlot=1,
+			    rightEncoderAChannel=4,
+			    rightEncoderBChannel=3,	rightEncoderSlot=2,
 
-			    shooterEncoderFrontChannel=3,	shooterEncoderFrontSlot=1,
-                            shooterEncoderBackChannel=4,	shooterEncoderBackSlot=1,
+			    shooterEncoderFrontChannel=1,	shooterEncoderFrontSlot=1,
+                            shooterEncoderBackChannel=2,	shooterEncoderBackSlot=1,
 
                             pressureSwitchChannel=14,    pressureSwitchSlot=2,
 

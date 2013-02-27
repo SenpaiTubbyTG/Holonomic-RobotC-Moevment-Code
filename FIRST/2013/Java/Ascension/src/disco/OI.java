@@ -74,11 +74,11 @@ public class OI {
         b_shooterInc.whenPressed(new ShooterInc());
         b_shooterDec.whenPressed(new ShooterDec());
         b_shoot.whenPressed(new Shoot());
-        b_clear.whenPressed(new ClearSmall());
+        b_clear.whenPressed(new Clear());
         b_cycleShooter.whenPressed(new cycleShooter());
 
-        b_turn.whenPressed(new DriveAngleEncoder(90));
-        b_dist.whenPressed(new DriveDistance(36));
+//        b_turn.whenPressed(new DriveAngleEncoder(90));
+//        b_dist.whenPressed(new DriveDistance(36));
         b_cycleDrive.whenPressed(new cycleDrive());
 
         b_compressorToggle.whenPressed(new ToggleCompressor());
