@@ -8,12 +8,12 @@ import disco.commands.CommandBase;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class ClearSmall extends CommandGroup {
+public class Clear extends CommandGroup {
     
-    public ClearSmall() {
-        addSequential(new SmallClearIn());
+    public Clear() {
+        addSequential(new ClearIn());
         addSequential(new WaitCommand(0.2));
-        addSequential(new SmallClearOut());
+        addSequential(new ClearOut());
     }
 
     // Called just before this Command runs the first time

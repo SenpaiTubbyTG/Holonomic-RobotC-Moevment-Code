@@ -11,11 +11,11 @@ import disco.subsystems.Shooter;
  *
  * @author Developer
  */
-public class SmallClearIn extends CommandBase {
+public class ClearIn extends CommandBase {
     private boolean done;
     private double timeout=0.5;
     
-    public SmallClearIn() {
+    public ClearIn() {
         // Use requires() here to declare subsystem dependencies
         //requires(shooter);
         
@@ -30,7 +30,7 @@ public class SmallClearIn extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         if(!done){
-            shooter.setPneuSmallClear(Shooter.IN);
+            shooter.setPneuClear(Shooter.IN);
         }
         done=true;
     }

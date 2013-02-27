@@ -45,12 +45,14 @@ public class Shooter extends Subsystem {
 	m_shooterBack=new Talon(HW.ShooterBackSlot,HW.ShooterBackChannel);
 
 	m_encoderFront=new DiscoCounterEncoder(HW.shooterEncoderFrontSlot,HW.shooterEncoderFrontChannel,2);
-        m_encoderFront.setUpSourceEdge(true, true);
+        //m_encoderFront.setUpSourceEdge(true, true);
+        m_encoderFront.setSemiPeriodMode(true);
         m_encoderFront.setMaxPeriod(.03);
         m_encoderFront.start();
 
         m_encoderBack=new DiscoCounterEncoder(HW.shooterEncoderBackSlot,HW.shooterEncoderBackChannel,2);
-        m_encoderBack.setUpSourceEdge(true, true);
+        //m_encoderBack.setUpSourceEdge(true, true);
+        m_encoderBack.setSemiPeriodMode(true);
         m_encoderBack.setMaxPeriod(.03);
         m_encoderBack.start();
         
@@ -144,40 +146,28 @@ public class Shooter extends Subsystem {
 	    m_shoot.set(Relay.Value.kOff);
 	}
     }
-    public void setPneuSmallClear(int position) {
+    public void setPneuClear(int position) {
         if(position==IN){
 	    m_clearSmall.set(Relay.Value.kReverse);
 	} else if(position==OUT){
 	    m_clearSmall.set(Relay.Value.kOff);
 	}
     }
-    public void setPneuLargeClear(int position) {
-        if(position==IN){
-	    m_clearLarge.set(Relay.Value.kReverse);
-	} else if(position==OUT){
-	    m_clearLarge.set(Relay.Value.kOff);
-	}
-    }
 
     public Relay.Value getPneuShoot(){
         return m_shoot.get();
     }
-    public Relay.Value getPneuSmallClear(){
+    public Relay.Value getPneuClear(){
         return m_clearSmall.get();
-    }
-    public Relay.Value getPneuLargeClear(){
-        return m_clearLarge.get();
     }
 
     public double getFrontRPM() {
-        double c = m_encoderFront.getFilteredRPM();
-        System.out.println("Front: " + c);
+        double c = m_encoderFront.getRPM();
 	return c;
         
     }
     public double getBackRPM() {
-	double c =  m_encoderBack.getFilteredRPM();
-        System.out.println("Back: " + c);
+	double c =  m_encoderBack.getRPM();
         return c;
     }
     

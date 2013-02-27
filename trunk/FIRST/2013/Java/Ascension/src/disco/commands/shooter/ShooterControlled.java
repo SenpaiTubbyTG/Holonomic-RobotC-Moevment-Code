@@ -19,6 +19,9 @@ public class ShooterControlled extends CommandBase {
     
     double frontCorrection;
     double backCorrection;
+    private Control control=new Control();
+    
+    private boolean done=false;
     
     // Setpoint in RPM
     public ShooterControlled(double setpoint) {
@@ -27,20 +30,21 @@ public class ShooterControlled extends CommandBase {
         shooter.setSetpoint(setpoint);
         frontController = new PIDController(kP, kI, kD, frontSource, frontOutput);
         backController = new PIDController(kP, kI, kD, backSource, backOutput);
+        
     }
 
     protected void initialize() {
+        done=false;
         frontController.enable();
         backController.enable();
         frontController.setSetpoint(shooter.getSetpoint());
         backController.setSetpoint(shooter.getSetpoint());
 	compressor.set(false);
+        control.start();
     }
 
     protected void execute() {
-        CommandBase.shooter.setFrontPower(frontCorrection > 0 ? frontCorrection : 0);
-        CommandBase.shooter.setBackPower(backCorrection > 0 ? backCorrection : 0);
-        //on target if within 5%
+        //on target if within 3%
         boolean onTarget=Math.abs( (shooter.getBackRPM()-shooter.getSetpoint()) / shooter.getSetpoint() )<0.03;
         shooter.setOnTarget(onTarget);
     }
@@ -50,6 +54,7 @@ public class ShooterControlled extends CommandBase {
     }
 
     protected void end() {
+        done=true;
         frontController.disable();
         backController.disable();
         shooter.setPower(0);
@@ -98,4 +103,20 @@ public class ShooterControlled extends CommandBase {
         frontController.setPID(kP, kI, kD);
         backController.setPID(kP, kI, kD);
     }
+
+class Control extends Thread{
+    public Control(){}
+    
+    public void run(){
+        while(!done){
+            CommandBase.shooter.setFrontPower(frontCorrection > 0 ? frontCorrection : 0);
+            CommandBase.shooter.setBackPower(backCorrection > 0 ? backCorrection : 0);
+            try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    System.out.println("Shooter BangBang thread dum!");
+                }
+            }
+    }
+}
 }

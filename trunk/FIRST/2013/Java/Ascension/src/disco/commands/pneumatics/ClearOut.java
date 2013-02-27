@@ -11,11 +11,11 @@ import disco.subsystems.Shooter;
  *
  * @author Developer
  */
-public class SmallClearOut extends CommandBase {
+public class ClearOut extends CommandBase {
     private boolean done;
     private double timeout=0.5;
     
-    public SmallClearOut() {
+    public ClearOut() {
         // Use requires() here to declare subsystem dependencies
         //requires(shooter);
         
@@ -30,7 +30,7 @@ public class SmallClearOut extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         if(!done){
-            shooter.setPneuSmallClear(Shooter.OUT);
+            shooter.setPneuClear(Shooter.OUT);
         }
         done = true;
     }
