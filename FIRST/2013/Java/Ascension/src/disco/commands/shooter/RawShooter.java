@@ -22,6 +22,9 @@ public class RawShooter extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+            shooter.setFrontPower(shooter.frontPWM);
+            shooter.setBackPower(shooter.backPWM);
+    }        /*
         double set=shooter.getSetpoint();
         if(shooter.getFrontRPM()<set-1000){
             shooter.setFrontPower(1);
@@ -36,8 +39,8 @@ public class RawShooter extends CommandBase {
             shooter.setBackPower(shooter.backPWM);
         }
         shooter.setOnTarget(true);
-    }
-
+*/
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;

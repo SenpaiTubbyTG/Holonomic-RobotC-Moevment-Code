@@ -1,8 +1,10 @@
 package disco;
 
+import disco.commands.SaveData;
 import disco.commands.drivetrain.*;
 import disco.commands.pneumatics.*;
 import disco.commands.shooter.*;
+import disco.commands.solenoid.*;
 import disco.utils.GamePad;
 import disco.utils.GamePad.AxisButton;
 import edu.wpi.first.wpilibj.Joystick;
@@ -30,14 +32,16 @@ public class OI {
     private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
     private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_X_L);
     private Button b_shoot=new JoystickButton(gp1,gp1.BTN_A);
-    private Button b_clear=new AxisButton(gp1,gp1.TRIGGER_L);
+    private Button b_clear=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_cycleShooter=new JoystickButton(gp1,gp1.BTN_BACK);
 
-    private Button b_turn=new JoystickButton(gp1,gp1.BTN_Y);
-    private Button b_dist=new JoystickButton(gp1,gp1.BUMPER_R);
+//    private Button b_turn=new JoystickButton(gp1,gp1.BTN_Y);
+//    private Button b_dist=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_cycleDrive=new JoystickButton(gp1,gp1.BTN_START);
 
     private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_B);
+    
+    private Button b_saveData=new JoystickButton(gp1,gp1.BUMPER_L);
     
 
     //// CREATING BUTTONS
@@ -76,12 +80,16 @@ public class OI {
         b_shoot.whenPressed(new Shoot());
         b_clear.whenPressed(new Clear());
         b_cycleShooter.whenPressed(new cycleShooter());
+        b_toggleShooter.whenPressed(new SolenoidToggle());
+        b_toggleShooter.whenPressed(new Solenoid2Toggle());
 
 //        b_turn.whenPressed(new DriveAngleEncoder(90));
 //        b_dist.whenPressed(new DriveDistance(36));
         b_cycleDrive.whenPressed(new cycleDrive());
 
         b_compressorToggle.whenPressed(new ToggleCompressor());
+        
+        b_saveData.whenPressed(new SaveData());
     }
 
     public Joystick getJoy1() {

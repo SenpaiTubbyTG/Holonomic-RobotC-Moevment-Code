@@ -2,19 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disco.commands.shooter;
+package disco.commands;
 
-import disco.commands.CommandBase;
+import disco.HW;
 import disco.subsystems.Shooter;
 
-/**
- *
- * @author Developer
- */
-public class cycleShooter extends CommandBase {
-    private boolean done;
+public class SaveData extends CommandBase {
+    boolean done=false;
     
-    public cycleShooter() {
+    public SaveData() {
+        this.setRunWhenDisabled(true);
     }
 
     // Called just before this Command runs the first time
@@ -24,21 +21,23 @@ public class cycleShooter extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        try{
+        //SHOOTER
         switch(shooter.getMode()){
             case Shooter.MODE_BANG:
-                shooter.setMode(Shooter.MODE_OPEN_LOOP);
+                HW.preferences.putDouble("shooter_setpoint", shooter.getSetpoint());
+                HW.preferences.putDouble("shooter_difference", shooter.difference);
                 break;
             case Shooter.MODE_OPEN_LOOP:
-                shooter.setMode(Shooter.MODE_BANG);
+                HW.preferences.putDouble("front_PWM", shooter.getFrontPower());
+                HW.preferences.putDouble("back_PWM", shooter.getBackPower());
                 break;
-//            case Shooter.MODE_CLOSED_LOOP:
-//                shooter.setMode(Shooter.MODE_BANG);
-//                break;
+        }        
+        
+        HW.preferences.save();
         }
-        //Please retart your shooter for the changes to take effect
-        if(shooter.isEnabled()){
-            shooter.disable();
-            shooter.enable();
+        catch(Exception e){
+            System.out.println("DATA SAVE EXCEPTION. IGNORE NEXT LINE.");
         }
         done=true;
     }
@@ -50,11 +49,12 @@ public class cycleShooter extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        System.out.println("Robot data saved successfully!");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        end();
+        System.out.println("ROBOT DATA NOT SAVED. INTERRUPTED.");
     }
 }

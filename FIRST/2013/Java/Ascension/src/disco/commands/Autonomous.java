@@ -21,24 +21,27 @@ public class Autonomous extends CommandGroup {
     public static final int MODE_DANGEROUS = 2;
     
     public Autonomous(int mode) {
-        CommandBase.shooter.setSetpoint(Dashboard.autonSetpoint);
-        CommandBase.shooter.setMode(Shooter.MODE_BANG);
+        CommandBase.shooter.setSetpoint(CommandBase.shooter.getSetpoint());
+        CommandBase.shooter.setMode(Shooter.MODE_OPEN_LOOP);
         switch (mode) {
             case Autonomous.MODE_RISKY:
                 addSequential(new ShooterToggle());
                 addSequential(new AutoShoot(5,1));
                 addSequential(new ShooterToggle());
+                System.out.println("Risky Auton");
                 break;
             case Autonomous.MODE_DANGEROUS:
                 addSequential(new ShooterToggle());
                 addSequential(new AutoShoot(5,0.5));
                 addSequential(new ShooterToggle());
-                addSequential(new DriveDistance(-90));
+                //addSequential(new DriveDistance(-90));
+                System.out.println("Dangerous Auton");
                 break;
             case Autonomous.MODE_SAFE:
                 addSequential(new ShooterToggle());
                 addSequential(new AutoShoot(5,2));
                 addSequential(new ShooterToggle());
+                System.out.println("Safe Auton");
                 break;
         }
             

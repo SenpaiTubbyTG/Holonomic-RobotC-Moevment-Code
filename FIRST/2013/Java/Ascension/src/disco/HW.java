@@ -1,5 +1,6 @@
 package disco;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 /**
@@ -19,6 +20,11 @@ public class HW {
     public static final double encoderTicksPerRev=128/driveReduction;
     public static final double distancePerRev=2*Math.PI*wheelRadius;
     public static final double distancePerPulse=distancePerRev/encoderTicksPerRev;
+    
+    /*
+     * User Variables
+     */
+    public static Preferences preferences=Preferences.getInstance();
     
 
 
@@ -47,7 +53,6 @@ public class HW {
     /** -------------------------------------------------------
     Solenoids
     ------------------------------------------------------- */
-
     /** -------------------------------------------------------
     Sensors
     ------------------------------------------------------- */

@@ -51,7 +51,7 @@ public class Dashboard {
 	SmartDashboard.putNumber("Forward Shooter PWM", CommandBase.shooter.getFrontPower());
 	SmartDashboard.putNumber("Back Shooter RPM", CommandBase.shooter.getBackRPM());
 	SmartDashboard.putNumber("Back Shooter PWM", CommandBase.shooter.getBackPower());
-        SmartDashboard.putNumber("Shooter difference", ShooterBangBang.difference);
+        SmartDashboard.putNumber("Shooter difference", CommandBase.shooter.difference);
         SmartDashboard.putNumber("Shooter Setpoint", CommandBase.shooter.getSetpoint());
         SmartDashboard.putBoolean("Shooter On target", CommandBase.shooter.isOnTarget());
         SmartDashboard.putNumber("kP", ShooterControlled.kP);

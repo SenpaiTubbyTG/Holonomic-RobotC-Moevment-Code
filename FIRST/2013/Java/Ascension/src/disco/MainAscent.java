@@ -7,6 +7,7 @@
 package disco;
 
 import disco.commands.CommandBase;
+import disco.commands.LoadData;
 import disco.utils.Dashboard;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -36,10 +37,11 @@ public class MainAscent extends IterativeRobot {
      */
     public void robotInit() {
             // Initialize all subsystems
-            System.out.println("\n\nInitializing robot...\n");
+            System.out.println("\n\nInitializing robot...");
             CommandBase.init();
             System.out.println("CommandBase initialization successful");
             getWatchdog().setEnabled(false);
+            new LoadData().start();
             lastTime=System.currentTimeMillis();
             //NetworkTable.setServerMode();
             Dashboard.init();
@@ -48,6 +50,7 @@ public class MainAscent extends IterativeRobot {
     }
 
     public void disabledInit() {
+        HW.preferences.save();
     }
 
     public void disabledPeriodic() {
@@ -84,6 +87,7 @@ public class MainAscent extends IterativeRobot {
 	Scheduler.getInstance().run();
         Dashboard.putSensors();
         executionTimeMillis=System.currentTimeMillis()-lastTime;
+        
     }
 
     public void testPeriodic() {
