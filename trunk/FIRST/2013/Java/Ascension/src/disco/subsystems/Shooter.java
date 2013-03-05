@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
+
     private Talon m_shooterFront;
     private Talon m_shooterBack;
     private DiscoCounterEncoder m_encoderFront;
@@ -28,11 +29,12 @@ public class Shooter extends Subsystem {
     private boolean enabled=false;
     private boolean onTarget=false;
     private double setpoint=0;
-    public final double m_defaultSetpoint=5300;
+    public final double m_defaultSetpoint=6000;
     
     
     public double frontPWM=0.65;
     public double backPWM=0.55;
+    public double difference = 0;
     
     
     public static final int MODE_BANG=0;

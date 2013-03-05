@@ -2,43 +2,34 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disco.commands.shooter;
+package disco.commands.solenoid;
 
 import disco.commands.CommandBase;
-import disco.commands.pneumatics.Shoot;
-import edu.wpi.first.wpilibj.command.CommandGroup;
-
-public class AutoShoot extends CommandGroup {
-    private int number;
-    private double delay;
-    private int count;
-
-    
-    public AutoShoot(int number, double delay) {
-        this.number=number;
-        this.delay=delay;
-        setTimeout(delay);
-        count=0;
+/**
+ *
+ * @author Developer
+ */
+public class SolenoidToggle extends CommandBase {
+    boolean done=false;
+    boolean prevState;
+    public SolenoidToggle() {
+        // Use requires() here to declare subsystem dependencies
+        requires(solenoid);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        count=0;
-        setTimeout(timeSinceInitialized()+delay);
+        prevState=solenoid.get();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if((CommandBase.shooter.isOnTarget() || this.isTimedOut()) && count<number){
-            new Shoot().start();
-            setTimeout(timeSinceInitialized()+delay);
-            count++;
-        }
+        solenoid.set(true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return count==number;
+        return done;
     }
 
     // Called once after isFinished returns true

@@ -11,7 +11,6 @@ public class ShooterBangBang extends CommandBase {
     private boolean done;
     private Control control=new Control();
     private boolean onTarget=false;
-    public static double difference=0;
 
     public ShooterBangBang() {
         // Use requires() here to declare subsystem dependencies
@@ -64,7 +63,7 @@ public class ShooterBangBang extends CommandBase {
             else{
                 shooter.setFrontPower(1);
             }
-            if(shooter.getBackRPM()>shooter.getSetpoint()-difference){
+            if(shooter.getBackRPM()>shooter.getSetpoint()-shooter.difference){
                 shooter.setBackPower(0);
             }
             else{

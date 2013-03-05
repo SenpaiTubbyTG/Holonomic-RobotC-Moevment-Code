@@ -24,7 +24,7 @@ public class ShooterIncDiff extends CommandBase {
     protected void execute() {
         switch(shooter.getMode()){
             case Shooter.MODE_BANG:
-                ShooterBangBang.difference+=100;
+                shooter.difference+=100;
                 break;
             case Shooter.MODE_OPEN_LOOP:
                 shooter.backPWM+=0.01;
