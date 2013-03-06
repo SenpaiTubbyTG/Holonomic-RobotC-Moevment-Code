@@ -7,6 +7,7 @@ import disco.commands.shooter.ShooterControlled;
 import disco.utils.DiscoCounterEncoder;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,9 +23,8 @@ public class Shooter extends Subsystem {
     public static final int IN=0;
     public static final int OUT=1;
     
-    private Relay m_shoot;
-    private Relay m_clearSmall;
-    private Relay m_clearLarge;
+    private Solenoid m_shoot;
+    private Solenoid m_clear;
     
     private boolean enabled=false;
     private boolean onTarget=false;
@@ -41,6 +41,8 @@ public class Shooter extends Subsystem {
     public static final int MODE_OPEN_LOOP=1;
     public static final int MODE_CLOSED_LOOP=2;
     private int thisMode=0;
+    public double prevRPM;
+    public double prevDiff;
 
     public Shooter(){
 	m_shooterFront=new Talon(HW.ShooterFrontSlot,HW.ShooterFrontChannel);
@@ -60,17 +62,13 @@ public class Shooter extends Subsystem {
         
         setSetpoint(m_defaultSetpoint);
         
-        m_shoot=new Relay(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
-        m_shoot.set(Relay.Value.kReverse);
-        m_shoot.setDirection(Relay.Direction.kReverse);
+        m_shoot=new Solenoid(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
         
         //m_clearLarge = new Relay(HW.clearLargeSlot, HW.clearSmallChannel);
 //        m_clearLarge.set(Relay.Value.kReverse);
 //        m_clearLarge.setDirection(Relay.Direction.kReverse);
         
-        m_clearSmall = new Relay(HW.clearSmallSlot, HW.clearSmallChannel);
-        m_clearSmall.set(Relay.Value.kReverse);
-        m_clearSmall.setDirection(Relay.Direction.kReverse);
+        m_clear = new Solenoid(HW.clearSmallSlot, HW.clearSmallChannel);
         
         loadSensor=new AnalogChannel(HW.frisbeeLoadedSlot,HW.frisbeeLoadedChannel);
     }
@@ -143,24 +141,24 @@ public class Shooter extends Subsystem {
 
     public void setPneuShoot(int position){
         if(position==IN){
-	    m_shoot.set(Relay.Value.kReverse);
+	    m_shoot.set(true);
 	} else if(position==OUT){
-	    m_shoot.set(Relay.Value.kOff);
+	    m_shoot.set(false);
 	}
     }
     public void setPneuClear(int position) {
         if(position==IN){
-	    m_clearSmall.set(Relay.Value.kReverse);
+	    m_clear.set(true);
 	} else if(position==OUT){
-	    m_clearSmall.set(Relay.Value.kOff);
+	    m_clear.set(false);
 	}
     }
 
-    public Relay.Value getPneuShoot(){
+    public boolean getPneuShoot(){
         return m_shoot.get();
     }
-    public Relay.Value getPneuClear(){
-        return m_clearSmall.get();
+    public boolean getPneuClear(){
+        return m_clear.get();
     }
 
     public double getFrontRPM() {

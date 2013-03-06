@@ -46,13 +46,13 @@ public class HW {
     /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
-    public static final int compressorChannel = 2,      compressorSlot = 2,
-                            shootPneumaticChannel=1,    shootPneumaticSlot=2,
-                            clearSmallChannel=5,        clearSmallSlot = 2;    
+    public static final int compressorChannel = 2,      compressorSlot = 2;
                             
     /** -------------------------------------------------------
     Solenoids
     ------------------------------------------------------- */
+    public static final int shootPneumaticChannel=6,    shootPneumaticSlot=1,
+                            clearSmallChannel=5,        clearSmallSlot = 1; 
     /** -------------------------------------------------------
     Sensors
     ------------------------------------------------------- */
