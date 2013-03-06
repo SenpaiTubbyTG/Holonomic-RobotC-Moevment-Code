@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoShoot extends CommandGroup {
     private int number;
+    private int number2 = 1;
     private double delay;
     private int count;
 
@@ -29,7 +30,13 @@ public class AutoShoot extends CommandGroup {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if((CommandBase.shooter.isOnTarget() || this.isTimedOut()) && count<number){
+        
+        if((CommandBase.shooter.isOnTarget() || this.isTimedOut()) && count<number2){
+            new Shoot().start();
+            setTimeout(timeSinceInitialized()+delay+5);
+            count++;
+        }
+        else if((CommandBase.shooter.isOnTarget() || this.isTimedOut()) && count<number && count>=number2){
             new Shoot().start();
             setTimeout(timeSinceInitialized()+delay);
             count++;

@@ -28,21 +28,22 @@ public class OI {
     private Button b_diffInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
     private Button b_diffDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
 
-    private Button b_toggleShooter=new JoystickButton(gp1,gp1.BTN_X);
+    private Button b_toggleShooter=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
     private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_X_L);
-    private Button b_shoot=new JoystickButton(gp1,gp1.BTN_A);
-    private Button b_clear=new JoystickButton(gp1,gp1.BUMPER_R);
-    private Button b_cycleShooter=new JoystickButton(gp1,gp1.BTN_BACK);
+    private Button b_shoot=new JoystickButton(gp1,gp1.TRIGGER_R);
+    private Button b_clear=new JoystickButton(gp1,gp1.BUMPER_L);
+    private Button b_cycleShooter=new JoystickButton(gp1,gp1.BTN_B);
 
 //    private Button b_turn=new JoystickButton(gp1,gp1.BTN_Y);
 //    private Button b_dist=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_cycleDrive=new JoystickButton(gp1,gp1.BTN_START);
 
-    private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_B);
+    private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_X);
     
     private Button b_saveData=new JoystickButton(gp1,gp1.BUMPER_L);
     
+    private Button b_autoSet = new JoystickButton(gp1, gp1.BTN_A);
 
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -90,6 +91,8 @@ public class OI {
         b_compressorToggle.whenPressed(new ToggleCompressor());
         
         b_saveData.whenPressed(new SaveData());
+        
+        b_autoSet.whenPressed(new AutoSetRPM());
     }
 
     public Joystick getJoy1() {
