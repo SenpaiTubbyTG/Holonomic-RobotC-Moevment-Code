@@ -30,13 +30,15 @@ public class AutoShoot extends CommandGroup {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        
-        if((CommandBase.shooter.isOnTarget() || this.isTimedOut()) && count<number2){
-            new Shoot().start();
-            setTimeout(timeSinceInitialized()+delay+5);
-            count++;
+        if(count==0 && !isTimedOut()){
+            //wait
         }
-        else if((CommandBase.shooter.isOnTarget() || this.isTimedOut()) && count<number && count>=number2){
+//        if((CommandBase.shooter.isOnTarget() && this.isTimedOut()) && count<number2){
+//            new Shoot().start();
+//            setTimeout(timeSinceInitialized()+delay+5);
+//            count++;
+//        }
+        else if((CommandBase.shooter.isOnTarget() && this.isTimedOut()) && count<number){
             new Shoot().start();
             setTimeout(timeSinceInitialized()+delay);
             count++;

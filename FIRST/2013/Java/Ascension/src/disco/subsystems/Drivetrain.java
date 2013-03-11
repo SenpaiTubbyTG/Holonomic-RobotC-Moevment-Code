@@ -7,6 +7,7 @@ package disco.subsystems;
 import disco.HW;
 import disco.commands.drivetrain.AssistedTank;
 import disco.commands.drivetrain.JoyArcadeTwoSpeed;
+import disco.commands.drivetrain.RawJoyTank;
 import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -71,11 +72,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new AssistedTank());
+        setDefaultCommand(new RawJoyTank());
     }
 
     public void tankDrive(double left,double right){
-	drive.tankDrive(left, right,true);
+	drive.tankDrive(left, right,true,true);
     }
     public void tankDriveUnsmoothed(double left, double right){
         drive.tankDrive(left,right,false);

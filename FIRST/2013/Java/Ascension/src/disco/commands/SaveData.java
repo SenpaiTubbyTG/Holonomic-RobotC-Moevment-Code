@@ -29,8 +29,10 @@ public class SaveData extends CommandBase {
                 HW.preferences.putDouble("shooter_difference", shooter.difference);
                 break;
             case Shooter.MODE_OPEN_LOOP:
-                HW.preferences.putDouble("front_PWM", shooter.getFrontPower());
-                HW.preferences.putDouble("back_PWM", shooter.getBackPower());
+                if(shooter.getFrontPower()>0){
+                    HW.preferences.putDouble("front_PWM", shooter.getFrontPower());
+                    HW.preferences.putDouble("back_PWM", shooter.getBackPower());
+                }
                 break;
         }        
         
