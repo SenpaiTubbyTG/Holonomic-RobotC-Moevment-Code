@@ -23,6 +23,7 @@ public class Dashboard {
         autonChooser.addDefault("Safe", new Autonomous(Autonomous.MODE_SAFE));
         autonChooser.addObject("Risky", new Autonomous(Autonomous.MODE_RISKY));
         autonChooser.addObject("Dangerous", new Autonomous(Autonomous.MODE_DANGEROUS));
+        autonChooser.addObject("DoNothing", new Autonomous(Autonomous.MODE_NOTHING));
         putStuff();
     }
 
@@ -37,7 +38,7 @@ public class Dashboard {
     public static void putSubsystems() {
         SmartDashboard.putData(CommandBase.drivetrain);
         SmartDashboard.putData(CommandBase.shooter);
-        SmartDashboard.putData(CommandBase.collector);
+        //SmartDashboard.putData(CommandBase.collector);
         SmartDashboard.putData(CommandBase.compressor);
         //SmartDashboard.putData("Gyro PID",DriveAngleGyro.getController());
     }
@@ -54,14 +55,11 @@ public class Dashboard {
         SmartDashboard.putNumber("Shooter difference", CommandBase.shooter.difference);
         SmartDashboard.putNumber("Shooter Setpoint", CommandBase.shooter.getSetpoint());
         SmartDashboard.putBoolean("Shooter On target", CommandBase.shooter.isOnTarget());
-        SmartDashboard.putNumber("kP", ShooterControlled.kP);
-        SmartDashboard.putNumber("kI", ShooterControlled.kI);
-        SmartDashboard.putNumber("kD", ShooterControlled.kD);
         SmartDashboard.putNumber("load sensor", CommandBase.shooter.isLoaded());
 
         //DRIVETRAIN
-	//SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy())).getLY());
-        //SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy())).getRY());
+	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy1())).getLY());
+        SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy1())).getRY());
         //SmartDashboard.putNumber("Front sonar 1", CommandBase.drivetrain.getFrontSonar1());
         //SmartDashboard.putNumber("Gyro angle", CommandBase.drivetrain.getGyroAngle());
         SmartDashboard.putBoolean("Touching Left Pyramid", CommandBase.drivetrain.getLeftPyramid());
@@ -70,9 +68,11 @@ public class Dashboard {
         SmartDashboard.putNumber("Right Encoder", CommandBase.drivetrain.getRightEncoder());
         SmartDashboard.putNumber("Left Rate", CommandBase.drivetrain.getLeftRate()/12.0);
         SmartDashboard.putNumber("Right Rate", CommandBase.drivetrain.getRightRate()/12.0);
+        SmartDashboard.putNumber("Left Drive Output", CommandBase.drivetrain.getPWMLeft());
+        SmartDashboard.putNumber("Right Drive Output", CommandBase.drivetrain.getPWMRight());
 
 	//COLLECTOR
-        SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
+        //SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
 
 	//COMPRESSOR
         SmartDashboard.putBoolean("Air Full", CommandBase.compressor.getPressureSwitch());

@@ -6,8 +6,10 @@
 /*----------------------------------------------------------------------------*/
 package disco;
 
+import disco.commands.Autonomous;
 import disco.commands.CommandBase;
 import disco.commands.LoadData;
+import disco.commands.pneumatics.CompressorStart;
 import disco.utils.Dashboard;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -67,6 +69,10 @@ public class MainAscent extends IterativeRobot {
         if(autonomousCommand!=null) {
             autonomousCommand.start();
         }
+        else{
+            autonomousCommand=new Autonomous(Autonomous.MODE_SAFE);
+            autonomousCommand.start();
+        }
     }
 
     public void autonomousPeriodic() {
@@ -80,6 +86,7 @@ public class MainAscent extends IterativeRobot {
         if(autonomousCommand!=null) {
             autonomousCommand.cancel();
         }
+        //new CompressorStart().start();
     }
 
     public void teleopPeriodic() {

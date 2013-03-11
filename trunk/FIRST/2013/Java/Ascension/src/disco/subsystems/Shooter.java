@@ -26,6 +26,7 @@ public class Shooter extends Subsystem {
     private Solenoid m_shoot;
     private Solenoid m_clear;
     
+    
     private boolean enabled=false;
     private boolean onTarget=false;
     private double setpoint=0;
@@ -47,6 +48,10 @@ public class Shooter extends Subsystem {
     public Shooter(){
 	m_shooterFront=new Talon(HW.ShooterFrontSlot,HW.ShooterFrontChannel);
 	m_shooterBack=new Talon(HW.ShooterBackSlot,HW.ShooterBackChannel);
+        
+        //Encoder power. Do not remove.
+        new Solenoid(HW.encoderPowerSlot,HW.encoder1PowerChannel).set(true);
+        new Solenoid(HW.encoderPowerSlot,HW.encoder2PowerChannel).set(true);
 
 	m_encoderFront=new DiscoCounterEncoder(HW.shooterEncoderFrontSlot,HW.shooterEncoderFrontChannel,2);
         //m_encoderFront.setUpSourceEdge(true, true);

@@ -41,8 +41,8 @@ public class HW {
 			    Collect3Channel=6,	    Collect3Slot=2,
 			    Collect4Channel=7,	    Collect4Slot=2,
 
-			    ShooterFrontChannel=1,	    ShooterFrontSlot=2,
-			    ShooterBackChannel=2,	    ShooterBackSlot=2;
+			    ShooterFrontChannel=1,	    ShooterFrontSlot=2, // 6
+			    ShooterBackChannel=2,	    ShooterBackSlot=2; // 4
     /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
@@ -52,7 +52,10 @@ public class HW {
     Solenoids
     ------------------------------------------------------- */
     public static final int shootPneumaticChannel=6,    shootPneumaticSlot=1,
-                            clearSmallChannel=5,        clearSmallSlot = 1; 
+                            clearSmallChannel=5,        clearSmallSlot = 1,
+                            encoder1PowerChannel=7,     encoderPowerSlot=1,
+                            encoder2PowerChannel=8;
+ 
     /** -------------------------------------------------------
     Sensors
     ------------------------------------------------------- */
@@ -65,10 +68,10 @@ public class HW {
 			    shooterEncoderFrontChannel=1,	shooterEncoderFrontSlot=1,
                             shooterEncoderBackChannel=2,	shooterEncoderBackSlot=1,
 
-                            pressureSwitchChannel=14,    pressureSwitchSlot=2,
+                            pressureSwitchChannel=14,    pressureSwitchSlot=2, 
 
-                            limitSwitchLeftChannel = 14, limitSwitchLeftSlot = 1,
-                            limitSwitchRightChannel =13, limitSwitchRightSlot = 1,
+                            limitSwitchLeftChannel = 7, limitSwitchLeftSlot = 1,
+                            limitSwitchRightChannel =14, limitSwitchRightSlot = 1,
             
             
                             //Analog

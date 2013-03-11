@@ -4,9 +4,16 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class BetterDrive extends RobotDrive {
+    double leftPrev=0;
+    double rightPrev=0;
+    double m_rampLimit=0.18;
+    
     public BetterDrive(SpeedController a, SpeedController b,
             SpeedController c, SpeedController d) {
         super(a,b,c,d);
+        
+        leftPrev=0;
+        rightPrev=0;
     }
 
     private double Map(double stickVal){
@@ -14,8 +21,12 @@ public class BetterDrive extends RobotDrive {
 	//the secret formula
 	return 0.024 + 0.296*x - 0.085*x*x + 0.011*x*x*x - 0.000447*x*x*x*x;
     }
+    
+    public void tankDrive(double leftValue, double rightValue, boolean smoothed){
+        tankDrive(leftValue,rightValue,smoothed,false);
+    }
 
-    public void tankDrive(double leftValue, double rightValue, boolean smoothed) {
+    public void tankDrive(double leftValue, double rightValue, boolean smoothed, boolean ramp) {
 	if(smoothed){
 	    //what? no sign fuction? dumdum.
 	    double leftSign= leftValue>=0 ? 1 : -0.8;
@@ -24,11 +35,29 @@ public class BetterDrive extends RobotDrive {
 	    leftValue=leftSign*Map(Math.abs(leftValue));
 	    rightValue=rightSign*Map(Math.abs(rightValue));
 	}
+        
+        if(ramp){
+            if(leftValue-leftPrev>m_rampLimit){
+                leftValue=leftPrev+m_rampLimit;
+            }
+            else if(leftPrev-leftValue>m_rampLimit){
+                leftValue=leftPrev-m_rampLimit;
+            }
+            if(rightValue-rightPrev>m_rampLimit){
+                rightValue=rightPrev+m_rampLimit;
+            }
+            else if(rightPrev-rightValue>m_rampLimit){
+                rightValue=rightPrev-m_rampLimit;
+            }
+        }
+                
+        leftPrev=leftValue;
+        rightPrev=rightValue;
 	super.tankDrive(leftValue, rightValue, false);
     }
 
     public void tankDrive(double leftValue,double rightValue){
-	super.tankDrive(leftValue, rightValue,false);
+	tankDrive(leftValue, rightValue,false,false);
     }
 
     public void arcadeDrive(double moveValue, double rotateValue,boolean smoothed) {

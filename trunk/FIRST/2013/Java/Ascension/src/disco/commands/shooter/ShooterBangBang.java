@@ -28,7 +28,7 @@ public class ShooterBangBang extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         //on target if within 3%
-        onTarget=Math.abs( (shooter.getBackRPM()-shooter.getSetpoint()) / shooter.getSetpoint() )<0.03;
+        onTarget=Math.abs( (shooter.getFrontRPM()-shooter.getSetpoint()) / shooter.getSetpoint() )<0.03;
         shooter.setOnTarget(onTarget);
     }
 

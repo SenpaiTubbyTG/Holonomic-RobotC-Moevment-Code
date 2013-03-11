@@ -79,14 +79,14 @@ public class AssistedTank extends RawJoyTank {
 	    m_rightInitial=drivetrain.getRightEncoder();
 	}
         //don't drive forwards if we are touching the pyramid and not pushing the right bumper
-        if(!gp.getRawButton(gp.BUMPER_L)){
-            if(drivetrain.getLeftPyramid()){
-                left = left>0 ? 0 : left;  
-            }
-            if(drivetrain.getRightPyramid()){
-                right = right>0 ? 0 : right;  
-            }
-        }
+//        if(!gp.getRawButton(gp.BTN_B)){
+//            if(drivetrain.getLeftPyramid()){
+//                left = left>0 ? 0 : left;  
+//            }
+//            if(drivetrain.getRightPyramid()){
+//                right = right>0 ? 0 : right;  
+//            }
+//        }
         
         //finally drive
         drivetrain.tankDrive(left, right);
