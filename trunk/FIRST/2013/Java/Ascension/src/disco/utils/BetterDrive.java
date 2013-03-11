@@ -29,8 +29,8 @@ public class BetterDrive extends RobotDrive {
     public void tankDrive(double leftValue, double rightValue, boolean smoothed, boolean ramp) {
 	if(smoothed){
 	    //what? no sign fuction? dumdum.
-	    double leftSign= leftValue>=0 ? 1 : -0.8;
-	    double rightSign= rightValue>=0 ? 1 : -0.8;
+	    double leftSign= leftValue>=0 ? 1 : -1;//Why were these -0.8? I forget.
+	    double rightSign= rightValue>=0 ? 1 : -1;
 
 	    leftValue=leftSign*Map(Math.abs(leftValue));
 	    rightValue=rightSign*Map(Math.abs(rightValue));

@@ -1,7 +1,7 @@
 package disco.commands;
 
 import disco.utils.Dashboard;
-
+//WHY WHY WHY WHY WHY
 public class ResetSubsystems extends CommandBase {
     
     boolean done;
@@ -14,8 +14,6 @@ public class ResetSubsystems extends CommandBase {
         requires(shooter);
         requires(collector);
         requires(compressor);
-        requires(solenoid);
-        requires(solenoid); // Prevents any other command from creating problems. 
         // Make sure all other commmands have a valid interrupted() methods.
         done = false;
     }

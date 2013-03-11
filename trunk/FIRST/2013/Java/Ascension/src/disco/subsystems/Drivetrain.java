@@ -79,7 +79,7 @@ public class Drivetrain extends Subsystem {
 	drive.tankDrive(left, right,true,true);
     }
     public void tankDriveUnsmoothed(double left, double right){
-        drive.tankDrive(left,right,false);
+        drive.tankDrive(left,right,false,false);
     }
 
     public void arcadeDrive(double move, double turn) {
@@ -100,13 +100,13 @@ public class Drivetrain extends Subsystem {
 	return leftEncoder.get();
     }
     public double getLeftRate(){
-        return leftEncoder.getRate();
+        return leftEncoder.getRate()/12.0;
     }
     public int getRightEncoder(){
 	return rightEncoder.get();
     }
     public double getRightRate(){
-        return rightEncoder.getRate();
+        return rightEncoder.getRate()/12.0;
     }
     
     
