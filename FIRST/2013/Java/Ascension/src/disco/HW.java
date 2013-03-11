@@ -20,6 +20,9 @@ public class HW {
     public static final double encoderTicksPerRev=128/driveReduction;
     public static final double distancePerRev=2*Math.PI*wheelRadius;
     public static final double distancePerPulse=distancePerRev/encoderTicksPerRev;
+    public static final double maxFPS=9;    //TODO: Test
+    public static final double shiftFPS=5;  //TODO: Test
+    
     
     /*
      * User Variables

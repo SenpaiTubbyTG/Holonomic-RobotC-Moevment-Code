@@ -4,11 +4,9 @@
  */
 package disco.commands.drivetrain;
 
-import disco.OI;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class AssistedTank extends RawJoyTank {
@@ -16,7 +14,7 @@ public class AssistedTank extends RawJoyTank {
     private double  m_kP=0.001,
 		    m_kI=0.00005,
 		    m_kD=0;
-    //joystick differences below this are assumed to be intended to be identical.
+    //joystick differences below this number are assumed to be intended to be identical.
     private double m_correctionThreshold=0.3;
 
     protected double m_correction=0;
@@ -44,7 +42,6 @@ public class AssistedTank extends RawJoyTank {
     // Called just before this Command runs the first time
     protected void initialize() {
 	super.initialize();
-        super.threshold=0.1;
 	m_leftInitial = drivetrain.getLeftEncoder();
 	m_rightInitial = drivetrain.getRightEncoder();
 
