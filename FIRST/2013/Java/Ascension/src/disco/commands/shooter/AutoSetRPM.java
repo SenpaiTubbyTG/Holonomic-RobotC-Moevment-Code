@@ -11,16 +11,12 @@ public class AutoSetRPM extends CommandBase {
     }
 
     protected void execute() {
-        if (shooter.getSetpoint() == 5500 && shooter.difference == 500) {
-            shooter.setSetpoint(shooter.prevRPM);
-            shooter.difference = shooter.prevDiff;
-        } else if (shooter.getSetpoint() == 5000 && shooter.difference == 500) {
+	if (shooter.getSetpoint() == 5000 && shooter.difference == 500) {
             shooter.setSetpoint(5500);
             shooter.difference = 500;
-        } else {
-            shooter.prevDiff = shooter.difference;
-            shooter.prevRPM = shooter.getFrontRPM();
-            shooter.setSetpoint(5000);
+        }
+	else {
+            shooter.setSetpoint(shooter.m_defaultSetpoint);
             shooter.difference = 500;
         }
         done = true;

@@ -29,8 +29,6 @@ public class ShooterIncDiff extends CommandBase {
             case Shooter.MODE_OPEN_LOOP:
                 shooter.backPWM+=0.01;
                 break;
-            case Shooter.MODE_CLOSED_LOOP:
-                ShooterControlled.kI+=0.000001;
         }
 	done=true;
     }

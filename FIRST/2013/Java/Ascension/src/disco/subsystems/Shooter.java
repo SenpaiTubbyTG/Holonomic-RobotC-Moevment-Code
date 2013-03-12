@@ -3,10 +3,8 @@ package disco.subsystems;
 import disco.HW;
 import disco.commands.shooter.RawShooter;
 import disco.commands.shooter.ShooterBangBang;
-import disco.commands.shooter.ShooterControlled;
 import disco.utils.DiscoCounterEncoder;
 import edu.wpi.first.wpilibj.AnalogChannel;
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,25 +20,24 @@ public class Shooter extends Subsystem {
 
     public static final int IN=0;
     public static final int OUT=1;
-    
+
     private Solenoid m_shoot;
     private Solenoid m_clear;
-    
-    
+
+
     private boolean enabled=false;
     private boolean onTarget=false;
     private double setpoint=0;
-    public final double m_defaultSetpoint=6000;
-    
-    
+    public double m_defaultSetpoint=5700;
+
+
     public double frontPWM=0.65;
     public double backPWM=0.55;
     public double difference = 0;
-    
-    
+
+
     public static final int MODE_BANG=0;
     public static final int MODE_OPEN_LOOP=1;
-    public static final int MODE_CLOSED_LOOP=2;
     private int thisMode=0;
     public double prevRPM;
     public double prevDiff;
@@ -48,10 +45,10 @@ public class Shooter extends Subsystem {
     public Shooter(){
 	m_shooterFront=new Talon(HW.ShooterFrontSlot,HW.ShooterFrontChannel);
 	m_shooterBack=new Talon(HW.ShooterBackSlot,HW.ShooterBackChannel);
-        
+
         //Encoder power. Do not remove.
-        new Solenoid(HW.encoderPowerSlot,HW.encoder1PowerChannel).set(true);
-        new Solenoid(HW.encoderPowerSlot,HW.encoder2PowerChannel).set(true);
+        new Solenoid(HW.encoder1PowerChannel).set(true);
+        new Solenoid(HW.encoder2PowerChannel).set(true);
 
 	m_encoderFront=new DiscoCounterEncoder(HW.shooterEncoderFrontSlot,HW.shooterEncoderFrontChannel,2);
         //m_encoderFront.setUpSourceEdge(true, true);
@@ -64,30 +61,25 @@ public class Shooter extends Subsystem {
         m_encoderBack.setSemiPeriodMode(true);
         m_encoderBack.setMaxPeriod(.03);
         m_encoderBack.start();
-        
+
         setSetpoint(m_defaultSetpoint);
-        
-        m_shoot=new Solenoid(HW.shootPneumaticSlot,HW.shootPneumaticChannel);
-        
-        //m_clearLarge = new Relay(HW.clearLargeSlot, HW.clearSmallChannel);
-//        m_clearLarge.set(Relay.Value.kReverse);
-//        m_clearLarge.setDirection(Relay.Direction.kReverse);
-        
-        m_clear = new Solenoid(HW.clearSmallSlot, HW.clearSmallChannel);
-        
+
+        m_shoot=new Solenoid(HW.shootPneumaticChannel);
+        m_clear = new Solenoid(HW.clearSmallChannel);
+
         loadSensor=new AnalogChannel(HW.frisbeeLoadedSlot,HW.frisbeeLoadedChannel);
     }
 
     public void initDefaultCommand() {
     }
-    
+
     public void setSetpoint(double setpoint){
         this.setpoint=setpoint;
     }
     public double getSetpoint(){
         return this.setpoint;
     }
-    
+
     public void enable(){
         this.enabled=true;
         switch(thisMode){
@@ -97,13 +89,10 @@ public class Shooter extends Subsystem {
             case MODE_OPEN_LOOP:
                 new RawShooter().start();
                 break;
-            case MODE_CLOSED_LOOP:
-                new ShooterControlled(this.getSetpoint()).start();
-                break;
             default:
                 new ShooterBangBang().start();
         }
-        
+
     }
     public void disable(){
         Command com=this.getCurrentCommand();
@@ -115,7 +104,7 @@ public class Shooter extends Subsystem {
     public boolean isEnabled(){
         return this.enabled;
     }
-    
+
     public void setMode(int mode){
         thisMode=mode;
     }
@@ -169,20 +158,20 @@ public class Shooter extends Subsystem {
     public double getFrontRPM() {
         double c = m_encoderFront.getRPM();
 	return c;
-        
+
     }
     public double getBackRPM() {
 	double c =  m_encoderBack.getRPM();
         return c;
     }
-    
+
     public void setOnTarget(boolean val){
         onTarget=val;
     }
     public boolean isOnTarget(){
         return onTarget;
     }
-    
+
     public double isLoaded(){
         return loadSensor.getVoltage();
     }

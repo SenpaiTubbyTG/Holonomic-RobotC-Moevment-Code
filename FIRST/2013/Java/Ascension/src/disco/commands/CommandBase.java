@@ -17,6 +17,7 @@ public abstract class CommandBase extends Command {
     public static Drivetrain drivetrain;
     public static Shooter shooter;
     public static CompressorSub compressor;
+    public static Shifter shifter;
 
     public static void init() {
         drivetrain = new Drivetrain();
@@ -25,6 +26,8 @@ public abstract class CommandBase extends Command {
         System.out.println("Shooter initialization successful");
         compressor = new CompressorSub();
         System.out.println("Compressor initialization successful");
+        shifter = new Shifter();
+        System.out.println("Shifter initialization successful");
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be

@@ -7,9 +7,6 @@ package disco.utils;
 import disco.MainAscent;
 import disco.commands.Autonomous;
 import disco.commands.CommandBase;
-import disco.commands.shooter.ShooterBangBang;
-import disco.commands.shooter.ShooterControlled;
-import disco.subsystems.Shooter;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -17,7 +14,7 @@ public class Dashboard {
 
     public static SendableChooser autonChooser;
     public static double autonSetpoint = 5400;
-    
+
     public static void init() {
         autonChooser = new SendableChooser();
         autonChooser.addDefault("Safe", new Autonomous(Autonomous.MODE_SAFE));
@@ -38,9 +35,7 @@ public class Dashboard {
     public static void putSubsystems() {
         SmartDashboard.putData(CommandBase.drivetrain);
         SmartDashboard.putData(CommandBase.shooter);
-        //SmartDashboard.putData(CommandBase.collector);
         SmartDashboard.putData(CommandBase.compressor);
-        //SmartDashboard.putData("Gyro PID",DriveAngleGyro.getController());
     }
 
     //Repeatedly call this to update dashboard values.
@@ -60,8 +55,6 @@ public class Dashboard {
         //DRIVETRAIN
 	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy1())).getLY());
         SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy1())).getRY());
-        //SmartDashboard.putNumber("Front sonar 1", CommandBase.drivetrain.getFrontSonar1());
-        //SmartDashboard.putNumber("Gyro angle", CommandBase.drivetrain.getGyroAngle());
         SmartDashboard.putBoolean("Touching Left Pyramid", CommandBase.drivetrain.getLeftPyramid());
         SmartDashboard.putBoolean("Touching Right Pyramid", CommandBase.drivetrain.getRightPyramid());
         SmartDashboard.putNumber("Left Encoder", CommandBase.drivetrain.getLeftEncoder());
@@ -71,13 +64,10 @@ public class Dashboard {
         SmartDashboard.putNumber("Left Drive Output", CommandBase.drivetrain.getPWMLeft());
         SmartDashboard.putNumber("Right Drive Output", CommandBase.drivetrain.getPWMRight());
 
-	//COLLECTOR
-        //SmartDashboard.putNumber("Collector Power", CommandBase.collector.getPower());
-
 	//COMPRESSOR
         SmartDashboard.putBoolean("Air Full", CommandBase.compressor.getPressureSwitch());
         SmartDashboard.putString("Compressor State", CommandBase.compressor.getEnabled() ? "ON" : "OFF");
-        
+
         //SHOOTER AUTON SETPOINT
         SmartDashboard.getNumber("Shooter Auton Setpoint", autonSetpoint);
     }

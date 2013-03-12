@@ -21,7 +21,7 @@ public class ShooterDecDiff extends CommandBase {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {        
+    protected void execute() {
         switch(shooter.getMode()){
             case Shooter.MODE_BANG:
                 shooter.difference-=100;
@@ -29,8 +29,6 @@ public class ShooterDecDiff extends CommandBase {
             case Shooter.MODE_OPEN_LOOP:
                 shooter.backPWM-=0.01;
                 break;
-            case Shooter.MODE_CLOSED_LOOP:
-                ShooterControlled.kI-=0.000001;
         }
 	done=true;
     }

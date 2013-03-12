@@ -32,8 +32,6 @@ public class ShooterInc extends CommandBase {
             case Shooter.MODE_OPEN_LOOP:
                 shooter.frontPWM+=0.01;
                 break;
-            case Shooter.MODE_CLOSED_LOOP:
-                ShooterControlled.kP+=0.00001;
         }
 	done=true;
     }

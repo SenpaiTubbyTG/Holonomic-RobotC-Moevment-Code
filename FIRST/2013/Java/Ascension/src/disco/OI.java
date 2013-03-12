@@ -22,54 +22,33 @@ public class OI {
     private int gp2_mode = GamePad.MODE_D;
     private GamePad gp2 = new GamePad(2, gp2_mode);
 
-    //Left Bumper controls pyramid climb
-
+    //JOYSTICK 1
     private Button b_diffInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
     private Button b_diffDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
-
     private Button b_toggleShooter=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
     private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_X_L);
     private Button b_shoot=new JoystickButton(gp1,gp1.TRIGGER_R);
     private Button b_clear=new JoystickButton(gp1,gp1.TRIGGER_L);
     private Button b_cycleShooter=new JoystickButton(gp1,gp1.BTN_BACK);
+    private Button b_autoSet = new JoystickButton(gp1, gp1.BTN_A);
 
 //    private Button b_turn=new JoystickButton(gp1,gp1.BTN_Y);
 //    private Button b_dist=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_cycleDrive=new JoystickButton(gp1,gp1.BTN_START);
-
     private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_X);
-
     private Button b_saveData=new JoystickButton(gp1,gp1.BUMPER_L);
 
-    private Button b_autoSet = new JoystickButton(gp1, gp1.BTN_A);
 
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
 
-    // Another type of button you can create is a DigitalIOButton, which is
-    // a button or switch hooked up to the cypress module. These are useful if
-    // you want to build a customized operator interface.
-    // Button button = new DigitalIOButton(1);
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-    // Start the command when the button is released  and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
+    //JOYSTICK 2
+    private Button b_autoShift=new JoystickButton(gp2,gp2.BTN_A);
+    private Button b_shiftUp=new JoystickButton(gp2,gp2.BTN_B);
+    private Button b_shiftDown=new JoystickButton(gp2,gp2.BTN_X);
+
+    private Button b_autoShoot=new JoystickButton(gp2,gp2.CLICK_R);
+
+
     public OI() {
 	b_diffInc.whenPressed(new ShooterIncDiff());
 	b_diffDec.whenPressed(new ShooterDecDiff());
@@ -80,6 +59,7 @@ public class OI {
         b_shoot.whenPressed(new disco.commands.pneumatics.Shoot()); //Why does netbeans think I mean command shoot in package commands.shooter? that doesn't even exist.
         b_clear.whenPressed(new Clear());
         b_cycleShooter.whenPressed(new cycleShooter());
+	b_autoSet.whenPressed(new AutoSetRPM());
 
 //        b_turn.whenPressed(new DriveAngleEncoder(90));
 //        b_dist.whenPressed(new DriveDistance(36));
@@ -89,7 +69,11 @@ public class OI {
 
         b_saveData.whenPressed(new SaveData());
 
-        b_autoSet.whenPressed(new AutoSetRPM());
+	b_autoShift.whenPressed(new AutoShift());
+	b_shiftUp.whenPressed(new ShiftUp());
+	b_shiftDown.whenPressed(new ShiftDown());
+
+	b_autoShoot.whenPressed(new AutoShoot(4,1));
     }
 
     public Joystick getJoy1() {
