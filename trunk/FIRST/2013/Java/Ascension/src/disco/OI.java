@@ -18,7 +18,7 @@ public class OI {
 
     private int gp1_mode = GamePad.MODE_D;
     private GamePad gp1 = new GamePad(1, gp1_mode);
-    
+
     private int gp2_mode = GamePad.MODE_D;
     private GamePad gp2 = new GamePad(2, gp2_mode);
 
@@ -39,9 +39,9 @@ public class OI {
     private Button b_cycleDrive=new JoystickButton(gp1,gp1.BTN_START);
 
     private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_X);
-    
+
     private Button b_saveData=new JoystickButton(gp1,gp1.BUMPER_L);
-    
+
     private Button b_autoSet = new JoystickButton(gp1, gp1.BTN_A);
 
     //// CREATING BUTTONS
@@ -77,7 +77,7 @@ public class OI {
         b_toggleShooter.whenPressed(new ShooterToggle());
         b_shooterInc.whenPressed(new ShooterInc());
         b_shooterDec.whenPressed(new ShooterDec());
-        b_shoot.whenPressed(new Shoot());
+        b_shoot.whenPressed(new disco.commands.pneumatics.Shoot()); //Why does netbeans think I mean command shoot in package commands.shooter? that doesn't even exist.
         b_clear.whenPressed(new Clear());
         b_cycleShooter.whenPressed(new cycleShooter());
 
@@ -86,16 +86,16 @@ public class OI {
         b_cycleDrive.whenPressed(new cycleDrive());
 
         b_compressorToggle.whenPressed(new ToggleCompressor());
-        
+
         b_saveData.whenPressed(new SaveData());
-        
+
         b_autoSet.whenPressed(new AutoSetRPM());
     }
 
     public Joystick getJoy1() {
 	return gp1;
     }
-    
+
     public Joystick getJoy2() {
 	return gp2;
     }

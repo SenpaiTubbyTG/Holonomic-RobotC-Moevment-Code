@@ -5,14 +5,12 @@ import disco.commands.CommandBase;
 import disco.subsystems.*;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SensorDebugger extends Thread{ 
-    private Collector collector;
+public class SensorDebugger extends Thread{
     private CompressorSub compressor;
     private Drivetrain drivetrain;
     private Shooter shooter;
-    
+
     public SensorDebugger() {
-        collector = CommandBase.collector;
         compressor = CommandBase.compressor;
         drivetrain = CommandBase.drivetrain;
         shooter = CommandBase.shooter;
@@ -26,15 +24,14 @@ public class SensorDebugger extends Thread{
         workingShooterEncoder1 = false;
         workingShooterEncoder2 = false;
     }
-    
+
     public void run() {
         try {
             while (true) {
                 Command driveCommand = drivetrain.getCurrentCommand();
                 Command shootCommand = shooter.getCurrentCommand();
-                Command collectCommand = collector.getCurrentCommand();
                 Command compressCommand = compressor.getCurrentCommand();
-                
+
                 // Check Drive related stuff
                 double encDriveLeft = drivetrain.getLeftEncoder();
                 double encDriveRight = drivetrain.getRightEncoder();
@@ -49,22 +46,22 @@ public class SensorDebugger extends Thread{
                 if ((encDriveRightB - encDriveRight > 0 && pwmDriveRight > 0.3) || (encDriveRightB - encDriveRight < 0 && pwmDriveRight < -0.3)) {
                     workingDriveEncoderRight = true;
                 }
-                
+
                 // Check Shoot related stuff
-                
-                
-                
-                
+
+
+
+
             }
         } catch (Exception e){
             System.out.println("Error at Sensor Debugger");
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
-    
-    
-    public static boolean 
+
+
+
+    public static boolean
             workingDriveGyro,
             workingDriveEncoderRight,
             workingDriveEncoderLeft,
