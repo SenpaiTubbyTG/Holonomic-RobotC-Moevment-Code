@@ -67,8 +67,8 @@ public class Drivetrain extends Subsystem {
         pyramidSwitchLeft = new DigitalInput(HW.limitSwitchLeftSlot, HW.limitSwitchLeftChannel);
         pyramidSwitchRight = new DigitalInput(HW.limitSwitchRightSlot, HW.limitSwitchRightChannel);
 
-        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
-        gyro.setSensitivity(0.007);
+//        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
+//        gyro.setSensitivity(0.007);
     }
 
     public void initDefaultCommand() {
@@ -108,8 +108,8 @@ public class Drivetrain extends Subsystem {
     public double getRightRate(){
         return rightEncoder.getRate()/12.0;
     }
-    
-    
+
+
     public double getGyroAngle() {
         return gyro.getAngle();
     }

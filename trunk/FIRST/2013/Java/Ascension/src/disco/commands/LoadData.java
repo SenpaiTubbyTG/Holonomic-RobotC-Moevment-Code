@@ -8,7 +8,7 @@ import disco.HW;
 
 public class LoadData extends CommandBase {
     boolean done=false;
-    
+
     public LoadData() {
         this.setRunWhenDisabled(true);
     }
@@ -22,6 +22,7 @@ public class LoadData extends CommandBase {
     protected void execute() {
         try{
             shooter.setSetpoint(HW.preferences.getDouble("shooter_setpoint", shooter.m_defaultSetpoint));
+            shooter.m_defaultSetpoint=(HW.preferences.getDouble("shooter_setpoint", shooter.m_defaultSetpoint));
             shooter.difference=HW.preferences.getDouble("shooter_difference", 0);
             shooter.frontPWM=HW.preferences.getDouble("front_PWM", 0.6);
             shooter.backPWM=HW.preferences.getDouble("back_PWM", 0.8);

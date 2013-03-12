@@ -2,43 +2,36 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disco.commands.shooter;
+package disco.commands.pneumatics;
 
 import disco.commands.CommandBase;
-import disco.subsystems.Shooter;
+import disco.subsystems.Shifter;
 
 
-public class ShooterDec extends CommandBase {
-    private boolean done;
+public class ShiftDown extends CommandBase {
+    boolean done;
 
-    public ShooterDec() {
-        //requires(shooter);
+    public ShiftDown() {
+	requires(shifter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        done=false;
+	done=false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        switch(shooter.getMode()){
-            case Shooter.MODE_BANG:
-                double set=shooter.getSetpoint();
-                if(set>100){
-                    shooter.setSetpoint(set-100);
-                }
-                break;
-            case Shooter.MODE_OPEN_LOOP:
-                shooter.frontPWM-=0.01;
-                break;
-        }
+	if(!done){
+	    shifter.setLeftShifter(Shifter.GEAR_LOW);
+	    shifter.setRightShifter(Shifter.GEAR_LOW);
+	}
 	done=true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return done;
+        return false;//we want this to return false because it is an override for the autoShift. If this ever ends autoShift will take over again.
     }
 
     // Called once after isFinished returns true

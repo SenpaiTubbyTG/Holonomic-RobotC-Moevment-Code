@@ -14,21 +14,29 @@ public class HW {
     /**
      * Hardware
      */
+
+    //REGULAR 3CIM GEARBOXES. MUST UPDATE VALUES AFTER LSR
     public static final double wheelRadius=2.0;//in
     public static final double wheelSeparation=18.0;//in
-    public static final double driveReduction=0.5;
+    public static final double driveReduction=0.5;  //KNOWN INCORRECT
+    public static final double maxFPS=9;    //KNOWN INCORRECT
+
+    //CUSTOM 3CIM SHIFTING GEARBOXES. FIND VALUES.
+//    public static final double wheelRadius=2.0;//in
+//    public static final double wheelSeparation=18.0;//in
+//    public static final double driveReduction=0.5;
+//    public static final double maxFPS=9;    //TODO: Test
+
+    //DON'T NEED TO CHANGE THESE
     public static final double encoderTicksPerRev=128/driveReduction;
     public static final double distancePerRev=2*Math.PI*wheelRadius;
     public static final double distancePerPulse=distancePerRev/encoderTicksPerRev;
-    public static final double maxFPS=9;    //TODO: Test
-    public static final double shiftFPS=5;  //TODO: Test
-    
-    
+
     /*
      * User Variables
      */
     public static Preferences preferences=Preferences.getInstance();
-    
+
 
 
     /** -------------------------------------------------------
@@ -50,15 +58,17 @@ public class HW {
     Relays
     ------------------------------------------------------- */
     public static final int compressorChannel = 2,      compressorSlot = 2;
-                            
+
     /** -------------------------------------------------------
     Solenoids
     ------------------------------------------------------- */
-    public static final int shootPneumaticChannel=6,    shootPneumaticSlot=1,
-                            clearSmallChannel=5,        clearSmallSlot = 1,
-                            encoder1PowerChannel=7,     encoderPowerSlot=1,
-                            encoder2PowerChannel=8;
- 
+    public static final int shootPneumaticChannel=6,
+                            clearSmallChannel=5,
+                            encoder1PowerChannel=7,
+                            encoder2PowerChannel=8,
+			    leftShiftChannel=2,
+			    rightShiftChannel=3;
+
     /** -------------------------------------------------------
     Sensors
     ------------------------------------------------------- */
@@ -71,20 +81,20 @@ public class HW {
 			    shooterEncoderFrontChannel=1,	shooterEncoderFrontSlot=1,
                             shooterEncoderBackChannel=2,	shooterEncoderBackSlot=1,
 
-                            pressureSwitchChannel=14,    pressureSwitchSlot=2, 
+                            pressureSwitchChannel=14,    pressureSwitchSlot=2,
 
                             limitSwitchLeftChannel = 7, limitSwitchLeftSlot = 1,
                             limitSwitchRightChannel =14, limitSwitchRightSlot = 1,
-            
-            
+
+
                             //Analog
                             gyroChannel = 1, gyroSlot = 1,
                             maxbotixsonar1Channel=4,    maxbotixsonar1Slot=1,
                             maxbotixsonar2Channel=5,    maxbotixsonar2Slot=1,
                             maxbotixsonar3Channel=6,    maxbotixsonar3Slot=1,
-            
+
                             autonPotChannel=2,          autonPotSlot=1,
-                            
+
                             frisbeeLoadedChannel=3,     frisbeeLoadedSlot=1;
 
 
