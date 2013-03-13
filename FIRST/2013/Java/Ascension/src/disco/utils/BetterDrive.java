@@ -7,11 +7,11 @@ public class BetterDrive extends RobotDrive {
     double leftPrev=0;
     double rightPrev=0;
     double m_rampLimit=0.18;
-    
+
     public BetterDrive(SpeedController a, SpeedController b,
             SpeedController c, SpeedController d) {
         super(a,b,c,d);
-        
+
         leftPrev=0;
         rightPrev=0;
     }
@@ -19,9 +19,10 @@ public class BetterDrive extends RobotDrive {
     private double Map(double stickVal){
 	double x=10.0*stickVal;
 	//the secret formula
-	return 0.024 + 0.296*x - 0.085*x*x + 0.011*x*x*x - 0.000447*x*x*x*x;
+	//return 0.024 + 0.296*x - 0.085*x*x + 0.011*x*x*x - 0.000447*x*x*x*x;
+	return 0.308*x + 0.0327*x*x*x + 0.000113*x*x*x*x*x - 0.147*x*x - 0.00314*x*x*x*x;
     }
-    
+
     public void tankDrive(double leftValue, double rightValue, boolean smoothed){
         tankDrive(leftValue,rightValue,smoothed,false);
     }
@@ -35,7 +36,7 @@ public class BetterDrive extends RobotDrive {
 	    leftValue=leftSign*Map(Math.abs(leftValue));
 	    rightValue=rightSign*Map(Math.abs(rightValue));
 	}
-        
+
         if(ramp){
             if(leftValue-leftPrev>m_rampLimit){
                 leftValue=leftPrev+m_rampLimit;
@@ -50,7 +51,7 @@ public class BetterDrive extends RobotDrive {
                 rightValue=rightPrev-m_rampLimit;
             }
         }
-                
+
         leftPrev=leftValue;
         rightPrev=rightValue;
 	super.tankDrive(leftValue, rightValue, false);
