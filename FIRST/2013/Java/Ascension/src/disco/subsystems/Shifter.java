@@ -5,7 +5,7 @@
 package disco.subsystems;
 
 import disco.HW;
-import disco.commands.pneumatics.autoShift;
+import disco.commands.pneumatics.AutoShift;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -22,7 +22,7 @@ public class Shifter extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new autoShift());
+        setDefaultCommand(new AutoShift());
     }
 
 
@@ -35,7 +35,7 @@ public class Shifter extends Subsystem {
 		leftShift.set(false);
 		break;
 	    default:
-		leftShift.set(true);
+		leftShift.set(false);
 	}
     }
 
@@ -48,7 +48,7 @@ public class Shifter extends Subsystem {
 		rightShift.set(false);
 		break;
 	    default:
-		rightShift.set(true);
+		rightShift.set(false);
 	}
     }
 }
