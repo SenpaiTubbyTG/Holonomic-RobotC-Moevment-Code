@@ -1,7 +1,6 @@
 package disco;
 
 import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 /**
  * The HW is a mapping from the ports sensors and actuators are wired into
@@ -46,11 +45,6 @@ public class HW {
 			    LeftDrive2Channel=2,    LeftDrive2Slot=1,
 			    RightDrive1Channel=3,   RightDrive1Slot=1,
 			    RightDrive2Channel=4,   RightDrive2Slot=1,
-
-			    Collect1Channel=4,	    Collect1Slot=2,
-			    Collect2Channel=5,	    Collect2Slot=2,
-			    Collect3Channel=6,	    Collect3Slot=2,
-			    Collect4Channel=7,	    Collect4Slot=2,
 
 			    ShooterFrontChannel=1,	    ShooterFrontSlot=2, // 6
 			    ShooterBackChannel=2,	    ShooterBackSlot=2; // 4

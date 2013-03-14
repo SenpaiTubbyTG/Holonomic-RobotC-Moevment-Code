@@ -25,21 +25,22 @@ public class Dashboard {
     }
 
     public static void putStuff() {
-        putSubsystems();
-        putSensors();
-        SmartDashboard.putNumber("Shooter Auton Setpoint", autonSetpoint);
-        SmartDashboard.putData("Autonomous Chooser", autonChooser);
+//        putSubsystems();
+//        putSensors();
+//        SmartDashboard.putNumber("Shooter Auton Setpoint", autonSetpoint);
+//        SmartDashboard.putData("Autonomous Chooser", autonChooser);
+        putTest();
     }
 
     //Only call this once or we overflow the memory. Bad day.
-    public static void putSubsystems() {
+    private static void putSubsystems() {
         SmartDashboard.putData(CommandBase.drivetrain);
         SmartDashboard.putData(CommandBase.shooter);
         SmartDashboard.putData(CommandBase.compressor);
     }
 
     //Repeatedly call this to update dashboard values.
-    public static void putSensors() {
+    private static void putSensors() {
          SmartDashboard.putNumber("Execution loop time", MainAscent.getExecutionTime());
 
 	 //SHOOTER
@@ -70,5 +71,10 @@ public class Dashboard {
 
         //SHOOTER AUTON SETPOINT
         SmartDashboard.getNumber("Shooter Auton Setpoint", autonSetpoint);
+    }
+    
+    public static void putTest(){
+        SmartDashboard.putNumber("left velocity", CommandBase.drivetrain.getLeftRate());
+        SmartDashboard.putNumber("right velocity", CommandBase.drivetrain.getRightRate());
     }
 }
