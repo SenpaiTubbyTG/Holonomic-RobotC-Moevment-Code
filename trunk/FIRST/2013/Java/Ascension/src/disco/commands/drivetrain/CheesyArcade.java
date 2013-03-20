@@ -5,15 +5,13 @@ import disco.utils.GamePad;
 
 public class CheesyArcade extends CommandBase {
     
-    double move;
-    double turn;
+    private double move;
+    private double turn;
+    private GamePad gamepad;
     
-    double skimGain = 0;
-    double turnGain = 0;
-    
-    double threshold = 0.2;
-    
-    GamePad gamepad;
+    private double skimGain = 0;
+    private double turnGain = 0;
+    private double threshold = 0.2;
     
     public CheesyArcade() {
     }
@@ -30,8 +28,10 @@ public class CheesyArcade extends CommandBase {
     protected void execute() {
         calculateInput();
         
-        turn = turn  * (turnGain * Math.abs(move));
-        
+        if (Math.abs(move) > threshold) {
+            turn = turn  * (turnGain * Math.abs(move));
+        }
+            
         double tempLeft = move + turn;
         double tempRight = move - turn;
         
@@ -62,6 +62,7 @@ public class CheesyArcade extends CommandBase {
             return 0;
         }
     }
+    
     protected void calculateInput(){
         if(gamepad != null){
 	    move=gamepad.getLY();
