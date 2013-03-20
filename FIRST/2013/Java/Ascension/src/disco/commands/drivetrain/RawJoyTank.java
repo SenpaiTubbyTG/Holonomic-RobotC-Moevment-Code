@@ -9,7 +9,7 @@ public class RawJoyTank extends CommandBase {
     protected double right=0;
     protected Joystick joy1;
     protected GamePad gp;
-    protected double threshold=0.05;
+    protected double threshold=0.15;
 
     public RawJoyTank() {
         // Use requires() here to declare subsystem dependencies
@@ -48,6 +48,7 @@ public class RawJoyTank extends CommandBase {
 
     protected void calculateInput(){
 	if(gp != null){
+            System.out.println(gp.getLY() + " " + gp.getRY());
 	    left=gp.getLY();
 	    left=Math.abs(left)>threshold ? left : 0;
 	    right=gp.getRY();

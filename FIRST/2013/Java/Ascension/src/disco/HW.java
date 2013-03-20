@@ -67,10 +67,10 @@ public class HW {
     Sensors
     ------------------------------------------------------- */
     public static final int //Digital
-                            leftEncoderAChannel=4,
-			    leftEncoderBChannel=3,	leftEncoderSlot=1,
+                            leftEncoderAChannel=5,
+			    leftEncoderBChannel=6,	leftEncoderSlot=1,
 			    rightEncoderAChannel=4,
-			    rightEncoderBChannel=3,	rightEncoderSlot=2,
+			    rightEncoderBChannel=3,	rightEncoderSlot=1,
 
 			    shooterEncoderFrontChannel=1,	shooterEncoderFrontSlot=1,
                             shooterEncoderBackChannel=2,	shooterEncoderBackSlot=1,

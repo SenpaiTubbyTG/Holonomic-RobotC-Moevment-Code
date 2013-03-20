@@ -37,7 +37,6 @@ public class VelocityTank extends RawJoyTank {
     protected void execute() {
         if(!leftControl.isEnable()){    leftControl.enable();   }
         if(!rightControl.isEnable()){   rightControl.enable();  }
-        
         left=right=0;
         calculateInput();
         scale();//Quadratic Should be sufficient for this
@@ -66,6 +65,7 @@ public class VelocityTank extends RawJoyTank {
         rightControl.disable();
         drivetrain.tankDriveUnsmoothed(0, 0);
     }
+    
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
