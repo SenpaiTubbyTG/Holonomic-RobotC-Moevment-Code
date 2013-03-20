@@ -28,8 +28,10 @@ public class cycleDrive extends CommandBase {
                     break;
             case 2: new JoyArcadeTwoSpeed().start();
                     break;
+            case 3: new CheesyArcade().start();
+                    break;
         }
-        mode= mode<2 ? mode+1 : 0;
+        mode= mode<3 ? mode+1 : 0;
         done=true;
     }
 

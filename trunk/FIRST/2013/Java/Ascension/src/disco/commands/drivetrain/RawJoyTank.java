@@ -9,7 +9,7 @@ public class RawJoyTank extends CommandBase {
     protected double right=0;
     protected Joystick joy1;
     protected GamePad gp;
-    protected double threshold=0.15;
+    protected double threshold=0.05;
 
     public RawJoyTank() {
         // Use requires() here to declare subsystem dependencies
