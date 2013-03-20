@@ -9,8 +9,11 @@ package disco;
 import disco.commands.Autonomous;
 import disco.commands.CommandBase;
 import disco.commands.LoadData;
+import disco.commands.drivetrain.AssistedTank;
+import disco.commands.drivetrain.RawJoyTank;
 import disco.commands.pneumatics.CompressorStart;
 import disco.utils.Dashboard;
+import disco.utils.GamePad;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -86,10 +89,10 @@ public class MainAscent extends IterativeRobot {
         if(autonomousCommand!=null) {
             autonomousCommand.cancel();
         }
-        //new CompressorStart().start();
+        new RawJoyTank().start();
     }
-
     public void teleopPeriodic() {
+        System.out.println(CommandBase.drivetrain.getCurrentCommand().toString() + " " + CommandBase.drivetrain.getPWMRight() + " " + CommandBase.drivetrain.getPWMLeft());
         lastTime = System.currentTimeMillis();
 	Scheduler.getInstance().run();
         Dashboard.putTest();
