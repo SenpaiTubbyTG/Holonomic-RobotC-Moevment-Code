@@ -73,7 +73,7 @@ public class OI {
 	b_shiftUp.whenPressed(new ShiftUp());
 	b_shiftDown.whenPressed(new ShiftDown());
 
-	b_autoShoot.whenPressed(new AutoShoot(4,1));
+	b_autoShoot.whenPressed(new AutoShoot(5,1000,100));
     }
 
     public Joystick getJoy1() {

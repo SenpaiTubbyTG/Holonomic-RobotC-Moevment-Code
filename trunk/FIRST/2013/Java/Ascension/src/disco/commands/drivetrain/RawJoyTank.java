@@ -48,7 +48,7 @@ public class RawJoyTank extends CommandBase {
 
     protected void calculateInput(){
 	if(gp != null){
-            System.out.println(gp.getLY() + " " + gp.getRY());
+            //System.out.println(gp.getLY() + " " + gp.getRY());
 	    left=gp.getLY();
 	    left=Math.abs(left)>threshold ? left : 0;
 	    right=gp.getRY();

@@ -9,8 +9,8 @@ import disco.subsystems.Shifter;
 
 public class AutoShift extends CommandBase {
     //When to shift
-    final double upShiftThreshold=4.0;//feet/sec
-    final double downShiftThreshold=3.0;//feet/sec
+    final double upShiftThreshold=3.0;//feet/sec
+    final double downShiftThreshold=2.0;//feet/sec
     //Other conditions to consider:
     //throttle position (requested acceleration)
     //actual acceleration
@@ -44,9 +44,9 @@ public class AutoShift extends CommandBase {
 	rightSpeed=filter.averageRightSpeed();
 
 	//don't shift if turning
-	if(leftSpeed-rightSpeed>turningThreshold){
-	    return;
-	}
+//	if(leftSpeed-rightSpeed>turningThreshold){
+//	    return;
+//	}
 	//don't shift if just shifted
 	if(System.currentTimeMillis()-lastShiftTime<noShiftInterval){
 	    return;

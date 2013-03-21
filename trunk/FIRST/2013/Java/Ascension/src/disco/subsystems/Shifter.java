@@ -29,13 +29,13 @@ public class Shifter extends Subsystem {
     public void setLeftShifter(int gear){
 	switch(gear){
 	    case GEAR_LOW:
-		leftShift.set(true);
+		leftShift.set(false);
 		break;
 	    case GEAR_HIGH:
-		leftShift.set(false);
+		leftShift.set(true);
 		break;
 	    default:
-		leftShift.set(false);
+		leftShift.set(true);
 	}
     }
 
