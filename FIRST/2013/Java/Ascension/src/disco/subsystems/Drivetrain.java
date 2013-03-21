@@ -51,14 +51,14 @@ public class Drivetrain extends Subsystem {
 	drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 	drive.setSafetyEnabled(false);
 
-        frontSonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
-        frontSonar2=new MaxbotixSonar(HW.maxbotixsonar2Slot,HW.maxbotixsonar2Channel,MaxbotixSonar.Unit.kInches);
-        leftSonar=new MaxbotixSonar(HW.maxbotixsonar3Slot,HW.maxbotixsonar3Channel,MaxbotixSonar.Unit.kInches);
+//        frontSonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
+//        frontSonar2=new MaxbotixSonar(HW.maxbotixsonar2Slot,HW.maxbotixsonar2Channel,MaxbotixSonar.Unit.kInches);
+//        leftSonar=new MaxbotixSonar(HW.maxbotixsonar3Slot,HW.maxbotixsonar3Channel,MaxbotixSonar.Unit.kInches);
 
         leftEncoder=new Encoder(    HW.leftEncoderSlot,HW.leftEncoderAChannel,
-                                    HW.leftEncoderSlot,HW.leftEncoderBChannel,true,EncodingType.k2X);
+                                    HW.leftEncoderSlot,HW.leftEncoderBChannel,false,EncodingType.k1X);
         rightEncoder=new Encoder(    HW.rightEncoderSlot,HW.rightEncoderAChannel,
-                                    HW.rightEncoderSlot,HW.rightEncoderBChannel,false,EncodingType.k2X);
+                                    HW.rightEncoderSlot,HW.rightEncoderBChannel,false,EncodingType.k1X);
         leftEncoder.setDistancePerPulse(HW.distancePerPulse);
         rightEncoder.setDistancePerPulse(HW.distancePerPulse);
 	leftEncoder.start();

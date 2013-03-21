@@ -61,7 +61,7 @@ public class MainAscent extends IterativeRobot {
     public void disabledPeriodic() {
             lastTime = System.currentTimeMillis();
             Scheduler.getInstance().run();
-            Dashboard.putTest();
+            Dashboard.putSensors();
             executionTimeMillis=System.currentTimeMillis()-lastTime;
 
     }
@@ -81,7 +81,7 @@ public class MainAscent extends IterativeRobot {
     public void autonomousPeriodic() {
 	lastTime = System.currentTimeMillis();
 	Scheduler.getInstance().run();
-        Dashboard.putTest();
+        Dashboard.putSensors();
         executionTimeMillis=System.currentTimeMillis()-lastTime;
     }
 
@@ -92,10 +92,10 @@ public class MainAscent extends IterativeRobot {
         new RawJoyTank().start();
     }
     public void teleopPeriodic() {
-        System.out.println(CommandBase.drivetrain.getCurrentCommand().toString() + " " + CommandBase.drivetrain.getPWMRight() + " " + CommandBase.drivetrain.getPWMLeft());
+        //System.out.println(CommandBase.drivetrain.getCurrentCommand().toString() + " " + CommandBase.drivetrain.getPWMRight() + " " + CommandBase.drivetrain.getPWMLeft());
         lastTime = System.currentTimeMillis();
 	Scheduler.getInstance().run();
-        Dashboard.putTest();
+        Dashboard.putSensors();
         executionTimeMillis=System.currentTimeMillis()-lastTime;
         
     }

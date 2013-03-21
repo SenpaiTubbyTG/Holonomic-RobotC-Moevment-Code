@@ -25,11 +25,11 @@ public class Dashboard {
     }
 
     public static void putStuff() {
-//        putSubsystems();
-//        putSensors();
+        putSubsystems();
+        putSensors();
 //        SmartDashboard.putNumber("Shooter Auton Setpoint", autonSetpoint);
 //        SmartDashboard.putData("Autonomous Chooser", autonChooser);
-        putTest();
+ //       putTest();
     }
 
     //Only call this once or we overflow the memory. Bad day.
@@ -40,7 +40,7 @@ public class Dashboard {
     }
 
     //Repeatedly call this to update dashboard values.
-    private static void putSensors() {
+    public static void putSensors() {
          SmartDashboard.putNumber("Execution loop time", MainAscent.getExecutionTime());
 
 	 //SHOOTER
