@@ -15,72 +15,133 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+    // Joysticks
 
     private int gp1_mode = GamePad.MODE_D;
     private GamePad gp1 = new GamePad(1, gp1_mode);
-
     private int gp2_mode = GamePad.MODE_D;
     private GamePad gp2 = new GamePad(2, gp2_mode);
-
-    //JOYSTICK 1
-    private Button b_diffInc=new AxisButton(gp1,GamePad.DPAD_Y_U);
-    private Button b_diffDec=new AxisButton(gp1,GamePad.DPAD_Y_D);
-    private Button b_toggleShooter=new JoystickButton(gp1,gp1.BUMPER_R);
-    private Button b_shooterInc=new AxisButton(gp1,GamePad.DPAD_X_R);
-    private Button b_shooterDec=new AxisButton(gp1,GamePad.DPAD_X_L);
-    private Button b_shoot=new JoystickButton(gp1,gp1.TRIGGER_R);
-    private Button b_clear=new JoystickButton(gp1,gp1.TRIGGER_L);
-    private Button b_cycleShooter=new JoystickButton(gp1,gp1.BTN_BACK);
-    private Button b_autoSet = new JoystickButton(gp1, gp1.BTN_A);
-
-    private Button b_cycleDrive=new JoystickButton(gp1,gp1.BTN_START);
-    private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_X);
-//    private Button b_saveData=new JoystickButton(gp1,gp1.BUMPER_L);
-    private Button b_downShift=new JoystickButton(gp1,gp1.BUMPER_L);
-
-
-
-    //JOYSTICK 2
-    private Button b_autoShift=new JoystickButton(gp2,gp2.BTN_A);
-//    private Button b_shiftUp=new JoystickButton(gp2,gp2.BTN_B);
-//    private Button b_shiftDown=new JoystickButton(gp2,gp2.BTN_X);
+    // JOYSTICK 1
+    private Button b_dpadU = new AxisButton(gp1, GamePad.DPAD_Y_U);
+    private Button b_dpadD = new AxisButton(gp1, GamePad.DPAD_Y_D);
+    private Button b_dpadR = new AxisButton(gp1, GamePad.DPAD_X_R);
+    private Button b_dpadL = new AxisButton(gp1, GamePad.DPAD_X_L);
+    private Button b_bumpR = new JoystickButton(gp1, gp1.BUMPER_R);
+    private Button b_bumpL = new JoystickButton(gp1, gp1.BUMPER_L);
+    private Button b_trigR = new JoystickButton(gp1, gp1.TRIGGER_R);
+    private Button b_trigL = new JoystickButton(gp1, gp1.TRIGGER_L);
+    private Button b_sBack = new JoystickButton(gp1, gp1.BTN_BACK);
+    private Button b_sStar = new JoystickButton(gp1, gp1.BTN_START);
+    private Button b_btnA = new JoystickButton(gp1, gp1.BTN_A);
+    private Button b_btnX = new JoystickButton(gp1, gp1.BTN_X);
+    private Button b_btnB = new JoystickButton(gp1, gp1.BTN_B);
+    private Button b_btnY = new JoystickButton(gp1, gp1.BTN_Y);
+    private Button b_clicR = new JoystickButton(gp1, gp1.CLICK_R);
+    private Button b_clicL = new JoystickButton(gp1, gp1.CLICK_L);
+    // JOYSTICK 2
+    private Button b2_dpadU = new AxisButton(gp2, GamePad.DPAD_Y_U);
+    private Button b2_dpadD = new AxisButton(gp2, GamePad.DPAD_Y_D);
+    private Button b2_dpadR = new AxisButton(gp2, GamePad.DPAD_X_R);
+    private Button b2_dpadL = new AxisButton(gp2, GamePad.DPAD_X_L);
+    private Button b2_bumpR = new JoystickButton(gp2, gp2.BUMPER_R);
+    private Button b2_bumpL = new JoystickButton(gp2, gp2.BUMPER_L);
+    private Button b2_trigR = new JoystickButton(gp2, gp2.TRIGGER_R);
+    private Button b2_trigL = new JoystickButton(gp2, gp2.TRIGGER_L);
+    private Button b2_sBack = new JoystickButton(gp2, gp2.BTN_BACK);
+    private Button b2_sStar = new JoystickButton(gp2, gp2.BTN_START);
+    private Button b2_btnA = new JoystickButton(gp2, gp2.BTN_A);
+    private Button b2_btnX = new JoystickButton(gp2, gp2.BTN_X);
+    private Button b2_btnB = new JoystickButton(gp2, gp2.BTN_B);
+    private Button b2_btnY = new JoystickButton(gp2, gp2.BTN_Y);
+    private Button b2_clicR = new JoystickButton(gp2, gp2.CLICK_R);
+    private Button b2_clicL = new JoystickButton(gp2, gp2.CLICK_L);
     
-    private Button b_autoShoot=new JoystickButton(gp2,gp2.CLICK_R);
+    public static final int MODE_OLD = 0;
+    public static final int MODE_ANDY = 1;
+    public static final int MODE_MITCHELL = 2;
+    
+    private int joyMode = MODE_OLD;
     
     public OI() {
-	b_diffInc.whenPressed(new ShooterIncDiff());
-	b_diffDec.whenPressed(new ShooterDecDiff());
-
-        b_toggleShooter.whenPressed(new ShooterToggle());
-        b_shooterInc.whenPressed(new ShooterInc());
-        b_shooterDec.whenPressed(new ShooterDec());
-        b_shoot.whenPressed(new disco.commands.pneumatics.Shoot()); //Why does netbeans think I mean command shoot in package commands.shooter? that doesn't even exist.
-        b_clear.whenPressed(new Clear());
-        b_cycleShooter.whenPressed(new cycleShooter());
-	b_autoSet.whenPressed(new AutoSetRPM());
-
+        switch (joyMode){
+                case MODE_OLD:
+                    oldMap();
+                    break;
+                case MODE_ANDY:
+                    andyMap();
+                    break;
+                case MODE_MITCHELL:
+                    mitchellMap();
+                    break;
+        }
+                    
+    }
+    public void oldMap() {
+        b_dpadU.whenPressed(new ShooterIncDiff());
+        b_dpadD.whenPressed(new ShooterDecDiff());
+        b_bumpR.whenPressed(new ShooterToggle());
+        b_dpadR.whenPressed(new ShooterInc());
+        b_dpadL.whenPressed(new ShooterDec());
+        b_trigR.whenPressed(new Shoot()); 
+        b_trigL.whenPressed(new Clear());
+        b_sBack.whenPressed(new cycleShooter());
+        b_btnA.whenPressed(new AutoSetRPM());
 //        b_turn.whenPressed(new DriveAngleEncoder(90));
 //        b_dist.whenPressed(new DriveDistance(36));
-        b_cycleDrive.whenPressed(new cycleDrive());
-
-        b_compressorToggle.whenPressed(new ToggleCompressor());
-
+        b_sStar.whenPressed(new cycleDrive());
+        b_btnX.whenPressed(new ToggleCompressor());
 //        b_saveData.whenPressed(new SaveData());
-
-	b_autoShift.whenPressed(new AutoShift());
+        b2_btnA.whenPressed(new AutoShift());
 //	b_shiftUp.whenPressed(new ShiftUp());
 //	b_shiftDown.whenPressed(new ShiftDown());
-        
-        b_downShift.whileHeld(new ShiftDown());
-
-	b_autoShoot.whenPressed(new AutoShoot(5,1000,100));
+        b_bumpL.whileHeld(new ShiftDown());
+        b2_clicR.whenPressed(new AutoShoot(5, 1000, 100));
     }
-
+    public void andyMap() {
+        // Shooter
+        b_dpadU.whenPressed(new ShooterIncDiff());
+        b_dpadD.whenPressed(new ShooterDecDiff());
+        b_bumpR.whenPressed(new ShooterToggle());
+        b_dpadR.whenPressed(new ShooterInc());
+        b_dpadL.whenPressed(new ShooterDec());
+        b_trigR.whenPressed(new Shoot());
+        b_btnB.whenPressed(new Clear());
+        b_sBack.whenPressed(new cycleShooter());
+        b_btnY.whenPressed(new SaveData());
+        b_bumpL.whenPressed(new AutoShoot(5, 1000, 100));
+        // Compressor
+        b_btnX.whenPressed(new ToggleCompressor());
+        b_trigL.whenPressed(new ShiftDown());
+        // Drive
+        b_btnA.whenPressed(new AutoSetRPM());
+        b_sStar.whenPressed(new cycleDrive());
+    }
+    public void mitchellMap() {
+        // Shooter
+        b2_dpadU.whenPressed(new ShooterIncDiff());
+        b2_dpadD.whenPressed(new ShooterDecDiff());
+        b2_dpadR.whenPressed(new ShooterInc());
+        b2_dpadL.whenPressed(new ShooterDec());
+        b2_sStar.whenPressed(new cycleShooter());
+        b2_bumpL.whenPressed(new AutoShoot(5, 1000, 100));
+        b2_bumpR.whenPressed(new ShooterToggle());
+        b2_trigL.whenPressed(new Clear());
+        b2_trigR.whenPressed(new Shoot());
+        // Compressor
+        b_bumpR.whenPressed(new ToggleCompressor());
+        b_bumpL.whenPressed(new ShiftDown());
+        // Drive
+        b_btnB.whenPressed(new AutoSetRPM());
+        b_sStar.whenPressed(new cycleDrive());
+    }
+    
+    public void setMode(int mode) {
+        this.joyMode = mode;
+    }
     public Joystick getJoy1() {
-	return gp1;
+        return gp1;
     }
-
     public Joystick getJoy2() {
-	return gp2;
+        return gp2;
     }
 }
