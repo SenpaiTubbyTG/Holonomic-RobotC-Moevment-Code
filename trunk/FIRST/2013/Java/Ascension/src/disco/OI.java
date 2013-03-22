@@ -45,10 +45,9 @@ public class OI {
     private Button b_autoShift=new JoystickButton(gp2,gp2.BTN_A);
     private Button b_shiftUp=new JoystickButton(gp2,gp2.BTN_B);
     private Button b_shiftDown=new JoystickButton(gp2,gp2.BTN_X);
-
+    
     private Button b_autoShoot=new JoystickButton(gp2,gp2.CLICK_R);
-
-
+    
     public OI() {
 	b_diffInc.whenPressed(new ShooterIncDiff());
 	b_diffDec.whenPressed(new ShooterDecDiff());

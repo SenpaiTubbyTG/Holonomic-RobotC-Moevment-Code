@@ -60,11 +60,10 @@ public class Dashboard {
         SmartDashboard.putBoolean("Touching Right Pyramid", CommandBase.drivetrain.getRightPyramid());
         SmartDashboard.putNumber("Left Encoder", CommandBase.drivetrain.getLeftEncoder());
         SmartDashboard.putNumber("Right Encoder", CommandBase.drivetrain.getRightEncoder());
-        SmartDashboard.putNumber("Left Rate", CommandBase.drivetrain.getLeftRate());
-        SmartDashboard.putNumber("Right Rate", CommandBase.drivetrain.getRightRate());
+        putTest();
         SmartDashboard.putNumber("Left Drive Output", CommandBase.drivetrain.getPWMLeft());
         SmartDashboard.putNumber("Right Drive Output", CommandBase.drivetrain.getPWMRight());
-
+        
 	//COMPRESSOR
         SmartDashboard.putBoolean("Air Full", CommandBase.compressor.getPressureSwitch());
         SmartDashboard.putString("Compressor State", CommandBase.compressor.getEnabled() ? "ON" : "OFF");

@@ -50,7 +50,6 @@ public class VelocityTank extends RawJoyTank {
         
         //I don't think we want this. both should be independent.
         //normalize();
-        
         drivetrain.tankDriveUnsmoothed(left, right);    //already took care of scaling and ramping
     }
 

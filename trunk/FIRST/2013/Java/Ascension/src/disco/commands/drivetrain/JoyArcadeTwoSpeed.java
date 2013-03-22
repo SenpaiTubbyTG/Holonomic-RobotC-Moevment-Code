@@ -83,7 +83,6 @@ public class JoyArcadeTwoSpeed extends CommandBase {
                 move = move>0 ? 0 : move;  
             }
         }
-        
 	drivetrain.arcadeDrive(move,turn);
     }
 

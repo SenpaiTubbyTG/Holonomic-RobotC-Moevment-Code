@@ -9,9 +9,9 @@ public class CheesyArcade extends CommandBase {
     private double turn;
     private GamePad gamepad;
     
-    private double skimGain = 0.1;
-    private double turnGain = 1.3;
-    private double threshold = 0.2;
+    public static final double skimGain = 0.1;
+    public static final double turnGain = 1.0;
+    public static final double threshold = 0.2;
     
     public CheesyArcade() {
         requires(drivetrain);
@@ -21,7 +21,7 @@ public class CheesyArcade extends CommandBase {
         if (oi.getJoy1() instanceof GamePad) {
             gamepad = (GamePad) oi.getJoy1();
         } else {
-            throw new IllegalStateException("Gamepads are required to use this commmand.");
+            throw new IllegalStateException("Gamepad is required to use this commmand.");
         }
     }
     
@@ -37,7 +37,7 @@ public class CheesyArcade extends CommandBase {
         double tempRight = move - turn;
         
         double left = tempLeft + skim(tempRight);
-        double right = tempRight + skim(tempLeft);
+        double right = tempRight - skim(tempLeft);
         
         drivetrain.tankDriveUnsmoothed(left, right);
     }
@@ -75,7 +75,7 @@ public class CheesyArcade extends CommandBase {
             turn+= gamepad.getRX()/2;
 	}
 	else{
-	    throw new IllegalStateException("Gamepads are required to use this commmand.");
+	    throw new IllegalStateException("Gamepad is required to use this commmand.");
 	}
     }
 }
