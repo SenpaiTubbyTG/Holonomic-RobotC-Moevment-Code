@@ -33,18 +33,17 @@ public class OI {
     private Button b_cycleShooter=new JoystickButton(gp1,gp1.BTN_BACK);
     private Button b_autoSet = new JoystickButton(gp1, gp1.BTN_A);
 
-//    private Button b_turn=new JoystickButton(gp1,gp1.BTN_Y);
-//    private Button b_dist=new JoystickButton(gp1,gp1.BUMPER_R);
     private Button b_cycleDrive=new JoystickButton(gp1,gp1.BTN_START);
     private Button b_compressorToggle=new JoystickButton(gp1,gp1.BTN_X);
-    private Button b_saveData=new JoystickButton(gp1,gp1.BUMPER_L);
+//    private Button b_saveData=new JoystickButton(gp1,gp1.BUMPER_L);
+    private Button b_downShift=new JoystickButton(gp1,gp1.BUMPER_L);
 
 
 
     //JOYSTICK 2
     private Button b_autoShift=new JoystickButton(gp2,gp2.BTN_A);
-    private Button b_shiftUp=new JoystickButton(gp2,gp2.BTN_B);
-    private Button b_shiftDown=new JoystickButton(gp2,gp2.BTN_X);
+//    private Button b_shiftUp=new JoystickButton(gp2,gp2.BTN_B);
+//    private Button b_shiftDown=new JoystickButton(gp2,gp2.BTN_X);
     
     private Button b_autoShoot=new JoystickButton(gp2,gp2.CLICK_R);
     
@@ -66,11 +65,13 @@ public class OI {
 
         b_compressorToggle.whenPressed(new ToggleCompressor());
 
-        b_saveData.whenPressed(new SaveData());
+//        b_saveData.whenPressed(new SaveData());
 
 	b_autoShift.whenPressed(new AutoShift());
-	b_shiftUp.whenPressed(new ShiftUp());
-	b_shiftDown.whenPressed(new ShiftDown());
+//	b_shiftUp.whenPressed(new ShiftUp());
+//	b_shiftDown.whenPressed(new ShiftDown());
+        
+        b_downShift.whileHeld(new ShiftDown());
 
 	b_autoShoot.whenPressed(new AutoShoot(5,1000,100));
     }
