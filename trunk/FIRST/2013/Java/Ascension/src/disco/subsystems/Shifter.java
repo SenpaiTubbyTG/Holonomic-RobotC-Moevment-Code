@@ -6,6 +6,7 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.commands.pneumatics.AutoShift;
+import disco.commands.pneumatics.ShiftUp;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -22,7 +23,7 @@ public class Shifter extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new AutoShift());
+        setDefaultCommand(new ShiftUp());
     }
 
 
