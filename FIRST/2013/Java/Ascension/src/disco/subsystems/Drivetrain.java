@@ -39,7 +39,7 @@ public class Drivetrain extends Subsystem {
 
     public Drivetrain(){
 	super("Drivetrain");
-	leftDrive1=new Victor(HW.LeftDrive1Slot,HW.LeftDrive1Channel);
+        leftDrive1=new Victor(HW.LeftDrive1Slot,HW.LeftDrive1Channel);
 	leftDrive2=new Victor(HW.LeftDrive2Slot,HW.LeftDrive2Channel);
 	RightDrive1=new Victor(HW.RightDrive1Slot,HW.RightDrive1Channel);
 	RightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
@@ -126,5 +126,11 @@ public class Drivetrain extends Subsystem {
     }
     public double getPWMRight() {
         return RightDrive2.getSpeed();
+    }
+    public double getLeftInput() {
+        return drive.getLeftPrev();
+    }
+    public double getRightInput() {
+        return drive.getRightPrev();
     }
 }

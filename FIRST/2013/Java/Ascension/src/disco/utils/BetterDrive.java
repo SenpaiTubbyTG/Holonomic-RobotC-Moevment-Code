@@ -58,11 +58,13 @@ public class BetterDrive extends RobotDrive {
     }
 
     public void tankDrive(double leftValue,double rightValue){
-	tankDrive(leftValue, rightValue,false,false);
+        tankDrive(leftValue, rightValue,false,false);
     }
 
     public void arcadeDrive(double moveValue, double rotateValue,boolean smoothed) {
-	if(smoothed){
+	leftPrev = moveValue - rotateValue;
+        rightPrev = moveValue + rotateValue;
+        if(smoothed){
 	    //what? no sign fuction? dumdum.
 	    double moveSign= moveValue>=0 ? 1 : -1;
 	    double rotateSign= rotateValue>=0 ? 1 : -1;
@@ -79,6 +81,14 @@ public class BetterDrive extends RobotDrive {
     }
 
     public void arcadeDrive(double moveValue,double turnValue){
+        leftPrev = moveValue - turnValue;
+        rightPrev = moveValue + turnValue;
 	super.arcadeDrive(moveValue, moveValue, false);
+    }
+    public double getLeftPrev() {
+        return leftPrev;
+    }
+    public double getRightPrev() {
+        return rightPrev;
     }
 }

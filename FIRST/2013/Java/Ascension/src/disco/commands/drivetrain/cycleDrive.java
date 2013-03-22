@@ -30,8 +30,10 @@ public class cycleDrive extends CommandBase {
                     break;
             case 3: new CheesyArcade().start();
                     break;
+            case 4: new AssistedCheesy().start();
+                    break;
         }
-        mode= mode<3 ? mode+1 : 0;
+        mode= mode<4 ? mode+1 : 0;
         done=true;
     }
 

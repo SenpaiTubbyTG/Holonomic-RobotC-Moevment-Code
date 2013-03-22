@@ -6,11 +6,13 @@ package disco.commands.pneumatics;
 
 import disco.commands.CommandBase;
 import disco.subsystems.Shifter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoShift extends CommandBase {
     //When to shift
     final double upShiftThreshold=3.0;//feet/sec
     final double downShiftThreshold=2.0;//feet/sec
+    final double joyShiftThreshold = 0.55;
     //Other conditions to consider:
     //throttle position (requested acceleration)
     //actual acceleration
@@ -42,28 +44,29 @@ public class AutoShift extends CommandBase {
     protected void execute() {
 	leftSpeed=filter.averageLeftSpeed();
 	rightSpeed=filter.averageRightSpeed();
-
+        SmartDashboard.putNumber("Left Speed", leftSpeed);
+        SmartDashboard.putNumber("Right Speed", rightSpeed);
 	//don't shift if turning
-//	if(leftSpeed-rightSpeed>turningThreshold){
-//	    return;
-//	}
+	if(leftSpeed-rightSpeed>turningThreshold){
+	    return;
+	}
 	//don't shift if just shifted
 	if(System.currentTimeMillis()-lastShiftTime<noShiftInterval){
 	    return;
 	}
-
-	speed=Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed));//We will shift both sides at the same time.
-	if(speed>upShiftThreshold){
-	    shifter.setLeftShifter(Shifter.GEAR_HIGH);
-	    shifter.setRightShifter(Shifter.GEAR_HIGH);
-	    lastShiftTime=System.currentTimeMillis();
-	}
-	else if(speed<downShiftThreshold){
-	    shifter.setLeftShifter(Shifter.GEAR_LOW);
-	    shifter.setRightShifter(Shifter.GEAR_LOW);
-	    lastShiftTime=System.currentTimeMillis();
-	}
-
+        speed=Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed)); //We will shift both sides at the same time.
+        if(speed>upShiftThreshold){
+            if (Math.max(Math.abs(drivetrain.getRightInput()), Math.abs(drivetrain.getLeftInput())) > joyShiftThreshold) {
+                shifter.setLeftShifter(Shifter.GEAR_HIGH);
+                shifter.setRightShifter(Shifter.GEAR_HIGH);
+                lastShiftTime=System.currentTimeMillis();
+            }
+        }
+        else if(speed<downShiftThreshold){
+            shifter.setLeftShifter(Shifter.GEAR_LOW);
+            shifter.setRightShifter(Shifter.GEAR_LOW);
+            lastShiftTime=System.currentTimeMillis();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
