@@ -86,7 +86,7 @@ public class AssistedCheesy extends CommandBase {
         double left = tempLeft + skim(tempRight);
         double right = tempRight - skim(tempLeft);
 
-        if (Math.abs(left - right) == 0 && left != 0 && right != 0) {
+        if (turn==0 && move!=0) {
             //we should correct
             turnControl.enable();
             left += left > 0 ? m_correction : m_correction;

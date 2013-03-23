@@ -58,8 +58,8 @@ public class AssistedTank extends RawJoyTank {
 	if(Math.abs(left-right)<=m_correctionThreshold && left!=0 && right!=0){
             //we should correct
             turnControl.enable();
-	    left += left>0 ? m_correction : m_correction;
-	    right -= right>0 ? m_correction : m_correction;
+	    left += m_correction;
+	    right -= m_correction;
 	    //normalize if we are out of range (based on RobotDrive, which only does this for mecanum)
 	    double max = Math.max(Math.abs(left), Math.abs(right));
 	    if(max > 1){
