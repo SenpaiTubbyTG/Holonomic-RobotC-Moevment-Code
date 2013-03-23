@@ -5,6 +5,7 @@
 package disco.subsystems;
 
 import disco.HW;
+import disco.commands.drivetrain.AssistedCheesy;
 import disco.commands.drivetrain.AssistedTank;
 import disco.commands.drivetrain.JoyArcadeTwoSpeed;
 import disco.commands.drivetrain.RawJoyTank;
@@ -72,7 +73,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new RawJoyTank());
+        setDefaultCommand(new AssistedCheesy());
     }
 
     public void tankDrive(double left,double right){

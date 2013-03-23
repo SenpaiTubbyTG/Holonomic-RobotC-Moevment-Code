@@ -43,8 +43,6 @@ public class AutoShift extends CommandBase {
     protected void execute() {
         leftSpeed = filter.averageLeftSpeed();
         rightSpeed = filter.averageRightSpeed();
-        SmartDashboard.putNumber("Left Speed", leftSpeed);
-        SmartDashboard.putNumber("Right Speed", rightSpeed);
         //don't shift if turning
         if (Math.abs(leftSpeed) - Math.abs(rightSpeed) > turningThreshold) {
             return;
