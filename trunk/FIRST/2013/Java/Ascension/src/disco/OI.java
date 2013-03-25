@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
     // Joysticks
-
     private int gp1_mode = GamePad.MODE_D;
     private GamePad gp1 = new GamePad(1, gp1_mode);
     private int gp2_mode = GamePad.MODE_D;
@@ -60,7 +59,7 @@ public class OI {
     public static final int MODE_ANDY = 1;
     public static final int MODE_MITCHELL = 2;
     
-    private int joyMode = MODE_OLD;
+    private int joyMode = MODE_MITCHELL; 
     
     public OI() {
         switch (joyMode){
@@ -89,12 +88,15 @@ public class OI {
 //        b_turn.whenPressed(new DriveAngleEncoder(90));
 //        b_dist.whenPressed(new DriveDistance(36));
         b_sStar.whenPressed(new cycleDrive());
+        b_btnY.whenPressed(new NegateDrive());
         b_btnX.whenPressed(new ToggleCompressor());
 //        b_saveData.whenPressed(new SaveData());
         b2_btnA.whenPressed(new AutoShift());
 //	b_shiftUp.whenPressed(new ShiftUp());
 //	b_shiftDown.whenPressed(new ShiftDown());
+//      b_bumpL.whenPressed(new Shift());
         b_bumpL.whileHeld(new ShiftDown());
+        
         b2_clicR.whenPressed(new AutoShoot(5, 1000, 100));
     }
     public void andyMap() {
@@ -111,7 +113,7 @@ public class OI {
         b_bumpL.whenPressed(new AutoShoot(5, 1000, 100));
         // Compressor
         b_btnX.whenPressed(new ToggleCompressor());
-        b_trigL.whenPressed(new ShiftDown());
+        b_trigL.whenPressed(new Shift());
         // Drive
         b_btnA.whenPressed(new AutoSetRPM());
         b_sStar.whenPressed(new cycleDrive());
@@ -128,10 +130,11 @@ public class OI {
         b2_trigL.whenPressed(new Clear());
         b2_trigR.whenPressed(new Shoot());
         // Compressor
-        b_bumpR.whenPressed(new ToggleCompressor());
-        b_bumpL.whenPressed(new ShiftDown());
+        b2_btnY.whenPressed(new ToggleCompressor());
+        b_trigL.whileHeld(new ShiftDown());
         // Drive
         b_btnB.whenPressed(new AutoSetRPM());
+        b_btnA.whenPressed(new NegateDrive());
         b_sStar.whenPressed(new cycleDrive());
     }
     

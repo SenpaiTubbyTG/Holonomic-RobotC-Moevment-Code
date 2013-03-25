@@ -16,7 +16,7 @@ public class Shifter extends Subsystem {
 
     public static final int GEAR_LOW=1;
     public static final int GEAR_HIGH=2;
-
+    
     public Shifter(){
 	leftShift=new Solenoid(HW.leftShiftChannel);
 	rightShift=new Solenoid(HW.rightShiftChannel);
@@ -51,5 +51,8 @@ public class Shifter extends Subsystem {
 	    default:
 		rightShift.set(false);
 	}
+    }
+    public int getShiftMode() {
+        return rightShift.get() ? GEAR_LOW : GEAR_HIGH;
     }
 }
