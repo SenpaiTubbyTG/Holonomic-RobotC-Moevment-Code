@@ -7,7 +7,7 @@ public class BetterDrive extends RobotDrive {
     double leftPrev=0;
     double rightPrev=0;
     double m_rampLimit=0.18;
-
+    
     public BetterDrive(SpeedController a, SpeedController b,
             SpeedController c, SpeedController d) {
         super(a,b,c,d);

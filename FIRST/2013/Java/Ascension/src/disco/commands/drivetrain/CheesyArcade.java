@@ -10,7 +10,7 @@ public class CheesyArcade extends CommandBase {
     private GamePad gamepad;
     
     public static final double skimGain = 0.2;
-    public static final double turnGain = 0.9;
+    public static final double turnGain = 1.3;
     public static final double threshold = 0.2;
     
     public CheesyArcade() {

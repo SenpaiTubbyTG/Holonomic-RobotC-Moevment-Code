@@ -37,7 +37,8 @@ public class Drivetrain extends Subsystem {
     private DigitalInput pyramidSwitchRight;
 
     private Gyro gyro;
-
+    private boolean negatedDrive = false;
+    
     public Drivetrain(){
 	super("Drivetrain");
         leftDrive1=new Victor(HW.LeftDrive1Slot,HW.LeftDrive1Channel);
@@ -46,10 +47,10 @@ public class Drivetrain extends Subsystem {
 	RightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
 	drive=new BetterDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
 	//what is wrong with this picture?
-	drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-	drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+	drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, false);
+	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, false);
+	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
+	drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
 	drive.setSafetyEnabled(false);
 
 //        frontSonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
@@ -77,14 +78,22 @@ public class Drivetrain extends Subsystem {
     }
 
     public void tankDrive(double left,double right){
-	drive.tankDrive(left, right,true,true);
+        if (negatedDrive) {
+            drive.tankDrive(-right , -left,true,true);
+        } else {
+            drive.tankDrive(left, right,true,true);
+        }
     }
     public void tankDriveUnsmoothed(double left, double right){
-        drive.tankDrive(left,right,false,false);
+        if (negatedDrive) {
+            drive.tankDrive(-right , -left,true,true);
+        } else {
+            drive.tankDrive(left, right,true,true);
+        }
     }
 
     public void arcadeDrive(double move, double turn) {
-	drive.arcadeDrive(move,turn,true);
+	drive.arcadeDrive(negatedDrive ? -move : move, negatedDrive ? -turn : turn, true);
     }
 
     public double getFrontSonar1(){
@@ -109,12 +118,9 @@ public class Drivetrain extends Subsystem {
     public double getRightRate(){
         return rightEncoder.getRate()/12.0;
     }
-
-
     public double getGyroAngle() {
         return gyro.getAngle();
     }
-
     public boolean getLeftPyramid(){
         return !pyramidSwitchLeft.get();
     }
@@ -122,7 +128,7 @@ public class Drivetrain extends Subsystem {
         return !pyramidSwitchRight.get();
     }
 
-	public double getPWMLeft() {
+    public double getPWMLeft() {
         return leftDrive2.getSpeed();
     }
     public double getPWMRight() {
@@ -133,5 +139,11 @@ public class Drivetrain extends Subsystem {
     }
     public double getRightInput() {
         return drive.getRightPrev();
+    }
+    public boolean isNegated() {
+        return negatedDrive;
+    }
+    public void setNegated(boolean neg) {
+        this.negatedDrive = neg;
     }
 }
