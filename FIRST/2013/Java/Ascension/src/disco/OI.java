@@ -59,7 +59,7 @@ public class OI {
     public static final int MODE_ANDY = 1;
     public static final int MODE_MITCHELL = 2;
     
-    private int joyMode = MODE_MITCHELL; 
+    private int joyMode = MODE_OLD; 
     
     public OI() {
         switch (joyMode){

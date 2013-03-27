@@ -69,8 +69,8 @@ public class HW {
     public static final int //Digital
                             leftEncoderAChannel=8,
 			    leftEncoderBChannel=9,	leftEncoderSlot=1,
-			    rightEncoderAChannel=10,
-			    rightEncoderBChannel=11,	rightEncoderSlot=1,
+			    rightEncoderAChannel=5,
+			    rightEncoderBChannel=6,	rightEncoderSlot=1,
 
 			    shooterEncoderFrontChannel=1,	shooterEncoderFrontSlot=1,
                             shooterEncoderBackChannel=2,	shooterEncoderBackSlot=1,
@@ -83,9 +83,9 @@ public class HW {
 
                             //Analog
                             gyroChannel = 1, gyroSlot = 1,
-                            maxbotixsonar1Channel=4,    maxbotixsonar1Slot=1,
-                            maxbotixsonar2Channel=5,    maxbotixsonar2Slot=1,
-                            maxbotixsonar3Channel=6,    maxbotixsonar3Slot=1,
+//                            maxbotixsonar1Channel=4,    maxbotixsonar1Slot=1,
+//                            maxbotixsonar2Channel=5,    maxbotixsonar2Slot=1,
+//                            maxbotixsonar3Channel=6,    maxbotixsonar3Slot=1,
 
                             autonPotChannel=2,          autonPotSlot=1,
 
