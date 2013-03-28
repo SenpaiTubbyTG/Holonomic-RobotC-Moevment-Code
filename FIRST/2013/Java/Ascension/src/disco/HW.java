@@ -80,6 +80,7 @@ public class HW {
                             limitSwitchLeftChannel = 7, limitSwitchLeftSlot = 1,
                             limitSwitchRightChannel =12, limitSwitchRightSlot = 1,
 
+                            arduinoChannel = 4, arduinoSlot = 1,
 
                             //Analog
                             gyroChannel = 1, gyroSlot = 1,

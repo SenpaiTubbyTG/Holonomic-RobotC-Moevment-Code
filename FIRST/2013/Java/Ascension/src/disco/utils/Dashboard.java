@@ -7,6 +7,7 @@ package disco.utils;
 import disco.MainAscent;
 import disco.commands.Autonomous;
 import disco.commands.CommandBase;
+import disco.subsystems.Arduino;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
