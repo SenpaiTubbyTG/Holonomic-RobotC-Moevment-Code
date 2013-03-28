@@ -23,15 +23,16 @@ void loop() {
    double a = Wire.read() / 127; // 100%
    double a10 = Wire.read() / 127; // 10%
    while(Wire.available() < 4);
-   double t = (Wire.read() / 127) * a;
-   double r = (Wire.read() / 127) * a;
-   double g = (Wire.read() / 127) * a;
-   double b = (Wire.read() / 127) * a;
-   if (t >= 20)
+   double t = (Wire.read() / 127) * (1 / a);
+   double r = (Wire.read() / 127) * (1 / a);
+   double g = (Wire.read() / 127) * (1 / a);
+   double b = (Wire.read() / 127) * (1 / a);
+   if (((int) (t * 127)) >= 20)
      setLEDs((int) (t * 127),(int) (r * 255),(int) (g * 255),(int) (b * 255));
    else 
      setLEDs(t);
    delay(20);
+   
 }
 
 const int RANDOM = 10, RAINBOW = 11;

@@ -9,11 +9,15 @@ public class Arduino extends Subsystem{
     
     DigitalOutput arduino;
     boolean firstrun = true;
+    public static int red, green, blue; // TODO: Write get/set methods. Do not directly use this in the updateLEDs Methods.
     
     protected void initDefaultCommand() {
     }
     
     public Arduino() {
+        red = 0;
+        green = 0;
+        blue = 0;
         arduino = new DigitalOutput(HW.arduinoSlot, HW.arduinoChannel);
     }
     
@@ -35,6 +39,5 @@ public class Arduino extends Subsystem{
         arduino.pulse(r / 255);
         arduino.pulse(g / 255);
         arduino.pulse(b / 255);
-        
     }
 }
