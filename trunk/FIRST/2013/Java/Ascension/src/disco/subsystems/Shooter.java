@@ -65,7 +65,7 @@ public class Shooter extends Subsystem {
         setSetpoint(m_defaultSetpoint);
 
         m_shoot=new Solenoid(HW.shootPneumaticChannel);
-        m_clear = new Solenoid(HW.clearSmallChannel);
+        m_clear = new Solenoid(HW.clearShooterChannel);
 
         loadSensor=new AnalogChannel(HW.frisbeeLoadedSlot,HW.frisbeeLoadedChannel);
     }

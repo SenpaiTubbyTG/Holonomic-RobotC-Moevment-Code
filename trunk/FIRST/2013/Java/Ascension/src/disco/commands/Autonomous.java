@@ -10,6 +10,7 @@ import disco.commands.shooter.ShooterToggle;
 import disco.subsystems.Shooter;
 import disco.utils.Dashboard;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -27,11 +28,12 @@ public class Autonomous extends CommandGroup {
         switch (mode) {
             case Autonomous.MODE_RISKY:
                 addSequential(new ShooterToggle());
-                addSequential(new AutoShoot(5,1000));
+//                addSequential(new WaitCommand(500));
+                addSequential(new AutoShoot(5,2000,1000));
                 addSequential(new ShooterToggle());
                 System.out.println("Risky Auton");
                 break;
-            case Autonomous.MODE_DANGEROUS:
+            case Autonomous.MODE_DANGEROUS:// DON'T USE DANGEROUS
                 addSequential(new ShooterToggle());
                 addSequential(new AutoShoot(5,500));
                 addSequential(new ShooterToggle());
@@ -40,38 +42,25 @@ public class Autonomous extends CommandGroup {
                 break;
             case Autonomous.MODE_SAFE:
                 addSequential(new ShooterToggle());
-                addSequential(new AutoShoot(5,2000));
+                addSequential(new AutoShoot(5,3000,2000));
                 addSequential(new ShooterToggle());
                 System.out.println("Safe Auton");
                 break;
             case Autonomous.MODE_NOTHING:
                 break;
         }
-            
-
     }
-
-    // Called just before this Command runs the first time
     protected void initialize() {
 
     }
-
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         
     }
-
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
-
-    // Called once after isFinished returns true
     protected void end() {
     }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
         end();
     }

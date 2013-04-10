@@ -96,8 +96,9 @@ public class OI {
 //	b_shiftDown.whenPressed(new ShiftDown());
 //      b_bumpL.whenPressed(new Shift());
         b_bumpL.whileHeld(new ShiftDown());
-        
-        b2_clicR.whenPressed(new AutoShoot(5, 1000, 100));
+        b2_sBack.whileHeld(new RawJoyTank());
+        b2_sStar.whileHeld(new ShooterBangBang());
+//        b2_clicR.whenPressed(new AutoShoot(5, 1000, 100));
     }
     public void andyMap() {
         // Shooter
@@ -110,7 +111,7 @@ public class OI {
         b_btnB.whenPressed(new Clear());
         b_sBack.whenPressed(new cycleShooter());
         b_btnY.whenPressed(new SaveData());
-        b_bumpL.whenPressed(new AutoShoot(5, 1000, 100));
+//        b_bumpL.whenPressed(new AutoShoot(5, 1000, 100));
         // Compressor
         b_btnX.whenPressed(new ToggleCompressor());
         b_trigL.whenPressed(new Shift());
@@ -125,7 +126,7 @@ public class OI {
         b2_dpadR.whenPressed(new ShooterInc());
         b2_dpadL.whenPressed(new ShooterDec());
         b2_sStar.whenPressed(new cycleShooter());
-        b2_bumpL.whenPressed(new AutoShoot(5, 1000, 100));
+//        b2_bumpL.whenPressed(new AutoShoot(5, 1000, 100));
         b2_bumpR.whenPressed(new ShooterToggle());
         b2_trigL.whenPressed(new Clear());
         b2_trigR.whenPressed(new Shoot());
@@ -148,3 +149,4 @@ public class OI {
         return gp2;
     }
 }
+

@@ -65,7 +65,7 @@ public class ShooterBangBang extends CommandBase {
             }
             if(shooter.getBackRPM()>shooter.getSetpoint()-shooter.difference){
                 shooter.setBackPower(0);
-            }
+            } 
             else{
                 shooter.setBackPower(1);
             }

@@ -51,26 +51,26 @@ public class HW {
     /** -------------------------------------------------------
     Relays
     ------------------------------------------------------- */
-    public static final int compressorChannel = 1,      compressorSlot = 1;
+    public static final int compressorChannel = 8,      compressorSlot = 1;
 
     /** -------------------------------------------------------
     Solenoids
     ------------------------------------------------------- */
     public static final int shootPneumaticChannel=6,
-                            clearSmallChannel=5,
+                            clearShooterChannel=5,
                             encoder1PowerChannel=7,
                             encoder2PowerChannel=8,
 			    leftShiftChannel=2,
 			    rightShiftChannel=3;
 
     /** -------------------------------------------------------
-    Sensors
-    ------------------------------------------------------- */
+    Sensor
+    ------------------------------------------------------ */
     public static final int //Digital
                             leftEncoderAChannel=8,
 			    leftEncoderBChannel=9,	leftEncoderSlot=1,
-			    rightEncoderAChannel=5,
-			    rightEncoderBChannel=6,	rightEncoderSlot=1,
+			    rightEncoderAChannel=4,
+			    rightEncoderBChannel=5,	rightEncoderSlot=1,
 
 			    shooterEncoderFrontChannel=1,	shooterEncoderFrontSlot=1,
                             shooterEncoderBackChannel=2,	shooterEncoderBackSlot=1,
@@ -87,7 +87,7 @@ public class HW {
 //                            maxbotixsonar1Channel=4,    maxbotixsonar1Slot=1,
 //                            maxbotixsonar2Channel=5,    maxbotixsonar2Slot=1,
 //                            maxbotixsonar3Channel=6,    maxbotixsonar3Slot=1,
-
+            
                             autonPotChannel=2,          autonPotSlot=1,
 
                             frisbeeLoadedChannel=3,     frisbeeLoadedSlot=1;

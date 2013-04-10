@@ -29,7 +29,7 @@ public class Dashboard {
         putSubsystems();
         putSensors();
 //        SmartDashboard.putNumber("Shooter Auton Setpoint", autonSetpoint);
-//        SmartDashboard.putData("Autonomous Chooser", autonChooser);
+        SmartDashboard.putData("Autonomous Chooser", autonChooser);
  //       putTest();
     }
 
