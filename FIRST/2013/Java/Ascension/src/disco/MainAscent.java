@@ -86,6 +86,22 @@ public class MainAscent extends IterativeRobot {
     }
 
     public void teleopInit() {
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try{
+                        System.out.println(CommandBase.shooter.getCurrentCommand());
+                    } catch (Exception e) {
+                        System.out.println("null");
+                    }
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
         if(autonomousCommand!=null) {
             autonomousCommand.cancel();
         }
