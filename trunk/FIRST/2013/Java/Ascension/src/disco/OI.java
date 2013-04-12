@@ -96,8 +96,8 @@ public class OI {
 //	b_shiftDown.whenPressed(new ShiftDown());
 //      b_bumpL.whenPressed(new Shift());
         b_bumpL.whileHeld(new ShiftDown());
-        b2_sBack.whileHeld(new RawJoyTank());
-        b2_sStar.whileHeld(new ShooterBangBang());
+        b2_sBack.whenPressed(new RawJoyTank());
+        b2_sStar.whenPressed(new ShooterBangBang());
 //        b2_clicR.whenPressed(new AutoShoot(5, 1000, 100));
     }
     public void andyMap() {
