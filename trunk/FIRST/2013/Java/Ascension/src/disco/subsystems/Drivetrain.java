@@ -38,7 +38,7 @@ public class Drivetrain extends Subsystem {
 
     private Gyro gyro;
     private boolean negatedDrive = false;
-    
+
     public Drivetrain(){
 	super("Drivetrain");
         leftDrive1=new Victor(HW.LeftDrive1Slot,HW.LeftDrive1Channel);
@@ -86,9 +86,9 @@ public class Drivetrain extends Subsystem {
     }
     public void tankDriveUnsmoothed(double left, double right){
         if (negatedDrive) {
-            drive.tankDrive(-right , -left,true,true);
+            drive.tankDrive(-right , -left,false,false);
         } else {
-            drive.tankDrive(left, right,true,true);
+            drive.tankDrive(left, right,false,false);
         }
     }
 
