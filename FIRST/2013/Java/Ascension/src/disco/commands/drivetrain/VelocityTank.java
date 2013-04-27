@@ -10,6 +10,13 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 
+
+/**
+ * In theory produces a completely linear drivetrain, but since we have no working
+ * encoders we can't test this.
+ * 
+ * @author sam
+ */
 public class VelocityTank extends RawJoyTank {
     protected DiscoPIDController leftControl,rightControl;
     private double  m_kP=0, //TODO: test these
@@ -18,7 +25,7 @@ public class VelocityTank extends RawJoyTank {
                     m_kF=1/HW.maxFPS;
     protected double m_leftOutput=0;
     protected double m_rightOutput=0;
-    
+
     public VelocityTank() {
         requires(drivetrain);
     }
@@ -26,7 +33,7 @@ public class VelocityTank extends RawJoyTank {
     // Called just before this Command runs the first time
     protected void initialize() {
         super.initialize();
-        
+
         leftControl=new DiscoPIDController(m_kP,m_kI,m_kD,m_kF,leftSource,leftOutput,0.02);
         leftControl.setSetpoint(0);
         rightControl=new DiscoPIDController(m_kP,m_kI,m_kD,m_kF,rightSource,rightOutput,0.02);
@@ -41,13 +48,13 @@ public class VelocityTank extends RawJoyTank {
         calculateInput();
         scale();//Quadratic Should be sufficient for this
         ramp();
-        
+
         leftControl.setSetpoint(left*HW.maxFPS);    //scale joystick values (0 to 1) to 0 to maxFPS
         rightControl.setSetpoint(right*HW.maxFPS);
-        
+
         left=m_leftOutput;
         right=m_rightOutput;
-        
+
         //I don't think we want this. both should be independent.
         //normalize();
         drivetrain.tankDriveUnsmoothed(left, right);    //already took care of scaling and ramping
@@ -64,14 +71,14 @@ public class VelocityTank extends RawJoyTank {
         rightControl.disable();
         drivetrain.tankDriveUnsmoothed(0, 0);
     }
-    
+
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
         end();
     }
-   
+
     protected void scale(){
         double leftSign= left>=0 ? 1 : -1;
 	double rightSign= right>=0 ? 1 : -1;
@@ -79,13 +86,13 @@ public class VelocityTank extends RawJoyTank {
 	left=leftSign*left*left;
 	right=rightSign*right*right;
     }
-    
+
     protected void ramp(){
         //right now does nothing. May want to add.
         left=left;
         right=right;
     }
-    
+
     protected void normalize(){
         //normalize if we are out of range (based on RobotDrive, which only does this for mecanum)
 	    double max = Math.max(Math.abs(left), Math.abs(right));
@@ -94,15 +101,15 @@ public class VelocityTank extends RawJoyTank {
                 right = right / max;
 	    }
     }
-    
-    
+
+
     public DiscoPIDController getLeftConrol(){
         return leftControl;
     }
     public DiscoPIDController getRightConrol(){
         return rightControl;
     }
-   
+
     private PIDOutput leftOutput = new PIDOutput() {
         public void pidWrite(double output) {
             m_leftOutput=output;
