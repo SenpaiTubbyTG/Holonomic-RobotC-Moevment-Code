@@ -99,14 +99,14 @@ public class Grid extends JPanel {
 
 	    //remove this to get real version
 	    double max = Math.max(Math.abs(tempLeft), Math.abs(tempRight));
-	    if(max > 1){
-                tempLeft = tempLeft / max;
-                tempRight = tempRight / max;
+	    if (max > 1) {
+		tempLeft = tempLeft / max;
+		tempRight = tempRight / max;
 	    }
 	    //end remove
 
-	    driveLeft=tempLeft;
-	    driveRight=tempRight;
+	    driveLeft = tempLeft;
+	    driveRight = tempRight;
 	}
 	if (thisMode.equals("LERP")) {
 	    double a = 0.5;
@@ -123,11 +123,10 @@ public class Grid extends JPanel {
 		driveRight = -1 * x * b + y * (1 + x * b);
 	    } else if (y < 0 && x >= 0) {
 		driveLeft = x * b - y * (x * (a + 1) - 1 - x * b);
-		driveRight=-1*x*b-y*(-1+x*b);
-	    }
-	    else if(y<0 && x<0){
-		driveLeft=x*b-y*(-1-x*b);
-		driveRight=-1*x*b-y*(-1-x*(a+1)+x*b);
+		driveRight = -1 * x * b - y * (-1 + x * b);
+	    } else if (y < 0 && x < 0) {
+		driveLeft = x * b - y * (-1 - x * b);
+		driveRight = -1 * x * b - y * (-1 - x * (a + 1) + x * b);
 	    }
 	}
     }

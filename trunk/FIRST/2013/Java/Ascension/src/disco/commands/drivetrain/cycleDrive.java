@@ -9,9 +9,9 @@ import disco.commands.CommandBase;
 public class cycleDrive extends CommandBase {
     private static int mode=1;
     private boolean done;
-    
+
     public cycleDrive() {
-        
+
     }
 
     // Called just before this Command runs the first time
@@ -26,7 +26,7 @@ public class cycleDrive extends CommandBase {
                     break;
             case 1: new RawJoyTank().start();
                     break;
-            case 2: new JoyArcadeTwoSpeed().start();
+            case 2: new LerpDrive().start();
                     break;
             case 3: new CheesyArcade().start();
                     break;

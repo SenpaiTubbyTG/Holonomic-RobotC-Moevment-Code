@@ -6,9 +6,6 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.commands.drivetrain.AssistedCheesy;
-import disco.commands.drivetrain.AssistedTank;
-import disco.commands.drivetrain.JoyArcadeTwoSpeed;
-import disco.commands.drivetrain.RawJoyTank;
 import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
