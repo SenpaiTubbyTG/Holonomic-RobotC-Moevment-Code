@@ -9,7 +9,7 @@ public class NegateDrive extends CommandBase {
     }
 
     protected void initialize() {
-        drivetrain.setNegated(drivetrain.isNegated() ? false : true);
+        drivetrain.setNegated(!drivetrain.isNegated());
     }
 
     protected void execute() {

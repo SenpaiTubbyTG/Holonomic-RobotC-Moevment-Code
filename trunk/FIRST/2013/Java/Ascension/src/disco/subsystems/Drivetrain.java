@@ -6,6 +6,7 @@ package disco.subsystems;
 
 import disco.HW;
 import disco.commands.drivetrain.AssistedCheesy;
+import disco.commands.drivetrain.LerpDrive;
 import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -24,7 +25,7 @@ public class Drivetrain extends Subsystem {
     private Victor RightDrive2;
     private BetterDrive drive;
 
-    private MaxbotixSonar frontSonar1;
+    private MaxbotixSonar frontSonar1; // youredum.
     private MaxbotixSonar frontSonar2;
     private MaxbotixSonar leftSonar;
     private Encoder leftEncoder;
@@ -43,11 +44,11 @@ public class Drivetrain extends Subsystem {
 	RightDrive1=new Victor(HW.RightDrive1Slot,HW.RightDrive1Channel);
 	RightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
 	drive=new BetterDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
-	//what is wrong with this picture?
-	drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, false);
-	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, false);
-	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
-	drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
+	//what is wrong with this picture? absolutely nothing.
+	drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+	drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 	drive.setSafetyEnabled(false);
 
 //        frontSonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
@@ -71,7 +72,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new AssistedCheesy());
+        setDefaultCommand(new LerpDrive());
     }
 
     public void tankDrive(double left,double right){
