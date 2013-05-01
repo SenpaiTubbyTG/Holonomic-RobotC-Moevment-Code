@@ -114,7 +114,6 @@ public class OI {
 //        b_bumpL.whenPressed(new AutoShoot(5, 1000, 100));
         // Compressor
         b_btnX.whenPressed(new ToggleCompressor());
-        b_trigL.whenPressed(new Shift());
         // Drive
         b_btnA.whenPressed(new AutoSetRPM());
         b_sStar.whenPressed(new cycleDrive());

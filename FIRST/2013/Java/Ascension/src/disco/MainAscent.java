@@ -89,7 +89,6 @@ public class MainAscent extends IterativeRobot {
         if(autonomousCommand!=null) {
             autonomousCommand.cancel();
         }
-        new RawJoyTank().start();
     }
     public void teleopPeriodic() {
         //System.out.println(CommandBase.drivetrain.getCurrentCommand().toString() + " " + CommandBase.drivetrain.getPWMRight() + " " + CommandBase.drivetrain.getPWMLeft());
