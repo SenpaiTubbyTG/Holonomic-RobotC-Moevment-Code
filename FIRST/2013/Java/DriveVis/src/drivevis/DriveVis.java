@@ -29,7 +29,7 @@ public class DriveVis extends JFrame{
     static JPanel panel=new JPanel();
     static Grid g;
     //resolution of the grid
-    public static final int divisions=5;
+    public static final int divisions=10;
     public static final int size=800;
 
 
@@ -41,8 +41,8 @@ public class DriveVis extends JFrame{
 	options.setMaximumSize(new Dimension(800,100));
 	options.setMinimumSize(new Dimension(100,25));
 	ButtonGroup modeButs=new ButtonGroup();
-	for(Map.Entry<Integer,String> m :  Grid.modes.entrySet()){
-	    JRadioButton but=new JRadioButton(m.getValue());
+	for(Map.Entry<Integer,DriveMode> m :  Grid.modes.entrySet()){
+	    JRadioButton but=new JRadioButton(m.getValue().toString());
 	    but.addActionListener(new modeListener());
 	    but.setActionCommand(String.valueOf(m.getKey()));
 	    modeButs.add(but);
