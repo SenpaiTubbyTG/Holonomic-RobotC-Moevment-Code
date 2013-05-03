@@ -2,6 +2,12 @@ package disco.commands.shooter;
 
 import disco.commands.CommandBase;
 
+
+/**
+ * This class must be improved before it can be included in main code.
+ * It must be consistent. Currently whatever speed the wheel was spinning at will be stored.
+ *
+ */
 public class AutoSetRPM extends CommandBase {
     boolean done;
     public AutoSetRPM() {

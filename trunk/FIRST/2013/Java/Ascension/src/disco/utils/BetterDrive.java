@@ -7,7 +7,7 @@ public class BetterDrive extends RobotDrive {
     double leftPrev=0;
     double rightPrev=0;
     double m_rampLimit=0.18;
-    
+
     public BetterDrive(SpeedController a, SpeedController b,
             SpeedController c, SpeedController d) {
         super(a,b,c,d);
@@ -30,7 +30,7 @@ public class BetterDrive extends RobotDrive {
     public void tankDrive(double leftValue, double rightValue, boolean smoothed, boolean ramp) {
 	if(smoothed){
 	    //what? no sign fuction? dumdum.
-	    double leftSign= leftValue>=0 ? 1 : -1;//Why were these -0.8? I forget.
+	    double leftSign= leftValue>=0 ? 1 : -1;
 	    double rightSign= rightValue>=0 ? 1 : -1;
 
 	    leftValue=leftSign*Map(Math.abs(leftValue));

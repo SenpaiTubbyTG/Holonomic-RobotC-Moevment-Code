@@ -70,8 +70,8 @@ public class LerpDrive extends CommandBase {
     protected void execute() {
 	calculateInputs();
 	//PID stuff
-	if (move == 0) {
-	    //turnControl.enable();
+	if (turn == 0 && move != 0) {
+	    //turnControl.enable(); //DON'T UNCOMMENT UNLESS ENCODERS WORK
 	    turn = -m_correction / 2.0;
 	} else {
 	    //driver is doing something else. start over.
