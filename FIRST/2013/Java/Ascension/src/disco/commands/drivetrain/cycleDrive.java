@@ -22,18 +22,16 @@ public class cycleDrive extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         switch(mode){
-            case 0: new AssistedTank().start();
+            case 0: new LerpDrive().start();
                     break;
-            case 1: new RawJoyTank().start();
+	    case 1: new RawJoyTank().start();
                     break;
-            case 2: new LerpDrive().start();
+            case 2: new CheesyArcade().start();
                     break;
-            case 3: new CheesyArcade().start();
-                    break;
-            case 4: new AssistedCheesy().start();
+            case 3: new AssistedCheesy().start();
                     break;
         }
-        mode= mode<4 ? mode+1 : 0;
+        mode= mode<3 ? mode+1 : 0;
         done=true;
     }
 
