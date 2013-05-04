@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package drivevis;
 
 /**
@@ -45,7 +41,7 @@ public class Lerp implements DriveMode {
     }
 
     @Override
-    public String toString() {
+    public String Name() {
 	return "LERP";
     }
 }

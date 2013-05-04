@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package drivevis;
 
 import java.awt.Color;
@@ -22,7 +18,7 @@ public class Grid extends JPanel {
     private double driveLeft = 0, driveRight = 0;
     private int squaresPerRow = 0;
     private DriveMode thisMode;
-    public static final LinkedHashMap<Integer, DriveMode> modes = new LinkedHashMap<>();
+    private static final LinkedHashMap<Integer, DriveMode> modes = new LinkedHashMap<>();
 
     public Grid(int div_quad, int parentSize) {
 	/*
@@ -49,20 +45,18 @@ public class Grid extends JPanel {
 	    for (int y = 0; y < squares[x].length; y++) {
 		squares[y][x] = new Square(y - center - 1, center + 1 - x, square_size, (squaresPerRow - 1) / 2.0);//it's backwards
 		thisMode.calcLR(squares[y][x].getJoyY(), squares[y][x].getJoyX());
-		squares[y][x].setOutput(Math.round(thisMode.getLeftOut() * 100) / 100.0, Math.round(thisMode.getRightOut() * 100) / 100.0);
+		squares[y][x].setOutput(round01(thisMode.getLeftOut()), round01(thisMode.getRightOut()));
 		squares[y][x].setBorder(BorderFactory.createLineBorder(Color.black));
 		this.add(squares[y][x]);
-		//System.out.println(square_size);
 	    }
 	}
     }
 
     private void recalculate() {
-	for (int x = 0; x < squares.length; x++) {
-	    for (int y = 0; y < squares[x].length; y++) {
-		thisMode.calcLR(squares[y][x].getJoyY(), squares[y][x].getJoyX());
-		squares[y][x].setOutput(Math.round(thisMode.getLeftOut() * 100) / 100.0, Math.round(thisMode.getRightOut() * 100) / 100.0);
-		//System.out.println(square_size);
+	for (Square[] sarr : squares) {
+	    for (Square s : sarr) {
+		thisMode.calcLR(s.getJoyY(), s.getJoyX());
+		s.setOutput(round01(thisMode.getLeftOut()), round01(thisMode.getRightOut()));
 	    }
 	}
     }
@@ -70,5 +64,16 @@ public class Grid extends JPanel {
     public void setMode(int newMode) {
 	thisMode = modes.get(newMode);
 	recalculate();
+    }
+
+    public static LinkedHashMap<Integer, DriveMode> getModes(){
+	return modes;
+    }
+
+    /*
+     * rounds to the hundredths place
+     */
+    public double round01(double in){
+	return Math.round(in * 100) / 100.0;
     }
 }
