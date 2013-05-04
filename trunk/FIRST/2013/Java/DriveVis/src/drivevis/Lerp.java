@@ -12,17 +12,7 @@ public class Lerp implements DriveMode {
     double b = 1;
 
     @Override
-    public double getLeftOut() {
-	return driveLeft;
-    }
-
-    @Override
-    public double getRightOut() {
-	return driveRight;
-    }
-
-    @Override
-    public void calcLR(double y, double x) {
+    public Powers calcLR(double y, double x) {
 
 
 	if (y >= 0 && x >= 0) {
@@ -38,6 +28,8 @@ public class Lerp implements DriveMode {
 	    driveLeft = x * b - y * (-1 - x * b);
 	    driveRight = -1 * x * b - y * (-1 - x * (a + 1) + x * b);
 	}
+
+	return new Powers(driveLeft,driveRight);
     }
 
     @Override
