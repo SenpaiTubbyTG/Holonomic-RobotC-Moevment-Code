@@ -1,3 +1,4 @@
+
 package drivevis;
 
 /**
@@ -10,18 +11,9 @@ public class Arcade implements DriveMode {
     private double driveRight = 0;
 
     @Override
-    public double getLeftOut() {
-	return driveLeft;
-    }
-
-    @Override
-    public double getRightOut() {
-	return driveRight;
-    }
-
-    @Override
-    public void calcLR(double y, double x) {
+    public Powers calcLR(double y, double x) {
 	arcadeDrive(y, -x, false);
+	return new Powers(driveLeft,driveRight);
     }
 
     @Override

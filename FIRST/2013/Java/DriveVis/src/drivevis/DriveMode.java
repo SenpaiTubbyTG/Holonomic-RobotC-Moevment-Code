@@ -6,11 +6,8 @@ package drivevis;
  */
 public interface DriveMode {
 
-    public double getLeftOut();
-
-    public double getRightOut();
-
-    public void calcLR(double y, double x);
+    public Powers calcLR(double y, double x);
 
     public String Name();
+
 }

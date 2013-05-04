@@ -37,10 +37,10 @@ public class DriveVis extends JFrame{
 	options.setMaximumSize(new Dimension(800,100));
 	options.setMinimumSize(new Dimension(100,25));
 	ButtonGroup modeButs=new ButtonGroup();
-	for(Map.Entry<Integer,DriveMode> m :  Grid.getModes().entrySet()){
-	    JRadioButton but=new JRadioButton(m.getValue().Name());
+	for(DriveMode m :  Grid.getModes()){
+	    JRadioButton but=new JRadioButton(m.Name());
 	    but.addActionListener(new modeListener());
-	    but.setActionCommand(String.valueOf(m.getKey()));
+	    but.setActionCommand(String.valueOf(Grid.getModes().indexOf(m)));
 	    modeButs.add(but);
 	    options.add(but);
 	}

@@ -13,17 +13,7 @@ public class Cheesy implements DriveMode {
     private double threshold = 0.2;
 
     @Override
-    public double getLeftOut() {
-	return driveLeft;
-    }
-
-    @Override
-    public double getRightOut() {
-	return driveRight;
-    }
-
-    @Override
-    public void calcLR(double moveValue, double rotateValue) {
+    public Powers calcLR(double moveValue, double rotateValue) {
 	double move = moveValue;
 	double turn = rotateValue;
 
@@ -47,6 +37,8 @@ public class Cheesy implements DriveMode {
 
 	driveLeft = tempLeft;
 	driveRight = tempRight;
+
+	return new Powers(driveLeft,driveRight);
     }
 
     @Override

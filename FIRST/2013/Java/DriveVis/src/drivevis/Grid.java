@@ -3,6 +3,7 @@ package drivevis;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -18,15 +19,15 @@ public class Grid extends JPanel {
     private double driveLeft = 0, driveRight = 0;
     private int squaresPerRow = 0;
     private DriveMode thisMode;
-    private static final LinkedHashMap<Integer, DriveMode> modes = new LinkedHashMap<>();
+    private static final LinkedList<DriveMode> modes = new LinkedList<>();
 
     public Grid(int div_quad, int parentSize) {
 	/*
 	 * Just add a new <? implements DriveMode>, add it to this list, and it will work
 	 */
-	modes.put(0, new Arcade());
-	modes.put(1, new Cheesy());
-	modes.put(2, new Lerp());
+	modes.add(new Arcade());
+	modes.add(new Cheesy());
+	modes.add(new Lerp());
 
 
 	thisMode = modes.get(0);
@@ -44,8 +45,8 @@ public class Grid extends JPanel {
 	for (int x = 0; x < squares.length; x++) {
 	    for (int y = 0; y < squares[x].length; y++) {
 		squares[y][x] = new Square(y - center - 1, center + 1 - x, square_size, (squaresPerRow - 1) / 2.0);//it's backwards
-		thisMode.calcLR(squares[y][x].getJoyY(), squares[y][x].getJoyX());
-		squares[y][x].setOutput(round01(thisMode.getLeftOut()), round01(thisMode.getRightOut()));
+		Powers p=thisMode.calcLR(squares[y][x].getJoyY(), squares[y][x].getJoyX());
+		squares[y][x].setOutput(round01(p.getLeftPower()), round01(p.getRightPower()));
 		squares[y][x].setBorder(BorderFactory.createLineBorder(Color.black));
 		this.add(squares[y][x]);
 	    }
@@ -55,8 +56,8 @@ public class Grid extends JPanel {
     private void recalculate() {
 	for (Square[] sarr : squares) {
 	    for (Square s : sarr) {
-		thisMode.calcLR(s.getJoyY(), s.getJoyX());
-		s.setOutput(round01(thisMode.getLeftOut()), round01(thisMode.getRightOut()));
+		Powers p=thisMode.calcLR(s.getJoyY(), s.getJoyX());
+		s.setOutput(round01(p.getLeftPower()), round01(p.getRightPower()));
 	    }
 	}
     }
@@ -66,7 +67,7 @@ public class Grid extends JPanel {
 	recalculate();
     }
 
-    public static LinkedHashMap<Integer, DriveMode> getModes(){
+    public static LinkedList<DriveMode> getModes(){
 	return modes;
     }
 
