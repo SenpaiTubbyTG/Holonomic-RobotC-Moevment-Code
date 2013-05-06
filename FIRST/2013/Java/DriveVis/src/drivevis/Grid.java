@@ -67,6 +67,15 @@ public class Grid extends JPanel {
 	recalculate();
     }
 
+    public void setHighContrast(boolean hc){
+	    for (Square[] sarr : squares) {
+	    for (Square s : sarr) {
+		s.setHC(hc);
+		s.refresh();
+	    }
+	}
+    }
+
     public static LinkedList<DriveMode> getModes(){
 	return modes;
     }
