@@ -64,7 +64,7 @@ public class BitSet implements Cloneable
 			this.bits[idx] &=  ~(1 << (n % 32));
 	}
 	
-	@Override
+	
 	public Object clone()
 	{
 		try
@@ -96,7 +96,7 @@ public class BitSet implements Cloneable
 		}
 	}
 	
-	@Override
+	
 	public boolean equals(Object obj)
 	{
 		if (obj == this)
@@ -201,7 +201,7 @@ public class BitSet implements Cloneable
 		return this.bits.length * 32;
 	}
 	
-	@Override
+	
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();

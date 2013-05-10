@@ -36,7 +36,7 @@ public class SimpleDrive extends LogMessageTypeHandler {
 	/** Implementation use only. You do not need to use this method.
 	 * @see lejos.util.LogMessageTypeHandler#getHandlerTypeID()
 	 */
-	@Override
+	
 	protected final int getHandlerTypeID() {
 		return TYPE_ROBOT_DRIVE;
 	}
@@ -44,7 +44,7 @@ public class SimpleDrive extends LogMessageTypeHandler {
 	/* (non-Javadoc)
 	 * @see lejos.util.LogMessageTypeHandler#processMessage(byte[], int)
 	 */
-	@Override
+	
 	void processMessage(byte[] message, int typeID) {
 //		System.out.println("msglen:" + message.length);
 //		System.out.println("typeID:" + typeID);

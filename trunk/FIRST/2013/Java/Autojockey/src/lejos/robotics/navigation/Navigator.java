@@ -351,7 +351,7 @@ public class Navigator implements WaypointListener
   {
 	boolean more = true;
 
-    @Override
+    
 	public void run()
     { 
       while (more)

@@ -66,7 +66,7 @@ public class Point extends Point2D.Float {
      * @return  clone of this point
      */
 
-    @Override
+    
     public Point clone()
     {
         return new Point(x, y);

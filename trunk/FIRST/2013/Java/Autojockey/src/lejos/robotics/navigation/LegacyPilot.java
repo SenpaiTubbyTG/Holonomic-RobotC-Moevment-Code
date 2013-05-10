@@ -45,10 +45,10 @@ import lejos.robotics.RegulatedMotor;
  * can as well use "LegacyPilot pilot = new LegacyPilot(...)" instead of
  * "LegacyPilot pilot = new LegacyPilot(...)"
  * 
- * @deprecated  This class will disappear in NXJ version 1.0. Use an implementing class of MoveController instead. 
+ *   This class will disappear in NXJ version 1.0. Use an implementing class of MoveController instead. 
  * @see lejos.robotics.navigation.MoveController
  */
-@Deprecated
+
 public class LegacyPilot {
 
 	/**
@@ -286,10 +286,10 @@ public class LegacyPilot {
    *
    * @param speed The speed of the drive motor(s) in degree per second.
    *
-   * @deprecated in 0.8, use setRotateSpeed() and setTravelSpeed(). The method was deprecated, as this it requires knowledge
+   *  in 0.8, use setRotateSpeed() and setTravelSpeed(). The method was deprecated, as this it requires knowledge
    *             of the robots physical construction, which this interface should hide!
    */
-    @Deprecated
+    
 	public void setSpeed(final int speed) {
 		_motorSpeed = speed;
 		_robotTravelSpeed = speed
@@ -307,7 +307,7 @@ public class LegacyPilot {
 	/**
 	 * use setTravelSpeed()
 	 */
-       @Deprecated
+       
 	public void setMoveSpeed(float speed) {
 		_robotTravelSpeed = speed;
 		_motorSpeed = Math.round(0.5f * speed
@@ -334,7 +334,7 @@ public class LegacyPilot {
         /**
 	 * use getTraveleSpeed()
 	 */
-        @Deprecated
+        
 	public float getMoveSpeed() {
 		return _robotTravelSpeed;
 	}
@@ -350,7 +350,7 @@ public class LegacyPilot {
 	/**
 	 *use getMoveMaxSpeed()
 	 */
-        @Deprecated
+        
 	public float getMoveMaxSpeed() {
 		return Math.min(_left.getMaxSpeed(), _right.getMaxSpeed())
 				/ Math.max(_leftDegPerDistance, _rightDegPerDistance);
@@ -366,7 +366,7 @@ public class LegacyPilot {
   /**
    * use setRotateSpeed()
    */
-  @Deprecated
+  
   public void setTurnSpeed(float speed)
   {
     _robotRotateSpeed = speed;
@@ -376,7 +376,7 @@ public class LegacyPilot {
 	/**
 	 * use getRotateSpeed()
 	 */
-        @Deprecated
+        
 	public float getTurnSpeed() {
 		return _robotRotateSpeed;
 	}

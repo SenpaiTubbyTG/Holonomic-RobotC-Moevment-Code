@@ -223,12 +223,12 @@ public class PIDTuner extends LogMessageTypeHandler {
 	/** Implementation use only. You do not need to use this method.
 	 * @see lejos.util.LogMessageTypeHandler#getHandlerTypeID()
 	 */
-	@Override
+	
 	protected final int getHandlerTypeID() {
 		return TYPE_PID_TUNER;
 	}
 	
-	@Override
+	
 	void processMessage(byte[] message, int typeID) {
 		// PID tuner ignores broadcast messages
 		if (typeID==TYPE_ALWAYS_RECEIVE) return;

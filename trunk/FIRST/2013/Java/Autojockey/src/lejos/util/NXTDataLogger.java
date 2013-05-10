@@ -102,7 +102,7 @@ public class NXTDataLogger implements Logger{
      * (i.e. datatypes and their position in the row) from setColumns()
      */
     class CacheOutputStream extends OutputStream {
-        @Override
+        
         public void write(int b) throws IOException {
             byteQueue.add((byte)(b&0xff));
         }

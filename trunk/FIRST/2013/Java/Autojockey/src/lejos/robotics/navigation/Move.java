@@ -260,7 +260,7 @@ public class Move implements Transmittable {
 		arcRadius = dis.readFloat();
 	}
 	
-	@Override
+	
 	public String toString() {
 		String s = moveType.name() + " ";
 		switch(moveType) {

@@ -363,9 +363,9 @@ public class ArcAlgorithms { // TODO Change access from public to package level 
 	 * @param p2 Take-off point on circle
 	 * @param radius Radius of circle
 	 * @return Length of travel along circle, in degrees
-	 * @deprecated This method is no longer used because it can't calculate >180 angles. Delete any time.
+	 *  This method is no longer used because it can't calculate >180 angles. Delete any time.
 	 */
-    @Deprecated
+    
 	public static double getArcOld(Point p1, Point p2, double radius) {
 		// I accidently got the radius sign confused. +ve radius is supposed to have circle center to left of robot:
 		radius = -radius; // Kludge. Should really correct my equations.

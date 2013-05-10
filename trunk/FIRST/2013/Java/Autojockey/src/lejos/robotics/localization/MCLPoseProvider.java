@@ -539,7 +539,7 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
       events.add(theEvent);
     }
 
-    @Override
+    
 	public void run()
     {
       while (keepGoing)
