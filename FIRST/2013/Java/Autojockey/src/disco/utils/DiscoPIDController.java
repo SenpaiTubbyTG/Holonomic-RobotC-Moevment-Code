@@ -471,7 +471,7 @@ public class DiscoPIDController implements IUtility, LiveWindowSendable{
      * Set the percentage error which is considered tolerable for use with
      * OnTarget. (Input of 15.0 = 15 percent)
      * @param percent error which is tolerable
-     * @deprecated Use setTolerance(Tolerance), i.e. setTolerance(new DiscoPIDController.PercentageTolerance(15))
+     *  Use setTolerance(Tolerance), i.e. setTolerance(new DiscoPIDController.PercentageTolerance(15))
      */
     public synchronized void setTolerance(double percent) {
         m_tolerance = new DiscoPIDController.PercentageTolerance(percent);

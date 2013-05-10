@@ -44,14 +44,14 @@ public class DataOutputStream extends FilterOutputStream implements DataOutput
 		return written;
 	}
 	
-	@Override
+	
 	public void write(byte b[], int off, int len) throws IOException
 	{
 		out.write(b, off, len);
 		incCount(len);
 	}
 
-	@Override
+	
 	public void write(int b) throws IOException
 	{
 		out.write(b);

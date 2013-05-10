@@ -80,7 +80,7 @@ abstract class AbstractCollection<E> implements Collection<E>
 		return dest;
 	}
 
-    @Override
+    
 	public String toString()
     {
     	StringBuilder sb = new StringBuilder();

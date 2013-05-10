@@ -30,7 +30,7 @@ public class FileInputStream extends InputStream
 		this.first_page = f.page_location;
 	}
 	
-	@Override
+	
 	public int available() throws IOException
 	{
 		return this.file_limit - this.offset;
@@ -46,7 +46,7 @@ public class FileInputStream extends InputStream
 		this.page_limit = (pnum + 1) * Flash.BYTES_PER_PAGE;
 	}
 
-	@Override
+	
 	public int read() throws IOException
 	{
 		if (this.offset >= this.file_limit)
@@ -57,7 +57,7 @@ public class FileInputStream extends InputStream
 		return buff[this.offset++ % Flash.BYTES_PER_PAGE] & 0xFF;
 	}
 	
-	@Override
+	
 	public int read(byte[] b, int off, int len) throws IOException
 	{
 		if (this.offset >= this.file_limit)
@@ -84,7 +84,7 @@ public class FileInputStream extends InputStream
 		return off - offorig;
 	}
 
-	@Override
+	
 	public long skip(long n) throws IOException
 	{
 		if (n <= 0)

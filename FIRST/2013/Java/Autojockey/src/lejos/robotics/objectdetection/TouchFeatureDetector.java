@@ -72,7 +72,7 @@ public class TouchFeatureDetector extends FeatureDetectorAdapter {
 		return rf;
 	}
 
-	@Override
+	
 	protected void notifyListeners(Feature feature) {
 		super.notifyListeners(feature);
 		// Wait until bumper is released before continuing to prevent multiple notifications from same press:

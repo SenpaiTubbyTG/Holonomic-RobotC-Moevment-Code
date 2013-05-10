@@ -185,9 +185,9 @@ public class DataInputStream extends FilterInputStream implements DataInput
 	/**
 	 * Deprecated. This method assumes ISO-8859-1 encoding and does only recognize \n and \r\n line-endings. 
 	 * 
-	 * @deprecated broken in various ways, use BufferedReader.readLine instead
+	 *  broken in various ways, use BufferedReader.readLine instead
 	 */
-	@Deprecated
+	
 	public final String readLine() throws IOException
 	{
 		StringBuilder strb = new StringBuilder();

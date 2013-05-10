@@ -539,7 +539,7 @@ public class ShortestPathFinder implements PathFinder
 			return blocked;
 		}
 
-		@Override
+		
 		public String toString()
 		{
 			return " " + getX() + " , " + getY() + " ";

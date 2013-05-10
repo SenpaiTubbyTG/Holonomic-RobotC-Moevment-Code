@@ -121,12 +121,12 @@ public class Line extends Line2D.Float {
     return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
   }
   
-  @Override
+  
   public Point getP1() {
 	  return new Point(x1,y1);
   }
   
-  @Override
+  
   public Point getP2() {
 	  return new Point(x2,y2);
   }

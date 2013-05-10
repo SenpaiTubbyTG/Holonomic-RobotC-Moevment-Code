@@ -424,7 +424,7 @@ public final class VM
          * @param item
          * @return VMValue for this item
          */
-        @Override
+        
         public VMValue get(int item)
         {
             if (item >= cnt) throw new NoSuchFieldError();
@@ -458,7 +458,7 @@ public final class VM
          * @param item
          * @return VMValue object for the constant.
          */
-        @Override
+        
         public VMValue get(int item)
         {
             if (item >= cnt) throw new NoSuchFieldError();
@@ -521,7 +521,7 @@ public final class VM
             this.baseAddr = baseAddr;
         }
 
-        @Override
+        
         public VMException get(int item)
         {
             return new VMException(baseAddr + item*((EXCEPTION_LEN + EXCEPTION_ALIGNMENT - 1)&~(EXCEPTION_ALIGNMENT - 1)));
@@ -596,7 +596,7 @@ public final class VM
          * @param item
          * @return the VMMethod object
          */
-        @Override
+        
         public VMMethod get(int item)
         {
             return new VMMethod(baseAddr + item*((METHOD_LEN + METHOD_ALIGNMENT - 1) & ~(METHOD_ALIGNMENT - 1)));
@@ -697,7 +697,7 @@ public final class VM
          * @param item
          * @return the VMClass object
          */
-        @Override
+        
         public VMClass get(int item)
         {
             if (item >= cnt) throw new NoClassDefFoundError();
@@ -762,7 +762,7 @@ public final class VM
          * @param item The required field number
          * @return A value object to access the field.
          */
-        @Override
+        
         public VMValue get(int item)
         {
             if (item >= cnt) throw new NoSuchFieldError();
@@ -803,7 +803,7 @@ public final class VM
             this.obj = obj;
         }
 
-        @Override
+        
         public VMValue get(int item)
         {
             if (item >= cnt) throw new ArrayIndexOutOfBoundsException();
@@ -1003,7 +1003,7 @@ public final class VM
             this.size = size;
         }
 
-        @Override
+        
         public VMStackFrame get(int item)
         {
             int offset = base + (size - item) * STACKFRAME_LEN;

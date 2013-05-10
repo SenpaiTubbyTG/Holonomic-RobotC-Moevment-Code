@@ -58,7 +58,7 @@ public abstract class FeatureDetectorAdapter implements FeatureDetector {
 
 		long prev_time;
 		
-		@Override
+		
 		public void run() {
 			while(true) {
 				// Only performs scan if detection is enabled.

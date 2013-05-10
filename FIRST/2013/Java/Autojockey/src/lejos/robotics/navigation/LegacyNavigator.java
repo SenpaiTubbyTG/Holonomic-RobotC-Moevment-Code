@@ -31,11 +31,11 @@ import lejos.robotics.*;
  * The x and y coordinate values and the direction angle are all initialized to 0, so if the first move is forward() the robot will run along
  * the x axis.<br>
  *
- * @deprecated  This class will disappear in NXJ version 1.0. Use a PathController instead. 
+ *   This class will disappear in NXJ version 1.0. Use a PathController instead. 
  * @see lejos.robotics.navigation.PathController
  *
  */
-@Deprecated
+
 public class LegacyNavigator {
 
 
@@ -58,10 +58,10 @@ public class LegacyNavigator {
      * @param leftMotor The motor used to drive the left wheel e.g. Motor.A.
      * @param reverse  If motor.forward() dives the robot backwards, set this parameter true.
      *
-     * @deprecated The correct way is to create the Pilot in advance and to use that in construction of the
+     *  The correct way is to create the Pilot in advance and to use that in construction of the
      *             LegacyNavigator. Otherwise the LegacyNavigator needs to know detail it should not care about!
      */
-    @Deprecated
+    
     public LegacyNavigator(float wheelDiameter, float trackWidth, RegulatedMotor leftMotor, RegulatedMotor rightMotor, boolean reverse) {
       // In the signature Motor was not changed to RegulatedMotor. This method only saves one to write "new TachoPilot" at the
       // cost of maintaining this method and comments, thus it should not be used!
@@ -78,10 +78,10 @@ public class LegacyNavigator {
      * @param rightMotor The motor used to drive the right wheel e.g. Motor.C.
      * @param leftMotor The motor used to drive the left wheel e.g. Motor.A
      *
-     * @deprecated The correct way is to create the Pilot in advance and to use that in construction of the
+     *  The correct way is to create the Pilot in advance and to use that in construction of the
      *             LegacyNavigator. Otherwise the LegacyNavigator needs to know detail it should not care about!
      */
-    @Deprecated
+    
     public LegacyNavigator(float wheelDiameter, float trackWidth, RegulatedMotor leftMotor, RegulatedMotor rightMotor) {
       // In the signature Motor was not changed to RegulatedMotor. This method only saves one to write "new TachoPilot" at the
       // cost of maintaining this method and comments, thus it should not be used!

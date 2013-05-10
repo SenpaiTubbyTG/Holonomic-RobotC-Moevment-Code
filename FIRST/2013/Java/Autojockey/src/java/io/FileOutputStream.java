@@ -83,7 +83,7 @@ public class FileOutputStream extends OutputStream {
 /**
  * write 1 byte to the file; if necessary, file will be moved become the last file in memory
  */	
-	@Override
+	
 	public void write(int b) throws IOException {
 		if (buff == null)
 			throw new IOException("stream is closed");
@@ -99,7 +99,7 @@ public class FileOutputStream extends OutputStream {
 		}
 	}
 	
-	@Override
+	
 	public void flush() throws IOException {
 		if (buff == null)
 			throw new IOException("stream is closed");

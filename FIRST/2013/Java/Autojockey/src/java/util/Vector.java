@@ -117,7 +117,7 @@ public class Vector<E>
 		}
 	}
 
-	@Override
+	
 	public boolean equals(Object aObj)
 	{
 		if (aObj instanceof Vector<?>)
@@ -292,7 +292,7 @@ public class Vector<E>
 		return dest;
 	}
 
-	@Override
+	
 	public String toString()
 	{
 		if (elementCount < 1)

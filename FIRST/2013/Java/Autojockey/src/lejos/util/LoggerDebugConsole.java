@@ -20,12 +20,12 @@ public class LoggerDebugConsole extends LogMessageTypeHandler {
 		super(loggerMessageManager);
 	}
 
-	@Override
+	
 	protected int getHandlerTypeID() {
 		return TYPE_DEBUG_CONSOLE;
 	}
 
-	@Override
+	
 	void processMessage(byte[] message, int typeID) {
 		// ignores broadcast messages
 //		if (typeID==TYPE_ALWAYS_RECEIVE) return;

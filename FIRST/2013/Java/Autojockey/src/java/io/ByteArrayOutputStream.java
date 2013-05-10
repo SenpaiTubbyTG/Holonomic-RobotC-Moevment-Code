@@ -67,7 +67,7 @@ public class ByteArrayOutputStream extends OutputStream
 	}
 
 	/**
-	 * @deprecated use {@link #toString(String)} instead
+	 *  use {@link #toString(String)} instead
 	 */
 
 	public String toString(int hibyte)

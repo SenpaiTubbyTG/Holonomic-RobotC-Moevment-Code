@@ -114,7 +114,7 @@ public class FusorDetector implements FeatureDetector, FeatureListener {
 	 */
 	private class NotifyThread extends Thread{
 		
-		@Override
+		
 		public void run() {
 			while(true) {
 				
