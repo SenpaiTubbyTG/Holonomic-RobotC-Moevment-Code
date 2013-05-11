@@ -3,18 +3,18 @@ package lejos.util;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-public class IterableEnumeration<T> implements Iterable<T> {
-	  private final Enumeration<T> en;
-	  public IterableEnumeration(Enumeration<T> en) {
+public class IterableEnumeration implements Iterable {
+	  private final Enumeration en;
+	  public IterableEnumeration(Enumeration en) {
 	    this.en = en;
 	  }
 	  // return an adaptor for the Enumeration
-	  public Iterator<T> iterator() {
-	    return new Iterator<T>() {
+	  public Iterator iterator() {
+	    return new Iterator() {
 	      public boolean hasNext() {
 	        return en.hasMoreElements();
 	      }
-	      public T next() {
+	      public Object next() {
 	        return en.nextElement();
 	      }
 	      public void remove() {
@@ -23,4 +23,4 @@ public class IterableEnumeration<T> implements Iterable<T> {
 	    };
 	  }
 	}
-	  
+
