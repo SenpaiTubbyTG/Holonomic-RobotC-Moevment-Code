@@ -28,11 +28,10 @@ public class Hashtable<K, V>
 		return null;
 	}
   
-	@SuppressWarnings("unchecked")
 	public synchronized V put (K aKey, V aValue)
 	{
 		V r;
-		int pIndex = getTableIndex(aKey);    
+		int pIndex = getTableIndex(aKey);
 		Object pElement = iTable[pIndex];
 		if (pElement == null)
 		{
@@ -66,7 +65,7 @@ public class Hashtable<K, V>
 	}
 
 	/**
-	 * 
+	 *
 	 * @return An Enumeration object containing all keys for this Hashtable
 	 */
 	public Enumeration<K> keys()
@@ -151,7 +150,7 @@ public class Hashtable<K, V>
 			}
 		};
 	}
-  
+
 	@SuppressWarnings("unchecked")
 	private KeyValuePair<K,V> getKeyValuePair(Object aPivot, Object aKey)
 	{
@@ -179,7 +178,7 @@ public class Hashtable<K, V>
 		}
 		return null;
 	}
-  
+
 	private int getTableIndex (Object aKey)
 	{
 		int pHash = aKey.hashCode() % TABLE_SIZE;
@@ -189,10 +188,10 @@ public class Hashtable<K, V>
 	}
 
 	private static class KeyValuePair<K, V>
-	{ 
+	{
 		K iKey;
 		V iValue;
-		
+
 		public KeyValuePair(K key, V value)
 		{
 			this.iKey = key;

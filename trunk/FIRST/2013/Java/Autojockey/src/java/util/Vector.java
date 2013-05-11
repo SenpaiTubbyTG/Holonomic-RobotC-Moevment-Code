@@ -14,9 +14,9 @@ package java.util;
 /**
  * A dynamic array.
  */
-public class Vector<E>
+public class Vector
 {
-	private class MyEnumeration implements Enumeration<E>
+	private class MyEnumeration implements Enumeration
 	{
 		int cur = 0;
 
@@ -25,7 +25,7 @@ public class Vector<E>
 			return (size() > cur);
 		}
 
-		public E nextElement()
+		public Object nextElement()
 		{
 			return elementAt(cur++);
 		}
@@ -58,15 +58,15 @@ public class Vector<E>
 	/**
 	 * Returns a convenient Enumaration object to cycle through elements in
 	 * Vector.
-	 * 
+	 *
 	 * @return an Enumeration of all the objects in the Vector
 	 */
-	public Enumeration<E> elements()
+	public Enumeration elements()
 	{
 		return new MyEnumeration();
 	}
 
-	public synchronized void addElement(E aObj)
+	public synchronized void addElement(Object aObj)
 	{
 		ensureCapacityHelper(elementCount + 1);
 		elementData[elementCount++] = aObj;
@@ -82,13 +82,12 @@ public class Vector<E>
 		removeAllElements();
 	}
 
-	@SuppressWarnings("unchecked")
-	public synchronized E elementAt(int aIndex)
+	public synchronized Object elementAt(int aIndex)
 	{
 		if ((aIndex < 0) && (aIndex >= elementCount))
 			throw new ArrayIndexOutOfBoundsException();
 
-		return (E)elementData[aIndex];
+		return (Object)elementData[aIndex];
 	}
 
 	public synchronized void ensureCapacity(int minCapacity)
@@ -117,27 +116,27 @@ public class Vector<E>
 		}
 	}
 
-	
+
 	public boolean equals(Object aObj)
 	{
-		if (aObj instanceof Vector<?>)
+		if (aObj instanceof Vector)
 			return false;
-		
-		Vector<?> v = (Vector<?>)aObj;
+
+		Vector v = (Vector)aObj;
 		if (this.elementCount != v.elementCount)
 			return false;
-		
+
 		for (int i=0; i<elementCount; i++)
 		{
 			Object o1 = elementData[i];
 			Object o2 = v.elementData[i];
-			
+
 			if (o1 != o2 && (o1 == null || o2 == null || !o1.equals(o2)))
 			{
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -168,11 +167,11 @@ public class Vector<E>
 		return -1;
 	}
 
-	public synchronized void insertElementAt(E aObj, int aIndex)
+	public synchronized void insertElementAt(Object aObj, int aIndex)
 	{
 		if (aIndex < 0 || aIndex > elementCount)
 			throw new ArrayIndexOutOfBoundsException();
-		
+
 		ensureCapacityHelper(elementCount + 1);
 		System.arraycopy(elementData, aIndex, elementData, aIndex+1, elementCount - aIndex);
 		elementData[aIndex] = aObj;
@@ -186,7 +185,7 @@ public class Vector<E>
 
 	/**
 	 * delivers the index of the last occurrence of the object
-	 * 
+	 *
 	 * @param anObject the object
 	 * @return the index of the last occurrence of the object or -1, if object
 	 *         is not found
@@ -199,7 +198,7 @@ public class Vector<E>
 	/**
 	 * delivers the index of the last occurrence of the object starting from
 	 * some index
-	 * 
+	 *
 	 * @param anObject the object
 	 * @param anIndex the starting index
 	 * @return the index of the last occurrence of the object or -1, if object
@@ -231,12 +230,12 @@ public class Vector<E>
 		elementCount = 0;
 	}
 
-	public synchronized boolean removeElement(E aObj)
+	public synchronized boolean removeElement(Object aObj)
 	{
 		int index = indexOf(aObj);
 		if (index < 0)
 			return false;
-		
+
 		removeElementAt(index);
 		return true;
 	}
@@ -250,7 +249,7 @@ public class Vector<E>
 		elementData[--elementCount] = null;
 	}
 
-	public synchronized void setElementAt(E aObj, int aIndex)
+	public synchronized void setElementAt(Object aObj, int aIndex)
 	{
 		if (aIndex < 0 || aIndex >= elementCount)
 			throw new ArrayIndexOutOfBoundsException();
@@ -283,24 +282,24 @@ public class Vector<E>
 		return this.toArray(new Object[elementCount]);
 	}
 
-	public synchronized <T> T[] toArray(T[] dest)
+	public synchronized Object[] toArray(Object[] dest)
 	{
 		if (this.elementCount > dest.length)
 			throw new UnsupportedOperationException("Array is too small and expanding is not supported.");
 
-		System.arraycopy(this.elementData, 0, dest, 0, elementCount);		
+		System.arraycopy(this.elementData, 0, dest, 0, elementCount);
 		return dest;
 	}
 
-	
+
 	public String toString()
 	{
 		if (elementCount < 1)
 			return "[]";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
-		
+
 		sb.append(String.valueOf(elementData[0]));
 		for (int i = 1; i < elementCount; i++)
 			 sb.append(", ").append(String.valueOf(elementData[i]));
@@ -314,7 +313,7 @@ public class Vector<E>
 		{
 			Object[] newData = new Object[elementCount];
 			System.arraycopy(elementData, 0, newData, 0, elementCount);
-			elementData = newData; 
+			elementData = newData;
 		}
 	}
 

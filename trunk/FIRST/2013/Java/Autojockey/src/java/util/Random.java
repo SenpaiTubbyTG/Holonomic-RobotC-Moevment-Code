@@ -6,11 +6,11 @@ package java.util;
 public class Random
 {
 	//TODO make this class JDK compliant
-	
+
   private int iPrevSeed, iSeed;
   private boolean haveNextNextGaussian;
   private double nextNextGaussian;
-  
+
   public Random (long seed)
   {
     iPrevSeed = 1;
@@ -21,7 +21,7 @@ public class Random
     {
 	this(System.currentTimeMillis());
     }
-  
+
   /**
    * @return A random positive or negative integer.
    */
@@ -32,7 +32,7 @@ public class Random
     iSeed = pNewSeed;
     return pNewSeed;
   }
-  
+
   	private int next(int bits)
   	{
   		// just some work in progress, should replace nextInt()
@@ -40,7 +40,7 @@ public class Random
   		if (bits < 32)
   			mask = (1 << bits) - 1;
   		else
-  			mask = -1;  		
+  			mask = -1;
   		return nextInt() & mask;
   	}
 
@@ -54,7 +54,7 @@ public class Random
 	int m = nextInt() % n;
 	return m >= 0 ? m : m + n;
     }
-    
+
     public long nextLong()
     {
 		int n1 = this.next(32);
@@ -68,24 +68,24 @@ public class Random
      */
     public boolean nextBoolean()
     {
-		return this.next(1) != 0;    	
+		return this.next(1) != 0;
     }
 
     public float nextFloat()
     {
     	// we need 24 bits number to create 23 bit mantissa
-		return this.next(24) * 0x1p-24f;
+		return this.next(24) * 5.9604644775390625E-8f;
     }
-    
+
     public double nextDouble()
     {
     	// we need 53 bits number to create 52 bit mantissa
 		int n1 = this.next(26);	//26 bits
-		int n2 = this.next(27);	//27 bits		
+		int n2 = this.next(27);	//27 bits
 		long r = ((long)n1 << 27) | n2;
-		return r * 0x1p-53;
+		return r * 1.1102230246251565E-16;
     }
-    
+
     /**
      * Returns the next pseudorandom, Gaussian ("normally") distributed double value with mean 0.0 and standard deviation 1.0 from this random number generator's sequence.
      * @return Returns the next pseudorandom, Gaussian ("normally") distributed double value
@@ -97,7 +97,7 @@ public class Random
             return nextNextGaussian;
 	    } else {
 	            double v1, v2, s;
-	            do { 
+	            do {
 	                    v1 = 2 * nextDouble() - 1;   // between -1.0 and 1.0
 	                    v2 = 2 * nextDouble() - 1;   // between -1.0 and 1.0
 	                    s = v1 * v1 + v2 * v2;
@@ -106,6 +106,6 @@ public class Random
 	            nextNextGaussian = v2 * multiplier;
 	            haveNextNextGaussian = true;
 	            return v1 * multiplier;
-	    }  	
-    }  
+	    }
+    }
 }

@@ -2,27 +2,31 @@ package java.util;
 
 /**
  * This is non-public because it's not compatible with the JDK, yet.
- * 
+ *
  * @author Sven Köhler
  * @param <E> type of the elements
  */
-abstract class AbstractCollection<E> implements Collection<E>
+abstract class AbstractCollection implements Collection
 {
-	public boolean addAll(Collection<? extends E> c)
+	public boolean addAll(Collection c)
 	{
 		boolean r = false;
-		for (E element : c)
-			r |= this.add(element);
-		
+		Object[] o=c.toArray();
+		for (int i=0;i<o.length;i++) {
+
+		    r |= this.add(o[i]);
+		}
+
 		return r;
 	}
 
-	public boolean containsAll(Collection<?> c)
+	public boolean containsAll(Collection c)
 	{
-		for (Object o : c)
-			if (!this.contains(o))
+	    Object[] o=c.toArray();
+		for (int i=0;i<o.length;i++)
+			if (!this.contains(o[i]))
 				return false;
-		
+
 		return true;
 	}
 
@@ -31,28 +35,29 @@ abstract class AbstractCollection<E> implements Collection<E>
 		return this.size() <= 0;
 	}
 
-	public boolean removeAll(Collection<?> c)
+	public boolean removeAll(Collection c)
 	{
 		boolean r = false;
-		for (Object o : c)
-			r |= this.remove(o);
-		
+		Object[] o=c.toArray();
+		for (int i=0;i<o.length;i++)
+			r |= this.remove(o[i]);
+
 		return r;
 	}
 
-	public boolean retainAll(Collection<?> c)
+	public boolean retainAll(Collection c)
 	{
 		boolean r = false;
-		for (Iterator<E> i = this.iterator(); i.hasNext();)
+		for (Iterator i = this.iterator(); i.hasNext();)
 		{
-			E element = i.next();			
+			Object element = i.next();
 			if (!c.contains(element))
 			{
 				r = true;
 				i.remove();
 			}
 		}
-		
+
 		return r;
 	}
 
@@ -62,31 +67,31 @@ abstract class AbstractCollection<E> implements Collection<E>
 		return this.toArray(new Object[size]);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> T[] toArray(T[] dest)
+	public Object[] toArray(Object[] dest)
 	{
 		int j = 0;
 		int max = dest.length;
-		
-		for (E element : this)
+
+		for (Iterator i = this.iterator(); i.hasNext();)
 		{
+		    Object element = i.next();
 			if (j >= max)
 				throw new UnsupportedOperationException("Array is too small and expanding is not supported.");
-			
+
 			//whether elements are compatible with dest can only be checked at runtime
-			dest[j++] = (T)element; 
+			dest[j++] = element;
 		}
-		
+
 		return dest;
 	}
 
-    
+
 	public String toString()
     {
     	StringBuilder sb = new StringBuilder();
     	sb.append('[');
-    	
-    	Iterator<?> it = this.iterator();
+
+    	Iterator it = this.iterator();
     	if (it.hasNext())
     	{
     		sb.append(it.next());

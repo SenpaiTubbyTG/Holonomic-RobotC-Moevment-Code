@@ -2,16 +2,16 @@ package java.util;
 
 /**
  * @author Sven Köhler
- * @param <E> type of the elements
+ * @param <Object> type of the elements
  */
-public interface ListIterator<E> extends Iterator<E>
+public interface ListIterator extends Iterator
 {
 	int nextIndex();
 	int previousIndex();
-	
+
 	boolean hasPrevious();
-	E previous();
-	
-	void add(E e);
-	void set(E e);
+	Object previous();
+
+	void add(Object e);
+	void set(Object e);
 }

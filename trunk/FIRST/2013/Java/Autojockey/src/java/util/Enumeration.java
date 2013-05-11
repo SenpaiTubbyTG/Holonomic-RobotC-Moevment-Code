@@ -5,13 +5,13 @@ package java.util;
  * @author BB
  *
  */
-public interface Enumeration<T> {
+public interface Enumeration {
 	public boolean hasMoreElements();
-	
+
 	/**
-	 * 
+	 *
 	 * @return Returns Object which must be cast appropriately. Returns null if no more objects are available.
 	 */
-	public T nextElement();
-	
+	public Object nextElement();
+
 }

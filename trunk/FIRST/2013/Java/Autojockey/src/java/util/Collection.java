@@ -2,29 +2,29 @@ package java.util;
 
 /**
  * @author Sven Köhler
- * @param <E> type of the elements
+ * @param <Object> type of the elements
  */
-public interface Collection<E> extends Iterable<E>
+public interface Collection extends Iterable
 {
-	boolean add(E e);
+	boolean add(Object e);
 	boolean remove(Object o);
-	
-	boolean addAll(Collection<? extends E> c);
-	boolean removeAll(Collection<?> c);
-	boolean retainAll(Collection<?> c);
-	
+
+	boolean addAll(Collection c);
+	boolean removeAll(Collection c);
+	boolean retainAll(Collection c);
+
 	boolean contains(Object o);
-	boolean containsAll(Collection<?> c);
-	
+	boolean containsAll(Collection c);
+
 	boolean equals(Object o);
 	int hashCode();
-	
+
 	int size();
 	boolean isEmpty();
 	void clear();
-		
-	Iterator<E> iterator();
-	
+
+	Iterator iterator();
+
 	Object[] toArray();
-	<T> T[] toArray(T[] a);
+	 Object[] toArray(Object[] a);
 }
