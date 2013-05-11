@@ -23,33 +23,33 @@ public class RotatingRangeScanner implements RangeScanner
   {
 	  this(head,rangeFinder,1);
   }
-  
+
   public RotatingRangeScanner(RegulatedMotor head, RangeFinder rangeFinder, int gearRatio) {
 	  this.head = head;
 	  this.rangeFinder = rangeFinder;
 	  this.gearRatio = gearRatio;
 	  head.resetTachoCount();
   }
-  
+
   /**
    * Set the gear ratio
-   * 
+   *
    * @param gearRatio the gear ratio
    */
-  public void setGearRatio(int gearRatio) 
+  public void setGearRatio(int gearRatio)
   {
 	  this.gearRatio = gearRatio;
   }
-  
+
   /**
    * Set the head motor
-   * 
+   *
    * @param motor the head motor
    */
   public void setHeadMotor(RegulatedMotor motor) {
 	  head = motor;
   }
-  
+
   /**
    * Returns a set of Range Readings taken the angles specified.
    * @return the set of range values
@@ -82,7 +82,7 @@ public class RotatingRangeScanner implements RangeScanner
    */
   public void setAngles(float[] angles)
   {
-    this.angles = angles.clone();
+    this.angles = (float[]) angles.clone();
   }
 
 /**
