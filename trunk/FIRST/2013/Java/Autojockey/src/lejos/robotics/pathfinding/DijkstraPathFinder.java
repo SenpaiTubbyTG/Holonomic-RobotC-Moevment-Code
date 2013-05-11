@@ -70,8 +70,8 @@ public DijkstraPathFinder(LineMap map)
    * @param theMap  that contains the obstacles
    * @return an array list of waypoints.  If no path exists, returns null
    */
-  
-  private Path findPath(Point start, Point finish, ArrayList<Line> theMap)throws DestinationUnreachableException
+
+  private Path findPath(Point start, Point finish, ArrayList theMap)throws DestinationUnreachableException
   {
     _map = theMap;
     initialize(); // in case this method has already been called before
@@ -89,7 +89,7 @@ public DijkstraPathFinder(LineMap map)
     {
       _count++;
       // get destination from inCandidateSet set
-      dest = _candidate.get(index);
+      dest = (Node) _candidate.get(index);
       from = getBest(dest);
       float distance = from.getDistance(dest);
       if (distance >= BIG)  // dest is known to be blocked  from best node in  _reached
@@ -129,11 +129,11 @@ public DijkstraPathFinder(LineMap map)
     return getRoute(destination);
   }
 
- public void setMap(ArrayList<Line> theMap)
+ public void setMap(ArrayList theMap)
  {
    _map = theMap;
  }
-     
+
  public void setMap(LineMap theMap)
  {
      Line [] lines = theMap.getLines();
@@ -148,19 +148,19 @@ public DijkstraPathFinder(LineMap map)
   */
  public void lengthenLines( float delta)
  {
-   for (Line line : _map)
-   {
-     line.lengthen(delta);
-   }
+    for (Iterator it = _map.iterator(); it.hasNext();) {
+	Line line = (Line) it.next();
+	line.lengthen(delta);
+    }
  }
   protected void initialize()
   {
-    _reached = new ArrayList<Node>();
-    _candidate = new ArrayList<Node>();
+    _reached = new ArrayList();
+    _candidate = new ArrayList();
   }
 
   /**
-   * helper method for findPath(). Determines if the straight line segment 
+   * helper method for findPath(). Determines if the straight line segment
    * crosses a line on the map.
    * Side effect: creates nodes at the end of the blocking line and adds them to the _candidate set
    * @param from the  beginning of the line segment
@@ -177,19 +177,19 @@ public DijkstraPathFinder(LineMap map)
     boolean blocked = false;
     Line segment = new Line(from.getX(), from.getY(),
             to.getX(), to.getY());
-    for (Line l : _map)// test ever line in the map to see if it blocks the segment
-    {
-      intersection = l.intersectsAt(segment);
-      if (intersection != null && !from.atEndOfLine(l) && !to.atEndOfLine(l))
-      {  //segment is legal if it starts or ends at an end point of the line
-        line = l;
-        blocked = true;
-      }// nodes at end of the line
+    for (Iterator it = _map.iterator(); it.hasNext();) {
+	Line l = (Line) it.next();
+	intersection = l.intersectsAt(segment);
+	if (intersection != null && !from.atEndOfLine(l) && !to.atEndOfLine(l))
+	{  //segment is legal if it starts or ends at an end point of the line
+	  line = l;
+	  blocked = true;
+	}
     }
     if (blocked)  // add end points of the blocking segment to  inCandidateSet set
     {
-      Point p1 =  line.getP1();
-      Point  p2 = line.getP2();
+      Point p1 =  (Point)line.getP1();
+      Point  p2 = (Point) line.getP2();
       n1 = new Node((float)p1.getX(),(float)p1.getY());
       if(!inReachedSet(n1) &&!inCandidateSet(n1))
       {
@@ -215,16 +215,16 @@ public DijkstraPathFinder(LineMap map)
    */
   protected  Node getBest(Node currentDestination)
   {
-    Node best = _reached.get(0);
+    Node best = (Node) _reached.get(0);
     float minDist = best._sourceDistance + best.getDistance(currentDestination);
-    for (Node n : _reached)
-    {
-      float d = n._sourceDistance + n.getDistance(currentDestination);
-      if (d < minDist)
-      {
-        minDist = d;
-        best = n;
-      }
+    for (Iterator it = _reached.iterator(); it.hasNext();) {
+	Node n = (Node) it.next();
+	float d = n._sourceDistance + n.getDistance(currentDestination);
+	if (d < minDist)
+	{
+	  minDist = d;
+	  best = n;
+	}
     }
     return best;
   }
@@ -238,14 +238,14 @@ public DijkstraPathFinder(LineMap map)
   protected boolean inReachedSet(final Node  aNode)
   {
     boolean found = false;
-    for (Node n : _reached)
-    {
-      found = aNode.getLocation().equals(n.getLocation());
-      if (found) break;
+    for (Iterator it = _reached.iterator(); it.hasNext();) {
+	Node n = (Node) it.next();
+	found = aNode.getLocation().equals(n.getLocation());
+	if (found) break;
     }
     return found;
   }
-  
+
 /**
    * helper method for findPath; check if aNode is in the set of candidate nodes
    * @param aNode
@@ -254,10 +254,10 @@ public DijkstraPathFinder(LineMap map)
   protected boolean inCandidateSet(final Node aNode)
   {
     boolean found = false;
-    for (Node n : _candidate)
-    {
-      found = aNode.getLocation().equals(n.getLocation());
-      if (found) break;
+    for (Iterator it = _candidate.iterator(); it.hasNext();) {
+	Node n = (Node) it.next();
+	found = aNode.getLocation().equals(n.getLocation());
+	if (found) break;
     }
     return found;
   }
@@ -280,7 +280,7 @@ protected  Path getRoute(Node destination)
     } while (n != null);
     return route;
 }
-  protected ArrayList<Line> getMap()
+  protected ArrayList getMap()
   {
    return _map;
   }
@@ -289,32 +289,33 @@ protected  Path getRoute(Node destination)
   public int getNodeCount(){return _reached.size();}
 
   public void addListener(WaypointListener wpl) {
-    if(listeners == null )listeners = new ArrayList<WaypointListener>();
+    if(listeners == null )listeners = new ArrayList();
     listeners.add(wpl);
   }
-  
+
   public void startPathFinding(Pose start, Waypoint end) {
-	  Collection<Waypoint> solution = null;
+	  Collection solution = null;
 	  try {
 		  solution = findPath(start.getLocation(), end, _map);
 	  } catch (DestinationUnreachableException e) {
 		  // TODO Not sure how to handle this.
 		  e.printStackTrace();
 	  }
-	  if(listeners != null) { 
-		  for(WaypointListener l : listeners) {
-			  Iterator<Waypoint> iterator = solution.iterator(); 
-			  while(iterator.hasNext()) {
-				  l.addWaypoint(iterator.next());
-			  }
-			  l.pathGenerated();
+	  if(listeners != null) {
+	      for (Iterator it = listeners.iterator(); it.hasNext();) {
+		  WaypointListener l = (WaypointListener) it.next();
+		  Iterator iterator = solution.iterator();
+		  while(iterator.hasNext()) {
+			  l.addWaypoint((Waypoint) iterator.next());
 		  }
+		  l.pathGenerated();
+	      }
 	  }
   }
 
   //***********  instance variables in ShortestPathFinder *******************
-  private ArrayList<WaypointListener> listeners ;
-  
+  private ArrayList listeners ;
+
   protected    int _count =  0;
   /**
    * set by segmentBlocked() used by findPath()
@@ -327,17 +328,17 @@ protected  Path getRoute(Node destination)
    * the set of nodes that are candidates for being in the shortest path, but
    * whose distance from the start node is not yet known
    */
-  protected ArrayList<Node> _candidate = new ArrayList<Node>();
+  protected ArrayList _candidate = new ArrayList();
 
   /**
    * the set of nodes that are candidates for being in the shortest path, and
    * whose distance from the start node is known
    */
- protected  ArrayList<Node> _reached = new ArrayList<Node>();
-  /**  
+ protected  ArrayList _reached = new ArrayList();
+  /**
    * The map of the obstacles
    */
-  protected  ArrayList<Line> _map = new ArrayList<Line>();
+  protected  ArrayList _map = new ArrayList();
 
 
 //************Begin definition of Node class  **********************
@@ -442,10 +443,10 @@ protected  Path getRoute(Node destination)
   protected Point _p;
   protected float _sourceDistance;
   protected Node _predecessor;
-  public ArrayList<Node> _blocked = new ArrayList<Node>();
+  public ArrayList _blocked = new ArrayList();
   private float BIG = 100000;
  }
 // ****************   end Node class ****************************
 
-} 
+}
 
