@@ -3,13 +3,13 @@ package java.util;
 /**
  * Various tools for arrays.
  * NOTE: currently bubblesort is used for sorting arrays.
- * 
+ *
  * @author Juan Antonio Brenha Moral, Sven Köhler
  */
 public class Arrays {
 	//TODO use faster algorithm like quicksort
 	//TODO checks whether from/toIndex are valid etc.
-	
+
 	//MISSING public static <T> List<T> asList(T... a)
 	//MISSING public static <T> T[] copyOf(T[] original, int newLength)
 	//MISSING public static <T,U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType)
@@ -20,13 +20,13 @@ public class Arrays {
 	//MISSING public static String deepToString(Object[] a)
 	//MISSING public static boolean deepEquals(Object[] a1, Object[] a2)
 
-	
+
 	private Arrays() {
 		// class cannot be instantiated
 	}
-	
+
 	/****************** BINARY SEARCH ******************/
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -37,7 +37,7 @@ public class Arrays {
 	public static int binarySearch(byte[] a, byte val) {
 		return binarySearch(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -48,7 +48,7 @@ public class Arrays {
 	 * 	denotes the index at which the element should be inserted
 	 */
 	public static int binarySearch(byte[] a, int fromIndex, int toIndex, byte key) {
-		while (fromIndex < toIndex) {				
+		while (fromIndex < toIndex) {
 			int mid = (fromIndex + toIndex) >>> 1;
 			byte amid = a[mid];
 			if (key < amid)
@@ -60,7 +60,7 @@ public class Arrays {
 		}
 		return -1 - fromIndex;
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -71,7 +71,7 @@ public class Arrays {
 	public static int binarySearch(short[] a, short val) {
 		return binarySearch(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -82,7 +82,7 @@ public class Arrays {
 	 * 	denotes the index at which the element should be inserted
 	 */
 	public static int binarySearch(short[] a, int fromIndex, int toIndex, short key) {
-		while (fromIndex < toIndex) {				
+		while (fromIndex < toIndex) {
 			int mid = (fromIndex + toIndex) >>> 1;
 			short amid = a[mid];
 			if (key < amid)
@@ -94,7 +94,7 @@ public class Arrays {
 		}
 		return -1 - fromIndex;
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -105,7 +105,7 @@ public class Arrays {
 	public static int binarySearch(char[] a, char val) {
 		return binarySearch(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -116,7 +116,7 @@ public class Arrays {
 	 * 	denotes the index at which the element should be inserted
 	 */
 	public static int binarySearch(char[] a, int fromIndex, int toIndex, char key) {
-		while (fromIndex < toIndex) {				
+		while (fromIndex < toIndex) {
 			int mid = (fromIndex + toIndex) >>> 1;
 			char amid = a[mid];
 			if (key < amid)
@@ -128,7 +128,7 @@ public class Arrays {
 		}
 		return -1 - fromIndex;
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -139,7 +139,7 @@ public class Arrays {
 	public static int binarySearch(int[] a, int val) {
 		return binarySearch(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -150,7 +150,7 @@ public class Arrays {
 	 * 	denotes the index at which the element should be inserted
 	 */
 	public static int binarySearch(int[] a, int fromIndex, int toIndex, int key) {
-		while (fromIndex < toIndex) {				
+		while (fromIndex < toIndex) {
 			int mid = (fromIndex + toIndex) >>> 1;
 			int amid = a[mid];
 			if (key < amid)
@@ -162,7 +162,7 @@ public class Arrays {
 		}
 		return -1 - fromIndex;
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -173,7 +173,7 @@ public class Arrays {
 	public static int binarySearch(long[] a, long val) {
 		return binarySearch(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -184,7 +184,7 @@ public class Arrays {
 	 * 	denotes the index at which the element should be inserted
 	 */
 	public static int binarySearch(long[] a, int fromIndex, int toIndex, long key) {
-		while (fromIndex < toIndex) {				
+		while (fromIndex < toIndex) {
 			int mid = (fromIndex + toIndex) >>> 1;
 			long amid = a[mid];
 			if (key < amid)
@@ -196,7 +196,7 @@ public class Arrays {
 		}
 		return -1 - fromIndex;
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -207,7 +207,7 @@ public class Arrays {
 	public static int binarySearch(float[] a, float val) {
 		return binarySearch(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -218,7 +218,7 @@ public class Arrays {
 	 * 	denotes the index at which the element should be inserted
 	 */
 	public static int binarySearch(float[] a, int fromIndex, int toIndex, float key) {
-		while (fromIndex < toIndex) {				
+		while (fromIndex < toIndex) {
 			int mid = (fromIndex + toIndex) >>> 1;
 			int cmp = Float.compare(key, a[mid]);
 			if (cmp < 0)
@@ -230,7 +230,7 @@ public class Arrays {
 		}
 		return -1 - fromIndex;
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -241,7 +241,7 @@ public class Arrays {
 	public static int binarySearch(double[] a, double val) {
 		return binarySearch(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -252,7 +252,7 @@ public class Arrays {
 	 * 	denotes the index at which the element should be inserted
 	 */
 	public static int binarySearch(double[] a, int fromIndex, int toIndex, double key) {
-		while (fromIndex < toIndex) {				
+		while (fromIndex < toIndex) {
 			int mid = (fromIndex + toIndex) >>> 1;
 			int cmp = Double.compare(key, a[mid]);
 			if (cmp < 0)
@@ -264,7 +264,7 @@ public class Arrays {
 		}
 		return -1 - fromIndex;
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -275,7 +275,7 @@ public class Arrays {
 	public static int binarySearch(Object[] a, Object val) {
 		return binarySearch(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Binary search for element in sorted array.
 	 * @param a the sorted array
@@ -286,11 +286,10 @@ public class Arrays {
 	 * 	denotes the index at which the element should be inserted
 	 */
 	public static int binarySearch(Object[] a, int fromIndex, int toIndex, Object key) {
-		@SuppressWarnings("unchecked")
-		Comparable<? super Object> key2 = (Comparable<? super Object>)key; 
-		while (fromIndex < toIndex) {				
+		Comparable key2 = (Comparable)key;
+		while (fromIndex < toIndex) {
 			int mid = (fromIndex + toIndex) >>> 1;
-			int cmp = key2.compareTo(a[mid]);
+			int cmp = key2.compareTo((Comparable)a[mid]);
 			if (cmp < 0)
 				toIndex = mid;
 			else if (cmp > 0)
@@ -300,12 +299,12 @@ public class Arrays {
 		}
 		return -1 - fromIndex;
 	}
-		
+
 	/****************** COPYOF ******************/
 
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * @param a the array to copy
 	 * @param newLength length of the copy
 	 * @return the copy of the array
@@ -316,10 +315,10 @@ public class Arrays {
 		System.arraycopy(a, 0, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * @param a the array to copy
 	 * @param newLength length of the copy
 	 * @return the copy of the array
@@ -330,10 +329,10 @@ public class Arrays {
 		System.arraycopy(a, 0, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * @param a the array to copy
 	 * @param newLength length of the copy
 	 * @return the copy of the array
@@ -344,10 +343,10 @@ public class Arrays {
 		System.arraycopy(a, 0, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * @param a the array to copy
 	 * @param newLength length of the copy
 	 * @return the copy of the array
@@ -358,10 +357,10 @@ public class Arrays {
 		System.arraycopy(a, 0, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * @param a the array to copy
 	 * @param newLength length of the copy
 	 * @return the copy of the array
@@ -372,10 +371,10 @@ public class Arrays {
 		System.arraycopy(a, 0, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * @param a the array to copy
 	 * @param newLength length of the copy
 	 * @return the copy of the array
@@ -386,10 +385,10 @@ public class Arrays {
 		System.arraycopy(a, 0, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * @param a the array to copy
 	 * @param newLength length of the copy
 	 * @return the copy of the array
@@ -400,10 +399,10 @@ public class Arrays {
 		System.arraycopy(a, 0, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * @param a the array to copy
 	 * @param newLength length of the copy
 	 * @return the copy of the array
@@ -414,12 +413,12 @@ public class Arrays {
 		System.arraycopy(a, 0, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/****************** COPYOFRANGE ******************/
 
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * Note that <code>toIndex</code> may be larger then <code>a.length</code>.
 	 * @param a the array to copy
 	 * @param fromIndex index of first element (inclusive) to copy
@@ -432,10 +431,10 @@ public class Arrays {
 		System.arraycopy(a, fromIndex, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * Note that <code>toIndex</code> may be larger then <code>a.length</code>.
 	 * @param a the array to copy
 	 * @param fromIndex index of first element (inclusive) to copy
@@ -448,10 +447,10 @@ public class Arrays {
 		System.arraycopy(a, fromIndex, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * Note that <code>toIndex</code> may be larger then <code>a.length</code>.
 	 * @param a the array to copy
 	 * @param fromIndex index of first element (inclusive) to copy
@@ -464,10 +463,10 @@ public class Arrays {
 		System.arraycopy(a, fromIndex, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * Note that <code>toIndex</code> may be larger then <code>a.length</code>.
 	 * @param a the array to copy
 	 * @param fromIndex index of first element (inclusive) to copy
@@ -480,10 +479,10 @@ public class Arrays {
 		System.arraycopy(a, fromIndex, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * Note that <code>toIndex</code> may be larger then <code>a.length</code>.
 	 * @param a the array to copy
 	 * @param fromIndex index of first element (inclusive) to copy
@@ -496,10 +495,10 @@ public class Arrays {
 		System.arraycopy(a, fromIndex, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * Note that <code>toIndex</code> may be larger then <code>a.length</code>.
 	 * @param a the array to copy
 	 * @param fromIndex index of first element (inclusive) to copy
@@ -512,10 +511,10 @@ public class Arrays {
 		System.arraycopy(a, fromIndex, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * Note that <code>toIndex</code> may be larger then <code>a.length</code>.
 	 * @param a the array to copy
 	 * @param fromIndex index of first element (inclusive) to copy
@@ -528,10 +527,10 @@ public class Arrays {
 		System.arraycopy(a, fromIndex, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/**
 	 * Creates a copy with a given length of an array.
-	 * The data is truncated/padded to the given length as necessary. 
+	 * The data is truncated/padded to the given length as necessary.
 	 * Note that <code>toIndex</code> may be larger then <code>a.length</code>.
 	 * @param a the array to copy
 	 * @param fromIndex index of first element (inclusive) to copy
@@ -544,9 +543,9 @@ public class Arrays {
 		System.arraycopy(a, fromIndex, b, 0, copyLength);
 		return b;
 	}
-	
+
 	/****************** EQUALS ******************/
-	
+
 	public static boolean equals(boolean[] a, boolean[] b) {
 		if (a != b) {
 			if (a.length != b.length)
@@ -557,7 +556,7 @@ public class Arrays {
 		}
 		return true;
 	}
-	
+
 	public static boolean equals(byte[] a, byte[] b) {
 		if (a != b) {
 			if (a.length != b.length)
@@ -568,7 +567,7 @@ public class Arrays {
 		}
 		return true;
 	}
-	
+
 	public static boolean equals(short[] a, short[] b) {
 		if (a != b) {
 			if (a.length != b.length)
@@ -579,7 +578,7 @@ public class Arrays {
 		}
 		return true;
 	}
-	
+
 	public static boolean equals(char[] a, char[] b) {
 		if (a != b) {
 			if (a.length != b.length)
@@ -590,7 +589,7 @@ public class Arrays {
 		}
 		return true;
 	}
-	
+
 	public static boolean equals(int[] a, int[] b) {
 		if (a != b) {
 			if (a.length != b.length)
@@ -601,7 +600,7 @@ public class Arrays {
 		}
 		return true;
 	}
-	
+
 	public static boolean equals(long[] a, long[] b) {
 		if (a != b) {
 			if (a.length != b.length)
@@ -612,7 +611,7 @@ public class Arrays {
 		}
 		return true;
 	}
-	
+
 	public static boolean equals(float[] a, float[] b) {
 		if (a != b) {
 			if (a.length != b.length)
@@ -623,7 +622,7 @@ public class Arrays {
 		}
 		return true;
 	}
-	
+
 	public static boolean equals(double[] a, double[] b) {
 		if (a != b) {
 			if (a.length != b.length)
@@ -634,7 +633,7 @@ public class Arrays {
 		}
 		return true;
 	}
-	
+
 	public static boolean equals(Object[] a, Object[] b) {
 		if (a != b) {
 			if (a.length != b.length)
@@ -645,9 +644,9 @@ public class Arrays {
 		}
 		return true;
 	}
-	
+
 	/****************** FILL ******************/
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -656,7 +655,7 @@ public class Arrays {
 	public static void fill(boolean[] a, boolean val) {
 		fill(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -669,7 +668,7 @@ public class Arrays {
 			a[i] = val;
 		}
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -678,7 +677,7 @@ public class Arrays {
 	public static void fill(byte[] a, byte val) {
 		fill(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -691,7 +690,7 @@ public class Arrays {
 			a[i] = val;
 		}
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -700,7 +699,7 @@ public class Arrays {
 	public static void fill(short[] a, short val) {
 		fill(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -713,7 +712,7 @@ public class Arrays {
 			a[i] = val;
 		}
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -722,7 +721,7 @@ public class Arrays {
 	public static void fill(char[] a, char val) {
 		fill(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -735,7 +734,7 @@ public class Arrays {
 			a[i] = val;
 		}
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -744,7 +743,7 @@ public class Arrays {
 	public static void fill(int[] a, int val) {
 		fill(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -757,7 +756,7 @@ public class Arrays {
 			a[i] = val;
 		}
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -766,7 +765,7 @@ public class Arrays {
 	public static void fill(long[] a, long val) {
 		fill(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -779,7 +778,7 @@ public class Arrays {
 			a[i] = val;
 		}
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -788,7 +787,7 @@ public class Arrays {
 	public static void fill(float[] a, float val) {
 		fill(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -801,7 +800,7 @@ public class Arrays {
 			a[i] = val;
 		}
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -810,7 +809,7 @@ public class Arrays {
 	public static void fill(double[] a, double val) {
 		fill(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -823,7 +822,7 @@ public class Arrays {
 			a[i] = val;
 		}
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -832,7 +831,7 @@ public class Arrays {
 	public static void fill(Object[] a, Object val) {
 		fill(a, 0, a.length, val);
 	}
-	
+
 	/**
 	 * Set array elements to given value.
 	 * @param a the array
@@ -845,8 +844,8 @@ public class Arrays {
 			a[i] = val;
 		}
 	}
-	
-	/****************** SORT ******************/ 
+
+	/****************** SORT ******************/
 
 	/**
 	 * Sort the specified array in ascending order.
@@ -855,7 +854,7 @@ public class Arrays {
 	public static void sort(byte[] a) {
 		sort(a, 0, a.length);
 	}
-	
+
 	/**
 	 * Sort the specified array in ascending order.
 	 * @param a the array to sort
@@ -884,7 +883,7 @@ public class Arrays {
 	public static void sort(short[] a) {
 		sort(a, 0, a.length);
 	}
-	
+
 	/**
 	 * Sort the specified array in ascending order.
 	 * @param a the array to sort
@@ -913,7 +912,7 @@ public class Arrays {
 	public static void sort(char[] a) {
 		sort(a, 0, a.length);
 	}
-	
+
 	/**
 	 * Sort the specified array in ascending order.
 	 * @param a the array to sort
@@ -942,7 +941,7 @@ public class Arrays {
 	public static void sort(int[] a) {
 		sort(a, 0, a.length);
 	}
-	
+
 	/**
 	 * Sort the specified array in ascending order.
 	 * @param a the array to sort
@@ -971,7 +970,7 @@ public class Arrays {
 	public static void sort(long[] a) {
 		sort(a, 0, a.length);
 	}
-	
+
 	/**
 	 * Sort the specified array in ascending order.
 	 * @param a the array to sort
@@ -1000,7 +999,7 @@ public class Arrays {
 	public static void sort(float[] a) {
 		sort(a, 0, a.length);
 	}
-	
+
 	/**
 	 * Sort the specified array in ascending order.
 	 * @param a the array to sort
@@ -1029,7 +1028,7 @@ public class Arrays {
 	public static void sort(double[] a) {
 		sort(a, 0, a.length);
 	}
-	
+
 	/**
 	 * Sort the specified array in ascending order.
 	 * @param a the array to sort
@@ -1050,7 +1049,7 @@ public class Arrays {
 			}
 		}
 	}
-	
+
 	/**
 	 * Sort the specified array in ascending order.
 	 * @param a the array to sort
@@ -1058,7 +1057,7 @@ public class Arrays {
 	public static void sort(Object[] a) {
 		sort(a, 0, a.length);
 	}
-	
+
 	/**
 	 * Sort the specified array in ascending order.
 	 * @param a the array to sort
@@ -1069,23 +1068,23 @@ public class Arrays {
 		//The JDK's implementation doesn't take care of null values
 		//and simply assumes that the object implement comparable.
 		//So we do the same.
-		
+
 		// outer loop (backward)
 		for (int out = toIndex - 1; out > fromIndex; out--){
 			// inner loop (forward)
 			for (int in = fromIndex; in < out; in++){
 				int in2 = in + 1;
-				@SuppressWarnings("unchecked")
-				Comparable<? super Object> temp = (Comparable<? super Object>)a[in];
-				if (temp.compareTo(a[in2]) > 0){ // out of order?
+
+				Comparable temp = (Comparable)a[in];
+				if (temp.compareTo((Comparable)a[in2]) > 0){ // out of order?
 					a[in] = a[in2];
 					a[in2] = temp;
 				}
 			}
 		}
 	}
-	
-	/****************** TOSTRING ******************/ 
+
+	/****************** TOSTRING ******************/
 
 	/**
 	 * Returns a String representation of the array.
@@ -1094,7 +1093,7 @@ public class Arrays {
 	public static String toString(boolean[] a) {
 		if (a == null)
 			return "null";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		if (a.length > 0) {
@@ -1112,7 +1111,7 @@ public class Arrays {
 	public static String toString(byte[] a) {
 		if (a == null)
 			return "null";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		if (a.length > 0) {
@@ -1130,7 +1129,7 @@ public class Arrays {
 	public static String toString(short[] a) {
 		if (a == null)
 			return "null";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		if (a.length > 0) {
@@ -1148,7 +1147,7 @@ public class Arrays {
 	public static String toString(char[] a) {
 		if (a == null)
 			return "null";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		if (a.length > 0) {
@@ -1166,7 +1165,7 @@ public class Arrays {
 	public static String toString(int[] a) {
 		if (a == null)
 			return "null";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		if (a.length > 0) {
@@ -1184,7 +1183,7 @@ public class Arrays {
 	public static String toString(long[] a) {
 		if (a == null)
 			return "null";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		if (a.length > 0) {
@@ -1202,7 +1201,7 @@ public class Arrays {
 	public static String toString(float[] a) {
 		if (a == null)
 			return "null";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		if (a.length > 0) {
@@ -1220,7 +1219,7 @@ public class Arrays {
 	public static String toString(double[] a) {
 		if (a == null)
 			return "null";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		if (a.length > 0) {
@@ -1238,7 +1237,7 @@ public class Arrays {
 	public static String toString(Object[] a) {
 		if (a == null)
 			return "null";
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		if (a.length > 0) {

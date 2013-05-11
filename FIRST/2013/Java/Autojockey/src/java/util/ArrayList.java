@@ -2,21 +2,21 @@ package java.util;
 
 /**
  * An expandable array.
- * 
+ *
  * @author Andre Nijholt
  * @author Sven Köhler
- * @param <E> type of the elements
+ * @param <Object> type of the elements
  */
-public class ArrayList<E> extends AbstractList<E> implements RandomAccess
+public class ArrayList extends AbstractList implements RandomAccess
 {
 	private static final int INITIAL_CAPACITY = 10;
 	private static final int CAPACITY_INCREMENT_NUM = 3;	//numerator of the increment factor
 	private static final int CAPACITY_INCREMENT_DEN = 2;	//denominator of the increment factor
-	
+
 	//MISSING implements Clonable
 	//MISSING implements Serializable
-	
-	private class MyIterator implements ListIterator<E>
+
+	private class MyIterator implements ListIterator
 	{
 		private int modcount;
 		private int lastpos;
@@ -28,7 +28,7 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 			this.nextpos = index;
 			this.modcount = ArrayList.this.modCount;
 		}
-		
+
 		private void checkModCount()
 		{
 			if (this.modcount != ArrayList.this.modCount)
@@ -40,7 +40,7 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 			if (this.lastpos < 0)
 				throw new IllegalStateException();
 		}
-		
+
 		public boolean hasNext()
 		{
 			return this.nextpos < ArrayList.this.size();
@@ -51,21 +51,21 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 			return this.nextpos > 0;
 		}
 
-		public E next()
+		public Object next()
 		{
 			this.checkModCount();
 			if (!this.hasNext())
 				throw new NoSuchElementException();
-			
+
 			return ArrayList.this.get(this.lastpos = this.nextpos++);
 		}
 
-		public E previous()
+		public Object previous()
 		{
 			this.checkModCount();
 			if (!this.hasPrevious())
 				throw new NoSuchElementException();
-			
+
 			return ArrayList.this.get(this.lastpos = --this.nextpos);
 		}
 
@@ -77,15 +77,15 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 			this.modcount = ArrayList.this.modCount;
 			this.lastpos = -1;
 		}
-		
-		public void set(E e)
+
+		public void set(Object e)
 		{
 			this.checkLastPos();
 			this.checkModCount();
 			ArrayList.this.set(this.lastpos, e);
 		}
 
-		public void add(E e)
+		public void add(Object e)
 		{
 			this.checkModCount();
 			ArrayList.this.add(this.nextpos, e);
@@ -104,11 +104,11 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 		}
 
 	}
-	
+
 
 	private int elementCount;
 	private Object[] elementData;
-	
+
 	/**
 	 * Create an array list.
 	 */
@@ -117,8 +117,8 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 		elementCount = 0;
 		elementData = new Object[INITIAL_CAPACITY];
 	}
-	
-	public ArrayList(Collection<? extends E> c)
+
+	public ArrayList(Collection c)
 	{
 		this(c.size());
 		this.addAll(c);
@@ -133,19 +133,19 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 	{
 		if (initialCapacity < 0)
 			throw new IllegalArgumentException("capacity is negative");
-		
+
 		elementCount = 0;
 		elementData = new Object[initialCapacity];
 	}
 
 	/**
 	 * Create an array list.
-	 * 
+	 *
 	 * @param elements The initial elements in the array list.
 	 *  not in JDK
 	 */
-	
-	public ArrayList(E[] elements)
+
+	public ArrayList(Object[] elements)
 	{
 		this((elements.length * 13) / 10);
 		addAll(elements);
@@ -157,7 +157,7 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 	 * @param index The index at which the element should be added.
 	 * @param element The element to add.
 	 */
-	public void add(int index, E element) 
+	public void add(int index, Object element)
 	{
 		if (index < 0 || index > elementCount)
 			throw new IndexOutOfBoundsException();
@@ -171,10 +171,10 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 
 	/**
 	 * Add a element at the end of the array list.
-	 * 
+	 *
 	 * @param element The element to add.
 	 */
-	public boolean add(E element)
+	public boolean add(Object element)
 	{
 		ensureCapacity(elementCount + 1);
 		elementData[elementCount++] = element;
@@ -183,17 +183,17 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 
 	/**
 	 * Add all elements from the array to the array list.
-	 * 
+	 *
 	 * @param elements The array of elements to add.
 	 *  not in JDK
 	 */
-	
-	public void addAll(E[] elements)
+
+	public void addAll(Object[] elements)
 	{
 		int len = elements.length;
 		if (len <= 0)
 			return;
-		
+
 		ensureCapacity(elementCount + len);
 
 		System.arraycopy(elements, 0, elementData, elementCount, len);
@@ -202,52 +202,52 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 
 	/**
 	 * Add all elements from the array to the array list at a specific index.
-	 * 
+	 *
 	 * @param index The index to start adding elements.
 	 * @param elements The array of elements to add.
 	 *  not in JDK
 	 */
-	
-	public void addAll(int index, E[] elements)
+
+	public void addAll(int index, Object[] elements)
 	{
 		if (index < 0 || index > elementCount)
 			throw new IndexOutOfBoundsException();
-		
+
 		int len = elements.length;
 		if (len <= 0)
 			return;
-		
+
 		ensureCapacity(elementCount + len);
 		System.arraycopy(elementData, index, elementData, index+len, elementCount - index);
-		
+
 		System.arraycopy(elements, 0, elementData, index, len);
-		
+
 		elementCount += len;
 	}
 
-	
-	public boolean addAll(Collection<? extends E> c)
+
+	public boolean addAll(Collection c)
 	{
 		return this.addAll(elementCount, c);
 	}
 
-	public boolean addAll(int index, Collection<? extends E> c)
+	public boolean addAll(int index, Collection c)
 	{
 		if (index < 0 || index > elementCount)
 			throw new IndexOutOfBoundsException();
-		
+
 		int size = c.size();
 		if (size <= 0)
 			return false;
-		
-		this.ensureCapacity(elementCount + size);		
+
+		this.ensureCapacity(elementCount + size);
 		System.arraycopy(elementData, index, elementData, index+size, elementCount - index);
 
-		Iterator<? extends E> i = c.iterator();
+		Iterator i = c.iterator();
 		for (int j=0; j<size; j++)
 			elementData[index + j] = i.next();
-		
-		elementCount += size;		
+
+		elementCount += size;
 		return true;
 	}
 
@@ -257,13 +257,13 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 	public void clear()
 	{
 		modCount++;
-		
+
 		for (int i = 0; i < elementCount; i++)
 			elementData[i] = null;
-		
+
 		elementCount = 0;
 	}
-	
+
 	/**
 	 * Ensure that we have sufficient capacity in the array to store
 	 * the requested number of elements. Expand the array if required.
@@ -272,14 +272,14 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 	public void ensureCapacity(int minCapacity)
 	{
 		modCount++;
-		
+
 		int el = elementData.length;
 		if (el < minCapacity)
 		{
 			el = el * CAPACITY_INCREMENT_NUM / CAPACITY_INCREMENT_DEN + 1;
 			while (el < minCapacity)
 				el = el * CAPACITY_INCREMENT_NUM / CAPACITY_INCREMENT_DEN + 1;
-			
+
 			Object[] newData = new Object[el];
 			System.arraycopy(elementData, 0, newData, 0, elementCount);
 			elementData = newData;
@@ -288,22 +288,21 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 
 	/**
 	 * Get a specific element.
-	 * 
+	 *
 	 * @param index The index of the wanted element.
 	 * @return The wanted element.
 	 */
-	@SuppressWarnings("unchecked")
-	public E get(int index)
+	public Object get(int index)
 	{
 		if (index < 0 || index >= elementCount)
 			throw new IndexOutOfBoundsException();
-		
-		return (E)elementData[index];
+
+		return (Object)elementData[index];
 	}
 
 	/**
 	 * Get the first index of a specific element.
-	 * 
+	 *
 	 * @param element The wanted element.
 	 * @return The index of the wanted element, or -1 if not found.
 	 */
@@ -326,7 +325,7 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 
 	/**
 	 * Get the last index of a specific element.
-	 * 
+	 *
 	 * @param element The wanted element.
 	 * @return The index of the wanted element, or -1 if not found.
 	 */
@@ -353,19 +352,18 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 	 * @param index The index of the element to remove.
 	 * @return the removed element.
 	 */
-	@SuppressWarnings("unchecked")
-	public E remove(int index)
+	public Object remove(int index)
 	{
 		if (index < 0 || index >= elementCount)
 			throw new IndexOutOfBoundsException();
 
 		modCount++;
-		
+
 		Object element = elementData[index];
 		System.arraycopy(elementData, index + 1, elementData, index, elementCount - index - 1);
 		elementData[--elementCount] = null;
 
-		return (E)element;
+		return (Object)element;
 	}
 
 	public boolean remove(Object o)
@@ -373,11 +371,11 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 		int i = this.indexOf(o);
 		if (i < 0)
 			return false;
-		
+
 		this.remove(i);
 		return true;
 	}
-	
+
 	protected void removeRange(int start, int end)
 	{
 		if (start <= 0)
@@ -385,68 +383,67 @@ public class ArrayList<E> extends AbstractList<E> implements RandomAccess
 		if (end > elementCount)
 			throw new IndexOutOfBoundsException();
 		if (start > end)
-			throw new IndexOutOfBoundsException();		
-		if (start == end)		
+			throw new IndexOutOfBoundsException();
+		if (start == end)
 			return;
-		
+
 		this.modCount++;
-		
+
 		int oldcount = elementCount;
 		int newcount = oldcount - end + start;
-		
+
 		System.arraycopy(elementData, end, elementData, start, oldcount - end);
 		for (int i=newcount; i<oldcount; i++)
 			elementData[i] = null;
-		
+
 		elementCount = newcount;
 	}
 
 	/**
 	 * Replace an element at a specific index with a new element.
-	 * 
+	 *
 	 * @param index The index of the element to set.
 	 * @param element The new element.
 	 * @return the old element.
 	 */
-	@SuppressWarnings("unchecked")
-	public E set(int index, E element)
+	public Object set(int index, Object element)
 	{
 		if (index >= elementCount)
 			throw new IndexOutOfBoundsException();
 
 		Object o = elementData[index];
 		elementData[index] = element;
-		
-		return (E)o;
+
+		return (Object)o;
 	}
 
 	/**
 	 * Get the number of elements in this array list.
-	 * 
+	 *
 	 * @return the number of elements.
 	 */
 	public int size()
 	{
 		return elementCount;
 	}
-	
-	public ListIterator<E> listIterator(int index)
+
+	public ListIterator listIterator(int index)
 	{
 		return new MyIterator(index);
 	}
 
-	public List<E> subList(int start, int end)
+	public List subList(int start, int end)
 	{
 		//TODO implement
 		throw new UnsupportedOperationException("subList not yet supported");
 	}
-	
+
 	public void trimToSize()
 	{
 		if (elementCount < elementData.length)
 		{
 			modCount++;
-			
+
 			Object[] newData = new Object[elementCount];
 			System.arraycopy(elementData, 0, newData, 0, elementCount);
 			elementData = newData;

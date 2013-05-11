@@ -2,10 +2,10 @@ package java.util;
 
 /**
  * This class has been developed to parse strings with delimiters
- * 
+ *
  * @author Juan Antonio Brenha Moral
  */
-public class StringTokenizer implements Enumeration<Object> {
+public class StringTokenizer implements Enumeration {
 	/**
 	 * Delimiter string.
 	 */
@@ -19,7 +19,7 @@ public class StringTokenizer implements Enumeration<Object> {
 
 	/**
 	 * Assigns the delimiter as ',' by default.
-	 * 
+	 *
 	 * @param s String to be StringTokenizer
 	 */
 	public StringTokenizer(String s){
@@ -29,7 +29,7 @@ public class StringTokenizer implements Enumeration<Object> {
 
 	/**
 	 * The constructor
-	 * 
+	 *
 	 * @param s
 	 * @param delimiter
 	 */
@@ -38,7 +38,7 @@ public class StringTokenizer implements Enumeration<Object> {
 		if(character != delimiter){
 			s += delimiter;
 		}
-		
+
 		this._delimiter = delimiter;
 		this.s = s;
 //		this.total = s.length();
@@ -53,37 +53,37 @@ public class StringTokenizer implements Enumeration<Object> {
 	public int countTokens() {
 		int count = 0;
 		int fromIndex = currentPosition;
-		
+
 		while(s.indexOf(_delimiter, fromIndex) != -1) {
 			count++;
 			fromIndex = s.indexOf(_delimiter, fromIndex) + 1;
 		}
-		
+
 		return count;
 	}
-	
+
 	/**
 	 * Method used to know if exists new tokens
-	 * 
+	 *
 	 * @return true iff there are more tokens
 	 */
 	public boolean hasMoreTokens(){
 		return ((nextPosition != -1) && (currentPosition <= nextPosition));
 	}
-	
+
 	/**
 	 * Method implemented by interface requirement
 	 */
 	public boolean hasMoreElements() {
 		return hasMoreTokens();
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return Next token
 	 * @throws NoSuchElementException If there is no token left
 	 */
-	public String nextToken() throws NoSuchElementException{// 
+	public String nextToken() throws NoSuchElementException{//
 		if (!hasMoreElements()){
 			throw new NoSuchElementException();
 		}
