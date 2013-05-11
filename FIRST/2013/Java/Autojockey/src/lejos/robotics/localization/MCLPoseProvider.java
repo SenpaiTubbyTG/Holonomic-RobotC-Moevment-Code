@@ -76,9 +76,9 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
     updated = false;
     updater.start();
   }
-  
+
   /**
-   * Constructor for use on PC 
+   * Constructor for use on PC
    * @param map the RangeMap
    * @param numParticles the numbers of particles
    * @param border of the map
@@ -89,17 +89,17 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
 	this.map = map;
 	updated = false;
   }
-  
+
   /**
-   * Associates a map with the MCLPoseProvider 
+   * Associates a map with the MCLPoseProvider
    * (for example a map send from the PC).
-   * 
+   *
    * @param map the RangeMap
    */
   public void setMap(RangeMap map) {
 	this.map = map;
   }
-  
+
   /**
    * Generates an  initial particle set in a circular normal distribution, centered
    * on aPose.
@@ -126,7 +126,7 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
     if(debug) System.out.println("MCLPP set Initial pose called ");
     float minWeight = 0.3f;
     particles = new MCLParticleSet(map, numParticles,border,readings, 2*sigma*sigma,minWeight  );
-    updated = true; 
+    updated = true;
   }
 
   /**
@@ -154,20 +154,20 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
   {
     return particles;
   }
-  
+
   /**
    * Get the current range readings
-   * 
+   *
    * @return the RangeReadings object
    */
   public RangeReadings getReadings() {
 	  return readings;
   }
-  
+
   /**
    * Associate a particle set with the MCLPoseProvider
    * (e.g. particles sent from the PC)
-   * 
+   *
    * @param particles the particle set
    */
   public void setParticles(MCLParticleSet particles) {
@@ -183,7 +183,7 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
   {
     particles = new MCLParticleSet(map, numParticles, border);
   }
-  
+
   /**
   Required by MoveListener interface; does nothing
    */
@@ -203,7 +203,7 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
   }
 
   /**
-   * 
+   *
    * Calls range scanner to get range readings, calculates the probabilities
    * of each particle from the range  readings and the map and calls resample(()
    *
@@ -227,23 +227,22 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
     }
     return update(readings);
   }
-  
+
   /**
    * Calculates particle weights from readings, then resamples the particle set;
    * @param readings
    * @return true if update was successful.
    */
-  @SuppressWarnings("hiding")
   public boolean update(RangeReadings readings)
   {
     if(debug)System.out.println("MCLPP update readings called ");
     updated = false;
     incomplete = readings.incomplete();
-    
+
     if (incomplete) {
       return false;
     }
-        
+
     if(debug)System.out.println("update readings incomplete "+incomplete);
     boolean goodPose = false;
 
@@ -255,18 +254,18 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
       if (debug)  System.out.println("Sensor data improbable from this pose ");
       return false;
     }
-    
+
     goodPose = particles.resample();
     updated = goodPose;
-    
+
     if (debug) {
       if (goodPose) System.out.println("Resample done");
       else System.out.println("Resample failed");
     }
-    
+
     return goodPose;
   }
-  
+
   /**
    * Returns update success flag
    * @return true if update is successful
@@ -323,7 +322,7 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
     estimatePose();
     return new Pose(_x, _y, _heading);
   }
-  
+
   public Pose getEstimatedPose() {
 	return new Pose(_x, _y, _heading);
   }
@@ -378,16 +377,16 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
     estimatedAngle /= totalWeights;
     varH /= totalWeights;
     varH -= (estimatedAngle * estimatedAngle);
-    
+
     // Normalize angle
     while (estimatedAngle > 180) estimatedAngle -= 360;
     while (estimatedAngle < -180) estimatedAngle += 360;
-    
+
     _x = estimatedX;
     _y = estimatedY;
     _heading = estimatedAngle;
   }
-  
+
   /**
    * Returns most recent range readings
    * @return the range readings
@@ -468,7 +467,7 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
   {
     return (float) Math.sqrt(varH);
   }
-  
+
   /**
    * Returns the range scanner
    * @return the range scanner
@@ -532,24 +531,24 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
   class Updater extends Thread
   {
     boolean keepGoing = true;
-    ArrayList<Move> events = new ArrayList<Move>();
+    ArrayList events = new ArrayList();
 
     public void moveStopped(Move theEvent)
     {
       events.add(theEvent);
     }
 
-    
+
 	public void run()
     {
       while (keepGoing)
       {
         while(!events.isEmpty())
         {
-          if(debug) System.out.println("Updater move stop "+events.get(0).getMoveType());
+          if(debug) System.out.println("Updater move stop "+(Move)(events.get(0)).getMoveType());
           busy = true;
 
-          particles.applyMove(events.get(0));      
+          particles.applyMove((Move) events.get(0));
           if(debug) System.out.println("applied move ");
           events.remove(0);
         }
