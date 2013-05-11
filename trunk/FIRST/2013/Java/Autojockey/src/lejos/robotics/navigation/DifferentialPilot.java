@@ -6,6 +6,7 @@ import lejos.robotics.RegulatedMotorListener;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
  * DO NOT EDIT THE VERSION IN pccomms AS IT WILL BE OVERWRITTEN WHEN THE PROJECT IS BUILT.
@@ -60,11 +61,11 @@ import java.util.ArrayList;
  * pilot.stop();
  * </pre></code>
  * </p>
- * 
+ *
  * Note: A DifferentialPilot robot can simulate a SteeringPilot robot by calling
  * DifferentialPilot.setMinRadius() and setting the value to something greater
  * than zero (perhaps 15 cm).
- * 
+ *
  **/
 public class DifferentialPilot implements RegulatedMotorListener,
 		ArcRotateMoveController
@@ -73,7 +74,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * Allocates a DifferentialPilot object, and sets the physical parameters of
 	 * the NXT robot.<br>
 	 * Assumes Motor.forward() causes the robot to move forward.
-	 * 
+	 *
 	 * @param wheelDiameter
 	 *            Diameter of the tire, in any convenient units (diameter in mm
 	 *            is usually printed on the tire).
@@ -95,7 +96,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	/**
 	 * Allocates a DifferentialPilot object, and sets the physical parameters of
 	 * the NXT robot.<br>
-	 * 
+	 *
 	 * @param wheelDiameter
 	 *            Diameter of the tire, in any convenient units (diameter in mm
 	 *            is usually printed on the tire).
@@ -121,7 +122,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	/**
 	 * Allocates a DifferentialPilot object, and sets the physical parameters of
 	 * the NXT robot.<br>
-	 * 
+	 *
 	 * @param leftWheelDiameter
 	 *            Diameter of the left wheel, in any convenient units (diameter
 	 *            in mm is usually printed on the tire).
@@ -174,10 +175,10 @@ public class DifferentialPilot implements RegulatedMotorListener,
 		setAcceleration((int) (_robotTravelSpeed * 4));
 	}
 
-	
+
 	/**
 	 * Returns the tachoCount of the left motor
-	 * 
+	 *
 	 * @return tachoCount of left motor. Positive value means motor has moved
 	 *         the robot forward.
 	 */
@@ -188,7 +189,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 
 	/**
 	 * Returns the tachoCount of the right motor
-	 * 
+	 *
 	 * @return tachoCount of the right motor. Positive value means motor has
 	 *         moved the robot forward.
 	 */
@@ -208,7 +209,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 
 	/**
 	 * set travel speed in wheel diameter units per second
-	 * 
+	 *
 	 * @param travelSpeed
 	 *            : speed in distance (wheel diameter)units/sec
 	 */
@@ -237,7 +238,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * Sets the normal acceleration of the robot in distance/second/second where
 	 * distance is in the units of wheel diameter. The default value is 4 times
 	 * the maximum travel speed.
-	 * 
+	 *
 	 * @param acceleration
 	 */
 	public void setAcceleration(int acceleration)
@@ -248,7 +249,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 
 	/**
 	 * helper method for setAcceleration and quickStop
-	 * 
+	 *
 	 * @param acceleration
 	 */
 	private void setMotorAccel(int acceleration)
@@ -266,7 +267,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 
 	/**
 	 * sets the rotation speed of the vehicle, degrees per second
-	 * 
+	 *
 	 * @param rotateSpeed
 	 */
 	public void setRotateSpeed(double rotateSpeed)
@@ -398,7 +399,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * reached. Wheels turn in opposite directions producing a zero radius turn.<br>
 	 * Note: Requires correct values for wheel diameter and track width. calls
 	 * rotate(angle,false)
-	 * 
+	 *
 	 * @param angle
 	 *            The wanted angle of rotation in degrees. Positive angle rotate
 	 *            left (anti-clockwise), negative right.
@@ -413,7 +414,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * reached. Wheels turn in opposite directions producing a zero radius turn.<br>
 	 * Note: Requires correct values for wheel diameter and track width. Side
 	 * effect: inform listeners
-	 * 
+	 *
 	 * @param angle
 	 *            The wanted angle of rotation in degrees. Positive angle rotate
 	 *            left (anti-clockwise), negative right.
@@ -425,7 +426,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 		_type = Move.MoveType.ROTATE;
 		_distance = 0;
 		_angle = angle;
-		
+
 		setMotorAccel(_acceleration);
 		movementStart();
 		setSpeed(Math.round(_robotRotateSpeed * _leftTurnRatio),
@@ -450,7 +451,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 		_right.stop(true);
 		waitComplete();
 		movementStop();
-		setMotorAccel(_acceleration); 
+		setMotorAccel(_acceleration);
 
 	}
 
@@ -470,7 +471,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * A positive distance causes forward motion, a negative distance moves
 	 * backward. If a drift correction has been specified in the constructor it
 	 * will be applied to the left motor. calls travel(distance, false)
-	 * 
+	 *
 	 * @param distance
 	 *            The distance to move. Unit of measure for distance must be
 	 *            same as wheelDiameter and trackWidth.
@@ -485,7 +486,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * A positive distance causes forward motion, a negative distance moves
 	 * backward. If a drift correction has been specified in the constructor it
 	 * will be applied to the left motor.
-	 * 
+	 *
 	 * @param distance
 	 *            The distance to move. Unit of measure for distance must be
 	 *            same as wheelDiameter and trackWidth.
@@ -497,7 +498,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 		_type = Move.MoveType.TRAVEL;
 		_distance = distance;
 		_angle = 0;
-		setMotorAccel(_acceleration); 
+		setMotorAccel(_acceleration);
         _leftDirection = 1;
         _rightDirection = 1;
         if(distance < 0 )
@@ -505,7 +506,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
         	_leftDirection = -1;
         	_rightDirection = -1;
         }
-        
+
 		if (distance == Double.POSITIVE_INFINITY)
 		{
 			forward();
@@ -623,7 +624,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * Calculates the turn rate corresponding to the turn radius; <br>
 	 * use as the parameter for steer() negative argument means center of turn
 	 * is on right, so angle of turn is negative
-	 * 
+	 *
 	 * @param radius
 	 * @return turnRate to be used in steer()
 	 */
@@ -648,7 +649,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	/**
 	 * Returns the radius of the turn made by steer(turnRate) Used in for
 	 * planned distance at start of arc and steer moves.
-	 * 
+	 *
 	 * @param turnRate
 	 * @return radius of the turn.
 	 */
@@ -694,7 +695,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * <p>
 	 * Note: If you have specified a drift correction in the constructor it will
 	 * not be applied in this method.
-	 * 
+	 *
 	 * @param turnRate
 	 *            If positive, the left side of the robot is on the inside of
 	 *            the turn. If negative, the left side is on the outside.
@@ -733,7 +734,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * Starts the robot moving backward along a curved path. This method is
 	 * essentially the same as {@link #steer(double)} except that the robot
 	 * moves backward instead of forward.
-	 * 
+	 *
 	 * @param turnRate
 	 */
 	public void steerBackward(final double turnRate)
@@ -800,11 +801,11 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * a positive angle (increase in heading) means the robot moves backwards,
 	 * while a negative angle means the robot moves forward to decrease its
 	 * heading.
-	 * 
+	 *
 	 * <p>
 	 * Note: If you have specified a drift correction in the constructor it will
 	 * not be applied in this method.
-	 * 
+	 *
 	 * @param turnRate
 	 *            If positive, the left side of the robot is on the inside of
 	 *            the turn. If negative, the left side is on the outside.
@@ -827,7 +828,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * This makes it useful for line following applications. This method has the
 	 * ability to return immediately by using the <code>immediateReturn</code>
 	 * parameter set to <b>true</b>.
-	 * 
+	 *
 	 * <p>
 	 * The <code>turnRate</code> specifies the sharpness of the turn. Use values
 	 * between -200 and +200.<br>
@@ -847,7 +848,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * <p>
 	 * Note: If you have specified a drift correction in the constructor it will
 	 * not be applied in this method.
-	 * 
+	 *
 	 * @param turnRate
 	 *            If positive, the left side of the robot is on the inside of
 	 *            the turn. If negative, the left side is on the outside.
@@ -891,12 +892,12 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	/**
 	 * helper method used by steer(float) and steer(float,float,boolean) sets
 	 * _outsideSpeed, _insideSpeed, _steerRatio
-	 *  set motor acceleration to help continuous steer and arc moves 
+	 *  set motor acceleration to help continuous steer and arc moves
 	 * @param turnRate
 	 *            .
 	 */
 	void steerPrep(final double turnRate)
-	{  
+	{
 		double rate = turnRate;
 		if (rate < -200)
 			rate = -200;
@@ -906,7 +907,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 		float outsideDegPerDist = _rightDegPerDistance;
 		byte insideDirection = _leftDirection;
 		byte outsideDirection = _rightDirection;
-        
+
 		if (turnRate < 0)
 		{
 			_inside = _right;
@@ -924,32 +925,32 @@ public class DifferentialPilot implements RegulatedMotorListener,
 		_leftDirection = 1;
 		_rightDirection = 1;
 		_steerRatio = (float) (1 - rate / 100.0);
-		float outsideSpeed  = _robotTravelSpeed * outsideDegPerDist;	
+		float outsideSpeed  = _robotTravelSpeed * outsideDegPerDist;
 		float insideSpeed = _robotTravelSpeed * insideDegPerDist*_steerRatio;
         float inSpeed0 = 0;
         if( _inside.isMoving())inSpeed0 = _inside.getSpeed()*insideDirection;
 		float insideDV = Math.abs(insideSpeed - inSpeed0 ) ;
-		float outSpeed0 = 0;	
+		float outSpeed0 = 0;
 		if(_outside.isMoving()) outSpeed0 = _outside.getSpeed()*outsideDirection;
 		float outsideDV = Math.abs( outsideSpeed  - outSpeed0);
 		_outside.setSpeed((int) outsideSpeed);
-		_inside.setSpeed((int) insideSpeed); 
+		_inside.setSpeed((int) insideSpeed);
 		if(insideDV < outsideDV)
-	    {   
+	    {
 	    	float acc = _acceleration * outsideDegPerDist;
 	    	_outside.setAcceleration((int)acc);
 	    	float ratio = insideDV/outsideDV;
 	    	if(ratio <.1) _inside.setAcceleration((int)acc);
 	    	else _inside.setAcceleration((int)(acc * ratio));
 	    } else
-	    { //outsideDV < insideDV	    	
+	    { //outsideDV < insideDV
 	    	float acc = _acceleration * insideDegPerDist;
 	    	_inside.setAcceleration((int)acc);
 	    	float ratio = outsideDV/insideDV;
 	    	if(ratio <.1) _outside.setAcceleration((int)acc);
-	    	else _outside.setAcceleration((int)(acc * ratio));	
-	    }	
-		if(_steerRatio < 0) 
+	    	else _outside.setAcceleration((int)(acc * ratio));
+	    }
+		if(_steerRatio < 0)
 		{
 			if (_inside == _left) _leftDirection = -1;
 			else _rightDirection = -1;
@@ -959,7 +960,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	/**
 	 * called by RegulatedMotor when a motor rotation is complete calls
 	 * movementStop() after both motors stop;
-	 * 
+	 *
 	 * @param motor
 	 * @param tachoCount
 	 * @param stall
@@ -979,7 +980,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	/**
 	 * MotorListener interface method is called by RegulatedMotor when a motor
 	 * rotation starts.
-	 * 
+	 *
 	 * @param motor
 	 * @param tachoCount
 	 * @param stall
@@ -1001,9 +1002,11 @@ public class DifferentialPilot implements RegulatedMotorListener,
 		if (isMoving())
 			movementStop();
 		reset();
-		for (MoveListener ml : _listeners)
-			ml.moveStarted(new Move(_type, (float) _distance, (float) _angle,
-					_robotTravelSpeed, _robotRotateSpeed, isMoving()), this);
+	    for (Iterator it = _listeners.iterator(); it.hasNext();) {
+		MoveListener ml = (MoveListener) it.next();
+		ml.moveStarted(new Move(_type, (float) _distance, (float) _angle,
+				_robotTravelSpeed, _robotRotateSpeed, isMoving()), this);
+	    }
 	}
 
 	/**
@@ -1012,10 +1015,12 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 */
 	private synchronized void movementStop()
 	{
-		for (MoveListener ml : _listeners)
-			ml.moveStopped(new Move(_type, getMovementIncrement(),
-					getAngleIncrement(), _robotTravelSpeed, _robotRotateSpeed,
-					isMoving()), this);
+	    for (Iterator it = _listeners.iterator(); it.hasNext();) {
+		MoveListener ml = (MoveListener) it.next();
+		ml.moveStopped(new Move(_type, getMovementIncrement(),
+				getAngleIncrement(), _robotTravelSpeed, _robotRotateSpeed,
+				isMoving()), this);
+	    }
 	}
 
 	/**
@@ -1057,7 +1062,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * robot can simulate a SteeringPilot robot by calling
 	 * DifferentialPilot.setMinRadius() and setting the value to something
 	 * greater than zero (example: 15 cm).
-	 * 
+	 *
 	 * @param radius
 	 *            in degrees
 	 */
@@ -1072,7 +1077,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The move distance since it last started moving
 	 */
 	public float getMovementIncrement()
@@ -1083,9 +1088,9 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The angle rotated since rotation began.
-	 * 
+	 *
 	 */
 	public float getAngleIncrement()
 	{
@@ -1105,7 +1110,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 
 	/**
 	 * Get the turn rate for arc and steer commands
-	 * 
+	 *
 	 * @return
 	 */
 	public double getTurnRate()
@@ -1183,7 +1188,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	private final float _rightWheelDiameter;
 	private int _leftTC; // left tacho count
 	private int _rightTC; // right tacho count
-	private ArrayList<MoveListener> _listeners = new ArrayList<MoveListener>();
+	private ArrayList _listeners = new ArrayList();
 	/**
    */
 	protected Move.MoveType _type;
@@ -1208,6 +1213,6 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 * direction of rotation of right motor +1 or -1
 	 */
 	private byte _rightDirection;
-	
+
 
 }

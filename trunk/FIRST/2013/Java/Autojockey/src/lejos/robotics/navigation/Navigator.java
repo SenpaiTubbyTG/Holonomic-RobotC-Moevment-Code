@@ -1,6 +1,7 @@
 package lejos.robotics.navigation;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import lejos.robotics.localization.OdometryPoseProvider;
 import lejos.robotics.localization.PoseProvider;
@@ -30,7 +31,7 @@ public class Navigator implements WaypointListener
 {
 
    /**
-    * Allocates a Navigator object,  using pilot that implements the ArcMoveController interface. 
+    * Allocates a Navigator object,  using pilot that implements the ArcMoveController interface.
     * @param pilot
     */
    public Navigator(MoveController pilot)
@@ -40,8 +41,8 @@ public class Navigator implements WaypointListener
 
    /**
     * Allocates a Navigator object using a pilot and a custom poseProvider, rather than the default
-    * OdometryPoseProvider.  
-    * @param pilot  the pilot 
+    * OdometryPoseProvider.
+    * @param pilot  the pilot
     * @param poseProvider  the custom PoseProvider
     */
    public Navigator(MoveController pilot, PoseProvider poseProvider)
@@ -67,7 +68,7 @@ public class Navigator implements WaypointListener
    }
 
    /**
-    * Adds a NavigationListener that is informed when a the robot stops or 
+    * Adds a NavigationListener that is informed when a the robot stops or
     * reaches a WayPoint.
     * @param listener  the NavitationListener
     */
@@ -109,20 +110,20 @@ public class Navigator implements WaypointListener
       _singleStep = false;
       _sequenceNr = 0;
    }
-   
+
    /**
     * Clears the current path.
-    * If the robot is moving when this method is called, it stops; 
+    * If the robot is moving when this method is called, it stops;
     */
    public void clearPath() {
 	   if (_keepGoing)
 	         stop();
 	   _path.clear();
    }
-   
+
    /**
     * Gets the current path
-    * 
+    *
     * @return the path
     */
    public Path getPath() {
@@ -130,7 +131,7 @@ public class Navigator implements WaypointListener
    }
 
    /**
-    * Starts the robot traversing the path. This method is non-blocking. 
+    * Starts the robot traversing the path. This method is non-blocking.
     * @param path  to be followed.
     */
    public void followPath(Path path)
@@ -140,11 +141,11 @@ public class Navigator implements WaypointListener
    }
 
    /**
-    * Starts the robot traversing the current path. 
-    * This method is non-blocking; 
+    * Starts the robot traversing the current path.
+    * This method is non-blocking;
     */
    public void followPath()
-   {  
+   {
       if (_path.isEmpty())
          return;
       _interrupted = false;
@@ -155,7 +156,7 @@ public class Navigator implements WaypointListener
    /**
     * Controls whether the robot stops at each Waypoint; applies to the current path only.
     * The robot will move to the next Waypoint if you call {@link #followPath()}.
-    * @param yes  if <code>true </code>, the robot stops at each Waypoint.  
+    * @param yes  if <code>true </code>, the robot stops at each Waypoint.
     */
    public void singleStep(boolean yes)
    {
@@ -165,7 +166,7 @@ public class Navigator implements WaypointListener
    /**
     * Starts the robot moving toward the destination.
     * If no path exists, a new one is created consisting of the destination,
-    * otherwise the destination is added to the path.  This method is non-blocking, and is 
+    * otherwise the destination is added to the path.  This method is non-blocking, and is
     * equivalent to <code>{@linkplain #addWaypoint(Waypoint) addWaypoint(destination);}
     * {@linkplain #followPath() followPath();}</code>
     * @param destination  the waypoint to be reached
@@ -174,15 +175,15 @@ public class Navigator implements WaypointListener
    {
       addWaypoint(destination);
       followPath();
- 
+
    }
 
    /**
-    * Starts the  moving toward the destination Waypoint created from 
-    * the parameters. 
-    * If no path exists, a new one is created,  
-    * otherwise the new Waypoint is added to the path.  This method is non-blocking, and is 
-    * equivalent to 
+    * Starts the  moving toward the destination Waypoint created from
+    * the parameters.
+    * If no path exists, a new one is created,
+    * otherwise the new Waypoint is added to the path.  This method is non-blocking, and is
+    * equivalent to
      <code>add(float x, float y);   followPath(); </code>
     * @param x  coordinate of the destination
     * @param y  coordinate of the destination
@@ -193,15 +194,15 @@ public class Navigator implements WaypointListener
    }
 
    /**
-    * Starts the  moving toward the destination Waypoint created from 
-    * the parameters. 
-     * If no path exists, a new one is created,  
-    * otherwise the new Waypoint is added to the path.  This method is non-blocking, and is 
-    * equivalent to 
+    * Starts the  moving toward the destination Waypoint created from
+    * the parameters.
+     * If no path exists, a new one is created,
+    * otherwise the new Waypoint is added to the path.  This method is non-blocking, and is
+    * equivalent to
      <code>add(float x, float y);   followPath(); </code>
     * @param x coordinate of the destination
     * @param y coordinate of th destination
-    * @param heading  desired robot heading at arrival 
+    * @param heading  desired robot heading at arrival
     */
    public void goTo(float x, float y, float heading)
    {
@@ -209,7 +210,7 @@ public class Navigator implements WaypointListener
    }
 
    /**
-    * Rotates the robot to a new absolute heading. For example, rotateTo(0) will line the robot with the 
+    * Rotates the robot to a new absolute heading. For example, rotateTo(0) will line the robot with the
     * x-axis, while rotateTo(90) lines it with the y-axis. If the robot is currently on the move to a
     * coordinate, this method will not attempt to rotate and it will return false.
     * @param angle The absolute heading to rotate the robot to. Value is 0 to 360.
@@ -224,13 +225,13 @@ public class Navigator implements WaypointListener
 	   if(_pilot instanceof RotateMoveController)
 		   ((RotateMoveController) _pilot).rotate(diff);
 	   return true;
-	   
+
    }
-   
+
    /**
-    * Adds a  Waypoint  to the end of the path. 
+    * Adds a  Waypoint  to the end of the path.
     * Call {@link #followPath()} to start moving the along the current path.
-    * 
+    *
     * @param aWaypoint  to be added
     */
    public void addWaypoint(Waypoint aWaypoint)
@@ -246,7 +247,7 @@ public class Navigator implements WaypointListener
    /**
     * Constructs an new Waypoint from the parameters and adds it to the end of the path.
     * Call {@link #followPath()} to start moving the along the current path.
-    * 
+    *
     * @param x coordinate of the waypoint
     * @param y coordinate of the waypoint
     */
@@ -256,9 +257,9 @@ public class Navigator implements WaypointListener
    }
 
    /**
-    * Constructs an new Waypoint from the parameters and adds it to the end of the path. 
+    * Constructs an new Waypoint from the parameters and adds it to the end of the path.
     * Call {@link #followPath()} to start moving the along the current path.
-    * 
+    *
     * @param x coordinate of the waypoint
     * @param y coordinate of the waypoint
     * @param heading the heading of the robot when it reaches the waypoint
@@ -269,7 +270,7 @@ public class Navigator implements WaypointListener
    }
 
    /**
-    * Stops the robot. 
+    * Stops the robot.
     * The robot will resume its path traversal if you call {@link #followPath()}.
     */
    public void stop()
@@ -288,11 +289,11 @@ public class Navigator implements WaypointListener
    {
       if (_path.size() <= 0)
          return null;
-      return _path.get(0);
+      return (Waypoint) _path.get(0);
    }
 
-   /** 
-    * Returns <code> true </code> if the the final waypoint has been reached 
+   /**
+    * Returns <code> true </code> if the the final waypoint has been reached
     * @return  <code> true </code>  if the path is completed
     */
    public boolean pathCompleted()
@@ -303,7 +304,7 @@ public class Navigator implements WaypointListener
    /**
     * Waits for the robot  to stop for any reason ;
     * returns <code>true</code> if the robot stopped at the final Waypoint of
-    *the  path. 
+    *the  path.
     * @return   <code> true </code>  if the path is completed
     */
    public boolean waitForStop()
@@ -321,9 +322,9 @@ public class Navigator implements WaypointListener
    {
       return _keepGoing;
    }
-   
+
    public void pathGenerated() {
-		// Currently does nothing	
+		// Currently does nothing
 	}
 
    private void callListeners()
@@ -331,16 +332,17 @@ public class Navigator implements WaypointListener
       if (_listeners != null)
       {
          _pose = poseProvider.getPose();
-//            RConsole.println("listener called interrupt"+_interrupted +" done "+_path.isEmpty()+" "+_pose);
-         for (NavigationListener l : _listeners)
-            if (_interrupted)
-               l.pathInterrupted(_destination, _pose, _sequenceNr);
-            else
-            {
-               l.atWaypoint(_destination, _pose, _sequenceNr);
-               if (_path.isEmpty())
-                  l.pathComplete(_destination, _pose, _sequenceNr);
-            }
+	  for (Iterator it = _listeners.iterator(); it.hasNext();) {
+	      NavigationListener l = (NavigationListener) it.next();
+	      if (_interrupted)
+		 l.pathInterrupted(_destination, _pose, _sequenceNr);
+	      else
+	      {
+		 l.atWaypoint(_destination, _pose, _sequenceNr);
+		 if (_path.isEmpty())
+		    l.pathComplete(_destination, _pose, _sequenceNr);
+	      }
+	  }
       }
    }
 
@@ -351,43 +353,43 @@ public class Navigator implements WaypointListener
   {
 	boolean more = true;
 
-    
+
 	public void run()
-    { 
+    {
       while (more)
       {
         while (_keepGoing && _path != null && ! _path.isEmpty())
-        { 
-          _destination = _path.get(0);
+        {
+          _destination = (Waypoint) _path.get(0);
           _pose = poseProvider.getPose();
-//          RConsole.println("NAV loop begin "+_destination);         
+//          RConsole.println("NAV loop begin "+_destination);
           float destinationRelativeBearing = _pose.relativeBearing(_destination);
           if(!_keepGoing) break;
           if(_radius == 0)  // differential pilot used
-          {  
-            ((RotateMoveController) _pilot).rotate(destinationRelativeBearing,true); 
-            while (_pilot.isMoving() && _keepGoing)Thread.yield(); 
+          {
+            ((RotateMoveController) _pilot).rotate(destinationRelativeBearing,true);
+            while (_pilot.isMoving() && _keepGoing)Thread.yield();
             if(!_keepGoing) break;
           }
           else // begin arc direction change
           {
   			// 1. Get shortest path:
   			Move [] moves;
-  			double minRadius = (_pilot instanceof ArcMoveController ? 
+  			double minRadius = (_pilot instanceof ArcMoveController ?
                        ((ArcMoveController) _pilot).getMinRadius() : 0);
-  			
+
   			if (_destination.headingRequired)
   			{
-  				moves = ArcAlgorithms.getBestPath(poseProvider.getPose(), 
+  				moves = ArcAlgorithms.getBestPath(poseProvider.getPose(),
                             (float)minRadius, _destination.getPose(),(float)minRadius);
-  			} 
+  			}
   			else
   			{
   				moves = ArcAlgorithms.getBestPath(poseProvider.getPose(),
-                            _destination, (float)minRadius);  				
+                            _destination, (float)minRadius);
   			}
   			// 2. Drive the path
-  			for(int i=0;i<moves.length;i++) 
+  			for(int i=0;i<moves.length;i++)
   			{
   				((ArcMoveController) _pilot).travelArc(moves[i].getArcRadius(),
                             moves[i].getDistanceTraveled());
@@ -396,32 +398,32 @@ public class Navigator implements WaypointListener
           }  // Arc direction change complete
           _pose = poseProvider.getPose();
           if(!_keepGoing) break;
-         
+
           if (_radius == 0) //differential pilot is used
           {
             float distance = _pose.distanceTo(_destination);
             _pilot.travel(distance, true);
-            while (_pilot.isMoving() && _keepGoing)Thread.yield(); 
+            while (_pilot.isMoving() && _keepGoing)Thread.yield();
              _pose = poseProvider.getPose();
             if(!_keepGoing) break;
-            
-            if (_destination.headingRequired) 
+
+            if (_destination.headingRequired)
             {
             _pose = poseProvider.getPose();
             	_destination.getHeading();
             	((RotateMoveController) _pilot).rotate(_destination.getHeading()
                        - _pose.getHeading());
             }
-          }         
-          
-          if (_keepGoing && ! _path.isEmpty()) 
-          { 
+          }
+
+          if (_keepGoing && ! _path.isEmpty())
+          {
 //        	  RConsole.println("NAV keep going "+_keepGoing+" pathlength  "+_path.size());
-             if(!_interrupted)  //presumably at waypoint     
-             { 
+             if(!_interrupted)  //presumably at waypoint
+             {
 //            	 RConsole.println("NAV at waypoint??");
                 _path.remove(0);
-                _sequenceNr++; 
+                _sequenceNr++;
              }
              callListeners();
              _keepGoing = ! _path.isEmpty();
@@ -429,9 +431,9 @@ public class Navigator implements WaypointListener
 
 //             callListeners();  *** if called here,  sets _keepGoing = true - very strange
 
-             
+
           }
-   
+
           Thread.yield();
         } // end while keepGoing
         Thread.yield();
@@ -448,10 +450,10 @@ public class Navigator implements WaypointListener
    */
   private boolean _keepGoing = false;
   /**
-   * if true, causes Nav.run to break whenever  waypoint is reached. 
+   * if true, causes Nav.run to break whenever  waypoint is reached.
    */
   private boolean _singleStep = false;
-  /** 
+  /**
    * set by Stop,  reset by followPath() , goTo()
    * used by  Nav.run(), callListeners
    */
@@ -462,6 +464,6 @@ public class Navigator implements WaypointListener
   private Waypoint _destination;
   private double _radius;
   private int _sequenceNr;
-  private ArrayList<NavigationListener> _listeners = new ArrayList<NavigationListener>();
-  
+  private ArrayList _listeners = new ArrayList();
+
 }

@@ -11,7 +11,7 @@ import lejos.util.Delay;
 
 /**
  * A Pilot that keeps track of direction using a DirectionFinder.
- *   This class will disappear in NXJ version 1.0. Compass should be added to a PoseProvider. 
+ *   This class will disappear in NXJ version 1.0. Compass should be added to a PoseProvider.
  * @see lejos.robotics.localization.PoseProvider#getPose()
  */
 // TODO: Note  message above, I'm not sure PoseProvider is exactly right place to point users to yet.
@@ -29,7 +29,7 @@ public class CompassPilot extends DifferentialPilot
   protected float _distance; // set by travel()  used by r egulator to stop
   protected byte _direction;// direction of travel = sign of _distance
   protected float _heading0 = 0;// heading when rotate immediate is called
- 
+
 
   /**
    *returns returns  true if the robot is travelling for a specific distance;
@@ -289,10 +289,10 @@ public class CompassPilot extends DifferentialPilot
           // weights should be based on  variance of compass error and  tacho count error
             float incr = getAngleIncrement();
             _estimatedHeading += (incr - incr0); //change in heading from tacho counts
-            incr0 =  incr;           
+            incr0 =  incr;
              _estimatedHeading = normalize( 0.5f *normalize(compass.getDegreesCartesian())  + 0.5f*_estimatedHeading);
             error = normalize( _estimatedHeading - _heading);
-           toGo =(_distance - getMovementIncrement());                        
+           toGo =(_distance - getMovementIncrement());
             if(Math.abs(error - e0) > 2)  //only steer if large change in error > 2 deg
             {
               steerPrep(gain * error);
@@ -309,7 +309,7 @@ public class CompassPilot extends DifferentialPilot
           while(_left.isMoving())Thread.yield();
           _traveling = false;
         }
-        
+
       }
     }
   }
