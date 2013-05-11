@@ -1,7 +1,5 @@
 package java.lang;
 
-import lejos.nxt.VM;
-
 /**
  * All classes extend this one, implicitly.
  */

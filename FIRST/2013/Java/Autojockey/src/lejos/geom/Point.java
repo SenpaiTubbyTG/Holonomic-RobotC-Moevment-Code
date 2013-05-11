@@ -6,7 +6,7 @@ import java.awt.geom.*;
  * Point with float co-ordinates for use in navigation.
  * This class includes methods allow it to behave as a vector in 2 dimensional
  * vector space. It includes the standard  vector  arithmetic operatins of addition,  * subtraction, scalar multiplication, and inner  product.
- * 
+ *
  * @author Lawrie Griffiths ,  Roger Glassey
  *
  */
@@ -21,7 +21,7 @@ public class Point extends Point2D.Float {
 	}
 /**
       * Returns a point ad distance 1 from the origin and an angle <code>radans</code> to the x-axis
-      * @param radians 
+      * @param radians
       */
     public Point(float radians)
     {
@@ -60,14 +60,14 @@ public class Point extends Point2D.Float {
         p.y = y;
         return p;
     }
-    
+
     /**
      * returns a clone of itself
      * @return  clone of this point
      */
 
-    
-    public Point clone()
+    //CAST TO POINT
+    public Object clone()
     {
         return new Point(x, y);
     }
@@ -80,7 +80,7 @@ public class Point extends Point2D.Float {
     {
         return new Point(this.x + other.x, this.y + other.y);
     }
-    
+
      /**
      *  Vector addition; add other to <code>this</code>
      * @param other is added to <code>this</code>
@@ -94,7 +94,7 @@ public class Point extends Point2D.Float {
     }
 /**
      * Makes <code>this</code> a copy of the other point
-     * @param other 
+     * @param other
      */
     public void moveTo(Point other)
     {
@@ -111,7 +111,7 @@ public class Point extends Point2D.Float {
         return new Point(this.x - other.x, this.y - other.y);
     }
 /**
-     * 
+     *
      * Vector subtraction
      * @param length of a copy of <code>this</code>
      * @return a new vector, obtained b subtracting a scaled version of this point
@@ -140,7 +140,7 @@ public class Point extends Point2D.Float {
  /**
      * same as multiply(-1);
      * @return  this pointing in the opposite direction
-     */  
+     */
     public Point reverse()
     {
         return this.multiply(-1.0F);
@@ -148,22 +148,22 @@ public class Point extends Point2D.Float {
 
  /**
      * Finds the orthogonal projection of this point onto the line.
-     * The projection may lie on an extension of the line 
+     * The projection may lie on an extension of the line
      * @param line onto which the projection is made
      * @return  the projection
      */
 
     public Point projectOn(Line line)
     {
-       Point origin = line.getP1();
-       Point basis = line.getP2().subtract(origin);
+       Point origin = (Point)line.getP1();
+       Point basis = ((Point)line.getP2()).subtract(origin);
        Point xx = this.subtract(origin);
        float lamda = xx.dotProduct(basis)/basis.dotProduct(basis);
        Point projection = basis.multiply(lamda);
        projection = projection.add(origin);
        return projection;
     }
-    
+
     /**
      * returns the angle in radians of this point from the origin.
      * The X- axis ie at angle 0.
@@ -192,7 +192,7 @@ public class Point extends Point2D.Float {
         return new Point(y, -x);
     }
 
-   
+
 /**
      * vector subtraction
      * @param other is subtracted from <code>this</code>
@@ -262,7 +262,7 @@ public class Point extends Point2D.Float {
      * Returns the inner dot product.
      * @return dot product of this with other
      */
- 
+
     public float dotProduct(Point other)
     {
         return this.x * other.x + this.y * other.y;
