@@ -90,12 +90,12 @@ public class OdometryPoseProvider implements PoseProvider, MoveListener
     double dx = 0, dy = 0;
     double headingRad = (Math.toRadians(heading));
 
-    if (event.getMoveType() == Move.MoveType.TRAVEL   || Math.abs(angle)<0.2f)
+    if (event.getMoveType() == Move.MoveType_TRAVEL   || Math.abs(angle)<0.2f)
     {
       dx = (distance) * (float) Math.cos(headingRad);
       dy = (distance) * (float) Math.sin(headingRad);
     }
-    else if(event.getMoveType() == Move.MoveType.ARC)
+    else if(event.getMoveType() == Move.MoveType_ARC)
     {
       double turnRad = Math.toRadians(angle);
       double radius = distance / turnRad;

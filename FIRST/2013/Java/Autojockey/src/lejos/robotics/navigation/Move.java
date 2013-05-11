@@ -3,6 +3,7 @@ package lejos.robotics.navigation;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Enumeration;
 
 import lejos.robotics.Transmittable;
 
@@ -22,9 +23,13 @@ public class Move implements Transmittable {
 	 * The type of  movement made in sufficient detail to allow errors
 	 * in the movement to be modeled.
 	 */
-	public enum MoveType {TRAVEL, ROTATE, ARC, STOP}
+        public static final int MoveType_TRAVEL = 0;
+        public static final int MoveType_ROTATE = 1;
+        public static final int MoveType_ARC = 2;
+        public static final int MoveType_STOP = 3;
+//	public enum MoveType {TRAVEL, ROTATE, ARC, STOP}
 	private float distanceTraveled, angleTurned;
-	private MoveType moveType;
+	private int moveType;
 	private float arcRadius = Float.POSITIVE_INFINITY;
 	private boolean isMoving;
 	private long timeStamp;
@@ -65,7 +70,7 @@ public class Move implements Transmittable {
    * @param rotateSpeed the rotate speed
    * @param isMoving true iff the movement was created while the robot was moving
    */
-  public Move(MoveType type, float distance, float angle, float travelSpeed, float rotateSpeed, boolean isMoving)
+  public Move(int type, float distance, float angle, float travelSpeed, float rotateSpeed, boolean isMoving)
   {
     this.moveType = type;
     this.distanceTraveled = distance;
@@ -88,7 +93,7 @@ public class Move implements Transmittable {
    * @param angle the angle turned in degrees
    * @param isMoving true iff the movement was created while the robot was moving
    */
-  public Move(MoveType type, float distance, float angle, boolean isMoving)
+  public Move(int type, float distance, float angle, boolean isMoving)
   {
 	  this(type,distance,angle,0f,0f,isMoving);
   }
@@ -100,7 +105,7 @@ public class Move implements Transmittable {
    * @param angle
    * @param isMoving
    */
-  public void setValues(MoveType type, float distance, float angle,boolean isMoving)
+  public void setValues(int type, float distance, float angle,boolean isMoving)
   {
     this.moveType = Move.calcMoveType(distance, angle);
 	this.distanceTraveled = distance;
@@ -122,11 +127,11 @@ public class Move implements Transmittable {
 	 * @param angle
 	 * @return
 	 */
-	private static MoveType calcMoveType(float distance, float angle) {
-		if(distance == 0 & angle == 0) return MoveType.STOP;
-		else if(distance != 0 & angle == 0) return MoveType.TRAVEL;
-		else if(distance == 0 & angle != 0) return MoveType.ROTATE;
-		else return MoveType.ARC;
+	private static int calcMoveType(float distance, float angle) {
+		if(distance == 0 & angle == 0) return MoveType_STOP;
+		else if(distance != 0 & angle == 0) return MoveType_TRAVEL;
+		else if(distance == 0 & angle != 0) return MoveType_ROTATE;
+		else return MoveType_ARC;
 	}
 	
 	/**
@@ -183,7 +188,7 @@ public class Move implements Transmittable {
 	 * 
 	 * @return the movement type
 	 */
-	public MoveType getMoveType() {
+	public int getMoveType() {
 		return moveType;
 	}
 	
@@ -242,7 +247,7 @@ public class Move implements Transmittable {
 	}
 
 	public void dumpObject(DataOutputStream dos) throws IOException {
-		dos.writeByte(moveType.ordinal());
+		dos.writeByte(moveType);
 		dos.writeFloat(travelSpeed);
 		dos.writeFloat(rotateSpeed);
 		dos.writeFloat(distanceTraveled);
@@ -252,7 +257,7 @@ public class Move implements Transmittable {
 	}
 
 	public void loadObject(DataInputStream dis) throws IOException {
-		moveType = MoveType.values()[dis.readByte()];
+                moveType = dis.readByte();
 		travelSpeed = dis.readFloat();
 		rotateSpeed = dis.readFloat();
 		distanceTraveled = dis.readFloat();
@@ -262,17 +267,21 @@ public class Move implements Transmittable {
 	
 	
 	public String toString() {
-		String s = moveType.name() + " ";
+                
+		String s = "";
 		switch(moveType) {
-		case ROTATE: 
-			s += angleTurned + " at " + rotateSpeed;
+		case MoveType_ROTATE: 
+			s += "Rotate" + angleTurned + " at " + rotateSpeed;
 			break;
-		case TRAVEL:
-			s += distanceTraveled + " at " + travelSpeed;
+		case MoveType_TRAVEL:
+			s += "Travel" + distanceTraveled + " at " + travelSpeed;
 			break;
-		case ARC:
-			s += " of " + arcRadius + " for " + angleTurned + "degrees  at " + travelSpeed;
+		case MoveType_ARC:
+			s += "Arc" + " of " + arcRadius + " for " + angleTurned + "degrees  at " + travelSpeed;
 			break;
+                case MoveType_STOP:
+                        s += "Stop";
+                        break;
 		}
 		return s;
 	}

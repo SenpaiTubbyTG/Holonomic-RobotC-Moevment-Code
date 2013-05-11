@@ -160,7 +160,7 @@ public class CompassPilot extends DifferentialPilot
   public void travel(float distance, boolean immediateReturn)
   {
     movementStart();
-    _type = Move.MoveType.TRAVEL;
+    _type = Move.MoveType_TRAVEL;
     super.travel(distance,true);
     _distance = distance;
      _direction = 1;
@@ -196,7 +196,7 @@ public class CompassPilot extends DifferentialPilot
   public void  rotate(float angle, boolean immediateReturn)
   {
     movementStart();
-    _type = Move.MoveType.ROTATE;
+    _type = Move.MoveType_ROTATE;
     float heading0 = getCompassHeading();
     super.rotate(angle, immediateReturn); // takes care of movement start
     if (immediateReturn) return;

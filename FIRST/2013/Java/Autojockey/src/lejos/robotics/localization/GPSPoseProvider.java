@@ -146,7 +146,7 @@ public class GPSPoseProvider implements PoseProvider {
 		Coordinates from;
 		
 		public void moveStarted(Move event, MoveProvider mp) {
-			if(event.getMoveType() == Move.MoveType.TRAVEL)
+			if(event.getMoveType() == Move.MoveType_TRAVEL)
 				try {
 					from = lp.getLocation(-1).getQualifiedCoordinates();
 				} catch (LocationException e) {
@@ -162,7 +162,7 @@ public class GPSPoseProvider implements PoseProvider {
 			while(heading >= 360) heading -= 360;
 			while(heading < 0) heading += 360;
 			
-			if(event.getMoveType() == Move.MoveType.TRAVEL)
+			if(event.getMoveType() == Move.MoveType_TRAVEL)
 				try {
 					Coordinates to = lp.getLocation(-1).getQualifiedCoordinates();
 					// TODO: Only update if travel is certain distance? Such as some factor of QualifiedCoordinates.getHorizontalAccuracy()

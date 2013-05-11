@@ -545,7 +545,9 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
       {
         while(!events.isEmpty())
         {
-          if(debug) System.out.println("Updater move stop "+(Move)(events.get(0)).getMoveType());
+          if(debug) {
+              System.out.println("Updater move stop "+((Move) events.get(0)).getMoveType());
+          }
           busy = true;
 
           particles.applyMove((Move) events.get(0));

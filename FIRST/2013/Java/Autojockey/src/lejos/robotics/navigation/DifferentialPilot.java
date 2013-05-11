@@ -299,7 +299,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 */
 	public void forward()
 	{
-		_type = Move.MoveType.TRAVEL;
+		_type = Move.MoveType_TRAVEL;
 		_angle = 0;
 		_distance = Double.POSITIVE_INFINITY;
 		_leftDirection = 1;
@@ -321,7 +321,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 */
 	public void backward()
 	{
-		_type = Move.MoveType.TRAVEL;
+		_type = Move.MoveType_TRAVEL;
 		_distance = Double.NEGATIVE_INFINITY;
 		_angle = 0;
 		_leftDirection = -1;
@@ -360,7 +360,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 
 	public void rotateLeft()
 	{
-		_type = Move.MoveType.ROTATE;
+		_type = Move.MoveType_ROTATE;
 		_distance = 0;
 		_angle = Double.POSITIVE_INFINITY;
 		setMotorAccel(_acceleration);
@@ -378,7 +378,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 
 	public void rotateRight()
 	{
-		_type = Move.MoveType.ROTATE;
+		_type = Move.MoveType_ROTATE;
 		_distance = 0;
 		_angle = Double.NEGATIVE_INFINITY;
 		movementStart();
@@ -423,7 +423,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 */
 	public void rotate(final double angle, final boolean immediateReturn)
 	{
-		_type = Move.MoveType.ROTATE;
+		_type = Move.MoveType_ROTATE;
 		_distance = 0;
 		_angle = angle;
 
@@ -495,7 +495,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 */
 	public void travel(final double distance, final boolean immediateReturn)
 	{
-		_type = Move.MoveType.TRAVEL;
+		_type = Move.MoveType_TRAVEL;
 		_distance = distance;
 		_angle = 0;
 		setMotorAccel(_acceleration);
@@ -529,7 +529,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 
 	public void arcForward(final double radius)
 	{
-		_type = Move.MoveType.ARC;
+		_type = Move.MoveType_ARC;
 		if (radius > 0)
 		{
 			_angle = Double.POSITIVE_INFINITY;
@@ -554,7 +554,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 
 	public void arcBackward(final double radius)
 	{
-		_type = Move.MoveType.ARC;
+		_type = Move.MoveType_ARC;
 		if (radius < 0)
 		{
 			_angle = Double.POSITIVE_INFINITY;
@@ -702,7 +702,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	 */
 	public void steer(double turnRate)
 	{
-		_type = Move.MoveType.ARC;
+		_type = Move.MoveType_ARC;
 		if (turnRate > 0)
 		{
 			_angle = Double.POSITIVE_INFINITY;
@@ -752,7 +752,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 			_outside.backward();
 		else
 			_outside.forward();
-		_type = Move.MoveType.ARC;
+		_type = Move.MoveType_ARC;
 		if (turnRate < 0)
 		{
 			_angle = Double.POSITIVE_INFINITY;
@@ -871,7 +871,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 			forward();
 			return;
 		}
-		_type = Move.MoveType.ARC;
+		_type = Move.MoveType_ARC;
 		_angle = angle;
 		_distance = 2 * Math.toRadians(angle) * radius(turnRate);
 		movementStart();
@@ -1191,7 +1191,7 @@ public class DifferentialPilot implements RegulatedMotorListener,
 	private ArrayList _listeners = new ArrayList();
 	/**
    */
-	protected Move.MoveType _type;
+	protected int _type;
 	/**
 	 * Distance about to travel - used by movementStarted
 	 */
