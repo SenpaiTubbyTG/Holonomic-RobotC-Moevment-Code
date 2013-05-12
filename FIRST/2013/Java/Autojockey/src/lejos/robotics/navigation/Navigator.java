@@ -54,7 +54,7 @@ public class Navigator implements WaypointListener
          this.poseProvider = poseProvider;
       _radius = (_pilot instanceof ArcMoveController ? ((ArcMoveController) _pilot).getMinRadius() : 0);
       _nav = new Nav();
-      _nav.setDaemon(true);
+      //_nav.setDaemon(true);
       _nav.start();
    }
 

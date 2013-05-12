@@ -3,12 +3,12 @@ package lejos.robotics.subsumption;
 
 /**
  * Arbitrator controls which Behavior object will become active in
- * a behavior control system. Make sure to call start() after the 
+ * a behavior control system. Make sure to call start() after the
  * Arbitrator is instantiated.<br>
- *  This class has three major responsibilities: <br> 
- * 1. Determine the highest priority  behavior that returns <b> true </b> to takeControl()<br>   
+ *  This class has three major responsibilities: <br>
+ * 1. Determine the highest priority  behavior that returns <b> true </b> to takeControl()<br>
  * 2. Suppress the active behavior if its priority is less than highest
- * priority. <br>   
+ * priority. <br>
  * 3. When the action() method exits, call action() on the Behavior of highest priority.
  * <br>  The Arbitrator assumes that a Behavior is no longer active when action() exits,
  * <br>  therefore it will only call suppress() on the Behavior whose action() method is running.
@@ -36,8 +36,8 @@ public class Arbitrator
 
   /**
    * Allocates an Arbitrator object and initializes it with an array of
-   * Behavior objects. The index of a behavior in this array is its priority level, so 
-   * the behavior of the largest index has the highest the priority level. 
+   * Behavior objects. The index of a behavior in this array is its priority level, so
+   * the behavior of the largest index has the highest the priority level.
    * The behaviors in an Arbitrator can not
    * be changed once the arbitrator is initialized.<BR>
    * <B>NOTE:</B> Once the Arbitrator is initialized, the method start() must be
@@ -50,7 +50,7 @@ public class Arbitrator
     _behavior = behaviorList;
     _returnWhenInactive = returnWhenInactive;
     monitor = new Monitor();
-    monitor.setDaemon(true);
+    //monitor.setDaemon(true);
   }
 
   /**
@@ -74,7 +74,7 @@ public class Arbitrator
     monitor.start();
     while (_highestPriority == NONE)
     {
-      Thread.yield();//wait for some behavior to take contro                    
+      Thread.yield();//wait for some behavior to take contro
     }
     while (true)
     {
@@ -137,4 +137,4 @@ public class Arbitrator
     }
   }
 }
-  
+

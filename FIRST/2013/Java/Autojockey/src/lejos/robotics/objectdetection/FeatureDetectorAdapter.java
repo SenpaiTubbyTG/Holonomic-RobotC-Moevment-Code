@@ -24,7 +24,7 @@ public abstract class FeatureDetectorAdapter implements FeatureDetector {
 	public FeatureDetectorAdapter(int delay) {
 		this.delay = delay;
 		Thread x = new MonitorThread();
-		x.setDaemon(true);
+		//x.setDaemon(true);
 		x.start();
 	}
 

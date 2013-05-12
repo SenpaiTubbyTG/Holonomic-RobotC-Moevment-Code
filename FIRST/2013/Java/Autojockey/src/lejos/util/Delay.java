@@ -1,5 +1,8 @@
 package lejos.util;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Utility;
+
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
  * DO NOT EDIT THE VERSION IN pccomms AS IT WILL BE OVERWRITTEN WHEN THE PROJECT IS BUILT.
@@ -43,12 +46,12 @@ public class Delay {
      */
     public static void usDelay(long period)
     {
-        long end = System.nanoTime() + period*1000;
+        long end = Utility.getFPGATime()+ period;
         msDelay(period/1000);
         // To improve accuracy for small time periods we use a spin loop.
         // Note that we will still have jitter (due to the scheduler, but
         // this is probably better than nothing).
-        while (System.nanoTime() < end)
+        while (Utility.getFPGATime() < end)
         {
         	// just spin
         }
@@ -60,17 +63,18 @@ public class Delay {
      * be interrupted.
      * @param period time to wait in ns
      */
-    public static void nsDelay(long period)
-    {
-        long end = System.nanoTime() + period;
-        msDelay(period/1000000);
-        // To improve accuracy for small time periods we use a spin loop.
-        // Note that we will still have jitter (due to the scheduler, but
-        // this is probably better than nothing).
-        while (System.nanoTime() < end)
-        {
-        	// just spin
-        }
-    }
+    //NO NS CLOCK ON CRIO
+//    public static void nsDelay(long period)
+//    {
+//        long end = System.nanoTime() + period;
+//        msDelay(period/1000000);
+//        // To improve accuracy for small time periods we use a spin loop.
+//        // Note that we will still have jitter (due to the scheduler, but
+//        // this is probably better than nothing).
+//        while (System.nanoTime() < end)
+//        {
+//        	// just spin
+//        }
+//    }
 
 }
