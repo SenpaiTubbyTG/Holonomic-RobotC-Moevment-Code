@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import lejos.disco.RegulatedDrivetrain;
+import lejos.robotics.localization.OdometryPoseProvider;
+import lejos.robotics.navigation.DifferentialPilot;
+import lejos.robotics.navigation.Navigator;
 
 
 public class AutoDrivetrain extends Subsystem {
@@ -20,8 +23,6 @@ public class AutoDrivetrain extends Subsystem {
     private Victor rightDrive1;
     private Victor rightDrive2;
 
-    private RegulatedDrivetrain leftDrive,rightDrive;
-
     private MaxbotixSonar frontSonar1; // youredum.
     private MaxbotixSonar frontSonar2;
     private MaxbotixSonar leftSonar;
@@ -29,6 +30,11 @@ public class AutoDrivetrain extends Subsystem {
     private Encoder rightEncoder;
 
     private Gyro gyro;
+
+    private RegulatedDrivetrain leftDrive,rightDrive;
+    public DifferentialPilot pilot;
+    public OdometryPoseProvider op;
+    public Navigator nav;//It seems we must use Navigator instead of NavPathController
 
     public AutoDrivetrain(){
 	super("Drivetrain");
@@ -52,6 +58,11 @@ public class AutoDrivetrain extends Subsystem {
 
 	leftDrive=new RegulatedDrivetrain(leftDrive1,leftDrive2,true,true,leftEncoder);
 	rightDrive=new RegulatedDrivetrain(rightDrive1,rightDrive2,true,true,rightEncoder);
+
+	pilot=new DifferentialPilot(2*HW.wheelRadius,HW.wheelSeparation,leftDrive,rightDrive);
+	op=new OdometryPoseProvider(pilot);
+	pilot.addMoveListener(op);
+	nav=new Navigator(pilot,op);
 
 //        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
 //        gyro.setSensitivity(0.007);

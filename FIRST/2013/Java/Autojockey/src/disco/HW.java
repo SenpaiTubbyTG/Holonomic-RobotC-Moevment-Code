@@ -19,6 +19,7 @@ public class HW {
     public static final double wheelSeparation=18.0;//in
     public static final double driveReduction=1/3.0*1/2.0;  //KNOWN INCORRECT //wheel side : encoder side
     public static final double maxFPS=7;    //KNOWN INCORRECT
+    public static final double encoderTicks=256;
 
     //CUSTOM 3CIM SHIFTING GEARBOXES. FIND VALUES.
 //    public static final double wheelRadius=2.0;//in
@@ -27,7 +28,6 @@ public class HW {
 //    public static final double maxFPS=9;    //TODO: Test
 
     //DON'T NEED TO CHANGE THESE
-    public static final double encoderTicks=256;
     public static final double encoderTicksPerRev=encoderTicks/driveReduction;
     public static final double distancePerRev=2*Math.PI*wheelRadius;
     public static final double distancePerTick=distancePerRev/encoderTicksPerRev;
