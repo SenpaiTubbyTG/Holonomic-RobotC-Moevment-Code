@@ -56,7 +56,7 @@ public class DriveDistance extends CommandBase {
     //give this the distance in inches
     public DriveDistance(double setpoint) {
         requires(drivetrain);
-        m_setpoint=setpoint/HW.distancePerPulse;
+        m_setpoint=setpoint/HW.distancePerTick;
         leftDistControl = new PIDController(m_kP, m_kI, m_kD, distSourceL, distOutputL);
         rightDistControl = new PIDController(m_kP, m_kI, m_kD, distSourceR, distOutputR);
     }

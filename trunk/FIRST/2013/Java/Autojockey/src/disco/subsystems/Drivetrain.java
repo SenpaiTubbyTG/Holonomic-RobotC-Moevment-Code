@@ -59,8 +59,8 @@ public class Drivetrain extends Subsystem {
                                     HW.leftEncoderSlot,HW.leftEncoderBChannel,false,EncodingType.k1X);
         rightEncoder=new Encoder(    HW.rightEncoderSlot,HW.rightEncoderAChannel,
                                     HW.rightEncoderSlot,HW.rightEncoderBChannel,false,EncodingType.k1X);
-        leftEncoder.setDistancePerPulse(HW.distancePerPulse);
-        rightEncoder.setDistancePerPulse(HW.distancePerPulse);
+        leftEncoder.setDistancePerPulse(HW.distancePerTick);
+        rightEncoder.setDistancePerPulse(HW.distancePerTick);
 	leftEncoder.start();
 	rightEncoder.start();
 
