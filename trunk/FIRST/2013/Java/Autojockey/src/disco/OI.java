@@ -55,28 +55,8 @@ public class OI {
     private Button b2_clicR = new JoystickButton(gp2, gp2.CLICK_R);
     private Button b2_clicL = new JoystickButton(gp2, gp2.CLICK_L);
 
-    public static final int MODE_OLD = 0;
-    public static final int MODE_ANDY = 1;
-    public static final int MODE_SPLIT = 2;
-
-    private int joyMode = MODE_OLD;
-
     public OI() {
-        switch (joyMode){
-                case MODE_OLD:
-                    oldMap();
-                    break;
-                case MODE_ANDY:
-                    andyMap();
-                    break;
-                case MODE_SPLIT:
-                    splitMap();
-                    break;
-		default:
-		    oldMap();
-		    break;
-        }
-
+        oldMap();
     }
     public final void oldMap() {
 	/*
@@ -95,9 +75,7 @@ public class OI {
 	 * Drivetrain
 	 */
         b_Start.whenPressed(new cycleDrive());
-	//HW: not supported
-	    //b2_A.whenPressed(new AutoShift());
-	    //b_bumpL.whileHeld(new ShiftDown());
+	b_Y.whenPressed(new SquareTest());
 
 	/*
 	 * Pneumatics
@@ -105,60 +83,7 @@ public class OI {
 	b_X.whenPressed(new ToggleCompressor());
 
     }
-    public final void andyMap() {
-        /*
-	 * Shooter
-	 */
-        b_dpadU.whenPressed(new ShooterIncDiff());
-        b_dpadD.whenPressed(new ShooterDecDiff());
-        b_bumpR.whenPressed(new ShooterToggle());
-        b_dpadR.whenPressed(new ShooterInc());
-        b_dpadL.whenPressed(new ShooterDec());
-        b_trigR.whenPressed(new Shoot());
-        b_B.whenPressed(new Clear());
-        b_Back.whenPressed(new cycleShooter());
 
-	/*
-	 * Drivetrain
-	 */
-	b_Start.whenPressed(new cycleDrive());
-
-        /*
-	 * Pneumatics
-	 */
-        b_X.whenPressed(new ToggleCompressor());
-    }
-    public final void splitMap() {
-        /*
-	 * Shooter
-	 */
-        b2_dpadU.whenPressed(new ShooterIncDiff());
-        b2_dpadD.whenPressed(new ShooterDecDiff());
-        b2_dpadR.whenPressed(new ShooterInc());
-        b2_dpadL.whenPressed(new ShooterDec());
-        b2_Start.whenPressed(new cycleShooter());
-        b2_bumpR.whenPressed(new ShooterToggle());
-        b2_trigL.whenPressed(new Clear());
-        b2_trigR.whenPressed(new Shoot());
-
-	/*
-	 * Drivetrain
-	 */
-        b_Start.whenPressed(new cycleDrive());
-	//HW: not supported
-	    //b_trigL.whileHeld(new ShiftDown());
-
-        /*
-	 * Pneumatics
-	 */
-        b2_Y.whenPressed(new ToggleCompressor());
-
-
-    }
-
-    public void setMode(int mode) {
-        this.joyMode = mode;
-    }
     public Joystick getJoy1() {
         return gp1;
     }
