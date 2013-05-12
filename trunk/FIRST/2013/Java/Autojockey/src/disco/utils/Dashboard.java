@@ -57,22 +57,17 @@ public class Dashboard {
         //DRIVETRAIN
 	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy1())).getLY());
         SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy1())).getRY());
-        SmartDashboard.putBoolean("Touching Left Pyramid", CommandBase.drivetrain.getLeftPyramid());
-        SmartDashboard.putBoolean("Touching Right Pyramid", CommandBase.drivetrain.getRightPyramid());
         SmartDashboard.putNumber("Left Encoder", CommandBase.drivetrain.getLeftEncoder());
         SmartDashboard.putNumber("Right Encoder", CommandBase.drivetrain.getRightEncoder());
         putTest();
         SmartDashboard.putNumber("Left Drive Output", CommandBase.drivetrain.getPWMLeft());
         SmartDashboard.putNumber("Right Drive Output", CommandBase.drivetrain.getPWMRight());
-        
+
 	//COMPRESSOR
         SmartDashboard.putBoolean("Air Full", CommandBase.compressor.getPressureSwitch());
         SmartDashboard.putString("Compressor State", CommandBase.compressor.getEnabled() ? "ON" : "OFF");
-
-        //SHOOTER AUTON SETPOINT
-        SmartDashboard.getNumber("Shooter Auton Setpoint", autonSetpoint);
     }
-    
+
     public static void putTest(){
         SmartDashboard.putNumber("left velocity", CommandBase.drivetrain.getLeftRate());
         SmartDashboard.putNumber("right velocity", CommandBase.drivetrain.getRightRate());

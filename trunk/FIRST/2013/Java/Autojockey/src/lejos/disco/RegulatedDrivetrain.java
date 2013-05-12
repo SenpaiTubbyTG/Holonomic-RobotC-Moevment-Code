@@ -28,9 +28,9 @@ public class RegulatedDrivetrain implements RegulatedMotor
     protected static final Controller cont = new Controller();
 
     protected Victor motor1;
-    protected int motor1_multiplier=1;
+    protected double motor1_multiplier=1;
     protected Victor motor2;
-    protected int motor2_multiplier=1;
+    protected double motor2_multiplier=1;
     protected Encoder enc;
 
     static {
@@ -56,6 +56,8 @@ public class RegulatedDrivetrain implements RegulatedMotor
 	this.motor1_multiplier= motor1Reversed ? -1:1;
 	this.motor2=motor2;
 	this.motor2_multiplier= motor2Reversed ? -1:1;
+	this.enc=enc;
+	enc.start();
 	reg = new Regulator();
     }
 
@@ -237,8 +239,8 @@ public class RegulatedDrivetrain implements RegulatedMotor
 
     /**
      * sets the acceleration rate of this motor in degrees/sec/sec <br>
-     * The default value is 800; Smaller values will make speeding up. or stopping
-     * at the end of a rotate() task, smoother;
+     * The default value is 800; Smaller values will make speeding up or stopping
+     * at the end of a rotate() task smoother;
      * @param acceleration
      */
     public void setAcceleration(int acceleration)
@@ -367,8 +369,12 @@ public class RegulatedDrivetrain implements RegulatedMotor
     }
 
     protected void setMotors(double power){
-	motor1.set(power);
-	motor2.set(power);
+	motor1.set(power*motor1_multiplier);
+	motor2.set(power*motor2_multiplier);
+    }
+
+    public double getRawPWM(){
+	return motor1.get();
     }
 
 
@@ -400,7 +406,7 @@ public class RegulatedDrivetrain implements RegulatedMotor
         //static final float MOVE_D = 32f;
         // New values
         //static final float MOVE_P = 7f;
-	//TODO: FIND PARAMETERS
+	//TODO: FIND PARAMETERS IF NEEDED SMD 20130511
         static final float MOVE_P = 6f;
         static final float MOVE_I = 0.04f;
         static final float MOVE_D = 22f;
@@ -619,7 +625,7 @@ public class RegulatedDrivetrain implements RegulatedMotor
                     error = curCnt - tachoCnt;
                 } else
                 {
-                    // no longer acclerating, calculate new psotion
+                    // no longer acclerating, calculate new position
                     curVelocity = curTargetVelocity;
                     curCnt = baseCnt + accCnt + curVelocity * (elapsed - accTime) / 1000;
                     error = curCnt - tachoCnt;

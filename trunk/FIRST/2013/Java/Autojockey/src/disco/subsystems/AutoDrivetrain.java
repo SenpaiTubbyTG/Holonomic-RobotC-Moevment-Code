@@ -5,25 +5,22 @@
 package disco.subsystems;
 
 import disco.HW;
-import disco.commands.drivetrain.AssistedCheesy;
-import disco.commands.drivetrain.LerpDrive;
-import disco.utils.BetterDrive;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import lejos.disco.RegulatedDrivetrain;
 
 
-public class Drivetrain extends Subsystem {
+public class AutoDrivetrain extends Subsystem {
     private Victor leftDrive1;
     private Victor leftDrive2;
-    private Victor RightDrive1;
-    private Victor RightDrive2;
-    private BetterDrive drive;
+    private Victor rightDrive1;
+    private Victor rightDrive2;
+
+    private RegulatedDrivetrain leftDrive,rightDrive;
 
     private MaxbotixSonar frontSonar1; // youredum.
     private MaxbotixSonar frontSonar2;
@@ -31,25 +28,14 @@ public class Drivetrain extends Subsystem {
     private Encoder leftEncoder;
     private Encoder rightEncoder;
 
-    private DigitalInput pyramidSwitchLeft;
-    private DigitalInput pyramidSwitchRight;
-
     private Gyro gyro;
-    private boolean negatedDrive = false;
 
-    public Drivetrain(){
+    public AutoDrivetrain(){
 	super("Drivetrain");
         leftDrive1=new Victor(HW.LeftDrive1Slot,HW.LeftDrive1Channel);
 	leftDrive2=new Victor(HW.LeftDrive2Slot,HW.LeftDrive2Channel);
-	RightDrive1=new Victor(HW.RightDrive1Slot,HW.RightDrive1Channel);
-	RightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
-	drive=new BetterDrive(leftDrive1,leftDrive2,RightDrive1,RightDrive2);
-	//what is wrong with this picture? absolutely nothing.
-	drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-	drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-	drive.setSafetyEnabled(false);
+	rightDrive1=new Victor(HW.RightDrive1Slot,HW.RightDrive1Channel);
+	rightDrive2=new Victor(HW.RightDrive2Slot,HW.RightDrive2Channel);
 
 //        frontSonar1=new MaxbotixSonar(HW.maxbotixsonar1Slot,HW.maxbotixsonar1Channel,MaxbotixSonar.Unit.kInches);
 //        frontSonar2=new MaxbotixSonar(HW.maxbotixsonar2Slot,HW.maxbotixsonar2Channel,MaxbotixSonar.Unit.kInches);
@@ -64,34 +50,22 @@ public class Drivetrain extends Subsystem {
 	leftEncoder.start();
 	rightEncoder.start();
 
-        pyramidSwitchLeft = new DigitalInput(HW.limitSwitchLeftSlot, HW.limitSwitchLeftChannel);
-        pyramidSwitchRight = new DigitalInput(HW.limitSwitchRightSlot, HW.limitSwitchRightChannel);
+	leftDrive=new RegulatedDrivetrain(leftDrive1,leftDrive2,true,true,leftEncoder);
+	rightDrive=new RegulatedDrivetrain(rightDrive1,rightDrive2,true,true,rightEncoder);
 
 //        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
 //        gyro.setSensitivity(0.007);
     }
 
-    public void initDefaultCommand() {
-        setDefaultCommand(new LerpDrive());
-    }
+    public void initDefaultCommand() {}
 
     public void tankDrive(double left,double right){
-        if (negatedDrive) {
-            drive.tankDrive(-right , -left,true,true);
-        } else {
-            drive.tankDrive(left, right,true,true);
-        }
-    }
-    public void tankDriveUnsmoothed(double left, double right){
-        if (negatedDrive) {
-            drive.tankDrive(-right , -left,false,false);
-        } else {
-            drive.tankDrive(left, right,false,false);
-        }
+	//Use DiferentialPilot or whatever it is
     }
 
     public void arcadeDrive(double move, double turn) {
-	drive.arcadeDrive(negatedDrive ? -move : move, negatedDrive ? -turn : turn, true);
+	//drive.arcadeDrive(move, turn, true);
+	//Use DiferentialPilot or whatever it is
     }
 
     public double getFrontSonar1(){
@@ -119,29 +93,11 @@ public class Drivetrain extends Subsystem {
     public double getGyroAngle() {
         return gyro.getAngle();
     }
-    public boolean getLeftPyramid(){
-        return !pyramidSwitchLeft.get();
-    }
-    public boolean getRightPyramid(){
-        return !pyramidSwitchRight.get();
-    }
 
     public double getPWMLeft() {
-        return leftDrive2.getSpeed();
+        return leftDrive.getRawPWM();
     }
     public double getPWMRight() {
-        return RightDrive2.getSpeed();
-    }
-    public double getLeftInput() {
-        return drive.getLeftPrev();
-    }
-    public double getRightInput() {
-        return drive.getRightPrev();
-    }
-    public boolean isNegated() {
-        return negatedDrive;
-    }
-    public void setNegated(boolean neg) {
-        this.negatedDrive = neg;
+        return rightDrive.getRawPWM();
     }
 }

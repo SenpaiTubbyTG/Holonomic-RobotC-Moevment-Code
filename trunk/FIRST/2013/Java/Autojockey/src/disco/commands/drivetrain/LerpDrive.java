@@ -81,13 +81,6 @@ public class LerpDrive extends CommandBase {
 	}
 	//end PID stuff
 
-	//Touching pyramid?
-	if (!gp.getRawButton(gp.BUMPER_L)) {
-	    if (drivetrain.getLeftPyramid() || drivetrain.getRightPyramid()) {
-		move = move > 0 ? 0 : move;
-	    }
-	}
-
 	//The important part
 	if (move >= 0 && turn >= 0) {//Q1
 	    driveLeft = turn * b + move * (1 - turn * b);
@@ -103,7 +96,7 @@ public class LerpDrive extends CommandBase {
 	    driveRight = -1 * turn * b - move * (-1 - turn * (a + 1) + turn * b);
 	}
 
-	drivetrain.tankDriveUnsmoothed(driveLeft, driveRight);
+	drivetrain.tankDrive(driveLeft, driveRight);
     }
 
     // Make this return true when this Command no longer needs to run execute()

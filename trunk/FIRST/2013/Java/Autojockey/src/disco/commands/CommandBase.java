@@ -14,14 +14,14 @@ public abstract class CommandBase extends Command {
 
     public static OI oi;
     // Create a single static instance of all of your subsystems
-    public static Drivetrain drivetrain;
+    public static AutoDrivetrain drivetrain;
     public static Shooter shooter;
     public static CompressorSub compressor;
     public static Shifter shifter;
     public static Arduino arduino;
 
     public static void init() {
-        drivetrain = new Drivetrain();
+        drivetrain = new AutoDrivetrain();
         System.out.println("Drivetrain initialization successful");
         shooter = new Shooter();
         System.out.println("Shooter initialization successful");
