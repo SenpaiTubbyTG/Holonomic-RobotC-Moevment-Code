@@ -42,7 +42,7 @@ public class FusorDetector implements FeatureDetector, FeatureListener {
 		readings = new ArrayList();
 
 		Thread x = new NotifyThread();
-		x.setDaemon(true);
+		//x.setDaemon(true);
 		x.start();
 	}
 

@@ -2,8 +2,8 @@ package lejos.util;
 
 /**
  * Timer object, with some similar functionality to java.Swing.Timer.
- * 
- * @author <a href="mailto:rvbijl39<at>calvin<dot>edu">Ryan VanderBijl</a> 
+ *
+ * @author <a href="mailto:rvbijl39<at>calvin<dot>edu">Ryan VanderBijl</a>
  */
 public class Timer
 {
@@ -18,7 +18,7 @@ public class Timer
      * change the delay with setDelay(int). You need
      * to call start() explicitly.
      */
-    public Timer(int theDelay, TimerListener el) 
+    public Timer(int theDelay, TimerListener el)
     {
 	running    = false;
 	delay      = theDelay;
@@ -44,8 +44,8 @@ public class Timer
 		}
 	    }
 	};
-	
-	myThread.setDaemon(true);
+
+	//myThread.setDaemon(true);
     }
 
     /**

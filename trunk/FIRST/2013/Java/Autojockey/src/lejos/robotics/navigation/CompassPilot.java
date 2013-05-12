@@ -71,7 +71,7 @@ public class CompassPilot extends DifferentialPilot
   {
     super(wheelDiameter, trackWidth, leftMotor, rightMotor, reverse);
     this.compass = compass;
-    regulator.setDaemon(true);
+    //regulator.setDaemon(true);
     regulator.start();
 
   }
