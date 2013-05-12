@@ -95,7 +95,6 @@ public class OI {
 	 * Drivetrain
 	 */
         b_Start.whenPressed(new cycleDrive());
-        b_Y.whenPressed(new NegateDrive());
 	//HW: not supported
 	    //b2_A.whenPressed(new AutoShift());
 	    //b_bumpL.whileHeld(new ShiftDown());
@@ -145,7 +144,6 @@ public class OI {
 	/*
 	 * Drivetrain
 	 */
-        b_A.whenPressed(new NegateDrive());
         b_Start.whenPressed(new cycleDrive());
 	//HW: not supported
 	    //b_trigL.whileHeld(new ShiftDown());

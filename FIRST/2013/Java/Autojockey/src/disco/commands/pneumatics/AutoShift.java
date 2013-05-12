@@ -53,11 +53,11 @@ public class AutoShift extends CommandBase {
         }
         speed = Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed)); //We will shift both sides at the same time.
         if (speed > upShiftThreshold) {
-            if (Math.max(Math.abs(drivetrain.getRightInput()), Math.abs(drivetrain.getLeftInput())) > joyShiftThreshold) {
+//            if (Math.max(Math.abs(drivetrain.getRightInput()), Math.abs(drivetrain.getLeftInput())) > joyShiftThreshold) {
                 shifter.setLeftShifter(Shifter.GEAR_HIGH);
                 shifter.setRightShifter(Shifter.GEAR_HIGH);
                 lastShiftTime = System.currentTimeMillis();
-            }
+//            }
         } else if (speed < downShiftThreshold) {
             shifter.setLeftShifter(Shifter.GEAR_LOW);
             shifter.setRightShifter(Shifter.GEAR_LOW);
