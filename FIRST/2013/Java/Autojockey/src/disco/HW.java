@@ -17,8 +17,8 @@ public class HW {
     //REGULAR 3CIM GEARBOXES. MUST UPDATE VALUES AFTER LSR
     public static final double wheelRadius=2.0;//in
     public static final double wheelSeparation=18.0;//in
-    public static final double driveReduction=1/3.0*1/2.0;  //KNOWN INCORRECT
-    public static final double maxFPS=12;    //KNOWN INCORRECT
+    public static final double driveReduction=1/3.0*1/2.0;  //KNOWN INCORRECT //wheel side : encoder side
+    public static final double maxFPS=7;    //KNOWN INCORRECT
 
     //CUSTOM 3CIM SHIFTING GEARBOXES. FIND VALUES.
 //    public static final double wheelRadius=2.0;//in
@@ -27,9 +27,11 @@ public class HW {
 //    public static final double maxFPS=9;    //TODO: Test
 
     //DON'T NEED TO CHANGE THESE
-    public static final double encoderTicksPerRev=256/driveReduction;
+    public static final double encoderTicks=256;
+    public static final double encoderTicksPerRev=encoderTicks/driveReduction;
     public static final double distancePerRev=2*Math.PI*wheelRadius;
-    public static final double distancePerPulse=distancePerRev/encoderTicksPerRev;
+    public static final double distancePerTick=distancePerRev/encoderTicksPerRev;
+    public static final double encoderDegreesPerRev=encoderTicksPerRev*360/encoderTicks;
 
     /*
      * User Variables
@@ -87,7 +89,7 @@ public class HW {
 //                            maxbotixsonar1Channel=4,    maxbotixsonar1Slot=1,
 //                            maxbotixsonar2Channel=5,    maxbotixsonar2Slot=1,
 //                            maxbotixsonar3Channel=6,    maxbotixsonar3Slot=1,
-            
+
                             autonPotChannel=2,          autonPotSlot=1,
 
                             frisbeeLoadedChannel=3,     frisbeeLoadedSlot=1;
