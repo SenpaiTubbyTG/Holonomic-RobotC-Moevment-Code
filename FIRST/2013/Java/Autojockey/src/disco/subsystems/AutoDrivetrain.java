@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import lejos.disco.RegulatedDrivetrain;
 import lejos.robotics.localization.OdometryPoseProvider;
+import lejos.robotics.localization.PoseProvider;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.navigation.Navigator;
 
@@ -32,9 +33,9 @@ public class AutoDrivetrain extends Subsystem {
     private Gyro gyro;
 
     private RegulatedDrivetrain leftDrive,rightDrive;
-    public DifferentialPilot pilot;
-    public OdometryPoseProvider op;
-    public Navigator nav;//It seems we must use Navigator instead of NavPathController
+    private DifferentialPilot pilot;
+    private OdometryPoseProvider op;
+    private Navigator nav;//It seems we must use Navigator instead of NavPathController
 
     public AutoDrivetrain(){
 	super("Drivetrain");
@@ -61,7 +62,7 @@ public class AutoDrivetrain extends Subsystem {
 
 	pilot=new DifferentialPilot(2*HW.wheelRadius,HW.wheelSeparation,leftDrive,rightDrive);
 	op=new OdometryPoseProvider(pilot);
-	pilot.addMoveListener(op);
+	pilot.addMoveListener(op);//This ensures that the position correct when we do moves not using the navigator
 	nav=new Navigator(pilot,op);
 
 //        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);
@@ -110,5 +111,17 @@ public class AutoDrivetrain extends Subsystem {
     }
     public double getPWMRight() {
         return rightDrive.getRawPWM();
+    }
+
+    public DifferentialPilot getPilot(){
+	return pilot;
+    }
+
+    public PoseProvider getPoseProvider(){
+	return op;
+    }
+
+    public Navigator getNavigator(){
+	return nav;
     }
 }
