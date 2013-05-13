@@ -15,6 +15,7 @@ public class SquareTest extends CommandBase {
     int direction = 1;
     int length = 36;
     boolean finished = false;
+    private static Thread sq;
 
     public SquareTest() {
 	// Use requires() here to declare subsystem dependencies
@@ -23,9 +24,11 @@ public class SquareTest extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-	p = drivetrain.pilot;
-	o = drivetrain.op;
-	Thread t = new Thread() {
+	finished=false;
+	p = drivetrain.getPilot();
+	o = (OdometryPoseProvider) drivetrain.getPoseProvider();
+	
+	sq = new Thread() {
 	    public void run() {
 		for (int i = 0; i < 4; i++) {
 		    drawSquare(direction * length);
@@ -37,6 +40,8 @@ public class SquareTest extends CommandBase {
 		finished = true;
 	    }
 	};
+
+	sq.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -61,14 +66,14 @@ public class SquareTest extends CommandBase {
     }
 
     public void drawSquare(float length) {
-	byte direction = 1;
+	byte direction_l = 1;
 	if (length < 0) {
-	    direction = -1;
+	    direction_l = -1;
 	    length = -length;
 	}
 	for (int i = 0; i < 4; i++) {
-	    p.travel(length, true);
-	    p.rotate(direction * 90, true);
+	    p.travel(length);
+	    p.rotate(direction_l * 90);
 	}
     }
 }

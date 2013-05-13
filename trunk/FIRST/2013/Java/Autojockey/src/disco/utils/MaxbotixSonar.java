@@ -48,7 +48,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
             this.value = value;
         }
     }
-    
+
     //private static final double CM_TO_IN = 0.3937;
     private AnalogChannel m_inputChannel = null;
     private Unit m_units;
@@ -56,7 +56,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
     private int m_nextValue = 0;
     private int m_numberOfReadings = 10;
     private double m_readings[] = new double[m_numberOfReadings];
-    
+
     public MaxbotixSonar(int inputSlot, int inputChannel, Unit units) {
         m_inputChannel = new AnalogChannel(inputSlot, inputChannel);
         m_units = units;
@@ -172,7 +172,7 @@ public class MaxbotixSonar extends SensorBase implements PIDSource, ISensor {
         }
         return getVoltage() * k_InchesFactor;
     }
-    
+
     public double getMedianRange() {
         double result=0;
         if(m_units==Unit.kInches) {

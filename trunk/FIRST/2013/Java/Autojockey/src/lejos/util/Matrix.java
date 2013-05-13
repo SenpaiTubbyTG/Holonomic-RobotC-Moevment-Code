@@ -1,7 +1,5 @@
 package lejos.util;
 
-import java.io.PrintStream;
-
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
  * DO NOT EDIT THE VERSION IN pccomms AS IT WILL BE OVERWRITTEN WHEN THE PROJECT IS BUILT.
@@ -33,7 +31,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
    Constructors
  * ------------------------ */
 
-   /** Construct an m-by-n matrix of zeros. 
+   /** Construct an m-by-n matrix of zeros.
    @param m    Number of rows.
    @param n    Number of columns.
    */
@@ -152,7 +150,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
    /** Clone the Matrix object.
    */
 
-   
+
    public Object clone () {
       return this.copy();
    }
@@ -462,12 +460,12 @@ public class Matrix implements Cloneable, java.io.Serializable {
          f = Math.max(f,s);
       }
       return f;
-   }   
-   
+   }
+
    /** Frobenius norm
    @return    sqrt of sum of squares of all elements.
-   */   
-   
+   */
+
    public double normF () {
       double f = 0;
       for (int i = 0; i < m; i++) {
@@ -576,7 +574,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
 
 
    /**
-    * 
+    *
     */
    public Matrix arrayTimesEquals (Matrix B) {
 	  checkMatrixDimensions(B);
@@ -757,7 +755,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
       }
       return A;
    }
-   
+
    /** Matrix inverse or pseudoinverse
    @return     inverse(A) if A is square, pseudoinverse otherwise.
    */
@@ -765,7 +763,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
    public Matrix inverse () {
       return solve(identity(m,m));
    }
-   
+
    /** Solve A*X = B
    @param B    right hand side
    @return     solution if A is square, least squares solution otherwise
@@ -778,7 +776,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
    /*
     * Simple version of Matrix print
     */
-   public void print(PrintStream out) {
+   public void print() {
     for(int i=0;i<m;i++) {
       for(int j=0;j<n;j++) {
         System.out.print(A[i][j] + " ");
@@ -801,7 +799,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
 
    /**
     * sqrt(a^2 + b^2) without under/overflow.
-    * 
+    *
     * @param a
     * @param b
     * @return
@@ -818,5 +816,5 @@ public class Matrix implements Cloneable, java.io.Serializable {
          r = 0.0;
       }
       return r;
-   } 
+   }
 }
