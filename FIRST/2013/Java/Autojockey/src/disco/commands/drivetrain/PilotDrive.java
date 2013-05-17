@@ -2,40 +2,43 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disco.commands.pneumatics;
+package disco.commands.drivetrain;
 
 import disco.commands.CommandBase;
-import disco.subsystems.Shifter;
+import lejos.robotics.navigation.DifferentialPilot;
 
 
-public class ShiftDown extends CommandBase {
-    boolean done;
+public class PilotDrive extends CommandBase {
+    DifferentialPilot p;
+    double dist;
 
-    public ShiftDown() {
-	requires(shifter);
+    /*
+     * distance in wheel diameter units
+     */
+    public PilotDrive(double distance) {
+        // Use requires() here to declare subsystem dependencies
+        requires(drivetrain);
+	p=drivetrain.getPilot();
+	dist=distance;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-	done=false;
+	p.travel(dist,true);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	if(!done){
-	    shifter.setLeftShifter(Shifter.GEAR_LOW);
-	    shifter.setRightShifter(Shifter.GEAR_LOW);
-	}
-	done=true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;//we want this to return false because it is an override for the autoShift. If this ever ends autoShift will take over again.
+        return !p.isMoving();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+	p.stop();
     }
 
     // Called when another command which requires one or more of the same

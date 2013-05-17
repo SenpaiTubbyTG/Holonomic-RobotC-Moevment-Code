@@ -4,9 +4,6 @@
  */
 package disco.commands;
 
-import disco.commands.shooter.AutoShoot;
-import disco.commands.shooter.ShooterToggle;
-import disco.subsystems.Shooter;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -20,7 +17,7 @@ public class Autonomous extends CommandGroup {
     public static final int MODE_NOTHING = 3;
 
     public Autonomous(int mode) {
-        
+
     }
     protected void initialize() {
 

@@ -2,47 +2,43 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disco.commands.shooter;
+package disco.commands.drivetrain;
 
 import disco.commands.CommandBase;
-import disco.subsystems.Shooter;
+import lejos.robotics.navigation.DifferentialPilot;
 
 
-public class ShooterDec extends CommandBase {
-    private boolean done;
+public class PilotTurn extends CommandBase {
+    DifferentialPilot p;
+    double angle;
 
-    public ShooterDec() {
-        //requires(shooter);
+    /*
+     * CCW+
+     */
+    public PilotTurn(double angle) {
+        // Use requires() here to declare subsystem dependencies
+        requires(drivetrain);
+	p=drivetrain.getPilot();
+	this.angle=angle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        done=false;
+	p.rotate(angle, true);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        switch(shooter.getMode()){
-            case Shooter.MODE_BANG:
-                double set=shooter.getSetpoint();
-                if(set>100){
-                    shooter.setSetpoint(set-100);
-                }
-                break;
-            case Shooter.MODE_OPEN_LOOP:
-                shooter.frontPWM-=0.01;
-                break;
-        }
-	done=true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return done;
+        return !p.isMoving();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+	p.stop();
     }
 
     // Called when another command which requires one or more of the same
