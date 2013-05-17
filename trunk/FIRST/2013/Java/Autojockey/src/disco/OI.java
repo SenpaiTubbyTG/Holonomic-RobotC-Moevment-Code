@@ -1,9 +1,7 @@
 package disco;
 
-import disco.commands.SaveData;
 import disco.commands.drivetrain.*;
 import disco.commands.pneumatics.*;
-import disco.commands.shooter.*;
 import disco.utils.GamePad;
 import disco.utils.GamePad.AxisButton;
 import edu.wpi.first.wpilibj.Joystick;
@@ -62,20 +60,16 @@ public class OI {
 	/*
 	 * Shooter
 	 */
-        b_dpadU.whenPressed(new ShooterIncDiff());
-        b_dpadD.whenPressed(new ShooterDecDiff());
-        b_bumpR.whenPressed(new ShooterToggle());
-        b_dpadR.whenPressed(new ShooterInc());
-        b_dpadL.whenPressed(new ShooterDec());
-        b_trigR.whenPressed(new Shoot());
-        b_trigL.whenPressed(new Clear());
-        b_Back.whenPressed(new cycleShooter());
 
 	/*
 	 * Drivetrain
 	 */
         b_Start.whenPressed(new cycleDrive());
 	b_Y.whenPressed(new SquareTest());
+	b_dpadU.whenPressed(new PilotDrive(24));
+	b_dpadD.whenPressed(new PilotDrive(-24));
+	b_dpadR.whenPressed(new PilotTurn(-90));
+	b_dpadL.whenPressed(new PilotTurn(90));
 
 	/*
 	 * Pneumatics

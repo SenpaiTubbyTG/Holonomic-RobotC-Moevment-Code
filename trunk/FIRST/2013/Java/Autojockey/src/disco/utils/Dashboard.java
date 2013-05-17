@@ -10,6 +10,7 @@ import disco.commands.CommandBase;
 import disco.subsystems.Arduino;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import lejos.robotics.navigation.Pose;
 
 public class Dashboard {
 
@@ -17,59 +18,49 @@ public class Dashboard {
     public static double autonSetpoint = 5400;
 
     public static void init() {
-        autonChooser = new SendableChooser();
-        autonChooser.addDefault("Safe", new Autonomous(Autonomous.MODE_SAFE));
-        autonChooser.addObject("Risky", new Autonomous(Autonomous.MODE_RISKY));
-        autonChooser.addObject("Dangerous", new Autonomous(Autonomous.MODE_DANGEROUS));
-        autonChooser.addObject("DoNothing", new Autonomous(Autonomous.MODE_NOTHING));
-        putStuff();
+	putStuff();
     }
 
     public static void putStuff() {
-        putSubsystems();
-        putSensors();
-//        SmartDashboard.putNumber("Shooter Auton Setpoint", autonSetpoint);
-        SmartDashboard.putData("Autonomous Chooser", autonChooser);
- //       putTest();
+	putSubsystems();
+	putSensors();
+	//       putTest();
     }
 
     //Only call this once or we overflow the memory. Bad day.
     private static void putSubsystems() {
-        SmartDashboard.putData(CommandBase.drivetrain);
-        SmartDashboard.putData(CommandBase.shooter);
-        SmartDashboard.putData(CommandBase.compressor);
+	SmartDashboard.putData(CommandBase.drivetrain);
+	SmartDashboard.putData(CommandBase.compressor);
     }
 
     //Repeatedly call this to update dashboard values.
     public static void putSensors() {
-         SmartDashboard.putNumber("Execution loop time", MainAscent.getExecutionTime());
+	SmartDashboard.putNumber("Execution loop time", MainAscent.getExecutionTime());
 
-	 //SHOOTER
-	SmartDashboard.putNumber("Forward Shooter RPM", CommandBase.shooter.getFrontRPM());
-	SmartDashboard.putNumber("Forward Shooter PWM", CommandBase.shooter.getFrontPower());
-	SmartDashboard.putNumber("Back Shooter RPM", CommandBase.shooter.getBackRPM());
-	SmartDashboard.putNumber("Back Shooter PWM", CommandBase.shooter.getBackPower());
-        SmartDashboard.putNumber("Shooter difference", CommandBase.shooter.difference);
-        SmartDashboard.putNumber("Shooter Setpoint", CommandBase.shooter.getSetpoint());
-        SmartDashboard.putBoolean("Shooter On target", CommandBase.shooter.isOnTarget());
-        SmartDashboard.putNumber("load sensor", CommandBase.shooter.isLoaded());
-
-        //DRIVETRAIN
-	SmartDashboard.putNumber("Left joy Y", ((GamePad)(CommandBase.oi.getJoy1())).getLY());
-        SmartDashboard.putNumber("Right joy Y", ((GamePad)(CommandBase.oi.getJoy1())).getRY());
-        SmartDashboard.putNumber("Left Encoder", CommandBase.drivetrain.getLeftEncoder());
-        SmartDashboard.putNumber("Right Encoder", CommandBase.drivetrain.getRightEncoder());
-        putTest();
-        SmartDashboard.putNumber("Left Drive Output", CommandBase.drivetrain.getPWMLeft());
-        SmartDashboard.putNumber("Right Drive Output", CommandBase.drivetrain.getPWMRight());
+	//DRIVETRAIN
+	//Joystick information
+	SmartDashboard.putNumber("Left joy Y", ((GamePad) (CommandBase.oi.getJoy1())).getLY());
+	SmartDashboard.putNumber("Right joy Y", ((GamePad) (CommandBase.oi.getJoy1())).getRY());
+	//Encoder information
+	SmartDashboard.putNumber("Left Encoder", CommandBase.drivetrain.getLeftEncoder());
+	SmartDashboard.putNumber("Right Encoder", CommandBase.drivetrain.getRightEncoder());
+	putTest();
+	//Drive power information
+	SmartDashboard.putNumber("Left Drive Output", CommandBase.drivetrain.getPWMLeft());
+	SmartDashboard.putNumber("Right Drive Output", CommandBase.drivetrain.getPWMRight());
+	//Location information
+	Pose p = CommandBase.drivetrain.getPoseProvider().getPose();
+	SmartDashboard.putNumber("X", p.getX());
+	SmartDashboard.putNumber("Y", p.getY());
+	SmartDashboard.putNumber("Heading:", p.getHeading());
 
 	//COMPRESSOR
-        SmartDashboard.putBoolean("Air Full", CommandBase.compressor.getPressureSwitch());
-        SmartDashboard.putString("Compressor State", CommandBase.compressor.getEnabled() ? "ON" : "OFF");
+	SmartDashboard.putBoolean("Air Full", CommandBase.compressor.getPressureSwitch());
+	SmartDashboard.putString("Compressor State", CommandBase.compressor.getEnabled() ? "ON" : "OFF");
     }
 
-    public static void putTest(){
-        SmartDashboard.putNumber("left velocity", CommandBase.drivetrain.getLeftRate());
-        SmartDashboard.putNumber("right velocity", CommandBase.drivetrain.getRightRate());
+    public static void putTest() {
+	SmartDashboard.putNumber("left velocity", CommandBase.drivetrain.getLeftRate());
+	SmartDashboard.putNumber("right velocity", CommandBase.drivetrain.getRightRate());
     }
 }

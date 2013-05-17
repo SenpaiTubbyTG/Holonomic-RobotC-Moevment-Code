@@ -16,6 +16,7 @@ import lejos.robotics.localization.OdometryPoseProvider;
 import lejos.robotics.localization.PoseProvider;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.navigation.Navigator;
+import lejos.robotics.navigation.Pose;
 
 
 public class AutoDrivetrain extends Subsystem {
@@ -35,7 +36,7 @@ public class AutoDrivetrain extends Subsystem {
     private RegulatedDrivetrain leftDrive,rightDrive;
     private DifferentialPilot pilot;
     private OdometryPoseProvider op;
-    private Navigator nav;//It seems we must use Navigator instead of NavPathController
+    private Navigator nav;//Formerly NavPathController
 
     public AutoDrivetrain(){
 	super("Drivetrain");
@@ -62,7 +63,10 @@ public class AutoDrivetrain extends Subsystem {
 
 	pilot=new DifferentialPilot(2*HW.wheelRadius,HW.wheelSeparation,leftDrive,rightDrive);
 	op=new OdometryPoseProvider(pilot);
-	pilot.addMoveListener(op);//This ensures that the position correct when we do moves not using the navigator
+	//This ensures that the position is correct when we do moves not using the navigator
+	pilot.addMoveListener(op);
+	//Tell it that we are initially pointing in the positive Y direction, instead of positive X.
+	op.setPose(new Pose(0,0,90));
 	nav=new Navigator(pilot,op);
 
 //        gyro = new Gyro(HW.gyroSlot, HW.gyroChannel);

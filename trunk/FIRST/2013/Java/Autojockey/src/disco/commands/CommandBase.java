@@ -15,20 +15,14 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     // Create a single static instance of all of your subsystems
     public static AutoDrivetrain drivetrain;
-    public static Shooter shooter;
     public static CompressorSub compressor;
-    public static Shifter shifter;
     public static Arduino arduino;
 
     public static void init() {
         drivetrain = new AutoDrivetrain();
         System.out.println("Drivetrain initialization successful");
-        shooter = new Shooter();
-        System.out.println("Shooter initialization successful");
         compressor = new CompressorSub();
         System.out.println("Compressor initialization successful");
-        shifter = new Shifter();
-        System.out.println("Shifter initialization successful");
         arduino = new Arduino();
         System.out.println("Arduino initialization successful");
         // This MUST be here. If the OI creates Commands (which it very likely
