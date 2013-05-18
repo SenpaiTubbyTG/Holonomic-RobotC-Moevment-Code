@@ -1,5 +1,7 @@
 package lejos.util;
 
+import java.lejoslang.Math;
+
 /**
  * A generic implementation of a Proportional <tt>&lt;P&gt;</tt>, Integral <tt>&lt;I&gt;</tt>, Derivative <tt>&lt;D&gt;</tt>
  * (PID) controller

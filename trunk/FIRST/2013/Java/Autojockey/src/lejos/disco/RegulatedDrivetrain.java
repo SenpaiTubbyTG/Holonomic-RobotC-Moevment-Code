@@ -1,5 +1,6 @@
 package lejos.disco;
 
+import java.lejoslang.Math;
 import disco.HW;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;

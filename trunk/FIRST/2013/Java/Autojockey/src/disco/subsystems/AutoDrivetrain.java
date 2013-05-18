@@ -8,8 +8,8 @@ import disco.HW;
 import disco.utils.MaxbotixSonar;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import lejos.disco.RegulatedDrivetrain;
 import lejos.robotics.localization.OdometryPoseProvider;
@@ -33,7 +33,7 @@ public class AutoDrivetrain extends Subsystem {
 
     private Gyro gyro;
 
-    private RegulatedDrivetrain leftDrive,rightDrive;
+    public RegulatedDrivetrain leftDrive,rightDrive;
     private DifferentialPilot pilot;
     private OdometryPoseProvider op;
     private Navigator nav;//Formerly NavPathController
@@ -54,14 +54,17 @@ public class AutoDrivetrain extends Subsystem {
         rightEncoder=new Encoder(    HW.rightEncoderSlot,HW.rightEncoderAChannel,
                                     HW.rightEncoderSlot,HW.rightEncoderBChannel,false,EncodingType.k1X);
         leftEncoder.setDistancePerPulse(HW.distancePerTick);
+        leftEncoder.setReverseDirection(true);
         rightEncoder.setDistancePerPulse(HW.distancePerTick);
 	leftEncoder.start();
 	rightEncoder.start();
 
 	leftDrive=new RegulatedDrivetrain(leftDrive1,leftDrive2,true,true,leftEncoder);
-	rightDrive=new RegulatedDrivetrain(rightDrive1,rightDrive2,true,true,rightEncoder);
+	rightDrive=new RegulatedDrivetrain(rightDrive1,rightDrive2,false,false,rightEncoder);
 
 	pilot=new DifferentialPilot(2*HW.wheelRadius,HW.wheelSeparation,leftDrive,rightDrive);
+        pilot.setAcceleration(4);
+        pilot.setTravelSpeed(36);
 	op=new OdometryPoseProvider(pilot);
 	//This ensures that the position is correct when we do moves not using the navigator
 	pilot.addMoveListener(op);

@@ -1,5 +1,7 @@
 package lejos.util;
 
+import java.lejoslang.Math;
+
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
  * DO NOT EDIT THE VERSION IN pccomms AS IT WILL BE OVERWRITTEN WHEN THE PROJECT IS BUILT.
@@ -18,7 +20,7 @@ package lejos.util;
 	linear equations.  This will fail if isNonsingular() returns false.
 	*/
 	
-	public class LUDecomposition implements java.io.Serializable {
+	public class LUDecomposition{
 	
 	/* ------------------------
 	Class variables

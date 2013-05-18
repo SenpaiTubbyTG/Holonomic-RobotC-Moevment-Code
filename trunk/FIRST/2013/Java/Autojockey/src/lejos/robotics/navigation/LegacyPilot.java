@@ -1,5 +1,6 @@
 package lejos.robotics.navigation;
 
+import java.lejoslang.Math;
 import lejos.robotics.RegulatedMotor;
 
 /*

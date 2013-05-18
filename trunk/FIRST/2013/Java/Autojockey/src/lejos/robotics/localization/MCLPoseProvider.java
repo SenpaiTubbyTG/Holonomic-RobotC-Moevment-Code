@@ -1,5 +1,6 @@
 package lejos.robotics.localization;
 
+import java.lejoslang.Math;
 import lejos.robotics.mapping.RangeMap;
 import lejos.robotics.navigation.Move;
 import lejos.robotics.navigation.MoveListener;
@@ -7,12 +8,10 @@ import lejos.robotics.navigation.MoveProvider;
 import lejos.robotics.navigation.Pose;
 import lejos.robotics.RangeReadings;
 import lejos.robotics.RangeScanner;
-import lejos.robotics.Transmittable;
 
-import java.awt.Rectangle;
+import java.lejosawt.Rectangle;
 import lejos.robotics.localization.PoseProvider;
-import java.io.*;
-import java.util.ArrayList;
+import java.lejosutil.ArrayList;
 
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
@@ -34,7 +33,7 @@ import java.util.ArrayList;
  * @author Lawrie Griffiths and Roger Glassey
  */
 
-public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittable
+public class MCLPoseProvider implements PoseProvider, MoveListener
 {
 
   private MCLParticleSet particles;
@@ -482,41 +481,14 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
    * @param dos the data output stream
    * @throws IOException
    */
-  public void dumpObject(DataOutputStream dos) throws IOException
-  {
-    dos.writeFloat(_x);
-    dos.writeFloat(_y);
-    dos.writeFloat(_heading);
-    dos.writeFloat(minX);
-    dos.writeFloat(maxX);
-    dos.writeFloat(minY);
-    dos.writeFloat(maxY);
-    dos.writeFloat((float) varX);
-    dos.writeFloat((float) varY);
-    dos.writeFloat((float) varH);
-    dos.flush();
-  }
+  
 
   /**
    * Load serialized estimated pose from a data input stream
    * @param dis the data input stream
    * @throws IOException
    */
-  public void loadObject(DataInputStream dis) throws IOException
-  {
-    _x = dis.readFloat();
-    _y = dis.readFloat();
-    _heading = dis.readFloat();
-    minX = dis.readFloat();
-    maxX = dis.readFloat();
-    minY = dis.readFloat();
-    maxY = dis.readFloat();
-    varX = dis.readFloat();
-    varY = dis.readFloat();
-    varH = dis.readFloat();
-    if (debug) System.out.println("Estimate = " + minX + " , " + maxX + " , " + minY + " , " + maxY);
-  }
-
+  
   /**
    * returns true if particle weights are being updated. The  robot should not move
    * while this is happening otherwise the prediction from odometry data may

@@ -1,11 +1,7 @@
 package lejos.robotics.mapping;
 
+import java.lejoslang.Math;
 import lejos.geom.*;
-
-import java.io.*;
-
-import lejos.robotics.Transmittable;
-import lejos.robotics.mapping.RangeMap;
 import lejos.robotics.navigation.Pose;
 
 /*
@@ -19,7 +15,7 @@ import lejos.robotics.navigation.Pose;
  * @author Lawrie Griffiths
  *
  */
-public class LineMap implements RangeMap, Transmittable {
+public class LineMap implements RangeMap {
   private Line[] lines;
   private Rectangle boundingRect;
 
@@ -101,38 +97,12 @@ public class LineMap implements RangeMap, Transmittable {
    * @param dos the stream
    * @throws IOException
    */
-  public void dumpObject(DataOutputStream dos) throws IOException {
-      dos.writeInt(lines.length);
-      for(int i=0;i<lines.length;i++) {
-        dos.writeFloat(lines[i].x1);
-        dos.writeFloat(lines[i].y1);
-        dos.writeFloat(lines[i].x2);
-        dos.writeFloat(lines[i].y2);
-        dos.flush();
-      }
-      dos.writeFloat(boundingRect.x);
-      dos.writeFloat(boundingRect.y);
-      dos.writeFloat(boundingRect.width);
-      dos.writeFloat(boundingRect.height);
-      dos.flush();
-  }
   /**
    * Load a map from a DataInputStream
    *
    * @param dis the stream
    * @throws IOException
    */
-  public void loadObject(DataInputStream dis) throws IOException {
-      lines = new Line[dis.readInt()];
-      for(int i=0;i<lines.length;i++) {
-        float x1 = dis.readFloat();
-        float y1 = dis.readFloat();
-        float x2 = dis.readFloat();
-        float y2 = dis.readFloat();
-        lines[i] = new Line(x1,y1,x2,y2);
-      }
-      boundingRect = new Rectangle(dis.readFloat(),dis.readFloat(),dis.readFloat(),dis.readFloat());
-  }
 
   /**
    * Get the lines as an array

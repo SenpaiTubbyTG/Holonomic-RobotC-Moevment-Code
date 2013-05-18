@@ -43,6 +43,10 @@ public class Dashboard {
 	SmartDashboard.putNumber("Right joy Y", ((GamePad) (CommandBase.oi.getJoy1())).getRY());
 	//Encoder information
 	SmartDashboard.putNumber("Left Encoder", CommandBase.drivetrain.getLeftEncoder());
+        SmartDashboard.putNumber("Left degrees", CommandBase.drivetrain.leftDrive.getTachoCount());
+        SmartDashboard.putNumber("left speed lejos", CommandBase.drivetrain.leftDrive.getSpeed());
+        SmartDashboard.putNumber("right speed lejos", CommandBase.drivetrain.rightDrive.getSpeed());
+        SmartDashboard.putNumber("Right degrees", CommandBase.drivetrain.rightDrive.getTachoCount());
 	SmartDashboard.putNumber("Right Encoder", CommandBase.drivetrain.getRightEncoder());
 	putTest();
 	//Drive power information

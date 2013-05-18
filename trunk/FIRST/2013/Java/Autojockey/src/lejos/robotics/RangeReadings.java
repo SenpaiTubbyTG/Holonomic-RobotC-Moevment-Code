@@ -1,8 +1,8 @@
 package lejos.robotics;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+//;
+import java.lejosutil.ArrayList;
+import java.lejosutil.Iterator;
 
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
@@ -14,7 +14,7 @@ import java.util.Iterator;
  *
  * @author Lawrie Griffiths
  */
-public class RangeReadings extends ArrayList implements Transmittable  {
+public class RangeReadings extends ArrayList  {
 
 
   public RangeReadings(int numReadings) {
@@ -87,33 +87,7 @@ public class RangeReadings extends ArrayList implements Transmittable  {
 	  set(index, new RangeReading(angle, range));
   }
 
-  /**
-   * Dump the readings to a DataOutputStream
-   * @param dos the stream
-   * @throws IOException
-   */
-  public void dumpObject(DataOutputStream dos) throws IOException {
-	dos.writeInt(size());
-      for (Iterator it = this.iterator(); it.hasNext();) {
-	  RangeReading r = (RangeReading) it.next();
-	  dos.writeFloat(r.getAngle());
-	  dos.writeFloat(r.getRange());
-      }
-    dos.flush();
-  }
 
-  /**
-   * Load the readings from a DataInputStream
-   * @param dis the stream
-   * @throws IOException
-   */
-  public void loadObject(DataInputStream dis) throws IOException {
-	int numReadings = dis.readInt();
-	this.clear();
-    for (int i = 0; i < getNumReadings(); i++) {
-      add(new RangeReading(dis.readFloat(),dis.readFloat()));
-    }
-  }
 
   /**
    * Print the range readings on standard out

@@ -1,5 +1,7 @@
 package lejos.util;
 
+;
+
 /**
  * This class implements a ring buffer, useful in stream-based communication.
  * 

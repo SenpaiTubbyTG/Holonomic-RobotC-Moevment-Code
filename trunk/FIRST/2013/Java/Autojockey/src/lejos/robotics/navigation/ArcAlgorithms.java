@@ -1,6 +1,8 @@
 package lejos.robotics.navigation; // TODO: Move to lejos.geom?
 
-import java.awt.geom.*;
+import java.lejosawt.geom.Point2D;
+import java.lejoslang.Math;
+import java.lejoslang.Float;
 
 import lejos.geom.*;
 
