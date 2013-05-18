@@ -1,11 +1,8 @@
 package lejos.robotics.navigation;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.Enumeration;
 
-import lejos.robotics.Transmittable;
+import java.lejoslang.Float;
+import java.lejoslang.Math;
 
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
@@ -18,7 +15,7 @@ import lejos.robotics.Transmittable;
  * @author Lawrie Griffiths
  *
  */
-public class Move implements Transmittable {
+public class Move{
 	/**
 	 * The type of  movement made in sufficient detail to allow errors
 	 * in the movement to be modeled.
@@ -244,25 +241,6 @@ public class Move implements Transmittable {
 	 */
 	public static float convertAngleToDistance(float angle, float turnRadius){
 		return (float)((angle * 2 * Math.PI * turnRadius) / 360);
-	}
-
-	public void dumpObject(DataOutputStream dos) throws IOException {
-		dos.writeByte(moveType);
-		dos.writeFloat(travelSpeed);
-		dos.writeFloat(rotateSpeed);
-		dos.writeFloat(distanceTraveled);
-		dos.writeFloat(angleTurned);
-		dos.writeFloat(arcRadius);
-		dos.flush();
-	}
-
-	public void loadObject(DataInputStream dis) throws IOException {
-                moveType = dis.readByte();
-		travelSpeed = dis.readFloat();
-		rotateSpeed = dis.readFloat();
-		distanceTraveled = dis.readFloat();
-		angleTurned = dis.readFloat();
-		arcRadius = dis.readFloat();
 	}
 	
 	

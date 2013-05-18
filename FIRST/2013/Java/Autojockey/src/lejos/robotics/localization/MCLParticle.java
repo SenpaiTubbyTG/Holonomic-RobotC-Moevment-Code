@@ -1,6 +1,7 @@
 package lejos.robotics.localization;
 
-import java.util.Random;
+import java.lejoslang.Math;
+import java.lejosutil.Random;
 import lejos.robotics.*;
 import lejos.robotics.mapping.RangeMap;
 import lejos.robotics.navigation.Move;

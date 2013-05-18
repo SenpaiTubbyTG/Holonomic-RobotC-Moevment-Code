@@ -1,6 +1,7 @@
 package lejos.geom;
 
-import java.awt.geom.*;
+import java.lejosawt.geom.Point2D;
+import java.lejoslang.Math;
 
 /**
  * Point with float co-ordinates for use in navigation.

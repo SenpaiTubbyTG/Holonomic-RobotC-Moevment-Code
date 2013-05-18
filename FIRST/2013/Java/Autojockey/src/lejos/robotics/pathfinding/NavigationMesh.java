@@ -1,6 +1,6 @@
 package lejos.robotics.pathfinding;
 
-import java.util.Collection;
+import java.lejosutil.Collection;
 
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.

@@ -1,6 +1,6 @@
 package lejos.robotics.pathfinding;
 
-import java.util.Collection;
+import java.lejosutil.Collection;
 import lejos.robotics.navigation.Waypoint;
 
 /*

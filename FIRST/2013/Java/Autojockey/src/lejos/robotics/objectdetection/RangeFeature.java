@@ -7,12 +7,8 @@ package lejos.robotics.objectdetection;
  * from the RangeReading objects.
  */
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import lejos.robotics.RangeReading;
 import lejos.robotics.RangeReadings;
-import lejos.robotics.Transmittable;
 import lejos.robotics.navigation.Pose;
 
 /*
@@ -33,7 +29,7 @@ import lejos.robotics.navigation.Pose;
  * @author BB
  *
  */
-public class RangeFeature implements Feature, Transmittable  {
+public class RangeFeature implements Feature {
 
 	private RangeReading rr;
 	private RangeReadings rrs;
@@ -96,19 +92,5 @@ public class RangeFeature implements Feature, Transmittable  {
 
 	public Pose getPose() {
 		return pose;
-	}
-
-	public void dumpObject(DataOutputStream dos) throws IOException {
-		pose.dumpObject(dos);
-		dos.writeFloat(rr.getRange());
-		dos.writeLong(timeStamp);
-		dos.flush();
-	}
-
-	public void loadObject(DataInputStream dis) throws IOException {
-		pose.loadObject(dis);
-		float range = dis.readFloat();
-		rr = new RangeReading(0f,range);
-		timeStamp = dis.readLong();
 	}
 }

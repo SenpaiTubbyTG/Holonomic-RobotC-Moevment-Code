@@ -1,6 +1,8 @@
 package lejos.geom;
 
-import java.awt.geom.*;
+import java.lejosawt.geom.Point2D;
+import java.lejosawt.geom.Line2D;
+import java.lejoslang.Math;
 /**
  * Represents a line and supports calculating the point of intersection of two
  * line segments.

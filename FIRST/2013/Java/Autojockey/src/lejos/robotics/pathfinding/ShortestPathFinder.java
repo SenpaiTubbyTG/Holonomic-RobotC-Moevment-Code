@@ -1,10 +1,11 @@
 package lejos.robotics.pathfinding;
 
+import java.lejosutil.Iterator;
+import java.lejosutil.ArrayList;
 import lejos.robotics.mapping.LineMap;
 import lejos.robotics.navigation.DestinationUnreachableException;
 import lejos.robotics.navigation.Waypoint;
 import lejos.robotics.navigation.WaypointListener;
-import java.util.*;
 import lejos.geom.*;
 import lejos.robotics.navigation.Pose;
 

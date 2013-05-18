@@ -1,7 +1,8 @@
 package lejos.robotics.pathfinding;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.lejoslang.Math;
+import java.lejosutil.ArrayList;
+import java.lejosutil.Collection;
 import lejos.geom.Line;
 import lejos.geom.Rectangle;
 import lejos.robotics.mapping.LineMap;

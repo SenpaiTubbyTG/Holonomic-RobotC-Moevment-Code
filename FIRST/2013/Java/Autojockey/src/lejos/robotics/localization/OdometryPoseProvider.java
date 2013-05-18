@@ -1,5 +1,6 @@
 package lejos.robotics.localization;
 
+import java.lejoslang.Math;
 import lejos.geom.Point;
 import lejos.robotics.navigation.Move;
 import lejos.robotics.navigation.MoveListener;

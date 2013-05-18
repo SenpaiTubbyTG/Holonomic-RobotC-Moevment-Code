@@ -82,7 +82,9 @@ public class RotatingRangeScanner implements RangeScanner
    */
   public void setAngles(float[] angles)
   {
-    this.angles = (float[]) angles.clone();
+      float[] potato=new float[angles.length];
+      System.arraycopy(angles, 0, potato, 0, angles.length);
+    this.angles = potato;
   }
 
 /**

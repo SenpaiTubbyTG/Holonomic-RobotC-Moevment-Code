@@ -1,7 +1,7 @@
 package lejos.robotics.objectdetection;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.lejosutil.ArrayList;
+import java.lejosutil.Iterator;
 
 import lejos.robotics.RangeReading;
 import lejos.robotics.RangeReadings;

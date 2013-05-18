@@ -1,12 +1,14 @@
 package lejos.robotics.navigation;
 
+import java.lejoslang.Math;
+import java.lejoslang.Double;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.RegulatedMotorListener;
 
 
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.lejosutil.ArrayList;
+import java.lejosutil.Iterator;
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
  * DO NOT EDIT THE VERSION IN pccomms AS IT WILL BE OVERWRITTEN WHEN THE PROJECT IS BUILT.

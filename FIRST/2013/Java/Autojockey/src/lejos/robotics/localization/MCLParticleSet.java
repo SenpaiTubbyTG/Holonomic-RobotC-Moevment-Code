@@ -1,13 +1,13 @@
 package lejos.robotics.localization;
 
 
+import java.lejoslang.Math;
 import lejos.geom.*;
-import java.io.*;
 import lejos.robotics.*;
 import lejos.robotics.mapping.RangeMap;
 import lejos.robotics.navigation.Move;
 import lejos.robotics.navigation.Pose;
-import java.util.Random;
+import java.lejosutil.Random;
 import lejos.robotics.localization.MCLParticle;
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
@@ -20,7 +20,7 @@ import lejos.robotics.localization.MCLParticle;
  * @author Lawrie Griffiths
  *
  */
-public class MCLParticleSet implements Transmittable {
+public class MCLParticleSet {
   // Constants
   private static final float BIG_FLOAT = 10000f;
   // Static variables
@@ -377,21 +377,7 @@ public MCLParticleSet(RangeMap map, int numParticles, Pose initialPose,
    * @param dos the data output stream
    * @throws IOException
    */
-  public void dumpObject(DataOutputStream dos) throws IOException {
-	  dos.writeFloat(maxWeight);
-      dos.writeInt(numParticles());
-      for (int i = 0; i < numParticles(); i++) {
-          MCLParticle part = getParticle(i);
-          Pose pose = part.getPose();
-          float weight = part.getWeight();
-          dos.writeFloat(pose.getX());
-          dos.writeFloat(pose.getY());
-          dos.writeFloat(pose.getHeading());
-          dos.writeFloat(weight);
-          dos.flush();
-      }
-  }
-
+  
   public int getIterations() {
       return _iterations;
   }
@@ -400,20 +386,7 @@ public MCLParticleSet(RangeMap map, int numParticles, Pose initialPose,
    * @param dis the data input stream
    * @throws IOException
    */
-  public void loadObject(DataInputStream dis) throws IOException {
-	maxWeight = dis.readFloat();
-	numParticles = dis.readInt();
-    MCLParticle[] newParticles = new MCLParticle[numParticles];
-    for (int i = 0; i < numParticles; i++) {
-      float x = dis.readFloat();
-      float y = dis.readFloat();
-      float angle = dis.readFloat();
-      Pose pose = new Pose(x, y, angle);
-      newParticles[i] = new MCLParticle(pose);
-      newParticles[i].setWeight(dis.readFloat());
-    }
-    particles = newParticles;
-  }
+  
 
   /**
    * Find the closest particle to specified coordinates and dump its
@@ -425,13 +398,5 @@ public MCLParticleSet(RangeMap map, int numParticles, Pose initialPose,
    * @param y the y-coordinate
    * @throws IOException
    */
-  public void dumpClosest(RangeReadings rr, DataOutputStream dos, float x, float y) throws IOException {
-      int closest = findClosest(x, y);
-      MCLParticle p = getParticle(closest);
-      dos.writeInt(closest);
-      RangeReadings particleReadings = p.getReadings(rr, map);
-      particleReadings.dumpObject(dos);
-      dos.writeFloat(p.getWeight());
-      dos.flush();
-  }
+  
 }

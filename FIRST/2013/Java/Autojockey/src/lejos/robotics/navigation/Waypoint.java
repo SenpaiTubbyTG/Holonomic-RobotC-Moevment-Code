@@ -1,12 +1,8 @@
 package lejos.robotics.navigation;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.lejoslang.Math;
 
 import lejos.geom.Point;
-import lejos.robotics.Transmittable;
-
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
  * DO NOT EDIT THE VERSION IN pccomms AS IT WILL BE OVERWRITTEN WHEN THE PROJECT IS BUILT.
@@ -23,7 +19,7 @@ import lejos.robotics.Transmittable;
  * have reached it.
  * 
  */
-public class Waypoint extends Point implements Transmittable {
+public class Waypoint extends Point {
 	protected float heading = 0;
 	protected boolean headingRequired;
 	protected float maxPositionError = -1;
@@ -94,20 +90,5 @@ public class Waypoint extends Point implements Transmittable {
 		if (headingRequired && maxHeadingError >= 0 && 
 			    Math.abs(p.getHeading() - heading) > maxHeadingError) return false;
 		return true;
-	}
-
-	public void dumpObject(DataOutputStream dos) throws IOException {
-		dos.writeFloat(x);
-		dos.writeFloat(y);
-		dos.writeFloat(heading);
-		dos.writeBoolean(headingRequired);
-		dos.flush();
-	}
-
-	public void loadObject(DataInputStream dis) throws IOException {
-		x = dis.readFloat();
-		y = dis.readFloat();
-		heading = dis.readFloat();
-		headingRequired = dis.readBoolean();	
 	}
 }

@@ -1,11 +1,7 @@
 package lejos.robotics.navigation;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-
+import java.lejoslang.Math;
 import lejos.geom.Point;
-import lejos.robotics.Transmittable;
 
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
@@ -24,7 +20,7 @@ import lejos.robotics.Transmittable;
  * parallel to the Y axis. <br>
  * @author Roger Glassey
  */
-public class Pose implements Transmittable
+public class Pose
 {
   /**
    * allocate a new Pose at the origin, heading  = 0:the direction  the positive X axis
@@ -208,18 +204,6 @@ public void setHeading(float heading )
 public String toString()
 {
   return("X:"+_location.x+" Y:"+_location.y+" H:"+_heading);
-}
-
-public void dumpObject(DataOutputStream dos) throws IOException {
-	dos.writeFloat(_location.x);
-	dos.writeFloat(_location.y);
-	dos.writeFloat(_heading);
-	dos.flush();
-}
-
-public void loadObject(DataInputStream dis) throws IOException {
-	_location = new Point(dis.readFloat(), dis.readFloat());
-	_heading = dis.readFloat();
 }
 
 protected  Point _location;

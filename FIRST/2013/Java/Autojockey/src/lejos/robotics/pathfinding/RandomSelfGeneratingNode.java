@@ -1,7 +1,8 @@
 package lejos.robotics.pathfinding;
 
-import java.awt.geom.Point2D;
-import java.util.Collection;
+import java.lejoslang.Math;
+import java.lejosawt.geom.Point2D;
+import java.lejosutil.Collection;
 
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
