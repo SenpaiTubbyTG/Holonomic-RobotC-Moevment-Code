@@ -5,8 +5,7 @@ import edu.wpi.first.wpilibj.DigitalModule;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Arduino extends Subsystem{
-    
+public class Arduino extends Subsystem {
     DigitalOutput arduino;
     boolean firstrun = true;
     public static int red, green, blue; // TODO: Write get/set methods. Do not directly use this in the updateLEDs Methods.
